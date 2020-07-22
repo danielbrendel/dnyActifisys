@@ -1,0 +1,223 @@
+/*
+    HelpRealm (dnyHelpRealm) developed by Daniel Brendel
+
+    (C) 2019 - 2020 by Daniel Brendel
+
+     Version: 1.0
+    Contact: dbrendel1988<at>gmail<dot>com
+    GitHub: https://github.com/danielbrendel/
+
+    Released under the MIT license
+*/
+
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+//Global overwriting
+
+html {
+    width: 100%;
+    overflow-y: auto;
+}
+
+body {
+    width: 100%;
+    background-size: cover;
+    padding: 0;
+}
+
+textarea {
+    line-height: 18px !important;
+    padding: 10px !important;
+}
+
+//Global area
+.feedback-error {
+    position: fixed;
+    left: 20%;
+    top: 15px;
+    width: 50%;
+    z-index: 1;
+    word-wrap: break-word;
+    background-color: rgb(255, 117, 117);
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    display: none;
+}
+.feedback-success {
+    position: fixed;
+    left: 20%;
+    top: 15px;
+    width: 50%;
+    z-index: 1;
+    word-wrap: break-word;
+    background-color: rgb(128, 255, 128);
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    display: none;
+}
+.feedback-content {
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    color: rgb(255, 255, 255);
+}
+.hamburger-container {
+    position: relative;
+    display: inline-block;
+    left: 10px;
+    cursor: pointer;
+}
+.hamburger-bar1, .hamburger-bar2, .hamburger-bar3 {
+    width: 23px;
+    height: 2px;
+    background-color: rgb(127, 138, 157);
+    margin: 6px 0;
+    border-radius: 4px;
+    transition: 0.4s;
+}
+#error-message-1 {
+    position: relative;
+    margin-top: 25px;
+}
+#error-message-1 {
+    position: relative;
+    margin-top: 25px;
+}
+#success-message {
+    position: relative;
+    margin-top: 25px;
+}
+.navbar-login {
+    top: -7px;
+    color: rgb(255, 255, 255);
+    margin-right: 15px;
+}
+
+//Cookie consent
+.cookie-consent-outer {
+    width: 100%;
+    position: relative;
+    text-align: center;
+}
+.cookie-consent-inner {
+    position: fixed;
+    display: none;
+    bottom: 0;
+    width: 100%;
+    float: left;
+    -ms-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    height: auto;
+    margin-bottom: 15px;
+    background-color: rgb(200, 200, 200);
+}
+@media screen and (max-width: 765px) {
+    .cookie-consent-inner {
+        z-index: 1;
+    }
+}
+@media screen and (max-width: 690px) {
+    .cookie-consent-inner {
+        -ms-transform: translateX(-50%) translateY(-20%);
+        transform: translateX(-50%) translateY(-20%);
+    }
+}
+.cookie-consent-text {
+    position: relative;
+    margin-left: 25px;
+    margin-right: 25px;
+    margin-top: 15px;
+    color: rgb(30, 30, 30);
+    font-size: 1.2em;
+}
+.cookie-consent-button {
+    position: relative;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.cookie-consent-button button {
+    width: 160px;
+	height: 30px;
+	border-radius: 4px;
+	border: none;
+	cursor: pointer;
+    color: rgb(30, 30, 30);
+    background-color: rgb(255, 255, 255);
+    -webkit-appearance: none;
+	font-weight: bold;
+}
+
+//Navbar
+a.navbar-item:hover {
+    text-decoration: none !important;
+}
+
+//Banner
+.banner {
+    width: 100%;
+    min-height: 480px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.banner-headline {
+    color: rgb(255, 255, 255);
+    top: 50%;
+    transform: translate(0%, 50%);
+}
+
+//Howto
+.howto {
+    background-color: rgb(22, 48, 61);
+    color: rgb(255, 255, 255);
+}
+.howto-steps {
+    display: inline-block;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.howto-step-item {
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+//About
+.about {
+    background-color: rgb(217, 226, 230);
+    width: 100%;
+    min-height: 200px;
+}
+
+//Links
+.links {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    width: 100%;
+    min-height: 95px;
+    background-color: rgb(0, 175, 240);
+    @media screen and (max-width: 768px) {
+        margin-bottom: 55px;
+    }
+}
+.linklist {
+    width: 100%;
+    display: inline-block;
+}
+.linkitem {
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.linkitem a {
+    color: rgb(255, 255, 255);
+    text-decoration: underline;
+}
+
+//Copyright bar
+.home-copyright {
+    width: 100%;
+    color: rgb(127, 138, 157);
+}
