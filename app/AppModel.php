@@ -1,7 +1,7 @@
 <?php
 
 /*
-    Danigram (dnyDanigram) developed by Daniel Brendel
+    ComAct (dnyComAct) developed by Daniel Brendel
 
     (C) 2019 - 2020 by Daniel Brendel
 
@@ -38,6 +38,28 @@ class AppModel extends Model
     {
         return Cache::remember('home_banner', AppModel::ONE_DAY, function() {
             return DB::table('app_settings')->first()->home_banner;
+        });
+    }
+
+    /**
+     * Get headline top
+     * @return mixed
+     */
+    public static function getHeadlineTop()
+    {
+        return Cache::remember('headline_top', AppModel::ONE_DAY, function() {
+            return DB::table('app_settings')->first()->headline_top;
+        });
+    }
+
+    /**
+     * Get headline sub
+     * @return mixed
+     */
+    public static function getHeadlineSub()
+    {
+        return Cache::remember('headline_sub', AppModel::ONE_DAY, function() {
+            return DB::table('app_settings')->first()->headline_sub;
         });
     }
 

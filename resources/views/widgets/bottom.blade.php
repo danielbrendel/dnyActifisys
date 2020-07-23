@@ -10,14 +10,6 @@
     Released under the MIT license
 --}}
 
-@extends('layouts.layout_home')
-
-@section('content')
-    <div class="column is-2"></div>
-
-    <div class="column is-8">
-        Hi
-    </div>
-
-    <div class="column is-2"></div>
-@endsection
+<div class="bottom">
+    <center><span>Copyright &copy; {{ date('Y') }} {{ env('APP_PROJECTNAME') }}</span></center>
+</div>

@@ -1,7 +1,7 @@
 <?php
 
 /*
-    Danigram (dnyDanigram) developed by Daniel Brendel
+    ComAct (dnyComAct) developed by Daniel Brendel
 
     (C) 2019 - 2020 by Daniel Brendel
 

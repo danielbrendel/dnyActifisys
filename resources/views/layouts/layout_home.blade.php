@@ -1,14 +1,14 @@
-<!--
-    HelpRealm (dnyHelpRealm) developed by Daniel Brendel
+{{--
+    ComAct (dnyComAct) developed by Daniel Brendel
 
     (C) 2019 - 2020 by Daniel Brendel
 
-     Version: 1.0
+    Version: 1.0
     Contact: dbrendel1988<at>gmail<dot>com
     GitHub: https://github.com/danielbrendel/
 
     Released under the MIT license
--->
+--}}
 
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', App::getLocale()) }}">
@@ -47,11 +47,10 @@
         @endif
         <script src="{{ asset('js/fontawesome.js') }}"></script>
         <script src="{{ asset('js/metro.min.js') }}"></script>
-        <script src="{{ asset('js/app.js') }}"></script>
     </head>
 
     <body>
-        <div>
+        <div id="app">
             <nav class="navbar is-info" role="navigation" aria-label="main navigation">
                 <div class="navbar-brand">
                     <a class="navbar-item" href="{{ url('/') }}">
@@ -140,7 +139,9 @@
                     <br/>
                 @endif
 
-                @yield('content')
+                <div class="columns">
+                    @yield('content')
+                </div>
 
                 <div class="cookie-consent-outer">
                     <div id="cookie-consent" class="cookie-consent-inner">
@@ -155,9 +156,12 @@
                 </div>
             </div>
 
-            @include('widgets.howto')
-            @include('widgets.about')
-            @include('widgets.links')
+            <div class="overflow-hidden">
+                @include('widgets.howto')
+                @include('widgets.about')
+                @include('widgets.links')
+                @include('widgets.bottom')
+            </div>
 
             <div class="modal" :class="{'is-active': bShowRegister}">
                 <div class="modal-background"></div>
@@ -169,13 +173,6 @@
                         <section class="modal-card-body is-stretched">
                             <form id="regform" method="POST" action="{{ url('/register') }}">
                                 @csrf
-
-                                <div class="field">
-                                    <label class="label">{{ __('app.register_company') }}</label>
-                                    <div class="control">
-                                        <input class="input" type="text" name="company" required>
-                                    </div>
-                                </div>
 
                                 <div class="field">
                                     <label class="label">{{ __('app.register_name') }}</label>
@@ -301,82 +298,10 @@
             </div>
         </div>
 
-        <nav class="navbar is-fixed-bottom">
-            <div class="home-copyright">
-                <center>Copyright &copy; {{ date('Y') }} {{ env('APP_PROJECTNAME') }}</center>
-            </div>
-        </nav>
+        <script src="{{ asset('js/app.js') }}"></script>
     </body>
 
     <script>
-        var vue = new Vue({
-            el: '#home',
-
-            data: {
-                bShowRecover: false,
-                bShowLogin: false,
-                bShowRegister: false,
-            },
-
-            methods: {
-                invalidLoginEmail: function() {
-                    var el = document.getElementById("loginemail");
-
-                    if ((el.value.length == 0) || (el.value.indexOf('@') == -1) || (el.value.indexOf('.') == -1)) {
-                        el.classList.add('is-danger');
-                    } else {
-                        el.classList.remove('is-danger');
-                    }
-                },
-
-                invalidRecoverEmail: function() {
-                    var el = document.getElementById("recoveremail");
-
-                    if ((el.value.length == 0) || (el.value.indexOf('@') == -1) || (el.value.indexOf('.') == -1)) {
-                        el.classList.add('is-danger');
-                    } else {
-                        el.classList.remove('is-danger');
-                    }
-                },
-
-                invalidLoginPassword: function() {
-                    var el = document.getElementById("loginpw");
-
-                    if (el.value.length == 0) {
-                        el.classList.add('is-danger');
-                    } else {
-                        el.classList.remove('is-danger');
-                    }
-                },
-
-                handleCookieConsent: function() {
-                    //Show cookie consent if not already for this client
-
-                    var cookies = document.cookie.split(';');
-                    var foundCookie = false;
-                    for (i = 0; i < cookies.length; i++) {
-                        if (cookies[i].indexOf('cookieconsent') !== -1) {
-                            foundCookie = true;
-                            break;
-                        }
-                    }
-
-                    if (foundCookie === false) {
-                        document.getElementById('cookie-consent').style.display = 'inline-block';
-                    }
-                },
-
-                clickedCookieConsentButton: function() {
-                    //Client clicked on Ok-button so set cookie to not show consent anymore
-
-                    var curDate = new Date(Date.now() + 1000 * 60 * 60 * 24 * 365);
-                    document.cookie = 'cookieconsent=1; expires=' + curDate.toUTCString() + ';';
-
-                    document.getElementById('cookie-consent').style.display = 'none';
-                }
-            }
-        });
-
         @yield('javascript')
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -397,9 +322,6 @@
             });
         });
         }
-
-        vue.handleCookieConsent();
-
         });
     </script>
 </html>

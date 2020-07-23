@@ -14,3 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'MainController@index');
+Route::get('/faq', 'MainController@faq');
+Route::get('/imprint', 'MainController@imprint');
+Route::get('/news', 'MainController@news');
+Route::get('/contact', 'MainController@viewContact');
+Route::get('/tos', 'MainController@tos');

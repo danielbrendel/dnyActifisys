@@ -1,9 +1,9 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);/*
-    HelpRealm (dnyHelpRealm) developed by Daniel Brendel
+    ComAct (dnyComAct) developed by Daniel Brendel
 
     (C) 2019 - 2020 by Daniel Brendel
 
-     Version: 1.0
+    Version: 1.0
     Contact: dbrendel1988<at>gmail<dot>com
     GitHub: https://github.com/danielbrendel/
 
@@ -212,8 +212,15 @@ a.navbar-item:hover {
 }
 
 .linklist {
+  position: relative;
   width: 100%;
   display: inline-block;
+}
+
+@media screen and (min-width: 769px) {
+  .linklist {
+    top: 25px;
+  }
 }
 
 .linkitem {
@@ -227,8 +234,45 @@ a.navbar-item:hover {
   text-decoration: underline;
 }
 
-.home-copyright {
+.bottom {
   width: 100%;
-  color: #7f8a9d;
+  height: 1px;
+  background-color: white;
+  color: #969696;
+  font-size: 0.7em;
+  margin-bottom: 15px;
+}
+
+.bottom span {
+  position: relative;
+  top: -22px;
+}
+
+@media screen and (min-width: 769px) {
+  .bottom span {
+    top: -7px;
+  }
+}
+
+.navbar-burger {
+  top: -23px;
+  height: unset !important;
+}
+
+.navbar-menu {
+  background-color: #209cee;
+}
+
+.overflow-hidden {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.navbar-brand {
+  font-family: "Nunito", sans-serif;
+}
+
+.is-stretched {
+  width: 100%;
 }
 

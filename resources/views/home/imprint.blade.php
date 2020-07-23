@@ -13,11 +13,13 @@
 @extends('layouts.layout_home')
 
 @section('content')
-    <div class="column is-2"></div>
+    <div class="column is-4"></div>
 
-    <div class="column is-8">
-        Hi
+    <div class="column is-4">
+        <div>
+            {!! $imprint_content !!}
+        </div>
     </div>
 
-    <div class="column is-2"></div>
+    <div class="column is-4"></div>
 @endsection

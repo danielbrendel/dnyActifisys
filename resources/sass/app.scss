@@ -1,9 +1,9 @@
 /*
-    HelpRealm (dnyHelpRealm) developed by Daniel Brendel
+    ComAct (dnyComAct) developed by Daniel Brendel
 
     (C) 2019 - 2020 by Daniel Brendel
 
-     Version: 1.0
+    Version: 1.0
     Contact: dbrendel1988<at>gmail<dot>com
     GitHub: https://github.com/danielbrendel/
 
@@ -203,8 +203,12 @@ a.navbar-item:hover {
     }
 }
 .linklist {
+    position: relative;
     width: 100%;
     display: inline-block;
+    @media screen and (min-width: 769px) {
+        top: 25px;
+    }
 }
 .linkitem {
     display: inline-block;
@@ -216,8 +220,38 @@ a.navbar-item:hover {
     text-decoration: underline;
 }
 
-//Copyright bar
-.home-copyright {
+//Bottom bar
+.bottom {
     width: 100%;
-    color: rgb(127, 138, 157);
+    height: 1px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(150, 150, 150);
+    font-size: 0.7em;
+    margin-bottom: 15px;
+}
+.bottom span {
+    position: relative;
+    top: -22px;
+    @media screen and (min-width: 769px) {
+        top: -7px;
+    }
+}
+
+//Corrections
+.navbar-burger {
+    top: -23px;
+    height: unset !important;
+}
+.navbar-menu {
+    background-color: #209cee;
+}
+.overflow-hidden {
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+.navbar-brand {
+    font-family: 'Nunito', sans-serif;
+}
+.is-stretched {
+    width: 100%;
 }

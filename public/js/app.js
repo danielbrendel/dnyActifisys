@@ -19330,7 +19330,28 @@ module.exports = function(module) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+/*
+    ComAct (dnyComAct) developed by Daniel Brendel
+
+    (C) 2019 - 2020 by Daniel Brendel
+
+    Version: 1.0
+    Contact: dbrendel1988<at>gmail<dot>com
+    GitHub: https://github.com/danielbrendel/
+
+    Released under the MIT license
+*/
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+
+window.vue = new Vue({
+  el: '#app',
+  data: {
+    bShowRecover: false,
+    bShowRegister: false,
+    bShowLogin: false
+  },
+  methods: {}
+});
 
 /***/ }),
 
