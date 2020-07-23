@@ -153,7 +153,7 @@ class MainController extends Controller
                 'email' => $attr['email'],
                 'password' => $attr['password']
             ])) {
-                return redirect('/feed')->with('flash.success', __('app.login_welcome_back'));
+                return redirect('/')->with('flash.success', __('app.login_welcome_back'));
             } else {
                 return back()->with('error', __('app.login_failed'));
             }

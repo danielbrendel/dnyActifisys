@@ -18,6 +18,7 @@ use Exception;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -119,8 +120,6 @@ class User extends Authenticatable
                 throw new Exception(__('app.register_already_signed_in'));
             }
 
-            $attr['name'] = strtolower($attr['name']);
-
             if ($attr['password'] !== $attr['password_confirmation']) {
                 throw new Exception(__('app.register_password_mismatch'));
             }
@@ -139,10 +138,10 @@ class User extends Authenticatable
             $user->password = password_hash($attr['password'], PASSWORD_BCRYPT);
             $user->email = $attr['email'];
             $user->avatar = 'default.png';
-            $user->account_confirm = md5($attr['email'] . $attr['username'] . random_bytes(55));
+            $user->account_confirm = md5($attr['email'] . $attr['name'] . random_bytes(55));
             $user->save();
 
-            $html = view('mail.registered', ['username' => $user->username, 'hash' => $user->account_confirm])->render();
+            $html = view('mail.registered', ['name' => $user->name, 'hash' => $user->account_confirm])->render();
             MailerModel::sendMail($user->email, __('app.mail_subject_register'), $html);
         } catch (Exception $e) {
             throw $e;

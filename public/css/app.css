@@ -254,6 +254,32 @@ a.navbar-item:hover {
   }
 }
 
+.flash {
+  position: fixed;
+  left: 20%;
+  top: 105px;
+  width: 50%;
+  z-index: 3;
+  word-wrap: break-word;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  display: none;
+}
+
+.flash p {
+  position: relative;
+  margin: 10px;
+  color: white;
+}
+
+.is-flash-error {
+  background-color: #ff7575;
+}
+
+.is-flash-success {
+  background-color: #80ff80;
+}
+
 .navbar-burger {
   top: -23px;
   height: unset !important;
@@ -274,5 +300,10 @@ a.navbar-item:hover {
 
 .is-stretched {
   width: 100%;
+}
+
+.navbar-login:hover {
+  color: white;
+  text-decoration: underline;
 }
 

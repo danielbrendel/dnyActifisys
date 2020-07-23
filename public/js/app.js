@@ -19350,7 +19350,67 @@ window.vue = new Vue({
     bShowRegister: false,
     bShowLogin: false
   },
-  methods: {}
+  methods: {
+    handleCookieConsent: function handleCookieConsent() {
+      //Show cookie consent if not already for this client
+      var cookies = document.cookie.split(';');
+      var foundCookie = false;
+
+      for (var i = 0; i < cookies.length; i++) {
+        if (cookies[i].indexOf('cookieconsent') !== -1) {
+          foundCookie = true;
+          break;
+        }
+      }
+
+      if (foundCookie === false) {
+        document.getElementById('cookie-consent').style.display = 'inline-block';
+        document.getElementById('feed-left').classList.add('is-negative-top');
+      }
+    },
+    clickedCookieConsentButton: function clickedCookieConsentButton() {
+      var expDate = new Date(Date.now() + 1000 * 60 * 60 * 24 * 365);
+      document.cookie = 'cookieconsent=1; expires=' + expDate.toUTCString() + ';';
+      document.getElementById('cookie-consent').style.display = 'none';
+      document.getElementById('feed-left').classList.remove('is-negative-top');
+    },
+    ajaxRequest: function ajaxRequest(method, url) {
+      var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+      var successfunc = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : function (data) {};
+      var finalfunc = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : function () {};
+      var config = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : {};
+      //Perform ajax request
+      var func = window.axios.get;
+
+      if (method == 'post') {
+        func = window.axios.post;
+      } else if (method == 'patch') {
+        func = window.axios.patch;
+      } else if (method == 'delete') {
+        func = window.axios["delete"];
+      }
+
+      func(url, data, config).then(function (response) {
+        successfunc(response.data);
+      })["catch"](function (error) {
+        console.log(error);
+      })["finally"](function () {
+        finalfunc();
+      });
+    },
+    showError: function showError() {
+      document.getElementById('flash-error').style.display = 'inherit';
+      setTimeout(function () {
+        document.getElementById('flash-error').style.display = 'none';
+      }, 3500);
+    },
+    showSuccess: function showSuccess() {
+      document.getElementById('flash-success').style.display = 'inherit';
+      setTimeout(function () {
+        document.getElementById('flash-success').style.display = 'none';
+      }, 3500);
+    }
+  }
 });
 
 /***/ }),

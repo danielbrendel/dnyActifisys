@@ -73,6 +73,7 @@
                     @endif
                 </div>
 
+                @guest
                 <div class="navbar-end">
                     <div class="navbar-item">
                     <div class="buttons">
@@ -86,15 +87,13 @@
                     </div>
                     </div>
                 </div>
+                @endguest
                 </div>
             </nav>
 
-            @include('widgets.banner')
-
-            <div class="container">
-                @if ($errors->any())
-                    <div id="error-message-1">
-                        <article class="message is-danger">
+            @if ($errors->any())
+                <div id="error-message-1">
+                    <article class="message is-danger">
                         <div class="message-header">
                             <p>{{ __('app.error') }}</p>
                             <button class="delete" aria-label="delete" onclick="document.getElementById('error-message-1').style.display = 'none';"></button>
@@ -105,13 +104,13 @@
                             @endforeach
                         </div>
                     </article>
-                    </div>
-                    <br/>
-                @endif
+                </div>
+                <br/>
+            @endif
 
-                @if (Session::has('error'))
-                    <div id="error-message-2">
-                        <article class="message is-danger">
+            @if (Session::has('error'))
+                <div id="error-message-2">
+                    <article class="message is-danger">
                         <div class="message-header">
                             <p>{{ __('app.error') }}</p>
                             <button class="delete" aria-label="delete" onclick="document.getElementById('error-message-2').style.display = 'none';"></button>
@@ -120,13 +119,13 @@
                             {{ Session::get('error') }}
                         </div>
                     </article>
-                    </div>
-                    <br/>
-                @endif
+                </div>
+                <br/>
+            @endif
 
-                @if (Session::has('success'))
-                    <div id="success-message">
-                        <article class="message is-success">
+            @if (Session::has('success'))
+                <div id="success-message">
+                    <article class="message is-success">
                         <div class="message-header">
                             <p>{{ __('app.success') }}</p>
                             <button class="delete" aria-label="delete" onclick="document.getElementById('success-message').style.display = 'none';"></button>
@@ -135,10 +134,29 @@
                             {{ Session::get('success') }}
                         </div>
                     </article>
-                    </div>
-                    <br/>
-                @endif
+                </div>
+                <br/>
+            @endif
 
+            <div class="flash is-flash-error" id="flash-error">
+                <p id="flash-error-content">
+                    @if (Session::has('flash.error'))
+                        {{ Session::get('flash.error') }}
+                    @endif
+                </p>
+            </div>
+
+            <div class="flash is-flash-success" id="flash-success">
+                <p id="flash-success-content">
+                    @if (Session::has('flash.success'))
+                        {{ Session::get('flash.success') }}
+                    @endif
+                </p>
+            </div>
+
+            @include('widgets.banner')
+
+            <div class="container">
                 <div class="columns">
                     @yield('content')
                 </div>
@@ -177,7 +195,7 @@
                                 <div class="field">
                                     <label class="label">{{ __('app.register_name') }}</label>
                                     <div class="control">
-                                        <input class="input" type="text" name="fullname" required>
+                                        <input class="input" type="text" name="name" required>
                                     </div>
                                 </div>
 
@@ -210,7 +228,7 @@
                                 </div>
 
                                 <div class="field">
-                                    {!! __('app.register_agreement', ['tac' => url('/tac')])  !!}
+                                    {!! \App\AppModel::getRegInfo()  !!}
                                 </div>
                             </form>
                         </section>
@@ -306,22 +324,29 @@
 
         document.addEventListener('DOMContentLoaded', () => {
 
-        const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+            @if (Session::has('flash.error'))
+                setTimeout('window.vue.showError()', 500);
+            @endif
 
-        if ($navbarBurgers.length > 0) {
+            @if (Session::has('flash.success'))
+                setTimeout('window.vue.showSuccess()', 500);
+            @endif
 
-        $navbarBurgers.forEach(el => {
-            el.addEventListener('click', () => {
+            const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
 
-            const target = el.dataset.target;
-            const $target = document.getElementById(target);
+            if ($navbarBurgers.length > 0) {
+                $navbarBurgers.forEach(el => {
+                    el.addEventListener('click', () => {
 
-            el.classList.toggle('is-active');
-            $target.classList.toggle('is-active');
+                    const target = el.dataset.target;
+                    const $target = document.getElementById(target);
 
-            });
-        });
-        }
+                    el.classList.toggle('is-active');
+                    $target.classList.toggle('is-active');
+
+                    });
+                });
+            }
         });
     </script>
 </html>

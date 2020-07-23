@@ -19,3 +19,8 @@ Route::get('/imprint', 'MainController@imprint');
 Route::get('/news', 'MainController@news');
 Route::get('/contact', 'MainController@viewContact');
 Route::get('/tos', 'MainController@tos');
+Route::post('/register', 'MainController@register');
+Route::post('/reset', 'MainController@reset');
+Route::get('/confirm', 'MainController@confirm');
+Route::post('/login', 'MainController@login');
+Route::any('/logout', 'MainController@logout');
