@@ -153,7 +153,7 @@ class ThreadModel extends Model
      * @return mixed
      * @throws \Exception
      */
-    public static function getSubPosts($id, $paginate = null)
+    public static function fetchSubThread($id, $paginate = null)
     {
         try {
             $threads = ThreadModel::where('parentId', '=', $id)->where('locked', '=', false);
@@ -186,7 +186,7 @@ class ThreadModel extends Model
 
             $thread = new ThreadModel();
             $thread->userId = $userId;
-            $thread->postId = $parent->postId;
+            $thread->activityId = $parent->activityId;
             $thread->parentId = $parentId;
             $thread->text = $text;
             $thread->save();

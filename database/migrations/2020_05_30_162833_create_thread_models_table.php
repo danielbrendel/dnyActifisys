@@ -30,6 +30,7 @@ class CreateThreadModelsTable extends Migration
             $table->integer('userId');
             $table->integer('activityId');
             $table->string('text', 4096);
+            $table->integer('parentId')->default(0);
             $table->integer('reports')->default(0);
             $table->boolean('locked')->default(false);
             $table->timestamps();

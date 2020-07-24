@@ -19349,7 +19349,8 @@ window.vue = new Vue({
     bShowRecover: false,
     bShowRegister: false,
     bShowLogin: false,
-    bShowCreateActivity: false
+    bShowCreateActivity: false,
+    bShowReplyThread: false
   },
   methods: {
     handleCookieConsent: function handleCookieConsent() {
@@ -19493,10 +19494,10 @@ window.vue = new Vue({
       var expandThread = '';
 
       if (elem.subCount > 0) {
-        expandThread = "<div class=\"thread-footer-subthread is-inline-block is-centered\"><a class=\"is-color-grey\" href=\"javascript:void(0)\" onclick=\"fetchSubThreadPosts(" + elem.id + ")\">Expand thread</a></div>";
+        expandThread = "<div class=\"thread-footer-subthread is-inline-block is-centered\"><a class=\"is-color-grey\" href=\"javascript:void(0)\" onclick=\"window.vue.fetchSubThreadPosts(" + elem.id + ")\">Expand thread</a></div>";
       }
 
-      var replyThread = "<div class=\"is-inline-block float-right\"><a class=\"is-color-grey\" href=\"javascript:void(0)\" onclick=\"document.getElementById('thread-reply-parent').value = '" + (isSubComment ? parentId : elem.id) + "'; document.getElementById('thread-reply-textarea').value = '@" + elem.user.username + " '; window.vue.bShowReplyThread = true;\">Reply</a></div>";
+      var replyThread = "<div class=\"is-inline-block float-right\"><a class=\"is-color-grey\" href=\"javascript:void(0)\" onclick=\"document.getElementById('thread-reply-parent').value = '" + (isSubComment ? parentId : elem.id) + "'; document.getElementById('thread-reply-textarea').value = '" + elem.user.name + ": '; window.vue.bShowReplyThread = true;\">Reply</a></div>";
       var html = "\n        <div id=\"thread-" + elem.id + "\" class=\"thread-elem " + (isSubComment ? 'is-sub-comment' : '') + "\">\n            <a name=\"" + elem.id + "\"></a>\n\n            <div class=\"thread-header\">\n                <div class=\"thread-header-avatar is-inline-block\">\n                    <img width=\"24\" height=\"24\" src=\"" + window.location.origin + "/gfx/avatars/" + elem.user.avatar + "\" class=\"is-pointer\" onclick=\"location.href = '" + window.location.origin + "/u/" + elem.user.id + "';\" title=\"\">\n                </div>\n\n                <div class=\"thread-header-info is-inline-block\">\n                    <div><a href=\"" + window.location.origin + "/u/" + elem.user.id + "\" class=\"is-color-grey\">" + elem.user.name + "</a></div>\n                    <div title=\"" + elem.created_at + "\">" + elem.diffForHumans + "</div>\n                </div>\n\n                <div class=\"thread-header-options is-inline-block\">\n                    <div class=\"dropdown is-right\" id=\"thread-options-" + elem.id + "\">\n                        <div class=\"dropdown-trigger\" onclick=\"window.vue.togglePostOptions(document.getElementById('thread-options-" + elem.id + "'));\">\n                            <i class=\"fas fa-ellipsis-v is-pointer\"></i>\n                        </div>\n                        <div class=\"dropdown-menu\" role=\"menu\">\n                            <div class=\"dropdown-content\">\n                                " + options + "\n\n                                <a href=\"javascript:void(0)\" onclick=\"reportComment(" + elem.id + "); window.vue.togglePostOptions(document.getElementById('thread-options-" + elem.id + "'));\" class=\"dropdown-item\">\n                                    Report\n                                </a>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n\n            <div class=\"thread-text is-color-grey\" id=\"thread-text-" + elem.id + "\">\n                " + elem.text + "\n            </div>\n\n            <div class=\"thread-footer\">\n                " + expandThread + "\n                " + replyThread + "\n            </div>\n\n            <div id=\"sub-thread-" + elem.id + "\"></div>\n        </div>\n    ";
       return html;
     },
@@ -19510,13 +19511,13 @@ window.vue = new Vue({
       }
 
       document.getElementById('sub-thread-' + parentId).innerHTML += '<center><i class="fas fa-spinner fa-spin" id="spinner-sub-thread-' + parentId + '"></i></center>';
-      window.vue.ajaxRequest('get', window.location.origin + '/c/subthread?parent=' + parentId + (window.subPosts[parentId] !== null ? '&paginate=' + window.subPosts[parentId] : ''), {}, function (response) {
+      window.vue.ajaxRequest('get', window.location.origin + '/thread/' + parentId + '/sub' + (window.subPosts[parentId] !== null ? '?paginate=' + window.subPosts[parentId] : ''), {}, function (response) {
         if (response.code == 200) {
           document.getElementById('spinner-sub-thread-' + parentId).remove();
           var html = '';
           console.log(response.data);
           response.data.forEach(function (elem, index) {
-            html += window.renderThread(elem, elem.adminOrOwner, true, parentId);
+            html += window.vue.renderThread(elem, elem.adminOrOwner, true, parentId);
           });
           document.getElementById('sub-thread-' + parentId).innerHTML += html;
 
@@ -19525,7 +19526,7 @@ window.vue = new Vue({
               document.getElementById('sub-comment-more-' + parentId).remove();
             }
 
-            document.getElementById('sub-thread-' + parentId).innerHTML += "<center><div id=\"sub-comment-more-" + parentId + "\"><a href=\"javascript:void(0)\" onclick=\"fetchSubThreadPosts(" + parentId + ")\">View more</a></div></center>";
+            document.getElementById('sub-thread-' + parentId).innerHTML += "<center><div id=\"sub-comment-more-" + parentId + "\"><a href=\"javascript:void(0)\" onclick=\"window.vue.fetchSubThreadPosts(" + parentId + ")\">View more</a></div></center>";
           }
 
           if (response.data.length === 0) {
@@ -19535,6 +19536,15 @@ window.vue = new Vue({
           } else {
             window.subPosts[parentId] = response.data[response.data.length - 1].id;
           }
+        }
+      });
+    },
+    replyThread: function replyThread(parentId, text) {
+      this.ajaxRequest('post', window.location.origin + '/thread/' + parentId + '/reply', {
+        text: text
+      }, function (response) {
+        if (response.code === 200) {
+          location.href = window.location.origin + '/activity/' + response.comment.activityId + '#thread';
         }
       });
     }

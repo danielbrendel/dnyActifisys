@@ -42,7 +42,7 @@
                 </div>
 
                 <div class="windowed-frame is-margin-top-20">
-                    <span class="activity-participants"><h3>{{ __('app.actual_participants', ['count' => $activity->actualCount]) }}</h3></span>
+                    <span class="activity-participants"><h3>{{ __('app.actual_participants', ['count' => count($activity->actualParticipants)]) }}</h3></span>
 
                     <div>
                         @if (count($activity->actualParticipants) > 0)
@@ -58,7 +58,7 @@
                 </div>
 
                 <div class="windowed-frame is-margin-top-20">
-                    <span class="activity-potential"><h3>{{ __('app.potential_participants', ['count' => $activity->potentialCount]) }}</h3></span>
+                    <span class="activity-potential"><h3>{{ __('app.potential_participants', ['count' => count($activity->potentialParticipants)]) }}</h3></span>
 
                     <div>
                         @if (count($activity->potentialParticipants) > 0)
@@ -152,7 +152,9 @@
                         </div>
 
                         <div class="thread-input-form is-inline-block">
-                            <form>
+                            <form method="POST" action="{{ url('/activity/' . $activity->id . '/thread/add') }}">
+                                @csrf
+
                                 <div class="thread-input-form-text"><textarea name="message" placeholder="{{ __('app.type_a_message') }}"></textarea></div>
                                 <div class="thread-input-form-button"><input type="submit" class="button is-link" value="{{ __('app.send') }}"/></div>
                             </form>
@@ -161,6 +163,7 @@
                 </div>
 
                 <div>
+                    <a name="thread"></a>
                     <div id="thread"></div>
                     <div id="loading" style="display: none;"><center><i class="fas fa-spinner fa-spin"></i></center></div>
                     <div id="loadmore" style="display: none;"><center><i class="fas fa-arrow-down is-pointer" onclick="fetchThread()"></i></center></div>

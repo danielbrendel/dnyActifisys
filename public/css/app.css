@@ -518,6 +518,10 @@ a.navbar-item:hover {
   top: 20px;
 }
 
+.is-sub-comment {
+  margin-left: 50px;
+}
+
 .is-pointer {
   cursor: pointer;
 }
