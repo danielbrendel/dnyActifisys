@@ -102,17 +102,17 @@ textarea {
 
 .cookie-consent-outer {
   width: 100%;
-  position: relative;
+  position: absolute;
   text-align: center;
 }
 
 .cookie-consent-inner {
   position: fixed;
   display: none;
-  bottom: 0;
   width: 100%;
   float: left;
-  transform: translateX(-50%) translateY(-50%);
+  top: 52px;
+  left: 0;
   height: auto;
   margin-bottom: 15px;
   background-color: #c8c8c8;
@@ -121,12 +121,6 @@ textarea {
 @media screen and (max-width: 765px) {
   .cookie-consent-inner {
     z-index: 1;
-  }
-}
-
-@media screen and (max-width: 690px) {
-  .cookie-consent-inner {
-    transform: translateX(-50%) translateY(-20%);
   }
 }
 
@@ -163,14 +157,14 @@ a.navbar-item:hover {
 
 .banner {
   width: 100%;
-  min-height: 480px;
+  min-height: 242px;
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 .banner-headline {
   color: white;
-  top: 50%;
+  top: 19%;
   transform: translate(0%, 50%);
 }
 
@@ -305,5 +299,12 @@ a.navbar-item:hover {
 .navbar-login:hover {
   color: white;
   text-decoration: underline;
+}
+
+@media screen and (min-width: 1088px) {
+  .navbar-fixed-button-top {
+    position: relative;
+    top: 9px;
+  }
 }
 

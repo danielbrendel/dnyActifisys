@@ -99,30 +99,21 @@ textarea {
 //Cookie consent
 .cookie-consent-outer {
     width: 100%;
-    position: relative;
+    position: absolute;
     text-align: center;
 }
 .cookie-consent-inner {
     position: fixed;
     display: none;
-    bottom: 0;
     width: 100%;
     float: left;
-    -ms-transform: translateX(-50%) translateY(-50%);
-    transform: translateX(-50%) translateY(-50%);
+    top: 52px;
+    left: 0;
     height: auto;
     margin-bottom: 15px;
     background-color: rgb(200, 200, 200);
-}
-@media screen and (max-width: 765px) {
-    .cookie-consent-inner {
+    @media screen and (max-width: 765px) {
         z-index: 1;
-    }
-}
-@media screen and (max-width: 690px) {
-    .cookie-consent-inner {
-        -ms-transform: translateX(-50%) translateY(-20%);
-        transform: translateX(-50%) translateY(-20%);
     }
 }
 .cookie-consent-text {
@@ -158,13 +149,13 @@ a.navbar-item:hover {
 //Banner
 .banner {
     width: 100%;
-    min-height: 480px;
+    min-height: 242px;
     background-repeat: no-repeat;
     background-size: cover;
 }
 .banner-headline {
     color: rgb(255, 255, 255);
-    top: 50%;
+    top: 19%;
     transform: translate(0%, 50%);
 }
 
@@ -282,4 +273,10 @@ a.navbar-item:hover {
 .navbar-login:hover {
     color: rgb(255, 255, 255);
     text-decoration: underline;
+}
+.navbar-fixed-button-top {
+    @media screen and (min-width: 1088px) {
+        position: relative;
+        top: 9px;
+    }
 }

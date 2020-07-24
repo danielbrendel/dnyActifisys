@@ -35,6 +35,8 @@ class CreateUsersTable extends Migration
             $table->string('password_reset')->nullable();
             $table->string('account_confirm');
             $table->boolean('deactivated')->default(false);
+            $table->dateTime('birthday');
+            $table->integer('gender'); //1 = male, 2 = female, 3 = diverse
             $table->rememberToken();
             $table->timestamps();
         });

@@ -19,6 +19,7 @@ window.vue = new Vue({
         bShowRecover: false,
         bShowRegister: false,
         bShowLogin: false,
+        bShowCreateActivity: false,
     },
 
     methods: {
@@ -36,7 +37,6 @@ window.vue = new Vue({
 
             if (foundCookie === false) {
                 document.getElementById('cookie-consent').style.display = 'inline-block';
-                document.getElementById('feed-left').classList.add('is-negative-top');
             }
         },
 
@@ -45,8 +45,6 @@ window.vue = new Vue({
             document.cookie = 'cookieconsent=1; expires=' + expDate.toUTCString() + ';';
 
             document.getElementById('cookie-consent').style.display = 'none';
-
-            document.getElementById('feed-left').classList.remove('is-negative-top');
         },
 
         ajaxRequest: function (method, url, data = {}, successfunc = function(data){}, finalfunc = function(){}, config = {})
@@ -85,6 +83,67 @@ window.vue = new Vue({
         {
             document.getElementById('flash-success').style.display = 'inherit';
             setTimeout(function() { document.getElementById('flash-success').style.display = 'none'; }, 3500);
+        },
+
+        invalidLoginEmail: function () {
+            let el = document.getElementById("loginemail");
+
+            if ((el.value.length == 0) || (el.value.indexOf('@') == -1) || (el.value.indexOf('.') == -1)) {
+                el.classList.add('is-danger');
+            } else {
+                el.classList.remove('is-danger');
+            }
+        },
+
+        invalidRecoverEmail: function () {
+            let el = document.getElementById("recoveremail");
+
+            if ((el.value.length == 0) || (el.value.indexOf('@') == -1) || (el.value.indexOf('.') == -1)) {
+                el.classList.add('is-danger');
+            } else {
+                el.classList.remove('is-danger');
+            }
+        },
+
+        invalidLoginPassword: function () {
+            let el = document.getElementById("loginpw");
+
+            if (el.value.length == 0) {
+                el.classList.add('is-danger');
+            } else {
+                el.classList.remove('is-danger');
+            }
+        },
+
+        invalidRequiredInput: function(obj, btn) {
+            if (obj.value.length === 0) {
+                obj.classList.add('is-danger');
+                btn.disabled = true;
+            } else {
+                obj.classList.remove('is-danger');
+                btn.disabled = false;
+            }
+        },
+
+        invalidDate: function(obj, hint, btn) {
+            let dateVal = new Date(obj.value);
+            let curDate = new Date();
+            if (dateVal.setHours(0, 0, 0, 0) < curDate.setHours(0, 0, 0, 0)) {
+                hint.classList.remove('is-hidden');
+                btn.disabled = true;
+            } else {
+                hint.classList.add('is-hidden');
+                btn.disabled = false;
+            }
+        },
+
+        invalidCreateActivity: function() {
+            let btn = document.getElementById('btnCreateActivity');
+
+            this.invalidRequiredInput(document.getElementById('caTitle'), btn);
+            this.invalidRequiredInput(document.getElementById('caDescription'), btn);
+            this.invalidDate(document.getElementById('caDate'), document.getElementById('activity-date-hint'), btn);
+            this.invalidRequiredInput(document.getElementById('caLocation'), btn);
         }
     }
 });

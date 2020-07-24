@@ -247,7 +247,7 @@ class AppModel extends Model
     public static function saveEnvironmentConfig()
     {
         try {
-            $content = '# Danigram environment configuration' . PHP_EOL;
+            $content = '# ComAct environment configuration' . PHP_EOL;
 
             foreach ($_ENV as $key => $value) {
                 $type = gettype($value);

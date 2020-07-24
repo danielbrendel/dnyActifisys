@@ -66,15 +66,32 @@
 
                 <div id="navMainMenu" class="navbar-menu">
                 <div class="navbar-start">
-                    @if (env('APP_SUPPORT', null) !== null)
-                        <a class="navbar-item" href="{{ url('/' . env('APP_SUPPORT')) }}" target="_blank">
-                            {{ __('app.home_support') }}
-                        </a>
-                    @endif
                 </div>
 
-                @guest
                 <div class="navbar-end">
+                    @auth
+                        <a class="button navbar-item is-outlined is-success navbar-fixed-button-top" href="javascript:void(0);" onclick="window.vue.bShowCreateActivity = true; document.getElementById('btnCreateActivity').disabled = true;">
+                            {{ __('app.create_activity') }}
+                        </a>
+
+                        <a class="navbar-item" href="{{ url('/notifications') }}">
+                            {{ __('app.notifications') }}
+                        </a>
+
+                        <a class="navbar-item" href="{{ url('/messages') }}">
+                            {{ __('app.messages') }}
+                        </a>
+
+                        <a class="navbar-item" href="{{ url('/settings') }}">
+                            {{ __('app.settings') }}
+                        </a>
+
+                        <a class="navbar-item" href="{{ url('/logut') }}">
+                            {{ __('app.logout') }}
+                        </a>
+                    @endauth
+
+                    @guest
                     <div class="navbar-item">
                     <div class="buttons">
                         <a class="button is-light is-bold is-outlined" href="javascript:void(0);" onclick="vue.bShowRegister = true;">
@@ -86,8 +103,8 @@
                         </a>
                     </div>
                     </div>
+                    @endguest
                 </div>
-                @endguest
                 </div>
             </nav>
 
@@ -164,19 +181,21 @@
                 <div class="cookie-consent-outer">
                     <div id="cookie-consent" class="cookie-consent-inner">
                         <div class="cookie-consent-text">
-                            {{ __('app.cookie_consent') }}
+                            {!! \App\AppModel::getCookieConsentText() !!}
                         </div>
 
                         <div class="cookie-consent-button">
-                            <button type="button" onclick="vue.clickedCookieConsentButton()">{{ __('app.ok') }}</button>
+                            <button type="button" onclick="vue.clickedCookieConsentButton()">{{ __('app.cookie_consent_close') }}</button>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="overflow-hidden">
-                @include('widgets.howto')
-                @include('widgets.about')
+                @guest
+                    @include('widgets.howto')
+                    @include('widgets.about')
+                @endguest
                 @include('widgets.links')
                 @include('widgets.bottom')
             </div>
@@ -186,7 +205,7 @@
                 <div class="modal-card">
                     <header class="modal-card-head is-stretched">
                         <p class="modal-card-title">{{ __('app.register') }}</p>
-                        <button class="delete" aria-label="close" onclick="vue.bShowRegister = false;"></button>
+                        <button class="delete" aria-label="close" onclick="window.vue.bShowRegister = false;"></button>
                         </header>
                         <section class="modal-card-body is-stretched">
                             <form id="regform" method="POST" action="{{ url('/register') }}">
@@ -245,7 +264,7 @@
                 <div class="modal-card">
                     <header class="modal-card-head is-stretched">
                         <p class="modal-card-title">{{ __('app.login') }}</p>
-                        <button class="delete" aria-label="close" onclick="vue.bShowLogin = false;"></button>
+                        <button class="delete" aria-label="close" onclick="window.vue.bShowLogin = false;"></button>
                         </header>
                         <section class="modal-card-body is-stretched">
                             <div>
@@ -255,7 +274,7 @@
                                     <div class="field">
                                         <label class="label">{{ __('app.email') }}</label>
                                         <p class="control has-icons-left has-icons-right">
-                                            <input class="input" onkeyup="javascript:vue.invalidLoginEmail()" onchange="javascript:vue.invalidLoginEmail()" onkeydown="if (event.keyCode === 13) { document.getElementById('loginform').submit(); }" type="email" name="email" id="loginemail" placeholder="{{ __('app.enteremail') }}" required>
+                                            <input class="input" onkeyup="window.vue.invalidLoginEmail()" onchange="window.vue.invalidLoginEmail()" onkeydown="if (event.keyCode === 13) { document.getElementById('loginform').submit(); }" type="email" name="email" id="loginemail" placeholder="{{ __('app.enteremail') }}" required>
                                             <span class="icon is-small is-left">
                                             <i class="fas fa-envelope"></i>
                                             </span>
@@ -265,7 +284,7 @@
                                     <div class="field">
                                         <label class="label">{{ __('app.password') }}</label>
                                         <p class="control has-icons-left">
-                                            <input class="input" onkeyup="javascript:vue.invalidLoginPassword()" onchange="javascript:vue.invalidLoginPassword()" onkeydown="if (event.keyCode === 13) { document.getElementById('loginform').submit(); }" type="password" name="password" id="loginpw" placeholder="{{ __('app.enterpassword') }}" required>
+                                            <input class="input" onkeyup="window.vue.invalidLoginPassword()" onchange="window.vue.invalidLoginPassword()" onkeydown="if (event.keyCode === 13) { document.getElementById('loginform').submit(); }" type="password" name="password" id="loginpw" placeholder="{{ __('app.enterpassword') }}" required>
                                             <span class="icon is-small is-left">
                                             <i class="fas fa-lock"></i>
                                             </span>
@@ -280,7 +299,7 @@
                         </span>
                         <span class="is-right">
                             <div class="recover-pw">
-                                <center><a href="javascript:void(0)" onclick="vue.bShowRecover = true; vue.bShowLogin = false;">{{ __('app.recover_password') }}</a></center>
+                                <center><a href="javascript:void(0)" onclick="window.vue.bShowRecover = true; window.vue.bShowLogin = false;">{{ __('app.recover_password') }}</a></center>
                             </div>
                         </span>
                         </footer>
@@ -292,7 +311,7 @@
                 <div class="modal-card">
                     <header class="modal-card-head is-stretched">
                     <p class="modal-card-title">{{ __('app.recover_password') }}</p>
-                    <button class="delete" aria-label="close" onclick="vue.bShowRecover = false;"></button>
+                    <button class="delete" aria-label="close" onclick="window.vue.bShowRecover = false;"></button>
                     </header>
                     <section class="modal-card-body is-stretched">
                         <form method="POST" action="/recover" id="formResetPw">
@@ -301,7 +320,7 @@
                             <div class="field">
                                 <label class="label">{{ __('app.email') }}</label>
                                 <div class="control">
-                                    <input type="email" onkeyup="javascript:invalidRecoverEmail()" onchange="javascript:invalidRecoverEmail()" onkeydown="if (event.keyCode === 13) { document.getElementById('formResetPw').submit(); }" class="input" name="email" id="recoveremail" required>
+                                    <input type="email" onkeyup="invalidRecoverEmail()" onchange="invalidRecoverEmail()" onkeydown="if (event.keyCode === 13) { document.getElementById('formResetPw').submit(); }" class="input" name="email" id="recoveremail" required>
                                 </div>
                             </div>
 
@@ -310,10 +329,68 @@
                     </section>
                     <footer class="modal-card-foot is-stretched">
                     <button class="button is-success" onclick="document.getElementById('recoverpwsubmit').click();">{{ __('app.recover_password') }}</button>
-                    <button class="button" onclick="vue.bShowRecover = false;">{{ __('app.cancel') }}</button>
+                    <button class="button" onclick="window.vue.bShowRecover = false;">{{ __('app.cancel') }}</button>
                     </footer>
                 </div>
             </div>
+
+            @auth
+            <div class="modal" :class="{'is-active': bShowCreateActivity}">
+                <div class="modal-background"></div>
+                <div class="modal-card">
+                    <header class="modal-card-head is-stretched">
+                        <p class="modal-card-title">{{ __('app.create_activity') }}</p>
+                        <button class="delete" aria-label="close" onclick="vue.bShowCreateActivity = false;"></button>
+                    </header>
+                    <section class="modal-card-body is-stretched">
+                        <form id="frmCreateActivity" method="POST" action="{{ url('/activity/create') }}">
+                            @csrf
+
+                            <div class="field">
+                                <label class="label">{{ __('app.title') }}</label>
+                                <div class="control">
+                                    <input id="caTitle" class="input" type="text" name="title" onkeyup="window.vue.invalidCreateActivity();" onchange="window.vue.invalidCreateActivity();" required>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label class="label">{{ __('app.description') }}</label>
+                                <div class="control">
+                                    <textarea id="caDescription" name="description" onkeyup="window.vue.invalidCreateActivity();" onchange="window.vue.invalidCreateActivity();" required></textarea>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label class="label">{{ __('app.date') }}</label>
+                                <div class="control">
+                                    <input id="caDate" class="input" type="date" name="date_of_activity" onkeyup="window.vue.invalidCreateActivity();" onchange="window.vue.invalidCreateActivity();" required>
+                                </div>
+                                <p class="help is-danger is-hidden" id="activity-date-hint">{{ __('app.date_is_in_past') }}</p>
+                            </div>
+
+                            <div class="field">
+                                <label class="label">{{ __('app.location') }}</label>
+                                <div class="control">
+                                    <input id="caLocation" class="input" type="text" name="location" onkeyup="window.vue.invalidCreateActivity();" onchange="window.vue.invalidCreateActivity();" required>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label class="label">{{ __('app.limit') }}</label>
+                                <div class="control">
+                                    <input class="input" type="number" name="limit" value="0" min="0">
+                                </div>
+                            </div>
+                        </form>
+                    </section>
+                    <footer class="modal-card-foot is-stretched">
+                        <span>
+                            <button id="btnCreateActivity" class="button is-success" onclick="if (!this.disabled) { document.getElementById('frmCreateActivity').submit(); }">{{ __('app.create') }}</button>
+                        </span>
+                    </footer>
+                </div>
+            </div>
+            @endauth
         </div>
 
         <script src="{{ asset('js/app.js') }}"></script>
@@ -323,6 +400,7 @@
         @yield('javascript')
 
         document.addEventListener('DOMContentLoaded', () => {
+            window.vue.handleCookieConsent();
 
             @if (Session::has('flash.error'))
                 setTimeout('window.vue.showError()', 500);

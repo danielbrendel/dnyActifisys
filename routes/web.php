@@ -24,3 +24,6 @@ Route::post('/reset', 'MainController@reset');
 Route::get('/confirm', 'MainController@confirm');
 Route::post('/login', 'MainController@login');
 Route::any('/logout', 'MainController@logout');
+
+Route::post('/activity/create', 'ActivityController@create');
+Route::get('/activity/{id}', 'ActivityController@show');

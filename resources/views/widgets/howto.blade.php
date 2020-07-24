@@ -21,19 +21,19 @@
             <center>
                 <div class="howto-steps">
                     <div class="howto-step-item">
-                        <div class="is-inline-block"><i class="fas fa-atom"></i></div>
+                        <div class="is-inline-block"><i class="fas fa-sign-in-alt"></i></div>
 
                         <div class="is-inline-block">{{ __('app.howto_step1') }}</div>
                     </div>
 
                     <div class="howto-step-item">
-                        <div class="is-inline-block"><i class="fas fa-atom"></i></div>
+                        <div class="is-inline-block"><i class="fas fa-bolt"></i></div>
 
                         <div class="is-inline-block">{{ __('app.howto_step2') }}</div>
                     </div>
 
                     <div class="howto-step-item">
-                        <div class="is-inline-block"><i class="fas fa-atom"></i></div>
+                        <div class="is-inline-block"><i class="fas fa-users"></i></div>
 
                         <div class="is-inline-block">{{ __('app.howto_step3') }}</div>
                     </div>
