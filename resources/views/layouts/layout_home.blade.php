@@ -397,8 +397,6 @@
     </body>
 
     <script>
-        @yield('javascript')
-
         document.addEventListener('DOMContentLoaded', () => {
             window.vue.handleCookieConsent();
 
@@ -427,4 +425,6 @@
             }
         });
     </script>
+
+    @yield('javascript')
 </html>

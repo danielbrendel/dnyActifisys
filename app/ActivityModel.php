@@ -29,6 +29,10 @@ class ActivityModel extends Model
         'title', 'description', 'date_of_activity', 'location', 'limit'
     ];
 
+    protected $dates = [
+        'date_of_activity', 'created_at', 'updated_at'
+    ];
+
     /**
      * Create an activity
      *
@@ -59,6 +63,8 @@ class ActivityModel extends Model
             $item->location = $attr['location'];
             $item->limit = $attr['limit'];
             $item->save();
+
+            ParticipantModel::add($owner, $item->id, ParticipantModel::PARTICIPANT_ACTUAL);
 
             return $item->id;
         } catch (Exception $e) {

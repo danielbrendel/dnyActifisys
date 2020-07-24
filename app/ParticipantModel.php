@@ -91,4 +91,36 @@ class ParticipantModel extends Model
             throw $e;
         }
     }
+
+    /**
+     * Get actual participants
+     *
+     * @param $activity
+     * @return mixed
+     * @throws Exception
+     */
+    public static function getActualParticipants($activity)
+    {
+        try {
+            return ParticipantModel::where('activity', '=', $activity)->where('type', '=', self::PARTICIPANT_ACTUAL)->get();
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Get potential participants
+     *
+     * @param $activity
+     * @return mixed
+     * @throws Exception
+     */
+    public static function getPotentialParticipants($activity)
+    {
+        try {
+            return ParticipantModel::where('activity', '=', $activity)->where('type', '=', self::PARTICIPANT_POTENTIAL)->get();
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
 }

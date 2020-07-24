@@ -37,6 +37,7 @@ class CreateUsersTable extends Migration
             $table->boolean('deactivated')->default(false);
             $table->dateTime('birthday');
             $table->integer('gender'); //1 = male, 2 = female, 3 = diverse
+            $table->string('bio', 1024)->default('');
             $table->rememberToken();
             $table->timestamps();
         });

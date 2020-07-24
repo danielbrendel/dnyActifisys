@@ -16,7 +16,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateActivityModelsTable extends Migration
+class CreateThreadModelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -25,16 +25,13 @@ class CreateActivityModelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('activity_models', function (Blueprint $table) {
+        Schema::create('thread_models', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 100);
-            $table->text('description');
-            $table->dateTime('date_of_activity');
-            $table->string('location');
-            $table->integer('limit')->unsigned()->default(0); //0 = unlimited, >0 = limited
-            $table->integer('owner');
+            $table->integer('userId');
+            $table->integer('activityId');
+            $table->string('text', 4096);
+            $table->integer('reports')->default(0);
             $table->boolean('locked')->default(false);
-            $table->boolean('canceled')->default(false);
             $table->timestamps();
         });
     }
@@ -46,6 +43,6 @@ class CreateActivityModelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('activity_models');
+        Schema::dropIfExists('thread_models');
     }
 }

@@ -258,7 +258,7 @@ a.navbar-item:hover {
     height: unset !important;
 }
 .navbar-menu {
-    background-color: #209cee;
+    background-color: rgb(32, 156, 238);
 }
 .overflow-hidden {
     overflow-x: hidden;
@@ -279,4 +279,184 @@ a.navbar-item:hover {
         position: relative;
         top: 9px;
     }
+}
+.is-default-padding {
+    padding: 21px;
+}
+
+//Frames
+.frame {
+    position: relative;
+    @media screen and (min-width: 380px) {
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+    padding: 15px;
+    background-color: rgb(255, 255, 255);
+}
+.windowed-frame {
+    position: relative;
+    @media screen and (min-width: 380px) {
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+    background-color: rgb(255, 255, 255);
+}
+.windowed-frame span {
+    width: 100%;
+    height: 45px;
+    display: inline-block;
+    font-weight: bold;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    font-size: 1.2em;
+}
+.windowed-frame span > h3 {
+    position: relative;
+    top: -9px;
+}
+.windowed-frame div {
+    padding: 15px;
+}
+
+//Activity
+.activity-userdata {
+    margin-bottom: 25px;
+}
+.activity-avatar {
+    margin-right: 15px;
+    width: 48px;
+    height: 48px;
+    float: right;
+}
+.activity-avatar img {
+    border-radius: 50%;
+}
+.activity-user-top {
+    font-family: 'Nunito', sans-serif;
+}
+.activity-user-top h1 {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: rgb(150, 150, 150);
+}
+.activity-user-sec h2 {
+    font-size: 0.9em;
+    color: rgb(200, 200, 200)
+}
+.activity-info {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+.activity-headline {
+    font-size: 1.4em;
+    color: rgb(22, 48, 61);
+    font-weight: bold;
+}
+.activity-description {
+    margin-top: 15px;
+    color: rgb(150, 150, 150);
+}
+.activity-options {
+    float: right;
+}
+.activity-buttons {
+    margin-top: 25px;
+}
+.buttons-right {
+    float: right;
+}
+.activity-participants {
+    background-color: rgb(32, 156, 238);
+    color: rgb(255, 255, 255);
+}
+.activity-potential {
+    background-color: rgb(220, 220, 220);
+    color: rgb(20, 20, 20);
+}
+.activity-participant-avatar {
+    margin: 15px;
+    display: inline-block;
+}
+.activity-participant-avatar img {
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+}
+
+//Thread
+.thread-input-avatar {
+    width: 48px;
+    height: 48px;
+    margin-right: 25px;
+}
+.thread-input-avatar img {
+    border-radius: 50%;
+    top: -140px;
+    position: relative;
+}
+.thread-input-form {
+    width: 84%;
+}
+.thread-input-form-text {
+    width: 100%;
+    height: 125px;
+}
+.thread-input-form-text textarea {
+    height: 100%;
+}
+.thread-input-form-button {
+    margin-top: 10px;
+    float: right;
+}
+.thread {
+    margin-bottom: 45px;
+}
+.thread-elem {
+    margin-right: 15px;
+}
+.thread-header {
+    margin-bottom: 25px;
+    color: rgb(120, 120, 120);
+    font-size: 0.8em;
+}
+.thread-header-avatar img {
+    border-radius: 50%;
+}
+.thread-header-info {
+    margin-left: 15px;
+    position: relative;
+    top: 10px;
+}
+.thread-text {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.thread-footer {
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+    height: 32px;
+}
+.thread-footer-options {
+    font-size: 0.8em;
+    float: right;
+    display: inline-block;
+}
+.thread-footer-subthread {
+    width: 75%;
+    text-align: center;
+}
+.thread-header-options {
+    position: relative;
+    float: right;
+    top: 20px;
+}
+
+//Misc
+.is-pointer {
+    cursor: pointer;
+}
+.is-margin-top-20 {
+    margin-top: 20px;
 }

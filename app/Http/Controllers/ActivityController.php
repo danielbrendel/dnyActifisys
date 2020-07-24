@@ -15,6 +15,10 @@
 namespace App\Http\Controllers;
 
 use App\ActivityModel;
+use App\CaptchaModel;
+use App\ParticipantModel;
+use App\ThreadModel;
+use App\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -63,16 +67,62 @@ class ActivityController extends Controller
         }
     }
 
+    /**
+     * Show activity details
+     *
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
     public function show($id)
     {
         try {
             $activity = ActivityModel::getActivity($id);
 
+            $activity->user = User::get($activity->owner);
+            $activity->actualParticipants = ParticipantModel::getActualParticipants($activity->id);
+            $activity->potentialParticipants = ParticipantModel::getPotentialParticipants($activity->id);
+            $activity->actualCount = count($activity->actualParticipants);
+            $activity->potentialCount = count($activity->potentialParticipants);
+
+            foreach ($activity->actualParticipants as &$item) {
+                $item->user = User::get($item->participant);
+            }
+
+            foreach ($activity->potentialParticipants as &$item) {
+                $item->user = User::get($item->participant);
+            }
+
             return view('activity.show', [
-                'activity' => $activity
+                'activity' => $activity,
+                'captchadata' => CaptchaModel::createSum(session()->getId())
             ]);
         } catch (Exception $e) {
             return back()->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Fetch thread comment pack
+     *
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function fetchThread($id)
+    {
+        try {
+            $paginate = request('paginate', null);
+
+            $threads = ThreadModel::getFromActivity($id, $paginate);
+            foreach ($threads as &$thread) {
+                $thread->user = User::get($thread->userId);
+                $thread->adminOrOwner = User::isAdmin(auth()->id()) || ($thread->userId === auth()->id());
+                $thread->diffForHumans = $thread->created_at->diffForHumans();
+                $thread->subCount = ThreadModel::getSubCount($thread->id);
+            }
+
+            return response()->json(array('code' => 200, 'data' => $threads, 'last' => (count($threads) === 0)));
+        } catch (Exception $e) {
+            return response()->json(array('code' => 500, 'msg' => $e->getMessage()));
         }
     }
 }

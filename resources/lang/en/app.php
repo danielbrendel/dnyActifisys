@@ -49,5 +49,8 @@ return [
     'close' => 'Close',
     'date_is_in_past' => 'The given date is in the past',
     'error' => 'Error',
-    'success' => 'Success'
+    'success' => 'Success',
+    'no_information_given' => 'No information given',
+    'actual_participants' => ':count participants',
+    'potential_participants' => ':count interested',
 ];
