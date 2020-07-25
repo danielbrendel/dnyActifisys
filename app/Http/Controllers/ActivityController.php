@@ -315,7 +315,7 @@ class ActivityController extends Controller
 
             $owner = User::get($activity->owner);
             if (($owner) && ($owner->email_on_participated)) {
-                $htmlCode = view('mail.user_participated', ['name' => $owner->name, 'participant' => $user])->render();
+                $htmlCode = view('mail.user_participated', ['name' => $owner->name, 'participant' => $user, 'activity' => $activity])->render();
                 MailerModel::sendMail($owner->email, __('app.mail_user_participated'), $htmlCode);
             }
 

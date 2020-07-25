@@ -512,27 +512,6 @@ class MaintainerController extends Controller
         }
     }
 
-    public function welcomeContent()
-    {
-        try {
-            $attr = request()->validate([
-               'content' => 'nullable'
-            ]);
-
-            if (!isset($attr['content'])) {
-                $attr['content'] = '';
-            }
-
-            $item = AppModel::saveSetting('welcome_content', $attr['content']);
-
-            Artisan::call('cache:clear');
-
-            return back()->with('flash.success', __('app.welcome_content_saved'));
-        } catch (\Exception $e) {
-            return back()->with('flash.error', $e->getMessage());
-        }
-    }
-
     /**
      * Save formatted project name
      *

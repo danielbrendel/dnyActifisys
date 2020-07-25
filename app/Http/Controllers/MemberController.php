@@ -53,8 +53,10 @@ class MemberController extends Controller
                 $user->genderText = __('app.gender_male');
             } else if ($user->gender === 2) {
                 $user->genderText = __('app.gender_female');
-            } else {
+            } else if ($user->gender === 3) {
                 $user->genderText = __('app.gender_diverse');
+            } else {
+                $user->genderText = __('app.gender_unspecified');
             }
             $user->ignored = IgnoreModel::hasIgnored(auth()->id(), $id);
             $user->hasFavorited = FavoritesModel::hasUserFavorited(auth()->id(), $id, 'ENT_USER');
