@@ -420,7 +420,51 @@
                         </footer>
                     </div>
                 </div>
+
+                <div class="modal" :class="{'is-active': bShowEditComment}">
+                    <div class="modal-background"></div>
+                    <div class="modal-card">
+                        <header class="modal-card-head is-stretched">
+                            <p class="modal-card-title">{{ __('app.edit_comment') }}</p>
+                            <button class="delete" aria-label="close" onclick="vue.bShowEditComment = false;"></button>
+                        </header>
+                        <section class="modal-card-body is-stretched">
+                            <input type="hidden" id="editCommentId">
+
+                            <form id="frmEditComment" method="POST">
+                                @csrf
+
+                                <div class="field">
+                                    <label class="label">{{ __('app.text') }}</label>
+                                    <div class="control">
+                                        <textarea name="text" id="editCommentText"></textarea>
+                                    </div>
+                                </div>
+                            </form>
+                        </section>
+                        <footer class="modal-card-foot is-stretched">
+                            <button class="button is-success" onclick="document.getElementById('frmEditComment').action = window.location.origin + '/comment/' + document.getElementById('editCommentId').value + '/edit'; document.getElementById('frmEditComment').submit();">{{ __('app.save') }}</button>
+                            <button class="button" onclick="vue.bShowEditComment = false;">{{ __('app.cancel') }}</button>
+                        </footer>
+                    </div>
+                </div>
             @endauth
+
+            <div class="modal" :class="{'is-active': bShowActivityCanceled}">
+                <div class="modal-background"></div>
+                <div class="modal-card">
+                    <header class="modal-card-head is-stretched">
+                        <p class="modal-card-title">{{ __('app.activity_canceled_title') }}</p>
+                        <button class="delete" aria-label="close" onclick="vue.bShowActivityCanceled = false;"></button>
+                    </header>
+                    <section class="modal-card-body is-stretched">
+                        {{ __('app.activity_canceled_message') }}
+                    </section>
+                    <footer class="modal-card-foot is-stretched">
+                        <button class="button" onclick="vue.bShowActivityCanceled = false;">{{ __('app.close') }}</button>
+                    </footer>
+                </div>
+            </div>
         </div>
 
         <script src="{{ asset('js/app.js') }}"></script>

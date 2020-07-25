@@ -19350,7 +19350,9 @@ window.vue = new Vue({
     bShowRegister: false,
     bShowLogin: false,
     bShowCreateActivity: false,
-    bShowReplyThread: false
+    bShowReplyThread: false,
+    bShowActivityCanceled: false,
+    bShowEditComment: false
   },
   methods: {
     handleCookieConsent: function handleCookieConsent() {
@@ -19472,6 +19474,13 @@ window.vue = new Vue({
         elem.classList.add('is-active');
       }
     },
+    toggleCommentOptions: function toggleCommentOptions(elem) {
+      if (elem.classList.contains('is-active')) {
+        elem.classList.remove('is-active');
+      } else {
+        elem.classList.add('is-active');
+      }
+    },
     copyToClipboard: function copyToClipboard(text) {
       var el = document.createElement('textarea');
       el.value = text;
@@ -19488,7 +19497,7 @@ window.vue = new Vue({
       var options = '';
 
       if (adminOrOwner) {
-        options = "\n            <a onclick=\"showEditComment(" + elem.id + "); window.vue.toggleCommentOptions(document.getElementById('thread-options-" + elem.id + "'));\" href=\"javascript:void(0)\" class=\"dropdown-item\">\n                <i class=\"far fa-edit\"></i>&nbsp;Edit\n            </a>\n            <a onclick=\"lockComment(" + elem.id + "); window.vue.toggleCommentOptions(document.getElementById('thread-options-" + elem.id + "'));\" href=\"javascript:void(0)\" class=\"dropdown-item\">\n                <i class=\"fas fa-times\"></i>&nbsp;Lock\n            </a>\n            <hr class=\"dropdown-divider\">\n        ";
+        options = "\n            <a onclick=\"window.vue.showEditComment(" + elem.id + "); window.vue.toggleCommentOptions(document.getElementById('thread-options-" + elem.id + "'));\" href=\"javascript:void(0)\" class=\"dropdown-item\">\n                <i class=\"far fa-edit\"></i>&nbsp;Edit\n            </a>\n            <a onclick=\"window.vue.lockComment(" + elem.id + "); window.vue.toggleCommentOptions(document.getElementById('thread-options-" + elem.id + "'));\" href=\"javascript:void(0)\" class=\"dropdown-item\">\n                <i class=\"fas fa-times\"></i>&nbsp;Lock\n            </a>\n            <hr class=\"dropdown-divider\">\n        ";
       }
 
       var expandThread = '';
@@ -19498,8 +19507,21 @@ window.vue = new Vue({
       }
 
       var replyThread = "<div class=\"is-inline-block float-right\"><a class=\"is-color-grey\" href=\"javascript:void(0)\" onclick=\"document.getElementById('thread-reply-parent').value = '" + (isSubComment ? parentId : elem.id) + "'; document.getElementById('thread-reply-textarea').value = '" + elem.user.name + ": '; window.vue.bShowReplyThread = true;\">Reply</a></div>";
-      var html = "\n        <div id=\"thread-" + elem.id + "\" class=\"thread-elem " + (isSubComment ? 'is-sub-comment' : '') + "\">\n            <a name=\"" + elem.id + "\"></a>\n\n            <div class=\"thread-header\">\n                <div class=\"thread-header-avatar is-inline-block\">\n                    <img width=\"24\" height=\"24\" src=\"" + window.location.origin + "/gfx/avatars/" + elem.user.avatar + "\" class=\"is-pointer\" onclick=\"location.href = '" + window.location.origin + "/u/" + elem.user.id + "';\" title=\"\">\n                </div>\n\n                <div class=\"thread-header-info is-inline-block\">\n                    <div><a href=\"" + window.location.origin + "/u/" + elem.user.id + "\" class=\"is-color-grey\">" + elem.user.name + "</a></div>\n                    <div title=\"" + elem.created_at + "\">" + elem.diffForHumans + "</div>\n                </div>\n\n                <div class=\"thread-header-options is-inline-block\">\n                    <div class=\"dropdown is-right\" id=\"thread-options-" + elem.id + "\">\n                        <div class=\"dropdown-trigger\" onclick=\"window.vue.togglePostOptions(document.getElementById('thread-options-" + elem.id + "'));\">\n                            <i class=\"fas fa-ellipsis-v is-pointer\"></i>\n                        </div>\n                        <div class=\"dropdown-menu\" role=\"menu\">\n                            <div class=\"dropdown-content\">\n                                " + options + "\n\n                                <a href=\"javascript:void(0)\" onclick=\"reportComment(" + elem.id + "); window.vue.togglePostOptions(document.getElementById('thread-options-" + elem.id + "'));\" class=\"dropdown-item\">\n                                    Report\n                                </a>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n\n            <div class=\"thread-text is-color-grey\" id=\"thread-text-" + elem.id + "\">\n                " + elem.text + "\n            </div>\n\n            <div class=\"thread-footer\">\n                " + expandThread + "\n                " + replyThread + "\n            </div>\n\n            <div id=\"sub-thread-" + elem.id + "\"></div>\n        </div>\n    ";
+      var html = "\n        <div id=\"thread-" + elem.id + "\" class=\"thread-elem " + (isSubComment ? 'is-sub-comment' : '') + "\">\n            <a name=\"" + elem.id + "\"></a>\n\n            <div class=\"thread-header\">\n                <div class=\"thread-header-avatar is-inline-block\">\n                    <img width=\"24\" height=\"24\" src=\"" + window.location.origin + "/gfx/avatars/" + elem.user.avatar + "\" class=\"is-pointer\" onclick=\"location.href = '" + window.location.origin + "/u/" + elem.user.id + "';\" title=\"\">\n                </div>\n\n                <div class=\"thread-header-info is-inline-block\">\n                    <div><a href=\"" + window.location.origin + "/u/" + elem.user.id + "\" class=\"is-color-grey\">" + elem.user.name + "</a></div>\n                    <div title=\"" + elem.created_at + "\">" + elem.diffForHumans + "</div>\n                </div>\n\n                <div class=\"thread-header-options is-inline-block\">\n                    <div class=\"dropdown is-right\" id=\"thread-options-" + elem.id + "\">\n                        <div class=\"dropdown-trigger\" onclick=\"window.vue.toggleCommentOptions(document.getElementById('thread-options-" + elem.id + "'));\">\n                            <i class=\"fas fa-ellipsis-v is-pointer\"></i>\n                        </div>\n                        <div class=\"dropdown-menu\" role=\"menu\">\n                            <div class=\"dropdown-content\">\n                                " + options + "\n\n                                <a href=\"javascript:void(0)\" onclick=\"window.vue.reportComment(" + elem.id + "); window.vue.toggleCommentOptions(document.getElementById('thread-options-" + elem.id + "'));\" class=\"dropdown-item\">\n                                    Report\n                                </a>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n\n            <div class=\"thread-text is-color-grey\" id=\"thread-text-" + elem.id + "\">\n                " + elem.text + "\n            </div>\n\n            <div class=\"thread-footer\">\n                " + expandThread + "\n                " + replyThread + "\n            </div>\n\n            <div id=\"sub-thread-" + elem.id + "\"></div>\n        </div>\n    ";
       return html;
+    },
+    reportComment: function reportComment(id) {
+      location.href = window.location.origin + '/comment/' + id + '/report';
+    },
+    lockComment: function lockComment(id) {
+      if (confirm('Do you really want to lock the comment?')) {
+        location.href = window.location.origin + '/comment/' + id + '/lock';
+      }
+    },
+    showEditComment: function showEditComment(elemId) {
+      document.getElementById('editCommentId').value = elemId;
+      document.getElementById('editCommentText').value = document.getElementById('thread-text-' + elemId).innerHTML;
+      window.vue.bShowEditComment = true;
     },
     fetchSubThreadPosts: function fetchSubThreadPosts(parentId) {
       if (typeof window.subPosts === 'undefined') {
@@ -19547,6 +19569,16 @@ window.vue = new Vue({
           location.href = window.location.origin + '/activity/' + response.comment.activityId + '#thread';
         }
       });
+    },
+    cancelActivity: function cancelActivity(id) {
+      if (confirm('Do you really want to cancel the activity?')) {
+        location.href = window.location.origin + '/activity/' + id + '/cancel';
+      }
+    },
+    lockActivity: function lockActivity(id) {
+      if (confirm('Do you really want to lock the activity?')) {
+        location.href = window.location.origin + '/activity/' + id + '/lock';
+      }
     }
   }
 });

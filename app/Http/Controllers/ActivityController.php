@@ -17,6 +17,7 @@ namespace App\Http\Controllers;
 use App\ActivityModel;
 use App\CaptchaModel;
 use App\ParticipantModel;
+use App\ReportModel;
 use App\ThreadModel;
 use App\User;
 use Exception;
@@ -77,6 +78,9 @@ class ActivityController extends Controller
     {
         try {
             $activity = ActivityModel::getActivity($id);
+            if (!$activity) {
+                throw new Exception('app.activity_not_found_or_locked');
+            }
 
             $activity->user = User::get($activity->owner);
             $activity->actualParticipants = ParticipantModel::getActualParticipants($activity->id);
@@ -165,6 +169,11 @@ class ActivityController extends Controller
                'message' => 'required|max:4096'
             ]);
 
+            $activity = ActivityModel::getActivity($id);
+            if (!$activity) {
+                throw new Exception(__('app.activity_not_found_or_locked'));
+            }
+
             ThreadModel::add(auth()->id(), $id, $attr['message']);
 
             return redirect('/activity/' . $id . '#thread')->with('flash.success', __('app.comment_added'));
@@ -186,11 +195,289 @@ class ActivityController extends Controller
                 'text' => 'required|max:4096'
             ]);
 
+            $parentPost = ThreadModel::where('id', '=', $parentId)->first();
+            if (!$parentPost) {
+                throw new Exception(__('app.parent_post_not_found'));
+            }
+
+            $activity = ActivityModel::getActivity($parentPost->activityId);
+            if (!$activity) {
+                throw new Exception(__('app.activity_not_found_or_locked'));
+            }
+
             $reply = ThreadModel::reply(auth()->id(), $parentId, $attr['text']);
 
             return response()->json(array('code' => 200, 'comment' => $reply));
         } catch (Exception $e) {
             return response()->json(array('code' => 500, 'msg' => $e->getMessage()));
+        }
+    }
+
+    /**
+     * Add as participant
+     *
+     * @param $activityId
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function participantAdd($activityId)
+    {
+        try {
+            $this->validateAuth();
+
+            $activity = ActivityModel::getActivity($activityId);
+            if (!$activity) {
+                throw new Exception(__('app.activity_not_found_or_locked'));
+            }
+
+            ParticipantModel::add(auth()->id(), $activityId, ParticipantModel::PARTICIPANT_ACTUAL);
+
+            return back()->with('flash.success', __('app.added_as_participant'));
+        } catch (Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Remove as participant
+     *
+     * @param $activityId
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function participantRemove($activityId)
+    {
+        try {
+            $this->validateAuth();
+
+            $activity = ActivityModel::getActivity($activityId);
+            if (!$activity) {
+                throw new Exception(__('app.activity_not_found_or_locked'));
+            }
+
+            ParticipantModel::remove(auth()->id(), $activityId, ParticipantModel::PARTICIPANT_ACTUAL);
+
+            return back()->with('flash.success', __('app.removed_as_participant'));
+        } catch (Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Add as potential participant
+     *
+     * @param $activityId
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function potentialAdd($activityId)
+    {
+        try {
+            $this->validateAuth();
+
+            $activity = ActivityModel::getActivity($activityId);
+            if (!$activity) {
+                throw new Exception(__('app.activity_not_found_or_locked'));
+            }
+
+            ParticipantModel::add(auth()->id(), $activityId, ParticipantModel::PARTICIPANT_POTENTIAL);
+
+            return back()->with('flash.success', __('app.added_as_potential'));
+        } catch (Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Remove as potential participant
+     *
+     * @param $activityId
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function potentialRemove($activityId)
+    {
+        try {
+            $this->validateAuth();
+
+            $activity = ActivityModel::getActivity($activityId);
+            if (!$activity) {
+                throw new Exception(__('app.activity_not_found_or_locked'));
+            }
+
+            ParticipantModel::remove(auth()->id(), $activityId, ParticipantModel::PARTICIPANT_POTENTIAL);
+
+            return back()->with('flash.success', __('app.removed_as_potential'));
+        } catch (Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Lock activity
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function lockActivity($id)
+    {
+        try {
+            $this->validateAuth();
+
+            $user = User::get(auth()->id());
+
+            $activity = ActivityModel::getActivity($id);
+            if (!$activity) {
+                throw new Exception(__('app.activity_not_found_or_locked'));
+            }
+
+            if (($user->admin) || ($user->id === $activity->owner)) {
+                ActivityModel::lockActivity($id);
+
+                return redirect('/')->with('flash.success', __('app.activity_locked'));
+            } else {
+                return back()->with('flash.error', __('app.insufficient_permissions'));
+            }
+        } catch (Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Cancel activity
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function cancelActivity($id)
+    {
+        try {
+            $this->validateAuth();
+
+            $user = User::get(auth()->id());
+
+            $activity = ActivityModel::getActivity($id);
+            if (!$activity) {
+                throw new Exception(__('app.activity_not_found_or_locked'));
+            }
+
+            if (($user->admin) || ($user->id === $activity->owner)) {
+                ActivityModel::cancelActivity($id);
+
+                return back()->with('flash.success', __('app.activity_canceled'));
+            } else {
+                return back()->with('flash.error', __('app.insufficient_permissions'));
+            }
+        } catch (Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Report activity
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function reportActivity($id)
+    {
+        try {
+            $this->validateAuth();
+
+            $user = User::get(auth()->id());
+
+            $activity = ActivityModel::getActivity($id);
+            if (!$activity) {
+                throw new Exception(__('app.activity_not_found_or_locked'));
+            }
+
+            ReportModel::addReport(auth()->id(), $activity->id, 'ENT_ACTIVITY');
+
+            return back()->with('flash.success', __('app.activity_reported'));
+        } catch (Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Lock comment
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function lockComment($id)
+    {
+        try {
+            $this->validateAuth();
+
+            $user = User::get(auth()->id());
+
+            $cmt = ThreadModel::where('id', '=', $id)->first();
+            if (!$cmt) {
+                throw new Exception(__('app.comment_not_found'));
+            }
+
+            if (!(($user->admin) || ($user->id === $cmt->userId))) {
+                throw new Exception(__('app.insufficient_permissions'));
+            }
+
+            $cmt->locked = true;
+            $cmt->save();
+
+            return back()->with('flash.success', __('app.comment_locked'));
+        } catch (Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Report comment
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function reportComment($id)
+    {
+        try {
+            $this->validateAuth();
+
+            $user = User::get(auth()->id());
+
+            $cmt = ThreadModel::where('id', '=', $id)->first();
+            if (!$cmt) {
+                throw new Exception(__('app.comment_not_found'));
+            }
+
+            ReportModel::addReport(auth()->id(), $cmt->id, 'ENT_COMMENT');
+
+            return back()->with('flash.success', __('app.comment_reported'));
+        } catch (Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    public function editComment($id)
+    {
+        try {
+            $this->validateAuth();
+
+            $attr = request()->validate([
+               'text' => 'required|max:4096'
+            ]);
+
+            $user = User::get(auth()->id());
+
+            $cmt = ThreadModel::where('id', '=', $id)->first();
+            if (!$cmt) {
+                throw new Exception(__('app.comment_not_found'));
+            }
+
+            if (!(($user->admin) || ($user->id === $cmt->userId))) {
+                throw new Exception(__('app.insufficient_permissions'));
+            }
+
+            $cmt->text = $attr['text'];
+            $cmt->save();
+
+            return back()->with('flash.success', __('app.comment_edited'));
+        } catch (Exception $e) {
+            return back()->with('error', $e->getMessage());
         }
     }
 }

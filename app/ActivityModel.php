@@ -87,4 +87,42 @@ class ActivityModel extends Model
             throw $e;
         }
     }
+
+    /**
+     * Lock activity
+     *
+     * @param $id
+     * @throws Exception
+     */
+    public static function lockActivity($id)
+    {
+        try {
+            $activity = static::getActivity($id);
+            if ($activity) {
+                $activity->locked = true;
+                $activity->save();
+            }
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Cancel activity
+     *
+     * @param $id
+     * @throws Exception
+     */
+    public static function cancelActivity($id)
+    {
+        try {
+            $activity = static::getActivity($id);
+            if ($activity) {
+                $activity->canceled = true;
+                $activity->save();
+            }
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
 }

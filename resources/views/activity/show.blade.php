@@ -22,7 +22,7 @@
                     <div class="activity-userdata">
                         <div class="activity-user-top">
                             <div class="is-inline-block">
-                                <h1>{{ $activity->user->name }}</h1>
+                                <h1><a href="{{ url('/user/' . $activity->user->id) }}">{{ $activity->user->name }}</a></h1>
                             </div>
 
                             <div class="activity-avatar is-inline-block">
@@ -39,6 +39,12 @@
                         <div><i class="far fa-clock"></i>&nbsp;<span title="{{ $activity->date_of_activity  }}">{{ $activity->date_of_activity->diffForHumans() }}</span></div>
                         <div><i class="fas fa-map-marker-alt"></i>&nbsp;{{ $activity->location }}</div>
                     </div>
+
+                    @if ($activity->canceled)
+                        <div class="activity-canceled">
+                            {{ __('app.activity_canceled_title') }}
+                        </div>
+                    @endif
                 </div>
 
                 <div class="windowed-frame is-margin-top-20">
@@ -119,9 +125,6 @@
                                             </a>
                                         @endif
                                     @endauth
-                                    <a href="javascript:void(0)" onclick="window.vue.reportActivity({{ $activity->id }}); window.vue.toggleActivityOptions(document.getElementById('activity-options-{{ $activity->id }}'));" class="dropdown-item">
-                                        {{ __('app.report') }}
-                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -132,16 +135,29 @@
                     {{ $activity->description }}
                 </div>
 
-                <div class="activity-buttons">
-                    <div class="buttons-left is-inline-block">
-                        <a class="button is-outlined">{{ __('app.report') }}</a>
-                    </div>
+                @auth
+                    <div class="activity-buttons">
+                        <div class="buttons-left is-inline-block">
+                            <a class="button is-outlined" href="{{ url('/activity/' . $activity->id . '/report') }}">{{ __('app.report') }}</a>
+                        </div>
 
-                    <div class="buttons-right is-inline-block">
-                        <div class="is-inline-block"><button type="button" class="button is-success">{{ __('app.participate') }}</button></div>
-                        <div class="is-inline-block"><button type="button" class="button is-info is-outlined">{{ __('app.interested') }}</button></div>
+                        <div class="buttons-right is-inline-block">
+                            @if (!$activity->selfParticipated)
+                                <div class="is-inline-block"><button type="button" id="btnParticipate" class="button is-success" onclick="location.href = '{{ url('/activity/' . $activity->id . '/participant/add') }}';">{{ __('app.participate') }}</button></div>
+                            @else
+                                <div class="is-inline-block"><button type="button" id="btnParticipate" class="button is-success is-outlined" onclick="location.href = '{{ url('/activity/' . $activity->id . '/participant/remove') }}';">{{ __('app.not_participate') }}</button></div>
+                            @endif
+
+                            @if (!$activity->selfParticipated)
+                                @if (!$activity->selfInterested)
+                                    <div class="is-inline-block"><button type="button" id="btnPotential" class="button is-info is-outlined" onclick="location.href = '{{ url('/activity/' . $activity->id . '/interested/add') }}';">{{ __('app.interested') }}</button></div>
+                                @else
+                                    <div class="is-inline-block"><button type="button" id="btnPotential" class="button is-info is-outlined" onclick="location.href = '{{ url('/activity/' . $activity->id . '/interested/remove') }}';">{{ __('app.not_interested') }}</button></div>
+                                @endif
+                            @endif
+                        </div>
                     </div>
-                </div>
+                @endauth
 
                 <hr/>
 
@@ -180,6 +196,13 @@
         document.addEventListener('DOMContentLoaded', function() {
             window.paginate = null;
             fetchThread();
+
+            @if ($activity->canceled)
+                document.getElementById('btnPotential').disabled = true;
+                document.getElementById('btnParticipate').disabled = true;
+
+                window.vue.bShowActivityCanceled = true;
+            @endif
         });
 
         function fetchThread()
