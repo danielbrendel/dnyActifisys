@@ -186,6 +186,28 @@ class ActivityController extends Controller
     }
 
     /**
+     * Fetch user activities
+     *
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function fetchUserActivities($id)
+    {
+        try {
+            $data = ActivityModel::fetchUserActivities($id);
+            foreach ($data as &$item) {
+                $item->diffForHumans = $item->date_of_activity->diffForHumans();
+                $item->participants = ParticipantModel::where('activity', '=', $item->id)->where('type', '=', ParticipantModel::PARTICIPANT_ACTUAL)->count();
+                $item->messages = ThreadModel::where('activityId', '=', $item->id)->count();
+            }
+
+            return response()->json(array('code' => 200, 'data' => $data));
+        } catch (Exception $e) {
+            return response()->json(array('code' => 500, 'msg' => $e->getMessage()));
+        }
+    }
+
+    /**
      * Add post to activity thread
      *
      * @param $id

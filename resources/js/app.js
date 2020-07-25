@@ -326,13 +326,54 @@ window.vue = new Vue({
             return html;
         },
 
+        renderNotification: function(elem, newItem = false) {
+            let icon = 'fas fa-info-circle';
+            if (elem.type === 'PUSH_PARTICIPATED') {
+                icon = 'fas fa-users';
+            } else if (elem.type === 'PUSH_COMMENTED') {
+                icon = 'far fa-comment';
+            } else if (elem.type === 'PUSH_MENTIONED') {
+                icon = 'fas fa-bolt';
+            } else if (elem.type === 'PUSH_MESSAGED') {
+                icon = 'far fa-comments';
+            } else if (elem.type === 'PUSH_FAVORITED') {
+                icon = 'far fa-star';
+            }
+
+            let html = `
+                <div class="notification-item ` + ((newItem) ? 'is-new-notification' : '') + `">
+                    <div class="notification-item-icon"><i class="` + icon + `"></i></div>
+                    <div class="notification-item-message">` + elem.longMsg + `</div>
+                </div>
+            `;
+
+            return html;
+        },
+
+        toggleNotifications: function(ident) {
+            let obj = document.getElementById(ident);
+            if (obj) {
+                if (obj.style.display === 'block') {
+                    obj.style.display = 'none';
+                } else {
+                    obj.style.display = 'block';
+                }
+            }
+        },
+
         reportComment: function(id) {
-            location.href = window.location.origin + '/comment/' + id + '/report'
+            location.href = window.location.origin + '/comment/' + id + '/report';
         },
 
         lockComment: function(id) {
             if (confirm('Do you really want to lock the comment?')) {
-                location.href = window.location.origin + '/comment/' + id + '/lock'
+                location.href = window.location.origin + '/comment/' + id + '/lock';
+            }
+        },
+
+        lockUser: function(id) {
+            if (confirm('Do you really want to lock this user?')) {
+                location.href = window.location.origin + '/user/' + id + '/lock';
             }
         },
 

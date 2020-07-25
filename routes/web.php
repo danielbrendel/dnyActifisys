@@ -42,8 +42,15 @@ Route::any('/activity/{activityId}/report', 'ActivityController@reportActivity')
 Route::any('/comment/{id}/lock', 'ActivityController@lockComment');
 Route::any('/comment/{id}/report', 'ActivityController@reportComment');
 Route::post('/comment/{id}/edit', 'ActivityController@editComment');
+Route::get('/activity/user/{id}', 'ActivityController@fetchUserActivities');
 
 Route::get('/user/{id}', 'MemberController@show');
+Route::get('/user/{id}/fav/add', 'FavoritesController@add');
+Route::get('/user/{id}/fav/remove', 'FavoritesController@add');
+Route::get('/user/{id}/lock', 'MemberController@lock');
+Route::get('/user/{id}/report', 'MemberController@report');
+Route::get('/user/{id}/ignore/add', 'MemberController@ignoreAdd');
+Route::get('/user/{id}/ignore/remove', 'MemberController@ignoreRemove');
 
 Route::get('/notifications/list', 'NotificationController@list');
 Route::get('/notifications/fetch', 'NotificationController@fetch');

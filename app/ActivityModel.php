@@ -118,6 +118,26 @@ class ActivityModel extends Model
     }
 
     /**
+     * Fetch user activities
+     *
+     * @param $userId
+     * @return mixed
+     * @throws Exception
+     */
+    public static function fetchUserActivities($userId)
+    {
+        try {
+            return ActivityModel::where('date_of_activity', '>=', date('Y-m-d H:i:s'))
+                ->where('locked', '=', false)
+                ->where('canceled', '=', false)
+                ->where('owner', '=', $userId)
+                ->get();
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
      * Lock activity
      *
      * @param $id

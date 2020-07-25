@@ -74,8 +74,9 @@
                             {{ __('app.create_activity') }}
                         </a>
 
-                        <a class="navbar-item" href="{{ url('/notifications') }}">
-                            {{ __('app.notifications') }}
+                        <a class="navbar-item notification-badge" href="javascript:void(0);" onclick="window.vue.toggleNotifications('notifications'); document.getElementById('navbar-notify-count').classList.add('is-hidden');">
+                            <span>{{ __('app.notifications') }}</span>
+                            <span class="notify-badge is-hidden" id="navbar-notify-count"></span>
                         </a>
 
                         <a class="navbar-item" href="{{ url('/messages') }}">
@@ -86,7 +87,7 @@
                             {{ __('app.settings') }}
                         </a>
 
-                        <a class="navbar-item" href="{{ url('/logut') }}">
+                        <a class="navbar-item" href="{{ url('/logout') }}">
                             {{ __('app.logout') }}
                         </a>
                     @endauth
@@ -174,6 +175,15 @@
             @include('widgets.banner')
 
             <div class="container">
+                <div class="notifications" id="notifications">
+                    <div>
+                        <div class="is-inline-block"></div>
+                        <div class="is-inline-block float-right notification-close-icon" onclick="window.vue.toggleNotifications('notifications'); if (window.menuVisible) {document.getElementById('navbarMenu').classList.remove('is-active'); document.getElementById('navbarBurger').classList.remove('is-active'); }"><i class="fas fa-times is-pointer"></i></div>
+                    </div>
+
+                    <div class="notifications-content" id="notification-content"></div>
+                </div>
+
                 <div class="columns">
                     @yield('content')
                 </div>
@@ -482,22 +492,101 @@
                 setTimeout('window.vue.showSuccess()', 500);
             @endif
 
+            @auth
+                setTimeout('fetchNotifications()', 1000);
+                setTimeout('fetchNotificationList()', 100);
+            @endauth
+
             const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
 
             if ($navbarBurgers.length > 0) {
                 $navbarBurgers.forEach(el => {
                     el.addEventListener('click', () => {
+                        const target = el.dataset.target;
+                        const $target = document.getElementById(target);
 
-                    const target = el.dataset.target;
-                    const $target = document.getElementById(target);
-
-                    el.classList.toggle('is-active');
-                    $target.classList.toggle('is-active');
-
+                        el.classList.toggle('is-active');
+                        $target.classList.toggle('is-active');
                     });
                 });
             }
         });
+
+        window.fetchNotifications = function() {
+            window.vue.ajaxRequest('get', '{{ url('/notifications/list') }}', {}, function(response){
+                if (response.code === 200) {
+                    if (response.data.length > 0) {
+                        let noyet = document.getElementById('no-notifications-yet');
+                        if (noyet) {
+                            noyet.remove();
+                        }
+
+                        let indicator = document.getElementById('navbar-notify-count');
+                        if (indicator) {
+                            indicator.classList.remove('is-hidden');
+                            indicator.innerHTML = response.data.length;
+                        }
+
+                        response.data.forEach(function(elem, index) {
+                            @if (isset($_GET['clep_push_handler']))
+                                window['{{ $_GET['clep_push_handler'] }}'](elem.shortMsg, elem.longMsg);
+                            @endif
+
+                            let html = window.vue.renderNotification(elem, true);
+                            document.getElementById('notification-content').innerHTML = html + document.getElementById('notification-content').innerHTML;
+                        });
+                    }
+                }
+            });
+
+            setTimeout('fetchNotifications()', 50000);
+        };
+
+        window.notificationPagination = null;
+        window.fetchNotificationList = function() {
+            document.getElementById('notification-content').innerHTML += '<center><i id="notification-spinner" class="fas fa-spinner fa-spin"></i></center>';
+
+            let loader = document.getElementById('load-more-notifications');
+            if (loader) {
+                loader.remove();
+            }
+
+            window.vue.ajaxRequest('get', '{{ url('/notifications/fetch') }}' + ((window.notificationPagination) ? '?paginate=' + window.notificationPagination : ''), {}, function(response) {
+                if (response.code === 200) {
+                    if (response.data.length > 0) {
+                        let noyet = document.getElementById('no-notifications-yet');
+                        if (noyet) {
+                            noyet.remove();
+                        }
+
+                        response.data.forEach(function(elem, index) {
+                            let html = window.vue.renderNotification(elem);
+
+                            document.getElementById('notification-content').innerHTML += html;
+                        });
+
+                        window.notificationPagination = response.data[response.data.length-1].id;
+
+                        document.getElementById('notification-content').innerHTML += '<center><i id="load-more-notifications" class="fas fa-arrow-down is-pointer" onclick="fetchNotificationList()"></i></center>';
+                        document.getElementById('notification-spinner').remove();
+                    } else {
+                        if (window.notificationPagination === null) {
+                            document.getElementById('notification-content').innerHTML = '<div id="no-notifications-yet"><center><i>{{ __('app.no_notifications_yet') }}</i></center></div>';
+                        }
+
+                        let loader = document.getElementById('load-more-notifications');
+                        if (loader) {
+                            loader.remove();
+                        }
+
+                        let spinner = document.getElementById('notification-spinner');
+                        if (spinner) {
+                            spinner.remove();
+                        }
+                    }
+                }
+            });
+        };
     </script>
 
     @yield('javascript')

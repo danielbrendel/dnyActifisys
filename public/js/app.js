@@ -19534,12 +19534,47 @@ window.vue = new Vue({
       var html = "\n            <div class=\"messages-item " + (!item.seen ? 'is-new-message' : '') + "\">\n                <div class=\"messages-item-avatar\">\n                    <img src=\"" + window.location.origin + "/gfx/avatars/" + item.user.avatar + "\">\n                </div>\n\n                <div class=\"messages-item-name\">\n                    <a href=\"" + window.location.origin + "/u/" + item.user.username + "\">" + item.user.username + "</a>\n                </div>\n\n                <div class=\"messages-item-subject\">\n                    <a href=\"" + window.location.origin + "/messages/show/" + item.id + "\">" + item.subject + "</a>\n                </div>\n\n                <div class=\"messages-item-date\" title=\"" + item.created_at + "\">\n                    " + item.diffForHumans + "\n                </div>\n            </div>\n            ";
       return html;
     },
+    renderNotification: function renderNotification(elem) {
+      var newItem = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+      var icon = 'fas fa-info-circle';
+
+      if (elem.type === 'PUSH_PARTICIPATED') {
+        icon = 'fas fa-users';
+      } else if (elem.type === 'PUSH_COMMENTED') {
+        icon = 'far fa-comment';
+      } else if (elem.type === 'PUSH_MENTIONED') {
+        icon = 'fas fa-bolt';
+      } else if (elem.type === 'PUSH_MESSAGED') {
+        icon = 'far fa-comments';
+      } else if (elem.type === 'PUSH_FAVORITED') {
+        icon = 'far fa-star';
+      }
+
+      var html = "\n                <div class=\"notification-item " + (newItem ? 'is-new-notification' : '') + "\">\n                    <div class=\"notification-item-icon\"><i class=\"" + icon + "\"></i></div>\n                    <div class=\"notification-item-message\">" + elem.longMsg + "</div>\n                </div>\n            ";
+      return html;
+    },
+    toggleNotifications: function toggleNotifications(ident) {
+      var obj = document.getElementById(ident);
+
+      if (obj) {
+        if (obj.style.display === 'block') {
+          obj.style.display = 'none';
+        } else {
+          obj.style.display = 'block';
+        }
+      }
+    },
     reportComment: function reportComment(id) {
       location.href = window.location.origin + '/comment/' + id + '/report';
     },
     lockComment: function lockComment(id) {
       if (confirm('Do you really want to lock the comment?')) {
         location.href = window.location.origin + '/comment/' + id + '/lock';
+      }
+    },
+    lockUser: function lockUser(id) {
+      if (confirm('Do you really want to lock this user?')) {
+        location.href = window.location.origin + '/user/' + id + '/lock';
       }
     },
     showEditComment: function showEditComment(elemId) {

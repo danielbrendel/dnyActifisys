@@ -41,7 +41,10 @@ class CreateUsersTable extends Migration
             $table->string('location')->default('');
             $table->boolean('admin')->default(false);
             $table->boolean('maintainer')->default(false);
+            $table->boolean('newsletter')->default(true);
             $table->boolean('email_on_message')->default(true);
+            $table->boolean('email_on_fav_created')->default(true);
+            $table->boolean('email_on_participated')->default(true);
             $table->rememberToken();
             $table->timestamps();
         });

@@ -501,6 +501,10 @@ a.navbar-item:hover {
   top: 29px;
 }
 
+#active-activities {
+  top: -15px;
+}
+
 .thread-input-avatar {
   width: 48px;
   height: 48px;
@@ -710,11 +714,121 @@ a.navbar-item:hover {
   margin-left: 25px;
 }
 
+.notifications {
+  position: absolute;
+  top: -218px;
+  z-index: 4;
+  background-color: #f0f0e6;
+  display: none;
+}
+
+@media screen and (min-width: 769px) {
+  .notifications {
+    right: -151px;
+    width: 550px;
+    height: 90%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .notifications {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@media screen and (min-height: 520px) {
+  .notifications {
+    height: 520px;
+  }
+}
+
+.notification-close-icon {
+  margin-top: 22px;
+  margin-right: 32px;
+}
+
+.notifications-content {
+  margin: 25px;
+  height: 78%;
+  overflow-y: auto;
+}
+
+@media screen and (max-width: 480px) {
+  .notifications-content {
+    height: 95%;
+  }
+}
+
+.notification-item {
+  position: relative;
+  width: 100%;
+  height: auto;
+  background-color: white;
+  padding: 21px;
+  border-radius: 4px;
+}
+
+.notification-item:hover {
+  background-color: #fafafa;
+}
+
+.notification-item-icon {
+  display: inline-block;
+}
+
+.notification-item-message {
+  display: inline-block;
+}
+
+.is-new-notification {
+  background-color: #80ff80;
+}
+
+.is-new-notification:hover {
+  background-color: #80c880;
+}
+
+.notification-badge {
+  color: white;
+  text-decoration: none;
+  padding: 15px 26px;
+  position: relative;
+  display: inline-block;
+  border-radius: 2px;
+}
+
+.notification-badge:hover {
+  background: red;
+}
+
+.notification-badge .notify-badge {
+  position: absolute;
+  right: -5px;
+  top: 4px;
+  padding: 3px 11px;
+  border-radius: 50%;
+  background: red;
+  color: white;
+}
+
 .is-pointer {
   cursor: pointer;
 }
 
 .is-margin-top-20 {
   margin-top: 20px;
+}
+
+.is-align-right {
+  float: right;
+}
+
+.is-color-lightblue {
+  color: #649696;
+}
+
+.is-underlined {
+  border-bottom: 1px solid #ccc;
 }
 
