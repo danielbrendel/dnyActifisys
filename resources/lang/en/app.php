@@ -193,5 +193,10 @@ return [
     'text' => 'Text',
     'favorites' => 'Favorites',
     'no_favorites_yet' => 'Added favorites will be shown here.',
-    'birthday' => 'Birthday'
+    'birthday' => 'Birthday',
+    'contact_name' => 'Your name',
+    'contact_email' => 'Your E-Mail',
+    'contact_subject' => 'Subject',
+    'contact_body' => 'Message',
+    'submit' => 'Submit'
 ];

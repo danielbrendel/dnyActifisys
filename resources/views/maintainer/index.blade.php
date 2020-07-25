@@ -13,6 +13,8 @@
 @extends('layouts.layout_home')
 
 @section('content')
+    <div class="column is-2"></div>
+
     <div class="column is-8">
         <div class="member-form is-default-padding member-form-fixed-top">
             <div>
@@ -821,7 +823,7 @@
         <br/><br/>
     </div>
 
-    <div class="column is-2 is-sidespacing"></div>
+    <div class="column is-2"></div>
 @endsection
 
 @section('javascript')
