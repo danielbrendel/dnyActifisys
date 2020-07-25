@@ -42,7 +42,7 @@ class MainController extends Controller
     {
         $captchaData = CaptchaModel::createSum(session()->getId());
 
-        return view('home.index', [
+        return view('activity.browse', [
             'captchadata' => $captchaData
         ]);
     }

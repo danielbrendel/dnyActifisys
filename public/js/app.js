@@ -19343,6 +19343,7 @@ module.exports = function(module) {
 */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+var MAX_ACTIVITY_DESCRIPTION_LENGTH = 279;
 window.vue = new Vue({
   el: '#app',
   data: {
@@ -19375,6 +19376,21 @@ window.vue = new Vue({
       var expDate = new Date(Date.now() + 1000 * 60 * 60 * 24 * 365);
       document.cookie = 'cookieconsent=1; expires=' + expDate.toUTCString() + ';';
       document.getElementById('cookie-consent').style.display = 'none';
+    },
+    setCityCookieValue: function setCityCookieValue(city) {
+      var expDate = new Date(Date.now() + 1000 * 60 * 60 * 24 * 365);
+      document.cookie = 'filter_city=' + (city.length > 0 ? city : '_all') + '; expires=' + expDate.toUTCString() + '; path=/;';
+    },
+    getCityCookieValue: function getCityCookieValue() {
+      var cookies = document.cookie.split(';');
+
+      for (var i = 0; i < cookies.length; i++) {
+        if (cookies[i].indexOf('filter_city') !== -1) {
+          return cookies[i].substr(cookies[i].indexOf('=') + 1);
+        }
+      }
+
+      return '_all';
     },
     ajaxRequest: function ajaxRequest(method, url) {
       var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
@@ -19508,6 +19524,10 @@ window.vue = new Vue({
 
       var replyThread = "<div class=\"is-inline-block float-right\"><a class=\"is-color-grey\" href=\"javascript:void(0)\" onclick=\"document.getElementById('thread-reply-parent').value = '" + (isSubComment ? parentId : elem.id) + "'; document.getElementById('thread-reply-textarea').value = '" + elem.user.name + ": '; window.vue.bShowReplyThread = true;\">Reply</a></div>";
       var html = "\n        <div id=\"thread-" + elem.id + "\" class=\"thread-elem " + (isSubComment ? 'is-sub-comment' : '') + "\">\n            <a name=\"" + elem.id + "\"></a>\n\n            <div class=\"thread-header\">\n                <div class=\"thread-header-avatar is-inline-block\">\n                    <img width=\"24\" height=\"24\" src=\"" + window.location.origin + "/gfx/avatars/" + elem.user.avatar + "\" class=\"is-pointer\" onclick=\"location.href = '" + window.location.origin + "/u/" + elem.user.id + "';\" title=\"\">\n                </div>\n\n                <div class=\"thread-header-info is-inline-block\">\n                    <div><a href=\"" + window.location.origin + "/u/" + elem.user.id + "\" class=\"is-color-grey\">" + elem.user.name + "</a></div>\n                    <div title=\"" + elem.created_at + "\">" + elem.diffForHumans + "</div>\n                </div>\n\n                <div class=\"thread-header-options is-inline-block\">\n                    <div class=\"dropdown is-right\" id=\"thread-options-" + elem.id + "\">\n                        <div class=\"dropdown-trigger\" onclick=\"window.vue.toggleCommentOptions(document.getElementById('thread-options-" + elem.id + "'));\">\n                            <i class=\"fas fa-ellipsis-v is-pointer\"></i>\n                        </div>\n                        <div class=\"dropdown-menu\" role=\"menu\">\n                            <div class=\"dropdown-content\">\n                                " + options + "\n\n                                <a href=\"javascript:void(0)\" onclick=\"window.vue.reportComment(" + elem.id + "); window.vue.toggleCommentOptions(document.getElementById('thread-options-" + elem.id + "'));\" class=\"dropdown-item\">\n                                    Report\n                                </a>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n\n            <div class=\"thread-text is-color-grey\" id=\"thread-text-" + elem.id + "\">\n                " + elem.text + "\n            </div>\n\n            <div class=\"thread-footer\">\n                " + expandThread + "\n                " + replyThread + "\n            </div>\n\n            <div id=\"sub-thread-" + elem.id + "\"></div>\n        </div>\n    ";
+      return html;
+    },
+    renderActivity: function renderActivity(elem) {
+      var html = "<div class=\"activity is-default-padding\">\n                <div class=\"activity-user\">\n                    <center><div class=\"activity-user-avatar\"><img src=\"" + window.location.origin + '/gfx/avatars/' + elem.user.avatar + "\"></div>\n                        <div class=\"activity-user-name\"><a href=\"" + window.location.origin + '/user/' + elem.user.id + "\">" + elem.user.name + "</a></div></center>\n                </div>\n\n                <div class=\"activity-title\">\n                    <center>" + elem.title + "</center>\n                </div>\n\n                <div class=\"activity-infos\">\n                    <center><span title=\"" + elem.date_of_activity + "\"><i class=\"far fa-clock\"></i>&nbsp;" + elem.diffForHumans + " | </span>\n                        <span><i class=\"fas fa-map-marker-alt\"></i>&nbsp;" + elem.location + "</span></center>\n                </div>\n\n                <div>\n                    <hr/>\n                </div>\n\n                <div class=\"activity-information\">\n                    " + (elem.description.length > MAX_ACTIVITY_DESCRIPTION_LENGTH ? elem.description.substr(0, MAX_ACTIVITY_DESCRIPTION_LENGTH) + '...' : elem.description) + "\n                </div>\n\n                <div class=\"activity-footer\">\n                    <div class=\"is-inline-block\"><i class=\"fas fa-users\"></i>&nbsp;" + elem.participants + "</div>\n                    <div class=\"is-inline-block\"><i class=\"far fa-comments\"></i>&nbsp;" + elem.messages + "</div>\n\n                    <div class=\"activity-footer-view is-inline-block\">\n                        <a class=\"button is-success\" onclick=\"location.href = '" + window.location.origin + '/activity/' + elem.id + "';\">View</a>\n                    </div>\n                </div>\n            </div>";
       return html;
     },
     reportComment: function reportComment(id) {

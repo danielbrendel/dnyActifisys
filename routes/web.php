@@ -26,6 +26,7 @@ Route::post('/login', 'MainController@login');
 Route::any('/logout', 'MainController@logout');
 
 Route::post('/activity/create', 'ActivityController@create');
+Route::get('/activity/fetch', 'ActivityController@fetch');
 Route::get('/activity/{id}', 'ActivityController@show');
 Route::get('/activity/{id}/thread', 'ActivityController@fetchThread');
 Route::post('/activity/{id}/thread/add', 'ActivityController@addThread');

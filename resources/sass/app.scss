@@ -393,6 +393,47 @@ a.navbar-item:hover {
     margin-right: 15px;
     color: rgb(150, 0, 0);
 }
+.activity {
+    width: 310px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    display: inline-block;
+    margin: 15px;
+}
+.activity-user {
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+.activity-user-avatar img {
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+}
+.activity-user-name a {
+    color: rgb(150, 150, 150);
+}
+.activity-title {
+    margin-bottom: 15px;
+    color: rgb(67, 65, 144);
+    font-weight: bold;
+    font-size: 1.2em;
+    font-family: 'Nunito', sans-serif;
+}
+.activity-information {
+    min-height: 151px;
+}
+.activity-information {
+    margin-bottom: 15px;
+    color: rgb(150, 150, 150);
+    font-size: 0.9em;
+}
+.activity-footer-view {
+    float: right;
+}
+.activity-filter-city {
+    top: 23px;
+    float: right;
+}
 
 //Thread
 .thread-input-avatar {

@@ -12,6 +12,8 @@
 
 require('./bootstrap');
 
+const MAX_ACTIVITY_DESCRIPTION_LENGTH = 279;
+
 window.vue = new Vue({
     el: '#app',
 
@@ -48,6 +50,22 @@ window.vue = new Vue({
             document.cookie = 'cookieconsent=1; expires=' + expDate.toUTCString() + ';';
 
             document.getElementById('cookie-consent').style.display = 'none';
+        },
+
+        setCityCookieValue: function(city) {
+            let expDate = new Date(Date.now() + 1000 * 60 * 60 * 24 * 365);
+            document.cookie = 'filter_city=' + ((city.length > 0) ? city : '_all') + '; expires=' + expDate.toUTCString() + '; path=/;';
+        },
+
+        getCityCookieValue: function() {
+            let cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                if (cookies[i].indexOf('filter_city') !== -1) {
+                    return cookies[i].substr(cookies[i].indexOf('=') + 1);
+                }
+            }
+
+            return '_all';
         },
 
         ajaxRequest: function (method, url, data = {}, successfunc = function(data){}, finalfunc = function(){}, config = {})
@@ -241,6 +259,43 @@ window.vue = new Vue({
             <div id="sub-thread-` + elem.id + `"></div>
         </div>
     `;
+
+            return html;
+        },
+
+        renderActivity: function(elem) {
+            let html = `<div class="activity is-default-padding">
+                <div class="activity-user">
+                    <center><div class="activity-user-avatar"><img src="` + window.location.origin + '/gfx/avatars/' + elem.user.avatar + `"></div>
+                        <div class="activity-user-name"><a href="` + window.location.origin + '/user/' + elem.user.id + `">` + elem.user.name + `</a></div></center>
+                </div>
+
+                <div class="activity-title">
+                    <center>` + elem.title + `</center>
+                </div>
+
+                <div class="activity-infos">
+                    <center><span title="` + elem.date_of_activity + `"><i class="far fa-clock"></i>&nbsp;` + elem.diffForHumans + ` | </span>
+                        <span><i class="fas fa-map-marker-alt"></i>&nbsp;` + elem.location + `</span></center>
+                </div>
+
+                <div>
+                    <hr/>
+                </div>
+
+                <div class="activity-information">
+                    ` + ((elem.description.length > MAX_ACTIVITY_DESCRIPTION_LENGTH) ? elem.description.substr(0, MAX_ACTIVITY_DESCRIPTION_LENGTH) + '...': elem.description) + `
+                </div>
+
+                <div class="activity-footer">
+                    <div class="is-inline-block"><i class="fas fa-users"></i>&nbsp;` + elem.participants + `</div>
+                    <div class="is-inline-block"><i class="far fa-comments"></i>&nbsp;` + elem.messages + `</div>
+
+                    <div class="activity-footer-view is-inline-block">
+                        <a class="button is-success" onclick="location.href = '` + window.location.origin + '/activity/' + elem.id + `';">View</a>
+                    </div>
+                </div>
+            </div>`;
 
             return html;
         },

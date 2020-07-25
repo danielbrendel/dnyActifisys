@@ -17,6 +17,7 @@ namespace App;
 use DateTime;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * Class ActivityModel
@@ -60,7 +61,7 @@ class ActivityModel extends Model
             $item->title = $attr['title'];
             $item->description = $attr['description'];
             $item->date_of_activity = $attr['date_of_activity'];
-            $item->location = $attr['location'];
+            $item->location = strtolower(trim($attr['location']));
             $item->limit = $attr['limit'];
             $item->save();
 
@@ -84,6 +85,34 @@ class ActivityModel extends Model
         try {
             return ActivityModel::where('id', '=', $id)->where('locked', '=', false)->first();
         } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Fetch activity package
+     *
+     * @param $id
+     * @param null $city
+     * @param null $paginate
+     * @return mixed
+     * @throws Exception
+     */
+    public static function fetchActivities($city = null, $paginate = null)
+    {
+        try {
+            $activities = ActivityModel::where('date_of_activity', '>=', date('Y-m-d H:i:s'))->where('locked', '=', false)->where('canceled', '=', false);
+
+            if ($city !== null) {
+                $activities->where('location', 'like', '%' . strtolower($city) . '%');
+            }
+
+            if ($paginate !== null) {
+                $activities->where('date_of_activity', '>', date('Y-m-d H:i:s', strtotime($paginate)));
+            }
+
+            return $activities->orderBy('date_of_activity', 'asc')->limit(env('APP_ACTIVITYPACKLIMIT'))->get();
+        } catch (\Exception $e) {
             throw $e;
         }
     }

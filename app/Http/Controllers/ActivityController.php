@@ -106,6 +106,38 @@ class ActivityController extends Controller
     }
 
     /**
+     * Fetch activity package
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function fetch()
+    {
+        try {
+            $paginate = request('paginate', null);
+            if ($paginate === 'null') {
+                $paginate = null;
+            }
+
+            $city = request('city', null);
+            if ($city === '_all') {
+                $city = null;
+            }
+
+            $data = ActivityModel::fetchActivities($city, $paginate);
+            foreach ($data as &$item) {
+                $item->user = User::get($item->owner);
+                $item->participants = ParticipantModel::where('activity', '=', $item->id)->where('type', '=', ParticipantModel::PARTICIPANT_ACTUAL)->count();
+                $item->messages = ThreadModel::where('activityId', '=', $item->id)->count();
+                $item->diffForHumans = $item->date_of_activity->diffForHumans();
+            }
+
+            return response()->json(array('code' => 200, 'data' => $data, 'last' => count($data) === 0));
+        } catch (Exception $e) {
+            return response()->json(array('code' => 500, 'msg' => $e->getMessage()));
+        }
+    }
+
+    /**
      * Fetch thread comment pack
      *
      * @param $id
