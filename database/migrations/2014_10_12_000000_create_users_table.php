@@ -38,6 +38,10 @@ class CreateUsersTable extends Migration
             $table->dateTime('birthday');
             $table->integer('gender'); //1 = male, 2 = female, 3 = diverse
             $table->string('bio', 1024)->default('');
+            $table->string('location')->default('');
+            $table->boolean('admin')->default(false);
+            $table->boolean('maintainer')->default(false);
+            $table->boolean('email_on_message')->default(true);
             $table->rememberToken();
             $table->timestamps();
         });

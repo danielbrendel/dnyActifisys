@@ -16,6 +16,7 @@ namespace App\Http\Controllers;
 
 use App\ActivityModel;
 use App\CaptchaModel;
+use App\IgnoreModel;
 use App\ParticipantModel;
 use App\ReportModel;
 use App\ThreadModel;
@@ -26,18 +27,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ActivityController extends Controller
 {
-    /**
-     * Validate authentication
-     *
-     * @throws Exception
-     */
-    private function validateAuth()
-    {
-        if (Auth::guest()) {
-            throw new Exception(__('app.not_logged_in'), 403);
-        }
-    }
-
     /**
      * Create an activity
      *
@@ -79,10 +68,15 @@ class ActivityController extends Controller
         try {
             $activity = ActivityModel::getActivity($id);
             if (!$activity) {
-                throw new Exception('app.activity_not_found_or_locked');
+                throw new Exception(__('app.activity_not_found_or_locked'));
             }
 
             $activity->user = User::get($activity->owner);
+
+            if (IgnoreModel::hasIgnored($activity->owner, auth()->id())) {
+                throw new Exception(__('app.activity_not_found_or_locked'));
+            }
+
             $activity->actualParticipants = ParticipantModel::getActualParticipants($activity->id);
             $activity->potentialParticipants = ParticipantModel::getPotentialParticipants($activity->id);
             $activity->selfParticipated = ParticipantModel::has(auth()->id(), $activity->id, ParticipantModel::PARTICIPANT_ACTUAL);
@@ -148,6 +142,11 @@ class ActivityController extends Controller
         try {
             $paginate = request('paginate', null);
 
+            $activity = ActivityModel::getActivity($id);
+            if (IgnoreModel::hasIgnored($activity->owner, auth()->id())) {
+                throw new Exception(__('app.activity_not_found_or_locked'));
+            }
+
             $threads = ThreadModel::getFromActivity($id, $paginate);
             foreach ($threads as &$thread) {
                 $thread->user = User::get($thread->userId);
@@ -202,7 +201,12 @@ class ActivityController extends Controller
             ]);
 
             $activity = ActivityModel::getActivity($id);
+
             if (!$activity) {
+                throw new Exception(__('app.activity_not_found_or_locked'));
+            }
+
+            if (IgnoreModel::hasIgnored($activity->owner, auth()->id())) {
                 throw new Exception(__('app.activity_not_found_or_locked'));
             }
 
@@ -233,7 +237,12 @@ class ActivityController extends Controller
             }
 
             $activity = ActivityModel::getActivity($parentPost->activityId);
+
             if (!$activity) {
+                throw new Exception(__('app.activity_not_found_or_locked'));
+            }
+
+            if (IgnoreModel::hasIgnored($activity->owner, auth()->id())) {
                 throw new Exception(__('app.activity_not_found_or_locked'));
             }
 
@@ -257,7 +266,12 @@ class ActivityController extends Controller
             $this->validateAuth();
 
             $activity = ActivityModel::getActivity($activityId);
+
             if (!$activity) {
+                throw new Exception(__('app.activity_not_found_or_locked'));
+            }
+
+            if (IgnoreModel::hasIgnored($activity->owner, auth()->id())) {
                 throw new Exception(__('app.activity_not_found_or_locked'));
             }
 
@@ -305,7 +319,12 @@ class ActivityController extends Controller
             $this->validateAuth();
 
             $activity = ActivityModel::getActivity($activityId);
+
             if (!$activity) {
+                throw new Exception(__('app.activity_not_found_or_locked'));
+            }
+
+            if (IgnoreModel::hasIgnored($activity->owner, auth()->id())) {
                 throw new Exception(__('app.activity_not_found_or_locked'));
             }
 

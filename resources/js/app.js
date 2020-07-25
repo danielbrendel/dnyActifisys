@@ -266,11 +266,11 @@ window.vue = new Vue({
         renderActivity: function(elem) {
             let html = `<div class="activity is-default-padding">
                 <div class="activity-user">
-                    <center><div class="activity-user-avatar"><img src="` + window.location.origin + '/gfx/avatars/' + elem.user.avatar + `"></div>
+                    <center><div class="activity-user-avatar"><img src="` + window.location.origin + '/gfx/avatars/' + elem.user.avatar + `" class="is-pointer" onclick="location.href = '` + window.location.origin + '/user/' + elem.user.id + `';"></div>
                         <div class="activity-user-name"><a href="` + window.location.origin + '/user/' + elem.user.id + `">` + elem.user.name + `</a></div></center>
                 </div>
 
-                <div class="activity-title">
+                <div class="activity-title is-pointer" onclick="location.href = '` + window.location.origin + '/activity/' + elem.id + `';">
                     <center>` + elem.title + `</center>
                 </div>
 
@@ -288,14 +288,40 @@ window.vue = new Vue({
                 </div>
 
                 <div class="activity-footer">
-                    <div class="is-inline-block"><i class="fas fa-users"></i>&nbsp;` + elem.participants + `</div>
-                    <div class="is-inline-block"><i class="far fa-comments"></i>&nbsp;` + elem.messages + `</div>
+                    <div class="activity-footer-stats">
+                        <div class="is-inline-block"><i class="fas fa-users"></i>&nbsp;` + elem.participants + `</div>
+                        <div class="is-inline-block"><i class="far fa-comments"></i>&nbsp;` + elem.messages + `</div>
+                    </div>
 
                     <div class="activity-footer-view is-inline-block">
                         <a class="button is-success" onclick="location.href = '` + window.location.origin + '/activity/' + elem.id + `';">View</a>
                     </div>
                 </div>
             </div>`;
+
+            return html;
+        },
+
+        renderMessageListItem: function(item) {
+            let html = `
+            <div class="messages-item ` + ((!item.seen) ? 'is-new-message' : '') + `">
+                <div class="messages-item-avatar">
+                    <img src="` + window.location.origin + `/gfx/avatars/` + item.user.avatar + `">
+                </div>
+
+                <div class="messages-item-name">
+                    <a href="` + window.location.origin + `/u/` + item.user.username + `">` + item.user.username + `</a>
+                </div>
+
+                <div class="messages-item-subject">
+                    <a href="` + window.location.origin + `/messages/show/` + item.id + `">` + item.subject + `</a>
+                </div>
+
+                <div class="messages-item-date" title="` + item.created_at + `">
+                    ` + item.diffForHumans + `
+                </div>
+            </div>
+            `;
 
             return html;
         },

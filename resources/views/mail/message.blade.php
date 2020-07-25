@@ -1,5 +1,5 @@
 {{--
-    Danigram (dnyDanigram) developed by Daniel Brendel
+    ComAct (dnyComAct) developed by Daniel Brendel
 
     (C) 2019 - 2020 by Daniel Brendel
 
@@ -10,7 +10,7 @@
     Released under the MIT license
 --}}
 
-@extends('layouts.layout_mail')
+@extends('layouts.layout_email')
 
 @section('title')
     {{ __('app.mail_message_received_title') }}

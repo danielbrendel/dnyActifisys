@@ -434,6 +434,9 @@ a.navbar-item:hover {
     top: 23px;
     float: right;
 }
+.activity-footer-stats {
+    top: 29px;
+}
 
 //Thread
 .thread-input-avatar {
@@ -504,6 +507,108 @@ a.navbar-item:hover {
 }
 .is-sub-comment {
     margin-left: 50px;
+}
+
+//Profile
+.is-profile-info-item {
+    margin-bottom: 15px;
+}
+.member-actions {
+    background-color: rgb(32, 156, 238);
+    color: rgb(255, 255, 255);
+}
+
+//Messages
+.messages {
+    padding: 21px;
+    background-color: rgb(230, 230, 230);
+}
+.messages-item {
+    position: relative;
+    width: 100%;
+    height: auto;
+    background-color: rgb(255, 255, 255);
+    padding: 21px;
+    border-radius: 4px;
+}
+.messages-item:hover {
+    background-color: rgb(220, 220, 220);
+}
+.messages-item-avatar {
+    display: inline-block;
+}
+.messages-item-avatar img {
+    width: 24px;
+    height: 24px;
+}
+.messages-item-name {
+    display: inline-block;
+    margin-right: 15px;
+}
+.messages-item-name a {
+    color: rgb(150, 150, 150);
+}
+.messages-item-subject {
+    display: inline-block;
+}
+.messages-item-subject a {
+    color: rgb(50, 50, 50);
+}
+.messages-item-date {
+    display: inline-block;
+    color: rgb(150, 150, 150);
+    float: right;
+}
+.is-new-message {
+    background-color: rgb(128, 255, 128);
+}
+.is-new-message:hover {
+    background-color: rgb(128, 200, 128);
+}
+.messages-footer {
+    margin-top: 8px;
+}
+.messages-footer-count {
+    color: rgb(150, 150, 150);
+    display: inline-block;
+}
+.messages-footer-nav {
+    display: inline-block;
+    float: right;
+}
+.messages-footer-nav span {
+    margin-left: 15px;
+}
+.message-thread {
+    background-color: rgb(240, 240, 240);
+    padding: 21px;
+    margin-bottom: 25px;
+}
+.message-thread-header {
+    margin-bottom: 25px;
+    display: inline-block;
+}
+.message-thread-header-avatar {
+    display: inline-block;
+}
+.message-thread-header-avatar img {
+    width: 24px;
+    height: 24px;
+}
+.message-thread-header-userinfo {
+    color: rgb(200, 200, 200);
+    display: inline-block;
+    font-size: 0.8em;
+    top: 9px;
+}
+.message-thread-header-subject {
+    color: rgb(50, 50, 50);
+    display: inline-block;
+    margin-left: 25px;
+}
+.message-thread-text {
+    color: rgb(150, 150, 150);
+    margin-left: 25px;
 }
 
 //Misc

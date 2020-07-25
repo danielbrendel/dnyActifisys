@@ -42,3 +42,17 @@ Route::any('/activity/{activityId}/report', 'ActivityController@reportActivity')
 Route::any('/comment/{id}/lock', 'ActivityController@lockComment');
 Route::any('/comment/{id}/report', 'ActivityController@reportComment');
 Route::post('/comment/{id}/edit', 'ActivityController@editComment');
+
+Route::get('/user/{id}', 'MemberController@show');
+
+Route::get('/notifications/list', 'NotificationController@list');
+Route::get('/notifications/fetch', 'NotificationController@fetch');
+
+Route::get('/messages', 'MessageController@list');
+Route::get('/messages/list', 'MessageController@fetchList');
+Route::get('/messages/show/{id}', 'MessageController@show');
+Route::get('/messages/create', 'MessageController@create');
+Route::post('/messages/send', 'MessageController@send');
+
+Route::get('/install', 'InstallerController@viewInstall');
+Route::post('/install', 'InstallerController@install');
