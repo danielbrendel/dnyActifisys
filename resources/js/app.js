@@ -359,7 +359,42 @@ window.vue = new Vue({
             return html;
         },
 
+        renderFavorite: function(elem) {
+            let html = `
+                <div class="favorites-item">
+                    <div class="favorite-left">
+                        <div class="favorite-item-avatar favorite-badge">
+                            <img src="` + window.location.origin + '/gfx/avatars/' + elem.avatar + `" alt="avatar"/>
+                            <span class="favnot-badge is-hidden" id="favorite-activity-count-` + elem.entityId + `"></span>
+                        </div>
+
+                        <div class="favorite-item-info">
+                            <div class="is-color-grey-dark"><a href="` + window.location.origin + '/user/' + elem.entityId + `">` + elem.name + `</a></div>
+                            <div title="` + elem.created_at + `" class="is-color-grey-light">Added: ` + elem.diffForHumans + `</div>
+                        </div>
+                    </div>
+
+                    <div class="favorite-right">
+                        <span title="Remove" class="is-pointer" onclick="location.href = '` + window.location.origin + '/user/' + elem.entityId + '/fav/remove' + `';"><i class="fas fa-times"></i></span>
+                    </div>
+                </div>
+            `;
+
+            return html;
+        },
+
         toggleNotifications: function(ident) {
+            let obj = document.getElementById(ident);
+            if (obj) {
+                if (obj.style.display === 'block') {
+                    obj.style.display = 'none';
+                } else {
+                    obj.style.display = 'block';
+                }
+            }
+        },
+
+        toggleFavorites: function(ident) {
             let obj = document.getElementById(ident);
             if (obj) {
                 if (obj.style.display === 'block') {

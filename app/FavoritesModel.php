@@ -155,9 +155,11 @@ class FavoritesModel extends Model
             foreach ($favorites as &$favorite) {
                 if ($favorite->type === 'ENT_USER') {
                     $user = User::get($favorite->entityId);
-                    $favorite->name = $user->username;
+                    $favorite->name = $user->name;
                     $favorite->short_name = AppModel::getShortExpression($favorite->name);
                     $favorite->avatar = $user->avatar;
+                    $favorite->diffForHumans = $favorite->created_at->diffForHumans();
+                    $favorite->activityCount = ActivityModel::where('canceled', '=', false)->where('locked', '=', false)->where('date_of_activity', '>', date('Y-m-d H:i:s'))->count();
                 }
             }
 

@@ -707,6 +707,95 @@ a.navbar-item:hover {
     color: rgb(255, 255, 255);
 }
 
+//Favorites area
+.favorites {
+    position: absolute;
+    top: -203px;
+    @media screen and (min-width: 769px) {
+        right: -2px;
+        width: 550px;
+        height: 90%;
+    }
+    @media screen and (max-width: 768px) {
+        width: 100%;
+        height: 100%;
+    }
+    @media screen and (min-height: 520px) {
+        height: 520px;
+    }
+    z-index: 4;
+    background-color: rgb(255, 255, 255);
+    display: none;
+    border: 1px solid #ccc;
+}
+.favorites-arrow-up {
+    top: -15px;
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 15px solid rgb(255, 255, 255);
+    @media screen and (max-width: 360px) {
+        display: none;
+    }
+}
+.favorites-close-icon {
+    margin-top: 22px;
+    margin-right: 32px;
+}
+.favorites-content {
+    margin: 25px;
+    height: 78%;
+    @media screen and (max-width: 480px) {
+        height: 95%;
+    }
+    overflow-y: auto;
+}
+.favorites-item {
+    padding: 15px;
+    width: 90%;
+}
+.favorite-left {
+    width: 90%;
+}
+.favorite-item-avatar {
+    display: inline-block;
+    margin-right: -6px;
+}
+.favorite-item-avatar img {
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    position: relative;
+    top: -14px;
+}
+.favorite-item-info {
+    display: inline-block;
+}
+.favorite-right {
+    float: right;
+    top: -62px;
+}
+.favorite-badge {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    padding: 15px 26px;
+    position: relative;
+    display: inline-block;
+    border-radius: 2px;
+}
+.favorite-badge:hover {
+}
+.favorite-badge .favnot-badge {
+    position: absolute;
+    right: 20px;
+    top: -5px;
+    padding: 0px 7px;
+    border-radius: 50%;
+    background: rgb(255, 0, 0);
+    color: rgb(255, 255, 255);
+}
+
 //Misc
 .is-pointer {
     cursor: pointer;

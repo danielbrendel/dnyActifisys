@@ -19557,7 +19557,22 @@ window.vue = new Vue({
       var html = "\n                <div class=\"notification-item " + (newItem ? 'is-new-notification' : '') + "\">\n                    <div class=\"notification-icon\">\n                        <div class=\"notification-item-icon\"><i class=\"" + icon + " fa-3x\"></i></div>\n                    </div>\n                    <div class=\"notification-info\">\n                        <div class=\"notification-item-message is-color-grey-dark\">" + elem.longMsg + "</div>\n                        <div class=\"notification-item-message is-color-grey-light\">" + elem.created_at + "</div>\n                    </div>\n                </div>\n            ";
       return html;
     },
+    renderFavorite: function renderFavorite(elem) {
+      var html = "\n                <div class=\"favorites-item\">\n                    <div class=\"favorite-left\">\n                        <div class=\"favorite-item-avatar favorite-badge\">\n                            <img src=\"" + window.location.origin + '/gfx/avatars/' + elem.avatar + "\" alt=\"avatar\"/>\n                            <span class=\"favnot-badge is-hidden\" id=\"favorite-activity-count-" + elem.entityId + "\"></span>\n                        </div>\n\n                        <div class=\"favorite-item-info\">\n                            <div class=\"is-color-grey-dark\"><a href=\"" + window.location.origin + '/user/' + elem.entityId + "\">" + elem.name + "</a></div>\n                            <div title=\"" + elem.created_at + "\" class=\"is-color-grey-light\">Added: " + elem.diffForHumans + "</div>\n                        </div>\n                    </div>\n\n                    <div class=\"favorite-right\">\n                        <span title=\"Remove\" class=\"is-pointer\" onclick=\"location.href = '" + window.location.origin + '/user/' + elem.entityId + '/fav/remove' + "';\"><i class=\"fas fa-times\"></i></span>\n                    </div>\n                </div>\n            ";
+      return html;
+    },
     toggleNotifications: function toggleNotifications(ident) {
+      var obj = document.getElementById(ident);
+
+      if (obj) {
+        if (obj.style.display === 'block') {
+          obj.style.display = 'none';
+        } else {
+          obj.style.display = 'block';
+        }
+      }
+    },
+    toggleFavorites: function toggleFavorites(ident) {
       var obj = document.getElementById(ident);
 
       if (obj) {

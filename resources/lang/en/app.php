@@ -191,5 +191,7 @@ return [
     'message_thread' => 'Conversation with :name',
     'type_something' => 'Type something',
     'text' => 'Text',
-
+    'favorites' => 'Favorites',
+    'no_favorites_yet' => 'Added favorites will be shown here.',
+    'birthday' => 'Birthday'
 ];

@@ -78,6 +78,10 @@
                             {{ __('app.create_activity') }}
                         </a>
 
+                        <a class="navbar-item" href="javascript:void(0);" onclick="window.vue.toggleFavorites('favorites');">
+                            {{ __('app.favorites') }}
+                        </a>
+
                         <a class="navbar-item notification-badge" href="javascript:void(0);" onclick="window.vue.toggleNotifications('notifications'); document.getElementById('navbar-notify-count').classList.add('is-hidden');">
                             <span>{{ __('app.notifications') }}</span>
                             <span class="notify-badge is-hidden" id="navbar-notify-count"></span>
@@ -188,6 +192,17 @@
                     </div>
 
                     <div class="notifications-content" id="notification-content"></div>
+                </div>
+
+                <div class="favorites" id="favorites">
+                    <center><div class="favorites-arrow-up"></div></center>
+
+                    <div>
+                        <div class="is-inline-block"></div>
+                        <div class="is-inline-block float-right favorites-close-icon" onclick="window.vue.toggleFavorites('favorites'); if (window.menuVisible) {document.getElementById('navbarMenu').classList.remove('is-active'); document.getElementById('navbarBurger').classList.remove('is-active'); }"><i class="fas fa-times is-pointer"></i></div>
+                    </div>
+
+                    <div class="favorites-content" id="favorites-content"><i class="fa fa-spinner fa-spin"></i></div>
                 </div>
 
                 <div class="columns">
@@ -501,6 +516,7 @@
             @auth
                 setTimeout('fetchNotifications()', 1000);
                 setTimeout('fetchNotificationList()', 100);
+                setTimeout('fetchFavorites()', 2000);
             @endauth
 
             const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
@@ -590,6 +606,30 @@
                             spinner.remove();
                         }
                     }
+                }
+            });
+        };
+
+        window.fetchFavorites = function() {
+            window.vue.ajaxRequest('get', '{{ url('/favorites/fetch') }}', {}, function(response) {
+                document.getElementById('favorites-content').innerHTML = '';
+                if (response.code === 200) {
+                    if (response.data.length > 0) {
+                        response.data.forEach(function(elem, index) {
+                            let html = window.vue.renderFavorite(elem);
+
+                            document.getElementById('favorites-content').innerHTML += html;
+
+                            if (elem.activityCount > 0) {
+                                document.getElementById('favorite-activity-count-' + elem.entityId).innerHTML = elem.activityCount;
+                                document.getElementById('favorite-activity-count-' + elem.entityId).classList.remove('is-hidden');
+                            }
+                        });
+                    } else {
+                        document.getElementById('favorites-content').innerHTML = '{{ __('app.no_favorites_yet') }}';
+                    }
+                } else {
+                    console.log(response.msg);
                 }
             });
         };

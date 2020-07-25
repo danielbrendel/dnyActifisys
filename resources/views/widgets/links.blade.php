@@ -17,7 +17,7 @@
         <div class="column is-6">
             <center>
                 <div class="linklist">
-                    @if (env('TWITTER_HANDLE', null) !== null)
+                    @if (env('TWITTER_NEWS', null) !== null)
                         <div class="linkitem"><a href="{{ url('/news') }}">{{ __('app.news') }}</a></div>
                     @endif
                     <div class="linkitem"><a href="{{ url('/tos') }}">{{ __('app.tos') }}</a></div>

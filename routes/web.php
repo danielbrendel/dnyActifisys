@@ -46,7 +46,7 @@ Route::get('/activity/user/{id}', 'ActivityController@fetchUserActivities');
 
 Route::get('/user/{id}', 'MemberController@show');
 Route::get('/user/{id}/fav/add', 'FavoritesController@add');
-Route::get('/user/{id}/fav/remove', 'FavoritesController@add');
+Route::get('/user/{id}/fav/remove', 'FavoritesController@remove');
 Route::get('/user/{id}/lock', 'MemberController@lock');
 Route::get('/user/{id}/report', 'MemberController@report');
 Route::get('/user/{id}/ignore/add', 'MemberController@ignoreAdd');
@@ -56,6 +56,7 @@ Route::post('/settings/password', 'MemberController@savePassword');
 Route::post('/settings/email', 'MemberController@saveEMail');
 Route::post('/settings/notifications', 'MemberController@saveNotifications');
 Route::post('/settings/delete', 'MemberController@deleteUser');
+Route::get('/favorites/fetch', 'FavoritesController@fetch');
 
 Route::get('/notifications/list', 'NotificationController@list');
 Route::get('/notifications/fetch', 'NotificationController@fetch');
