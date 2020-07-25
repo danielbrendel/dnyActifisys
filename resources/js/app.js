@@ -25,6 +25,10 @@ window.vue = new Vue({
         bShowReplyThread: false,
         bShowActivityCanceled: false,
         bShowEditComment: false,
+        bShowCreateFaq: false,
+        bShowEditFaq: false,
+        bShowCreateTheme: false,
+        bShowEditTheme: false,
     },
 
     methods: {

@@ -144,6 +144,10 @@
                 </div>
 
                 <div class="field">
+                    <input type="checkbox" name="email_on_comment" data-role="checkbox" value="1" data-caption="{{ __('app.email_on_comment_notice') }}" @if ($self->email_on_comment) {{ 'checked' }} @endif>
+                </div>
+
+                <div class="field">
                     <input type="checkbox" name="email_on_participated" data-role="checkbox" value="1" data-caption="{{ __('app.email_on_participated_notice') }}" @if ($self->email_on_participated) {{ 'checked' }} @endif>
                 </div>
 

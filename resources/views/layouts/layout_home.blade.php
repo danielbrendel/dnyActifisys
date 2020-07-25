@@ -31,10 +31,10 @@
         <title>{{ env('APP_NAME') }} - {{ env('APP_DESCRIPTION') }}</title>
 
         <meta name="author" content="{{ env('APP_AUTHOR') }}">
-        <meta name="description" content="{{ env('APP_METADESC') }}">
-        <meta name="tags" content="{{ env('APP_METATAGS') }}">
+        <meta name="description" content="{{ env('APP_DESCRIPTION') }}">
+        <meta name="tags" content="{{ env('APP_TAGS') }}">
 
-        <link rel="shortcut icon" href="{{ asset('gfx/logo.png') }}">
+        <link rel="shortcut icon" href="{{ asset('favicon.png') }}">
 
         <link rel="stylesheet" type="text/css" href="{{ asset('css/bulma.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('css/metro-all.min.css') }}">
@@ -56,6 +56,10 @@
                     <a class="navbar-item" href="{{ url('/') }}">
                         <strong>{{ env('APP_PROJECTNAME') }}</strong>
                     </a>
+
+                    @if (\App\User::isMaintainer(auth()->id()))
+                        <div class="is-pointer is-fixed-maintainer-icon" onclick="location.href = '{{ url('/maintainer') }}';"><i class="fas fa-cog"></i></div>
+                    @endif
                 </div>
 
                 <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navMainMenu">

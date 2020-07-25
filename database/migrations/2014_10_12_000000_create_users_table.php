@@ -45,6 +45,7 @@ class CreateUsersTable extends Migration
             $table->boolean('email_on_message')->default(true);
             $table->boolean('email_on_fav_created')->default(true);
             $table->boolean('email_on_participated')->default(true);
+            $table->boolean('email_on_comment')->default(true);
             $table->rememberToken();
             $table->timestamps();
         });

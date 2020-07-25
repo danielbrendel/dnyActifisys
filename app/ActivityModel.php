@@ -67,6 +67,17 @@ class ActivityModel extends Model
 
             ParticipantModel::add($owner, $item->id, ParticipantModel::PARTICIPANT_ACTUAL);
 
+            $favs = FavoritesModel::where('entityId', '=', $owner)->where('type', '=', 'ENT_USER')->get();
+            foreach ($favs as $fav) {
+                PushModel::addNotification(__('app.activity_created_short'), __('app.activity_created_long', ['name' => $user->name, 'title' => $attr['title']]), 'PUSH_CREATED', $fav->userId);
+
+                $favUser = User::get($fav->userId);
+                if (($favUser) && ($favUser->email_on_fav_created)) {
+                    $html = view('mail.fav_created', ['name' => $favUser->name, 'creator' => $user->id, 'title' => $attr['title'], 'description' => $attr['description']])->render();
+                    MailerModel::sendMail($user->email, __('app.activity_created'), $html);
+                }
+            }
+
             return $item->id;
         } catch (Exception $e) {
             throw $e;

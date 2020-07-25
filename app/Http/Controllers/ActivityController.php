@@ -17,7 +17,9 @@ namespace App\Http\Controllers;
 use App\ActivityModel;
 use App\CaptchaModel;
 use App\IgnoreModel;
+use App\MailerModel;
 use App\ParticipantModel;
+use App\PushModel;
 use App\ReportModel;
 use App\ThreadModel;
 use App\User;
@@ -234,6 +236,15 @@ class ActivityController extends Controller
 
             ThreadModel::add(auth()->id(), $id, $attr['message']);
 
+            $user = User::get(auth()->id());
+            $owner = User::get($activity->owner);
+            PushModel::addNotification(__('app.user_commented_short'), __('app.user_commented_long', ['name' => $owner->name, 'sender' => $user->name, 'message' => $attr['message']]), 'PUSH_COMMENTED', $activity->owner);
+
+            if (($owner) && ($owner->email_on_comment)) {
+                $html = view('mail.user_commented', ['name' => $owner->name, 'sender' => $user->name, 'message' => $attr['message']])->render();
+                MailerModel::sendMail($user->email, __('app.mail_subject_register'), $html);
+            }
+
             return redirect('/activity/' . $id . '#thread')->with('flash.success', __('app.comment_added'));
         } catch (Exception $e) {
             return back()->with('error', $e->getMessage());
@@ -298,6 +309,15 @@ class ActivityController extends Controller
             }
 
             ParticipantModel::add(auth()->id(), $activityId, ParticipantModel::PARTICIPANT_ACTUAL);
+
+            $user = User::get(auth()->id());
+            PushModel::addNotification(__('app.user_participated_short'), __('app.user_participated_long', ['name' => $user->name]), 'PUSH_PARTICIPATED', $activity->owner);
+
+            $owner = User::get($activity->owner);
+            if (($owner) && ($owner->email_on_participated)) {
+                $htmlCode = view('mail.user_participated', ['name' => $owner->name, 'participant' => $user])->render();
+                MailerModel::sendMail($owner->email, __('app.mail_user_participated'), $htmlCode);
+            }
 
             return back()->with('flash.success', __('app.added_as_participant'));
         } catch (Exception $e) {

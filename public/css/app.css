@@ -866,3 +866,8 @@ a.navbar-item:hover {
   border-radius: 50%;
 }
 
+.is-fixed-maintainer-icon {
+  position: relative;
+  top: 15px;
+}
+

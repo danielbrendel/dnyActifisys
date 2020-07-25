@@ -81,6 +81,22 @@ class User extends Authenticatable
     }
 
     /**
+     * Return maintainer flag value
+     * @param $id
+     * @return bool
+     */
+    public static function isMaintainer($id)
+    {
+        $user = static::get($id);
+
+        if (($user) && ($user->maintainer)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Get user object by email
      *
      * @param string $email The E-Mail address
@@ -325,6 +341,7 @@ class User extends Authenticatable
             $user->email_on_message = $attr['email_on_message'];
             $user->email_on_participated = $attr['email_on_participated'];
             $user->email_on_fav_created = $attr['email_on_fav_created'];
+            $user->email_on_commented = $attr['email_on_commented'];
             $user->save();
         } catch (Exception $e) {
             throw $e;
@@ -350,6 +367,25 @@ class User extends Authenticatable
             $user->password = '';
             $user->deactivated = true;
             $user->save();
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Send newsletter
+     *
+     * @param $subject
+     * @param $content
+     * @throws Exception
+     */
+    public static function sendNewsletter($subject, $content)
+    {
+        try {
+            $users = User::where('deactivated', '=', false)->where('newsletter', '=', true)->get();
+            foreach ($users as $user) {
+                MailerModel::sendMail($user->email, $subject, $content);
+            }
         } catch (Exception $e) {
             throw $e;
         }

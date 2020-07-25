@@ -460,7 +460,7 @@ class AppModel extends Model
     public static function saveFormattedProjectName($code)
     {
         try {
-            DB::update('UPDATE app_settings SET formatted_project_name = ? WHERE id = 1', array($code));
+            DB::update('UPDATE app_settings SET project_name_formatted = ? WHERE id = 1', array($code));
         } catch (\Exception $e) {
             throw $e;
         }

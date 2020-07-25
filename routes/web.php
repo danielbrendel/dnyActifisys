@@ -66,5 +66,26 @@ Route::get('/messages/show/{id}', 'MessageController@show');
 Route::get('/messages/create', 'MessageController@create');
 Route::post('/messages/send', 'MessageController@send');
 
+Route::get('/maintainer', 'MaintainerController@index');
+Route::post('/maintainer/save', 'MaintainerController@save');
+Route::post('/maintainer/faq/create', 'MaintainerController@addFaq');
+Route::post('/maintainer/faq/edit', 'MaintainerController@editFaq');
+Route::get('/maintainer/faq/{id}/remove', 'MaintainerController@removeFaq');
+Route::post('/maintainer/env/save', 'MaintainerController@envSave');
+Route::get('/maintainer/u/details', 'MaintainerController@userDetails');
+Route::post('/maintainer/u/save', 'MaintainerController@userSave');
+Route::post('/maintainer/newsletter', 'MaintainerController@newsletter');
+Route::post('/maintainer/themes/add', 'MaintainerController@addTheme');
+Route::post('/maintainer/themes/edit', 'MaintainerController@editTheme');
+Route::get('/maintainer/themes/delete', 'MaintainerController@deleteTheme');
+Route::get('/maintainer/themes/setdefault', 'MaintainerController@setDefaultTheme');
+Route::post('/maintainer/favicon/save', 'MaintainerController@saveFavicon');
+Route::post('/maintainer/banner/save', 'MaintainerController@saveBanner');
+Route::get('/maintainer/entity/lock', 'MaintainerController@lockEntity');
+Route::get('/maintainer/entity/delete', 'MaintainerController@deleteEntity');
+Route::get('/maintainer/entity/safe', 'MaintainerController@setSafeEntity');
+Route::post('/maintainer/welcomecontent', 'MaintainerController@welcomeContent');
+Route::post('/maintainer/formattedprojectname', 'MaintainerController@saveFormattedProjectName');
+
 Route::get('/install', 'InstallerController@viewInstall');
 Route::post('/install', 'InstallerController@install');

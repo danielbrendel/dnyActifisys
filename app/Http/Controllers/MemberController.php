@@ -301,6 +301,7 @@ class MemberController extends Controller
                 'email_on_message' => 'nullable|numeric',
                 'email_on_participated' => 'nullable|numeric',
                 'email_on_fav_created' => 'nullable|numeric',
+                'email_on_comment' => 'nullable|numeric'
             ]);
 
             if (!isset($attr['newsletter'])) {
@@ -317,6 +318,10 @@ class MemberController extends Controller
 
             if (!isset($attr['email_on_fav_created'])) {
                 $attr['email_on_fav_created'] = 0;
+            }
+
+            if (!isset($attr['email_on_comment'])) {
+                $attr['email_on_comment'] = 0;
             }
 
             User::saveNotifications($attr);
