@@ -51,6 +51,11 @@ Route::get('/user/{id}/lock', 'MemberController@lock');
 Route::get('/user/{id}/report', 'MemberController@report');
 Route::get('/user/{id}/ignore/add', 'MemberController@ignoreAdd');
 Route::get('/user/{id}/ignore/remove', 'MemberController@ignoreRemove');
+Route::get('/settings', 'MemberController@viewSettings');
+Route::post('/settings/password', 'MemberController@savePassword');
+Route::post('/settings/email', 'MemberController@saveEMail');
+Route::post('/settings/notifications', 'MemberController@saveNotifications');
+Route::post('/settings/delete', 'MemberController@deleteUser');
 
 Route::get('/notifications/list', 'NotificationController@list');
 Route::get('/notifications/fetch', 'NotificationController@fetch');

@@ -220,4 +220,138 @@ class User extends Authenticatable
             throw $e;
         }
     }
+
+    /**
+     * Save user settings
+     *
+     * @param $attr
+     * @param null $id
+     * @throws Exception
+     */
+    public static function saveSettings($attr, $id = null)
+    {
+        try {
+            if ($id === null) {
+                $id = auth()->id();
+            }
+
+            $user = User::get($id);
+            $user->name = $attr['name'];
+            $user->birthday = $attr['birthday'];
+            $user->gender = $attr['gender'];
+            if (($user->gender < 0) || ($user->gender > 3)) {
+                $user->gender = 0;
+            }
+            $user->location = $attr['location'];
+            $user->bio = $attr['bio'];
+            $user->save();
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Save password
+     *
+     * @param $attr
+     * @param null $id
+     * @throws \Throwable
+     */
+    public static function savePassword($attr, $id = null)
+    {
+        try {
+            if ($id === null) {
+                $id = auth()->id();
+            }
+
+            if ($attr['password'] !== $attr['password_confirmation']) {
+                throw new Exception(__('app.password_mismatch'));
+            }
+
+            $user = User::get($id);
+            $user->password = password_hash($attr['password'], PASSWORD_BCRYPT);
+            $user->save();
+
+            $html = view('mail.pw_changed', ['name' => $user->name])->render();
+            MailerModel::sendMail($user->email, __('app.password_changed'), $html);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Save E-Mail
+     *
+     * @param $attr
+     * @param null $id
+     * @throws \Throwable
+     */
+    public static function saveEMail($attr, $id = null)
+    {
+        try {
+            if ($id === null) {
+                $id = auth()->id();
+            }
+
+            $user = User::get($id);
+            $oldMail = $user->email;
+            $user->email = $attr['email'];
+            $user->save();
+
+            $html = view('mail.email_changed', ['name' => $user->name, 'email' => $attr['email']])->render();
+            MailerModel::sendMail($user->email, __('app.email_changed'), $html);
+            MailerModel::sendMail($oldMail, __('app.email_changed'), $html);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Save notification flags
+     *
+     * @param $attr
+     * @param null $id
+     * @throws Exception
+     */
+    public static function saveNotifications($attr, $id = null)
+    {
+        try {
+            if ($id === null) {
+                $id = auth()->id();
+            }
+
+            $user = User::get($id);
+            $user->newsletter = $attr['newsletter'];
+            $user->email_on_message = $attr['email_on_message'];
+            $user->email_on_participated = $attr['email_on_participated'];
+            $user->email_on_fav_created = $attr['email_on_fav_created'];
+            $user->save();
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Delete a user
+     *
+     * @param null $id
+     * @throws Exception
+     */
+    public static function deleteUser($id = null)
+    {
+        try {
+            if ($id === null) {
+                $id = auth()->id();
+            }
+
+            $user = User::get($id);
+            $user->name = 'deleted ' . md5(random_bytes(55));
+            $user->email = md5(random_bytes(55));
+            $user->password = '';
+            $user->deactivated = true;
+            $user->save();
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
 }

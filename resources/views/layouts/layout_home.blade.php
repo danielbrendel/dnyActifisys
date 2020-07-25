@@ -70,7 +70,7 @@
 
                 <div class="navbar-end">
                     @auth
-                        <a class="button navbar-item is-outlined is-success navbar-fixed-button-top" href="javascript:void(0);" onclick="window.vue.bShowCreateActivity = true; document.getElementById('btnCreateActivity').disabled = true;">
+                        <a class="button navbar-item is-success navbar-fixed-button-top is-uppercase" href="javascript:void(0);" onclick="window.vue.bShowCreateActivity = true; document.getElementById('btnCreateActivity').disabled = true;">
                             {{ __('app.create_activity') }}
                         </a>
 
@@ -176,6 +176,8 @@
 
             <div class="container">
                 <div class="notifications" id="notifications">
+                    <center><div class="notifications-arrow-up"></div></center>
+
                     <div>
                         <div class="is-inline-block"></div>
                         <div class="is-inline-block float-right notification-close-icon" onclick="window.vue.toggleNotifications('notifications'); if (window.menuVisible) {document.getElementById('navbarMenu').classList.remove('is-active'); document.getElementById('navbarBurger').classList.remove('is-active'); }"><i class="fas fa-times is-pointer"></i></div>
@@ -305,7 +307,7 @@
                         </section>
                         <footer class="modal-card-foot is-stretched">
                         <span>
-                            <button class="button is-success" onclick="document.getElementById('loginform').submit();">{{ __('app.login') }}</button>
+                            <button class="button is-success" onclick="document.getElementById('loginform').submit();">{{ __('app.login') }}</button>&nbsp;&nbsp;
                         </span>
                         <span class="is-right">
                             <div class="recover-pw">

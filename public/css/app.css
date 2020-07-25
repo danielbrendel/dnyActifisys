@@ -716,15 +716,16 @@ a.navbar-item:hover {
 
 .notifications {
   position: absolute;
-  top: -218px;
+  top: -203px;
   z-index: 4;
-  background-color: #f0f0e6;
+  background-color: white;
   display: none;
+  border: 1px solid #ccc;
 }
 
 @media screen and (min-width: 769px) {
   .notifications {
-    right: -151px;
+    right: -111px;
     width: 550px;
     height: 90%;
   }
@@ -740,6 +741,21 @@ a.navbar-item:hover {
 @media screen and (min-height: 520px) {
   .notifications {
     height: 520px;
+  }
+}
+
+.notifications-arrow-up {
+  top: -15px;
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 15px solid white;
+}
+
+@media screen and (max-width: 360px) {
+  .notifications-arrow-up {
+    display: none;
   }
 }
 
@@ -766,6 +782,7 @@ a.navbar-item:hover {
   height: auto;
   background-color: white;
   padding: 21px;
+  border: 1px solid #ccc;
   border-radius: 4px;
 }
 
@@ -777,8 +794,13 @@ a.navbar-item:hover {
   display: inline-block;
 }
 
-.notification-item-message {
+.notification-icon {
   display: inline-block;
+}
+
+.notification-info {
+  display: inline-block;
+  margin-left: 15px;
 }
 
 .is-new-notification {
@@ -828,7 +850,19 @@ a.navbar-item:hover {
   color: #649696;
 }
 
+.is-color-grey-light {
+  color: #969696;
+}
+
+.is-color-grey-dark {
+  color: #5a5a5a;
+}
+
 .is-underlined {
   border-bottom: 1px solid #ccc;
+}
+
+.is-rounded-image {
+  border-radius: 50%;
 }
 

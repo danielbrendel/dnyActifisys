@@ -15,11 +15,13 @@
 namespace App\Http\Controllers;
 
 use App\ActivityModel;
+use App\AppModel;
 use App\CaptchaModel;
 use App\FavoritesModel;
 use App\IgnoreModel;
 use App\ReportModel;
 use App\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -166,6 +168,186 @@ class MemberController extends Controller
             return back()->with('flash.success', __('app.user_not_ignored'));
         } catch (\Exception $e) {
             return back()->with('flash.error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Show settings
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function viewSettings()
+    {
+        try {
+            $this->validateAuth();
+
+            return view('member.settings', [
+                'captchadata' => CaptchaModel::createSum(session()->getId()),
+                'self' => User::get(auth()->id())
+            ]);
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Save settings
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function saveSettings()
+    {
+        try {
+            $attr = request()->validate([
+                'name' => 'required',
+                'birthday' => 'required|date',
+                'gender' => 'required|numeric',
+                'location' => 'required',
+                'bio' => 'required'
+            ]);
+
+            User::saveSettings($attr);
+
+            $av = request()->file('avatar');
+            if ($av != null) {
+                $tmpName = md5(random_bytes(55));
+
+                $av->move(base_path() . '/public/gfx/avatars', $tmpName . '.' . $av->getClientOriginalExtension());
+
+                list($width, $height) = getimagesize(base_path() . '/public/gfx/avatars/' . $tmpName . '.' . $av->getClientOriginalExtension());
+
+                $avimg = imagecreatetruecolor(64, 64);
+                if (!$avimg)
+                    throw new \Exception('imagecreatetruecolor() failed');
+
+                $srcimage = null;
+                $newname =  md5_file(base_path() . '/public/gfx/avatars/' . $tmpName . '.' . $av->getClientOriginalExtension()) . '.' . $av->getClientOriginalExtension();
+                switch (AppModel::getImageType(base_path() . '/public/gfx/avatars/' . $tmpName . '.' . $av->getClientOriginalExtension())) {
+                    case IMAGETYPE_PNG:
+                        $srcimage = imagecreatefrompng(base_path() . '/public/gfx/avatars/' . $tmpName . '.' . $av->getClientOriginalExtension());
+                        imagecopyresampled($avimg, $srcimage, 0, 0, 0, 0, 64, 64, $width, $height);
+                        imagepng($avimg, base_path() . '/public/gfx/avatars/' . $newname);
+                        break;
+                    case IMAGETYPE_JPEG:
+                        $srcimage = imagecreatefromjpeg(base_path() . '/public/gfx/avatars/' . $tmpName . '.' . $av->getClientOriginalExtension());
+                        imagecopyresampled($avimg, $srcimage, 0, 0, 0, 0, 64, 64, $width, $height);
+                        imagejpeg($avimg, base_path() . '/public/gfx/avatars/' . $newname);
+                        break;
+                    default:
+                        return back()->with('error', __('app.settings_avatar_invalid_image_type'));
+                        break;
+                }
+
+                unlink(base_path() . '/public/gfx/avatars/' . $tmpName . '.' . $av->getClientOriginalExtension());
+
+                $user = User::get(auth()->id());
+                $user->avatar = $newname;
+                $user->save();
+            }
+
+            return back()->with('flash.success', __('app.settings_saved'));
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Save password
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function savePassword()
+    {
+        try {
+            $attr = request()->validate([
+                'password' => 'required',
+                'password_confirmation' => 'required'
+            ]);
+
+            User::savePassword($attr);
+
+            return back()->with('flash.success', __('app.password_saved'));
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    public function saveEMail()
+    {
+        try {
+            $attr = request()->validate([
+                'email' => 'required|email'
+            ]);
+
+            User::saveEMail($attr);
+
+            return back()->with('flash.success', __('app.email_saved'));
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Save notification flags
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Throwable
+     */
+    public function saveNotifications()
+    {
+        try {
+            $attr = request()->validate([
+                'newsletter' => 'nullable|numeric',
+                'email_on_message' => 'nullable|numeric',
+                'email_on_participated' => 'nullable|numeric',
+                'email_on_fav_created' => 'nullable|numeric',
+            ]);
+
+            if (!isset($attr['newsletter'])) {
+                $attr['newsletter'] = 0;
+            }
+
+            if (!isset($attr['email_on_message'])) {
+                $attr['email_on_message'] = 0;
+            }
+
+            if (!isset($attr['email_on_participated'])) {
+                $attr['email_on_participated'] = 0;
+            }
+
+            if (!isset($attr['email_on_fav_created'])) {
+                $attr['email_on_fav_created'] = 0;
+            }
+
+            User::saveNotifications($attr);
+
+            return back()->with('flash.success', __('app.notifications_saved'));
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Delete user
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function deleteAccount()
+    {
+        try {
+            $attr = request()->validate([
+                'captcha' => 'required|numeric',
+            ]);
+
+            if ($attr['captcha'] !== CaptchaModel::querySum(session()->getId())) {
+                throw new Exception(__('app.invalid_captcha'));
+            }
+
+            User::deleteUser();
+
+            return redirect('/logout')->with('flash.success', __('app.account_deleted'));
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
         }
     }
 }

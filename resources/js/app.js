@@ -342,8 +342,13 @@ window.vue = new Vue({
 
             let html = `
                 <div class="notification-item ` + ((newItem) ? 'is-new-notification' : '') + `">
-                    <div class="notification-item-icon"><i class="` + icon + `"></i></div>
-                    <div class="notification-item-message">` + elem.longMsg + `</div>
+                    <div class="notification-icon">
+                        <div class="notification-item-icon"><i class="` + icon + ` fa-3x"></i></div>
+                    </div>
+                    <div class="notification-info">
+                        <div class="notification-item-message is-color-grey-dark">` + elem.longMsg + `</div>
+                        <div class="notification-item-message is-color-grey-light">` + elem.created_at + `</div>
+                    </div>
                 </div>
             `;
 
@@ -443,6 +448,20 @@ window.vue = new Vue({
             if (confirm('Do you really want to lock the activity?')) {
                 location.href = window.location.origin + '/activity/' + id + '/lock';
             }
+        },
+
+        showTabMenu: function(target) {
+            let tabItems = ['tabProfile', 'tabSecurity', 'tabNotifications', 'tabMembership'];
+
+            tabItems.forEach(function(elem, index) {
+               if (elem !== target) {
+                   document.getElementById(elem).classList.remove('is-active');
+                   document.getElementById(elem + '-form').classList.add('is-hidden');
+               }
+
+               document.getElementById(target).classList.add('is-active');
+               document.getElementById(target + '-form').classList.remove('is-hidden');
+            });
         },
     }
 });

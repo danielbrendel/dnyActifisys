@@ -617,9 +617,9 @@ a.navbar-item:hover {
 //Notification area
 .notifications {
     position: absolute;
-    top: -218px;
+    top: -203px;
     @media screen and (min-width: 769px) {
-        right: -151px;
+        right: -111px;
         width: 550px;
         height: 90%;
     }
@@ -631,8 +631,20 @@ a.navbar-item:hover {
         height: 520px;
     }
     z-index: 4;
-    background-color: rgb(240, 240, 230);
+    background-color: rgb(255, 255, 255);
     display: none;
+    border: 1px solid #ccc;
+}
+.notifications-arrow-up {
+    top: -15px;
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 15px solid rgb(255, 255, 255);
+    @media screen and (max-width: 360px) {
+        display: none;
+    }
 }
 .notification-close-icon {
     margin-top: 22px;
@@ -652,6 +664,7 @@ a.navbar-item:hover {
     height: auto;
     background-color: rgb(255, 255, 255);
     padding: 21px;
+    border: 1px solid #ccc;
     border-radius: 4px;
 }
 .notification-item:hover {
@@ -660,8 +673,12 @@ a.navbar-item:hover {
 .notification-item-icon {
     display: inline-block;
 }
-.notification-item-message {
+.notification-icon {
     display: inline-block;
+}
+.notification-info {
+    display: inline-block;
+    margin-left: 15px;
 }
 .is-new-notification {
     background-color: rgb(128, 255, 128);
@@ -677,11 +694,9 @@ a.navbar-item:hover {
     display: inline-block;
     border-radius: 2px;
 }
-
 .notification-badge:hover {
     background: rgb(255, 0, 0);
 }
-
 .notification-badge .notify-badge {
     position: absolute;
     right: -5px;
@@ -705,6 +720,15 @@ a.navbar-item:hover {
 .is-color-lightblue {
     color: rgb(100, 150, 150);
 }
+.is-color-grey-light {
+    color: rgb(150, 150, 150);
+}
+.is-color-grey-dark {
+    color: rgb(90, 90, 90);
+}
 .is-underlined {
     border-bottom: 1px solid #ccc;
+}
+.is-rounded-image {
+    border-radius: 50%;
 }

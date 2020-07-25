@@ -19550,7 +19550,7 @@ window.vue = new Vue({
         icon = 'far fa-star';
       }
 
-      var html = "\n                <div class=\"notification-item " + (newItem ? 'is-new-notification' : '') + "\">\n                    <div class=\"notification-item-icon\"><i class=\"" + icon + "\"></i></div>\n                    <div class=\"notification-item-message\">" + elem.longMsg + "</div>\n                </div>\n            ";
+      var html = "\n                <div class=\"notification-item " + (newItem ? 'is-new-notification' : '') + "\">\n                    <div class=\"notification-icon\">\n                        <div class=\"notification-item-icon\"><i class=\"" + icon + " fa-3x\"></i></div>\n                    </div>\n                    <div class=\"notification-info\">\n                        <div class=\"notification-item-message is-color-grey-dark\">" + elem.longMsg + "</div>\n                        <div class=\"notification-item-message is-color-grey-light\">" + elem.created_at + "</div>\n                    </div>\n                </div>\n            ";
       return html;
     },
     toggleNotifications: function toggleNotifications(ident) {
@@ -19638,6 +19638,18 @@ window.vue = new Vue({
       if (confirm('Do you really want to lock the activity?')) {
         location.href = window.location.origin + '/activity/' + id + '/lock';
       }
+    },
+    showTabMenu: function showTabMenu(target) {
+      var tabItems = ['tabProfile', 'tabSecurity', 'tabNotifications', 'tabMembership'];
+      tabItems.forEach(function (elem, index) {
+        if (elem !== target) {
+          document.getElementById(elem).classList.remove('is-active');
+          document.getElementById(elem + '-form').classList.add('is-hidden');
+        }
+
+        document.getElementById(target).classList.add('is-active');
+        document.getElementById(target + '-form').classList.remove('is-hidden');
+      });
     }
   }
 });

@@ -36,7 +36,7 @@ return [
     'howto_step3' => 'Meet the people',
     'messages' => 'Messages',
     'notifications' => 'Notifications',
-    'create_activity' => 'CREATE ACTIVITY',
+    'create_activity' => 'Create activity',
     'logout' => 'Logout',
     'settings' => 'Settings',
     'cookie_consent_close' => 'Close',
