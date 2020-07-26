@@ -30,6 +30,8 @@ window.vue = new Vue({
         bShowCreateTheme: false,
         bShowEditTheme: false,
         bShowEditActivity: false,
+        bShowCancelActivity: false,
+        bShowActivityExpired: false
     },
 
     methods: {
@@ -343,6 +345,10 @@ window.vue = new Vue({
                 icon = 'far fa-comments';
             } else if (elem.type === 'PUSH_FAVORITED') {
                 icon = 'far fa-star';
+            } else if (elem.type === 'PUSH_CREATED') {
+                icon = 'far fa-plus-square';
+            } else if (elem.type === 'PUSH_CANCELED') {
+                icon = 'fas fa-times-circle';
             }
 
             let html = `
@@ -476,12 +482,6 @@ window.vue = new Vue({
                     location.href = window.location.origin + '/activity/' + response.comment.activityId + '#thread';
                 }
             });
-        },
-
-        cancelActivity: function(id) {
-            if (confirm('Do you really want to cancel the activity?')) {
-                location.href = window.location.origin + '/activity/' + id + '/cancel';
-            }
         },
 
         lockActivity: function(id) {

@@ -38,7 +38,7 @@ Route::get('/activity/{activityId}/participant/add', 'ActivityController@partici
 Route::get('/activity/{activityId}/participant/remove', 'ActivityController@participantRemove');
 Route::get('/activity/{activityId}/interested/add', 'ActivityController@potentialAdd');
 Route::get('/activity/{activityId}/interested/remove', 'ActivityController@potentialRemove');
-Route::any('/activity/{activityId}/cancel', 'ActivityController@cancelActivity');
+Route::post('/activity/{activityId}/cancel', 'ActivityController@cancelActivity');
 Route::any('/activity/{activityId}/lock', 'ActivityController@lockActivity');
 Route::any('/activity/{activityId}/report', 'ActivityController@reportActivity');
 Route::any('/comment/{id}/lock', 'ActivityController@lockComment');

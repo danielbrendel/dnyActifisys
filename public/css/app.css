@@ -447,6 +447,13 @@ a.navbar-item:hover {
   color: #960000;
 }
 
+.activity-expired {
+  margin-top: 15px;
+  margin-left: 15px;
+  margin-right: 15px;
+  color: #960000;
+}
+
 .activity-limit-reached {
   margin-top: 15px;
   margin-left: 15px;

@@ -23,6 +23,7 @@ use App\PushModel;
 use App\ReportModel;
 use App\ThreadModel;
 use App\User;
+use DateTime;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -102,7 +103,7 @@ class ActivityController extends Controller
     {
         try {
             $activity = ActivityModel::getActivity($id);
-            if (!$activity) {
+            if ((!$activity) || ($activity->locked)) {
                 throw new Exception(__('app.activity_not_found_or_locked'));
             }
 
@@ -337,6 +338,14 @@ class ActivityController extends Controller
                 throw new Exception(__('app.activity_not_found_or_locked'));
             }
 
+            if ($activity->canceled) {
+                throw new Exception(__('app.activity_canceled'));
+            }
+
+            if ((new DateTime('now')) > (new DateTime($activity->date_of_activity))) {
+                throw new Exception(__('app.activity_expired'));
+            }
+
             if (IgnoreModel::hasIgnored($activity->owner, auth()->id())) {
                 throw new Exception(__('app.activity_not_found_or_locked'));
             }
@@ -397,6 +406,14 @@ class ActivityController extends Controller
 
             if (!$activity) {
                 throw new Exception(__('app.activity_not_found_or_locked'));
+            }
+
+            if ($activity->canceled) {
+                throw new Exception(__('app.activity_canceled'));
+            }
+
+            if ((new DateTime('now')) > (new DateTime($activity->date_of_activity))) {
+                throw new Exception(__('app.activity_expired'));
             }
 
             if (IgnoreModel::hasIgnored($activity->owner, auth()->id())) {
@@ -476,6 +493,14 @@ class ActivityController extends Controller
         try {
             $this->validateAuth();
 
+            $attr = request()->validate([
+               'reason' => 'nullable'
+            ]);
+
+            if (!isset($attr['reason'])) {
+                $attr['reason'] = '';
+            }
+
             $user = User::get(auth()->id());
 
             $activity = ActivityModel::getActivity($id);
@@ -484,7 +509,7 @@ class ActivityController extends Controller
             }
 
             if (($user->admin) || ($user->id === $activity->owner)) {
-                ActivityModel::cancelActivity($id);
+                ActivityModel::cancelActivity($id, $attr['reason']);
 
                 return back()->with('flash.success', __('app.activity_canceled'));
             } else {

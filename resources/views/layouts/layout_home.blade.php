@@ -491,22 +491,6 @@
                     </div>
                 </div>
             @endauth
-
-            <div class="modal" :class="{'is-active': bShowActivityCanceled}">
-                <div class="modal-background"></div>
-                <div class="modal-card">
-                    <header class="modal-card-head is-stretched">
-                        <p class="modal-card-title">{{ __('app.activity_canceled_title') }}</p>
-                        <button class="delete" aria-label="close" onclick="vue.bShowActivityCanceled = false;"></button>
-                    </header>
-                    <section class="modal-card-body is-stretched">
-                        {{ __('app.activity_canceled_message') }}
-                    </section>
-                    <footer class="modal-card-foot is-stretched">
-                        <button class="button" onclick="vue.bShowActivityCanceled = false;">{{ __('app.close') }}</button>
-                    </footer>
-                </div>
-            </div>
         </div>
 
         <script src="{{ asset('js/app.js') }}"></script>

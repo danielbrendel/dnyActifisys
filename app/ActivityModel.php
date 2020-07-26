@@ -209,15 +209,34 @@ class ActivityModel extends Model
      * Cancel activity
      *
      * @param $id
+     * @param string $reason
      * @throws Exception
      */
-    public static function cancelActivity($id)
+    public static function cancelActivity($id, $reason = '')
     {
         try {
             $activity = static::getActivity($id);
             if ($activity) {
+                if ($activity->canceled) {
+                    return;
+                }
+
                 $activity->canceled = true;
+                $activity->cancelReason = $reason;
                 $activity->save();
+
+                $owner = User::get($activity->owner);
+
+                $participants = ParticipantModel::getActualParticipants($id);
+                foreach ($participants as $participant) {
+                    $userData = User::get($participant->participant);
+                    if (($userData) && ($userData->email_on_act_canceled)) {
+                        $html = view('mail.act_canceled', ['name' => $userData->name, 'activity' => $activity, 'owner' => $owner])->render();
+                        MailerModel::sendMail($userData->email, __('app.activity_canceled'), $html);
+                    }
+
+                    PushModel::addNotification(__('app.activity_canceled'), __('app.activity_canceled_long', ['title' => $activity->title, 'owner' => $owner->name]), 'PUSH_CANCELED', $userData->id);
+                }
             }
         } catch (Exception $e) {
             throw $e;

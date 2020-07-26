@@ -19358,7 +19358,9 @@ window.vue = new Vue({
     bShowEditFaq: false,
     bShowCreateTheme: false,
     bShowEditTheme: false,
-    bShowEditActivity: false
+    bShowEditActivity: false,
+    bShowCancelActivity: false,
+    bShowActivityExpired: false
   },
   methods: {
     handleCookieConsent: function handleCookieConsent() {
@@ -19553,6 +19555,10 @@ window.vue = new Vue({
         icon = 'far fa-comments';
       } else if (elem.type === 'PUSH_FAVORITED') {
         icon = 'far fa-star';
+      } else if (elem.type === 'PUSH_CREATED') {
+        icon = 'far fa-plus-square';
+      } else if (elem.type === 'PUSH_CANCELED') {
+        icon = 'fas fa-times-circle';
       }
 
       var html = "\n                <div class=\"notification-item " + (newItem ? 'is-new-notification' : '') + "\">\n                    <div class=\"notification-icon\">\n                        <div class=\"notification-item-icon\"><i class=\"" + icon + " fa-3x\"></i></div>\n                    </div>\n                    <div class=\"notification-info\">\n                        <div class=\"notification-item-message is-color-grey-dark\">" + elem.longMsg + "</div>\n                        <div class=\"notification-item-message is-color-grey-light\">" + elem.created_at + "</div>\n                    </div>\n                </div>\n            ";
@@ -19648,11 +19654,6 @@ window.vue = new Vue({
           location.href = window.location.origin + '/activity/' + response.comment.activityId + '#thread';
         }
       });
-    },
-    cancelActivity: function cancelActivity(id) {
-      if (confirm('Do you really want to cancel the activity?')) {
-        location.href = window.location.origin + '/activity/' + id + '/cancel';
-      }
     },
     lockActivity: function lockActivity(id) {
       if (confirm('Do you really want to lock the activity?')) {

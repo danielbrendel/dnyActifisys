@@ -169,7 +169,9 @@ class ActivityControllerTest extends TestCase
 
     public function testCancelActivity()
     {
-        $response = $this->get('/activity/' . env('TEST_ACTIVITYID') . '/cancel');
+        $response = $this->post('/activity/' . env('TEST_ACTIVITYID') . '/cancel', [
+            'reason' => md5(random_bytes(55))
+        ]);
         $response->assertStatus(302);
     }
 

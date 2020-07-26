@@ -35,6 +35,7 @@ class CreateActivityModelsTable extends Migration
             $table->integer('owner');
             $table->boolean('locked')->default(false);
             $table->boolean('canceled')->default(false);
+            $table->string('cancelReason')->default('');
             $table->timestamps();
         });
     }

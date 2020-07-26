@@ -36,8 +36,9 @@
                     </div>
 
                     <div class="activity-info">
-                        <div><i class="far fa-clock"></i>&nbsp;<span title="{{ $activity->date_of_activity  }}">{{ $activity->date_of_activity->diffForHumans() }}</span></div>
-                        <div class="is-capitalized"><i class="fas fa-map-marker-alt"></i>&nbsp;{{ $activity->location }}</div>
+                        <div>&nbsp;<i class="far fa-clock"></i>&nbsp;<span title="{{ $activity->date_of_activity  }}">{{ $activity->date_of_activity->diffForHumans() }}</span></div>
+                        <div class="is-capitalized">&nbsp;<i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;{{ $activity->location }}</div>
+                        <div class="is-capitalized"><i class="fas fa-users"></i>&nbsp;{{ (($activity->limit === 0) ? __('app.no_limit') : __('app.limit_count', ['count' => $activity->limit])) }}</div>
                     </div>
 
                     @if ($activity->canceled)
@@ -46,7 +47,13 @@
                         </div>
                     @endif
 
-                    @if (count($activity->actualParticipants) >= $activity->limit)
+                    @if ((new DateTime('now')) > (new DateTime($activity->date_of_activity)))
+                        <div class="activity-expired">
+                            {{ __('app.activity_expired') }}
+                        </div>
+                    @endif
+
+                    @if (($activity->limit !== 0) && (count($activity->actualParticipants) >= $activity->limit))
                         <div class="activity-limit-reached">
                             {{ __('app.participant_limit_reached_short') }}
                         </div>
@@ -126,7 +133,7 @@
                                                 {{ __('app.edit') }}
                                             </a>
 
-                                            <a href="javascript:void(0)" onclick="window.vue.cancelActivity({{ $activity->id }}); window.vue.toggleActivityOptions(document.getElementById('activity-options-{{ $activity->id }}'));" class="dropdown-item">
+                                            <a href="javascript:void(0)" onclick="window.vue.bShowCancelActivity = true; window.vue.toggleActivityOptions(document.getElementById('activity-options-{{ $activity->id }}'));" class="dropdown-item">
                                                 {{ __('app.cancel') }}
                                             </a>
 
@@ -152,19 +159,21 @@
                         </div>
 
                         <div class="buttons-right is-inline-block">
-                            @if ($activity->owner !== auth()->id())
-                                @if (!$activity->selfParticipated)
-                                    <div class="is-inline-block"><button type="button" id="btnParticipate" class="button is-success" onclick="location.href = '{{ url('/activity/' . $activity->id . '/participant/add') }}';">{{ __('app.participate') }}</button></div>
-                                @else
-                                    <div class="is-inline-block"><button type="button" id="btnParticipate" class="button is-success is-outlined" onclick="location.href = '{{ url('/activity/' . $activity->id . '/participant/remove') }}';">{{ __('app.not_participate') }}</button></div>
+                            @if ((new DateTime('now')) < (new DateTime($activity->date_of_activity)))
+                                @if ($activity->owner !== auth()->id())
+                                    @if (!$activity->selfParticipated)
+                                        <div class="is-inline-block"><button type="button" id="btnParticipate" class="button is-success" onclick="location.href = '{{ url('/activity/' . $activity->id . '/participant/add') }}';">{{ __('app.participate') }}</button></div>
+                                    @else
+                                        <div class="is-inline-block"><button type="button" id="btnParticipate" class="button is-success is-outlined" onclick="location.href = '{{ url('/activity/' . $activity->id . '/participant/remove') }}';">{{ __('app.not_participate') }}</button></div>
+                                    @endif
                                 @endif
-                            @endif
 
-                            @if (!$activity->selfParticipated)
-                                @if (!$activity->selfInterested)
-                                    <div class="is-inline-block"><button type="button" id="btnPotential" class="button is-info is-outlined" onclick="location.href = '{{ url('/activity/' . $activity->id . '/interested/add') }}';">{{ __('app.interested') }}</button></div>
-                                @else
-                                    <div class="is-inline-block"><button type="button" id="btnPotential" class="button is-info is-outlined" onclick="location.href = '{{ url('/activity/' . $activity->id . '/interested/remove') }}';">{{ __('app.not_interested') }}</button></div>
+                                @if (!$activity->selfParticipated)
+                                    @if (!$activity->selfInterested)
+                                        <div class="is-inline-block"><button type="button" id="btnPotential" class="button is-info is-outlined" onclick="location.href = '{{ url('/activity/' . $activity->id . '/interested/add') }}';">{{ __('app.interested') }}</button></div>
+                                    @else
+                                        <div class="is-inline-block"><button type="button" id="btnPotential" class="button is-info is-outlined" onclick="location.href = '{{ url('/activity/' . $activity->id . '/interested/remove') }}';">{{ __('app.not_interested') }}</button></div>
+                                    @endif
                                 @endif
                             @endif
                         </div>
@@ -266,6 +275,71 @@
             </footer>
         </div>
     </div>
+
+    <div class="modal" :class="{'is-active': bShowCancelActivity}">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head is-stretched">
+                <p class="modal-card-title">{{ __('app.cancel_activity') }}</p>
+                <button class="delete" aria-label="close" onclick="vue.bShowCancelActivity = false;"></button>
+            </header>
+            <section class="modal-card-body is-stretched">
+                <form id="frmCancelActivity" method="POST" action="{{ url('/activity/' . $activity->id . '/cancel') }}">
+                    @csrf
+
+                    <div class="field">
+                        <label>{{ __('app.confirm_cancel_activity') }}</label>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">{{ __('app.cancel_activity_reason') }}</label>
+                        <div class="control">
+                            <textarea name="reason" placeholder="{{ __('app.type_something') }}"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </section>
+            <footer class="modal-card-foot is-stretched">
+                <button class="button is-danger" onclick="document.getElementById('frmCancelActivity').submit();">{{ __('app.cancel') }}</button>
+                <button class="button" onclick="vue.bShowCancelActivity = false;">{{ __('app.close') }}</button>
+            </footer>
+        </div>
+    </div>
+
+    <div class="modal" :class="{'is-active': bShowActivityCanceled}">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head is-stretched">
+                <p class="modal-card-title">{{ __('app.activity_canceled_title') }}</p>
+                <button class="delete" aria-label="close" onclick="vue.bShowActivityCanceled = false;"></button>
+            </header>
+            <section class="modal-card-body is-stretched">
+                {{ __('app.activity_canceled_message') }}
+                <br/>
+                <br/>
+                {{ __('app.reason') }}: {{ ((strlen($activity->cancelReason) > 0) ? $activity->cancelReason : __('app.no_reason_specified')) }}
+            </section>
+            <footer class="modal-card-foot is-stretched">
+                <button class="button" onclick="vue.bShowActivityCanceled = false;">{{ __('app.close') }}</button>
+            </footer>
+        </div>
+    </div>
+
+    <div class="modal" :class="{'is-active': bShowActivityExpired}">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head is-stretched">
+                <p class="modal-card-title">{{ __('app.activity_expired') }}</p>
+                <button class="delete" aria-label="close" onclick="vue.bShowActivityExpired = false;"></button>
+            </header>
+            <section class="modal-card-body is-stretched">
+                {{ __('app.activity_expired_message') }}
+            </section>
+            <footer class="modal-card-foot is-stretched">
+                <button class="button" onclick="vue.bShowActivityExpired = false;">{{ __('app.close') }}</button>
+            </footer>
+        </div>
+    </div>
 @endsection
 
 @section('javascript')
@@ -275,10 +349,15 @@
             fetchThread();
 
             @if ($activity->canceled)
-                document.getElementById('btnPotential').disabled = true;
-                document.getElementById('btnParticipate').disabled = true;
+                try {
+                    document.getElementById('btnPotential').disabled = true;
+                    document.getElementById('btnParticipate').disabled = true;
+                } catch (e) {
+                }
 
                 window.vue.bShowActivityCanceled = true;
+            @elseif ((new DateTime('now')) > (new DateTime($activity->date_of_activity)))
+                window.vue.bShowActivityExpired = true;
             @endif
         });
 
