@@ -33,7 +33,7 @@
         <server name="TELESCOPE_ENABLED" value="false"/>
         <server name="TEST_USERID" value="1"/>
         <server name="TEST_USERID2" value="2"/>
-        <server name="TEST_USEREMAIL" value="dny.viking@gmail.com"/>
+        <server name="TEST_USEREMAIL" value="name@domain.tld"/>
         <server name="TEST_USERPW" value="test"/>
         <server name="TEST_MESSAGEID" value="1"/>
         <server name="TEST_ACTIVITYID" value="1"/>
