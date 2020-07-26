@@ -53,7 +53,7 @@ class InstallerModel extends Model
 			$envcontent .= 'APP_LANG=en' . PHP_EOL;
             $envcontent .= 'APP_ACTIVITYPACKLIMIT=12' . PHP_EOL;
 			$envcontent .= 'APP_THREADPACKLIMIT=15' . PHP_EOL;
-            $envcontent .= 'APP_MESSAGEPACKLIMIT=15' . PHP_EOL;
+            $envcontent .= 'APP_MESSAGEPACKLIMIT=25' . PHP_EOL;
             $envcontent .= 'LOG_CHANNEL=stack' . PHP_EOL;
             $envcontent .= 'DB_CONNECTION=mysql' . PHP_EOL;
             $envcontent .= 'DB_HOST="' . $attr['dbhost'] . '"' . PHP_EOL;
