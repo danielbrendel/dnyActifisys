@@ -66,40 +66,41 @@
                     @endif
                 </div>
 
-                <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navMainMenu">
+
+                <a id="navbarBurger" role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu" onclick="window.menuVisible = !document.getElementById('navbarMenu').classList.contains('is-active');">
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
                 </a>
 
-                <div id="navMainMenu" class="navbar-menu">
+                <div id="navbarMenu" class="navbar-menu">
                 <div class="navbar-start">
                 </div>
 
                 <div class="navbar-end">
                     @auth
-                        <a class="button navbar-item is-success navbar-fixed-button-top is-uppercase" href="javascript:void(0);" onclick="window.vue.bShowCreateActivity = true; document.getElementById('btnCreateActivity').disabled = true;">
+                        <a class="button navbar-item fix-mobile-navbar-item is-success navbar-fixed-button-top is-uppercase" href="javascript:void(0);" onclick="window.vue.bShowCreateActivity = true; document.getElementById('btnCreateActivity').disabled = true; if (window.menuVisible) { document.getElementById('navbarMenu').classList.remove('is-active'); document.getElementById('navbarBurger').classList.remove('is-active'); }">
                             {{ __('app.create_activity') }}
                         </a>
 
-                        <a class="navbar-item" href="javascript:void(0);" onclick="window.vue.toggleFavorites('favorites');">
+                        <a class="navbar-item fix-mobile-navbar-item is-white" href="javascript:void(0);" onclick="window.vue.toggleFavorites('favorites'); if (window.menuVisible) { document.getElementById('navbarMenu').classList.remove('is-active'); document.getElementById('navbarBurger').classList.remove('is-active'); }">
                             {{ __('app.favorites') }}
                         </a>
 
-                        <a class="navbar-item notification-badge" href="javascript:void(0);" onclick="window.vue.toggleNotifications('notifications'); document.getElementById('navbar-notify-count').classList.add('is-hidden');">
+                        <a class="navbar-item notification-badge" href="javascript:void(0);" onclick="window.vue.toggleNotifications('notifications'); document.getElementById('navbar-notify-count').classList.add('is-hidden'); if (window.menuVisible) { document.getElementById('navbarMenu').classList.remove('is-active'); document.getElementById('navbarBurger').classList.remove('is-active'); }">
                             <span>{{ __('app.notifications') }}</span>
                             <span class="notify-badge is-hidden" id="navbar-notify-count"></span>
                         </a>
 
-                        <a class="navbar-item" href="{{ url('/messages') }}">
+                        <a class="navbar-item fix-mobile-navbar-item is-white" href="{{ url('/messages') }}">
                             {{ __('app.messages') }}
                         </a>
 
-                        <a class="navbar-item" href="{{ url('/settings') }}">
+                        <a class="navbar-item fix-mobile-navbar-item is-white" href="{{ url('/settings') }}">
                             {{ __('app.settings') }}
                         </a>
 
-                        <a class="navbar-item" href="{{ url('/logout') }}">
+                        <a class="navbar-item fix-mobile-navbar-item is-white" href="{{ url('/logout') }}">
                             {{ __('app.logout') }}
                         </a>
                     @endauth
@@ -498,6 +499,8 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            window.menuVisible = false;
+
             window.vue.handleCookieConsent();
 
             @if (Session::has('flash.error'))

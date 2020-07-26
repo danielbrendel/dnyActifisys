@@ -165,7 +165,7 @@ a.navbar-item:hover {
 .banner-headline {
   color: white;
   top: 19%;
-  transform: translate(0%, 50%);
+  transform: translate(0%, 8%);
 }
 
 .howto {
@@ -274,13 +274,24 @@ a.navbar-item:hover {
   background-color: #80ff80;
 }
 
+.navbar {
+  height: 15px;
+}
+
 .navbar-burger {
-  top: -23px;
-  height: unset !important;
+  top: -50px;
 }
 
 .navbar-menu {
   background-color: #209cee;
+}
+
+.fix-mobile-navbar-item {
+  margin-left: 15px;
+}
+
+.is-white {
+  color: white;
 }
 
 .overflow-hidden {
@@ -761,6 +772,12 @@ a.navbar-item:hover {
   }
 }
 
+@media screen and (max-width: 1087px) {
+  .notifications {
+    top: -218px;
+  }
+}
+
 .notifications-arrow-up {
   top: -15px;
   width: 0;
@@ -878,6 +895,12 @@ a.navbar-item:hover {
 @media screen and (min-height: 520px) {
   .favorites {
     height: 520px;
+  }
+}
+
+@media screen and (max-width: 1087px) {
+  .favorites {
+    top: -218px;
   }
 }
 

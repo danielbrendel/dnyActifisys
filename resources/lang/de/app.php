@@ -289,5 +289,8 @@ return [
     'no_reason_specified' => 'Es wurde kein Grund angegeben',
     'reason' => 'Grund',
     'activity_expired' => 'Aktivität abgelaufen',
-    'activity_expired_message' => 'Diese Aktivität ist bereits abgelaufen.'
+    'activity_expired_message' => 'Diese Aktivität ist bereits abgelaufen.',
+    'mail_user_commented_title' => 'Neuer Kommentar hinzugefügt',
+    'mail_user_commented_info' => 'Neuer Kommentar hinzugefügt',
+    'mail_user_commented_body' => 'Du hast einen neuen Kommentar in deiner Aktivität erhalten.'
 ];

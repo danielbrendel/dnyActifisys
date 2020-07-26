@@ -15,7 +15,7 @@
         <div class="column is-6"></div>
 
         <div class="column-is-6">
-            <div class="banner-headline">
+            <div class="banner-headline is-default-padding">
                 <h1>{{ \App\AppModel::getHeadlineTop() }}</h1>
 
                 <h3>{{ \App\AppModel::getHeadlineSub() }}</h3>

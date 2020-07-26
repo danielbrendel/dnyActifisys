@@ -275,8 +275,8 @@ class ActivityController extends Controller
             PushModel::addNotification(__('app.user_commented_short'), __('app.user_commented_long', ['name' => $owner->name, 'sender' => $user->name, 'message' => $attr['message']]), 'PUSH_COMMENTED', $activity->owner);
 
             if (($owner) && ($owner->email_on_comment)) {
-                $html = view('mail.user_commented', ['name' => $owner->name, 'sender' => $user->name, 'message' => $attr['message']])->render();
-                MailerModel::sendMail($user->email, __('app.mail_subject_register'), $html);
+                $html = view('mail.user_commented', ['name' => $owner->name, 'sender' => $user->name, 'message' => $attr['message'], 'activityId' => $activity->id])->render();
+                MailerModel::sendMail($user->email, __('app.mail_user_commented_title'), $html);
             }
 
             return redirect('/activity/' . $id . '#thread')->with('flash.success', __('app.comment_added'));

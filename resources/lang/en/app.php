@@ -289,5 +289,8 @@ return [
     'no_reason_specified' => 'No reason specified',
     'reason' => 'Reason',
     'activity_expired' => 'Activity expired',
-    'activity_expired_message' => 'This activity has expired.'
+    'activity_expired_message' => 'This activity has expired.',
+    'mail_user_commented_title' => 'User has posted a comment',
+    'mail_user_commented_info' => 'User has posted a comment',
+    'mail_user_commented_body' => 'You have a new comment posted on your activity.'
 ];
