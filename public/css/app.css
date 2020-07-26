@@ -460,6 +460,7 @@ a.navbar-item:hover {
   border-radius: 4px;
   display: inline-block;
   margin: 15px;
+  height: 540px;
 }
 
 .activity-user {
@@ -485,14 +486,16 @@ a.navbar-item:hover {
   font-family: "Nunito", sans-serif;
 }
 
-.activity-information {
-  min-height: 151px;
+.activity-title {
+  margin-top: -24px;
+  max-height: 134px;
 }
 
 .activity-information {
   margin-bottom: 15px;
   color: #969696;
   font-size: 0.9em;
+  min-height: 151px;
 }
 
 .activity-footer-view {
@@ -988,5 +991,26 @@ a.navbar-item:hover {
 .is-fixed-maintainer-icon {
   position: relative;
   top: 15px;
+}
+
+.is-wordbreak {
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+
+.is-breakall {
+  -ms-word-break: break-all;
+  word-break: break-all;
+  word-break: break-word;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+}
+
+.is-capitalized {
+  text-transform: capitalize;
 }
 

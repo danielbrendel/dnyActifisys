@@ -259,7 +259,7 @@
                         <div class="field">
                             <label class="label">{{ __('app.project_smtp_pw') }}</label>
                             <div class="control">
-                                <input type="text" name="ENV_SMTP_PASSWORD" value="{{ env('SMTP_PASSWORD') }}">
+                                <input type="password" name="ENV_SMTP_PASSWORD" value="{{ env('SMTP_PASSWORD') }}">
                             </div>
                         </div>
 

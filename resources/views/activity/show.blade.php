@@ -37,7 +37,7 @@
 
                     <div class="activity-info">
                         <div><i class="far fa-clock"></i>&nbsp;<span title="{{ $activity->date_of_activity  }}">{{ $activity->date_of_activity->diffForHumans() }}</span></div>
-                        <div><i class="fas fa-map-marker-alt"></i>&nbsp;{{ $activity->location }}</div>
+                        <div class="is-capitalized"><i class="fas fa-map-marker-alt"></i>&nbsp;{{ $activity->location }}</div>
                     </div>
 
                     @if ($activity->canceled)
@@ -88,7 +88,7 @@
 
             <div class="column is-7">
                 <div class="activity-title">
-                    <div class="activity-headline is-inline-block">
+                    <div class="activity-headline is-inline-block is-breakall">
                         {{ $activity->title }}
                     </div>
 
@@ -141,7 +141,7 @@
                     </div>
                 </div>
 
-                <div class="activity-description">
+                <div class="activity-description is-breakall">
                     {{ $activity->description }}
                 </div>
 

@@ -275,20 +275,20 @@ window.vue = new Vue({
                         <div class="activity-user-name"><a href="` + window.location.origin + '/user/' + elem.user.id + `">` + elem.user.name + `</a></div></center>
                 </div>
 
-                <div class="activity-title is-pointer" onclick="location.href = '` + window.location.origin + '/activity/' + elem.id + `';">
+                <div class="activity-title is-pointer is-wordbreak" onclick="location.href = '` + window.location.origin + '/activity/' + elem.id + `';">
                     <center>` + elem.title + `</center>
                 </div>
 
                 <div class="activity-infos">
                     <center><span title="` + elem.date_of_activity + `"><i class="far fa-clock"></i>&nbsp;` + elem.diffForHumans + ` | </span>
-                        <span><i class="fas fa-map-marker-alt"></i>&nbsp;` + elem.location + `</span></center>
+                        <span class="is-capitalized"><i class="fas fa-map-marker-alt"></i>&nbsp;` + elem.location + `</span></center>
                 </div>
 
                 <div>
                     <hr/>
                 </div>
 
-                <div class="activity-information">
+                <div class="activity-information  is-wordbreak">
                     ` + ((elem.description.length > MAX_ACTIVITY_DESCRIPTION_LENGTH) ? elem.description.substr(0, MAX_ACTIVITY_DESCRIPTION_LENGTH) + '...': elem.description) + `
                 </div>
 
@@ -315,7 +315,7 @@ window.vue = new Vue({
                 </div>
 
                 <div class="messages-item-name">
-                    <a href="` + window.location.origin + `/u/` + item.user.username + `">` + item.user.username + `</a>
+                    <a href="` + window.location.origin + `/u/` + item.user.id + `">` + item.user.name + `</a>
                 </div>
 
                 <div class="messages-item-subject">
