@@ -292,5 +292,16 @@ return [
     'activity_expired_message' => 'Diese Aktivität ist bereits abgelaufen.',
     'mail_user_commented_title' => 'Neuer Kommentar hinzugefügt',
     'mail_user_commented_info' => 'Neuer Kommentar hinzugefügt',
-    'mail_user_commented_body' => 'Du hast einen neuen Kommentar in deiner Aktivität erhalten.'
+    'mail_user_commented_body' => 'Du hast einen neuen Kommentar in deiner Aktivität erhalten.',
+    'activity_not_found_or_canceled' => 'Aktivität exist entweder nicht oder wurde abgesagt',
+    'user_not_found_or_deactivated' => 'Benutzer nicht gefunden oder deaktiviert',
+    'file_uploaded' => 'Die Datei wurde hinzugefügt',
+    'file_not_found_or_insufficient_permissions' => 'Datei nicht gefunden oder unzureichende Rechte',
+    'file_deleted' => 'Datei gelöscht',
+    'confirm_file_delete' => 'Bist du sicher, dass du die Datei löschen willst?',
+    'images' => 'Bilder',
+    'upload' => 'Hochladen',
+    'image_upload' => 'Bilder Upload',
+    'upload_image' => 'Lade ein Bild hoch',
+    'email_on_act_canceled_notice' => 'Nachricht an mich, wenn eine Aktivität an der ich teilnehme abgesagt wird'
 ];

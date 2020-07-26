@@ -342,6 +342,7 @@ class User extends Authenticatable
             $user->email_on_participated = $attr['email_on_participated'];
             $user->email_on_fav_created = $attr['email_on_fav_created'];
             $user->email_on_commented = $attr['email_on_commented'];
+            $user->email_on_act_canceled = $attr['email_on_act_canceled'];
             $user->save();
         } catch (Exception $e) {
             throw $e;

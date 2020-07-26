@@ -45,6 +45,8 @@ Route::any('/comment/{id}/lock', 'ActivityController@lockComment');
 Route::any('/comment/{id}/report', 'ActivityController@reportComment');
 Route::post('/comment/{id}/edit', 'ActivityController@editComment');
 Route::get('/activity/user/{id}', 'ActivityController@fetchUserActivities');
+Route::post('/activity/{id}/upload', 'ActivityController@uploadFile');
+Route::any('/file/{id}/delete', 'ActivityController@deleteFile');
 
 Route::get('/user/{id}', 'MemberController@show');
 Route::get('/user/{id}/fav/add', 'FavoritesController@add');

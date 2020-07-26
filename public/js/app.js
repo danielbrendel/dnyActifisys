@@ -19360,7 +19360,8 @@ window.vue = new Vue({
     bShowEditTheme: false,
     bShowEditActivity: false,
     bShowCancelActivity: false,
-    bShowActivityExpired: false
+    bShowActivityExpired: false,
+    bShowUploadImage: false
   },
   methods: {
     handleCookieConsent: function handleCookieConsent() {

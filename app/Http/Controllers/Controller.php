@@ -14,6 +14,8 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use Exception;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -45,6 +47,11 @@ class Controller extends BaseController
     {
         if (Auth::guest()) {
             throw new Exception(__('app.not_logged_in'), 403);
+        }
+
+        $user = User::getByAuthId();
+        if ((!$user) || ($user->deactivated)) {
+            throw new Exception(__('app.user_not_found_or_deactivated'), 403);
         }
     }
 }

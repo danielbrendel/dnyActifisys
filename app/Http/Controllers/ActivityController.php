@@ -14,6 +14,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ActivitiesHaveImages;
 use App\ActivityModel;
 use App\CaptchaModel;
 use App\IgnoreModel;
@@ -117,6 +118,7 @@ class ActivityController extends Controller
             $activity->potentialParticipants = ParticipantModel::getPotentialParticipants($activity->id);
             $activity->selfParticipated = ParticipantModel::has(auth()->id(), $activity->id, ParticipantModel::PARTICIPANT_ACTUAL);
             $activity->selfInterested = ParticipantModel::has(auth()->id(), $activity->id, ParticipantModel::PARTICIPANT_POTENTIAL);
+            $activity->images = ActivitiesHaveImages::getForActivity($activity->id);
 
             foreach ($activity->actualParticipants as &$item) {
                 $item->user = User::get($item->participant);
@@ -633,6 +635,59 @@ class ActivityController extends Controller
             $cmt->save();
 
             return back()->with('flash.success', __('app.comment_edited'));
+        } catch (Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Perform file upload process
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function uploadFile($id)
+    {
+        try {
+            $this->validateAuth();
+
+            $attr = request()->validate([
+               'image' => 'required|file',
+               'name' => 'nullable'
+            ]);
+
+            if (!isset($attr['name'])) {
+                $attr['name'] = '';
+            }
+
+            $activity = ActivityModel::getActivity($id);
+
+            if ((!$activity) || ($activity->canceled)) {
+                throw new Exception(__('app.activity_not_found_or_canceled'));
+            }
+
+            $user = User::get(auth()->id());
+
+            ActivitiesHaveImages::addFile($id, $attr['name']);
+
+            return back()->with('flash.success', __('app.file_uploaded'));
+        } catch (Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Delete an existing file
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function deleteFile($id)
+    {
+        try {
+            ActivitiesHaveImages::deleteFile($id);
+
+            return back()->with('flash.success', __('app.file_deleted'));
         } catch (Exception $e) {
             return back()->with('error', $e->getMessage());
         }

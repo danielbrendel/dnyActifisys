@@ -21,7 +21,7 @@
     <br/><br/>
     {{ __('app.mail_salutation', ['name' => $name]) }}
     <br/><br/>
-    {{ __('app.mail_user_participated_body', ['name' => $participant->name, 'id' => $participant->id]) }}
+    {!! __('app.mail_user_participated_body', ['name' => $participant->name, 'id' => $participant->id]) !!}
     <br/><br/>
 	<strong>{{ $activity->title }}:</strong><br/>
     <pre>{{ $activity->description }}</pre>

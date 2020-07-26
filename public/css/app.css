@@ -533,6 +533,21 @@ a.navbar-item:hover {
   top: -15px;
 }
 
+.activity-image-item {
+  width: 90%;
+  display: block;
+  border-bottom: 1px solid #ccc;
+  padding: 0 !important;
+}
+
+.activity-image-item a {
+  font-size: 0.8em;
+}
+
+.activity-image-item a:hover {
+  color: #787878;
+}
+
 .thread-input-avatar {
   width: 48px;
   height: 48px;
@@ -1042,5 +1057,9 @@ a.navbar-item:hover {
 
 .is-capitalized {
   text-transform: capitalize;
+}
+
+.is-color-green {
+  color: #009600;
 }
 

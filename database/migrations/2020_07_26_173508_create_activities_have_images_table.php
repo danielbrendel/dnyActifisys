@@ -16,7 +16,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateIgnoreModelsTable extends Migration
+class CreateActivitiesHaveImagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -25,10 +25,12 @@ class CreateIgnoreModelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('ignore_models', function (Blueprint $table) {
+        Schema::create('activities_have_images', function (Blueprint $table) {
             $table->id();
-            $table->integer('userId');
-            $table->integer('targetId');
+            $table->integer('activity');
+            $table->integer('owner');
+            $table->string('file', 512);
+            $table->string('name', 100);
             $table->timestamps();
         });
     }
@@ -40,6 +42,6 @@ class CreateIgnoreModelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ignore_models');
+        Schema::dropIfExists('activities_have_images');
     }
 }

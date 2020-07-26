@@ -292,5 +292,16 @@ return [
     'activity_expired_message' => 'This activity has expired.',
     'mail_user_commented_title' => 'User has posted a comment',
     'mail_user_commented_info' => 'User has posted a comment',
-    'mail_user_commented_body' => 'You have a new comment posted on your activity.'
+    'mail_user_commented_body' => 'You have a new comment posted on your activity.',
+    'activity_not_found_or_canceled' => 'Activity not found or canceled',
+    'user_not_found_or_deactivated' => 'User not found or deactivated',
+    'file_uploaded' => 'The file has been added',
+    'file_not_found_or_insufficient_permissions' => 'File not found or insufficient permissions',
+    'file_deleted' => 'File deleted',
+    'confirm_file_delete' => 'Are you sure you want to delete this file?',
+    'images' => 'Images',
+    'upload' => 'Upload',
+    'image_upload' => 'Image upload',
+    'upload_image' => 'Upload an image',
+    'email_on_act_canceled_notice' => 'Receive notice if an activity I participate in is canceled'
 ];

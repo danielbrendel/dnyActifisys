@@ -400,18 +400,6 @@ class AppModel extends Model
 					$item->deactivated = true;
                     $item->save();
                 }
-            } else if ($type === 'ENT_POST') {
-                $item = PostModel::where('id', '=', $id)->first();
-                if ($item) {
-                    $item->locked = true;
-                    $item->save();
-                    if (file_exists(public_path() . '/gfx/posts/' . $item->image_full)) {
-                        unlink(public_path() . '/gfx/posts/' . $item->image_full);
-                    }
-                    if (file_exists(public_path() . '/gfx/posts/' . $item->image_thumb)) {
-                        unlink(public_path() . '/gfx/posts/' . $item->image_thumb);
-                    }
-                }
             } else if ($type === 'ENT_COMMENT') {
                 $item = ThreadModel::where('id', '=', $id)->first();
                 if ($item) {

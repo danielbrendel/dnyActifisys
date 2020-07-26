@@ -91,6 +91,26 @@
                         @endif
                     </div>
                 </div>
+
+                @if ($activity->selfParticipated)
+                    <div class="windowed-frame is-margin-top-20">
+                        <span class="activity-potential"><h3>{{ __('app.images') }} </h3></span>
+
+                        <div>
+                            @foreach ($activity->images as $image)
+                                <div class="activity-image-item">
+                                    <div class="is-breakall is-inline-block"><i class="fas fa-image"></i>&nbsp;<a class="is-color-lightblue" href="{{ asset('gfx/uploads/' . $image->file) }}" target="_blank">{{ $image->name }}</a></div>
+                                    @if ($image->owner === auth()->id())
+                                        <div class="is-inline-block is-pointer float-right" title="{{ __('app.remove') }}" onclick="if (confirm('{{ __('app.confirm_file_delete') }}')) { location.href = '{{ url('/file/' . $image->id . '/delete') }}'; }"><i class="fas fa-times"></i>&nbsp;&nbsp;</div>
+                                    @endif
+                                </div>
+                            @endforeach
+
+                            <br/>
+                            <span class="is-inline-block is-pointer" title="{{ __('app.upload_image') }}" onclick="window.vue.bShowUploadImage = true;"><i class="fas fa-plus is-color-green icon-large"></i></span>
+                        </div>
+                    </div>
+                @endif
             </div>
 
             <div class="column is-7">
@@ -337,6 +357,38 @@
             </section>
             <footer class="modal-card-foot is-stretched">
                 <button class="button" onclick="vue.bShowActivityExpired = false;">{{ __('app.close') }}</button>
+            </footer>
+        </div>
+    </div>
+
+    <div class="modal" :class="{'is-active': bShowUploadImage}">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head is-stretched">
+                <p class="modal-card-title">{{ __('app.image_upload') }}</p>
+                <button class="delete" aria-label="close" onclick="vue.bShowUploadImage = false;"></button>
+            </header>
+            <section class="modal-card-body is-stretched">
+                <form id="frmFileUpload" method="POST" action="{{ url('/activity/' . $activity->id . '/upload') }}" enctype="multipart/form-data">
+                    @csrf
+
+                    <div class="field">
+                        <div class="control">
+                            <input type="file" name="image" data-role="file" data-type="2"/>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">{{ __('app.name') }}</label>
+                        <div class="control">
+                            <input type="text" name="name"/>
+                        </div>
+                    </div>
+                </form>
+            </section>
+            <footer class="modal-card-foot is-stretched">
+                <button class="button is-success" onclick="document.getElementById('frmFileUpload').submit();">{{ __('app.upload') }}</button>
+                <button class="button" onclick="vue.bShowUploadImage = false;">{{ __('app.close') }}</button>
             </footer>
         </div>
     </div>
