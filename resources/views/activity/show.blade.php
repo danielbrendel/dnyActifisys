@@ -45,6 +45,12 @@
                             {{ __('app.activity_canceled_title') }}
                         </div>
                     @endif
+
+                    @if (count($activity->actualParticipants) >= $activity->limit)
+                        <div class="activity-limit-reached">
+                            {{ __('app.participant_limit_reached_short') }}
+                        </div>
+                    @endif
                 </div>
 
                 <div class="windowed-frame is-margin-top-20">
@@ -116,6 +122,10 @@
 
                                     @auth
                                         @if (\App\User::isAdmin(auth()->id()) || $activity->owner === auth()->id())
+                                            <a href="javascript:void(0)" onclick="window.vue.bShowEditActivity = true; window.vue.toggleActivityOptions(document.getElementById('activity-options-{{ $activity->id }}'));" class="dropdown-item">
+                                                {{ __('app.edit') }}
+                                            </a>
+
                                             <a href="javascript:void(0)" onclick="window.vue.cancelActivity({{ $activity->id }}); window.vue.toggleActivityOptions(document.getElementById('activity-options-{{ $activity->id }}'));" class="dropdown-item">
                                                 {{ __('app.cancel') }}
                                             </a>
@@ -142,10 +152,12 @@
                         </div>
 
                         <div class="buttons-right is-inline-block">
-                            @if (!$activity->selfParticipated)
-                                <div class="is-inline-block"><button type="button" id="btnParticipate" class="button is-success" onclick="location.href = '{{ url('/activity/' . $activity->id . '/participant/add') }}';">{{ __('app.participate') }}</button></div>
-                            @else
-                                <div class="is-inline-block"><button type="button" id="btnParticipate" class="button is-success is-outlined" onclick="location.href = '{{ url('/activity/' . $activity->id . '/participant/remove') }}';">{{ __('app.not_participate') }}</button></div>
+                            @if ($activity->owner !== auth()->id())
+                                @if (!$activity->selfParticipated)
+                                    <div class="is-inline-block"><button type="button" id="btnParticipate" class="button is-success" onclick="location.href = '{{ url('/activity/' . $activity->id . '/participant/add') }}';">{{ __('app.participate') }}</button></div>
+                                @else
+                                    <div class="is-inline-block"><button type="button" id="btnParticipate" class="button is-success is-outlined" onclick="location.href = '{{ url('/activity/' . $activity->id . '/participant/remove') }}';">{{ __('app.not_participate') }}</button></div>
+                                @endif
                             @endif
 
                             @if (!$activity->selfParticipated)
@@ -189,6 +201,71 @@
     </div>
 
     <div class="column is-2"></div>
+
+    <div class="modal" :class="{'is-active': bShowEditActivity}">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head is-stretched">
+                <p class="modal-card-title">{{ __('app.edit_activity') }}</p>
+                <button class="delete" aria-label="close" onclick="vue.bShowEditActivity = false;"></button>
+            </header>
+            <section class="modal-card-body is-stretched">
+                <form id="frmEditActivity" method="POST" action="{{ url('/activity/edit') }}">
+                    @csrf
+
+                    <input type="hidden" name="activityId" value="{{ $activity->id }}"/>
+
+                    <div class="field">
+                        <label class="label">{{ __('app.title') }}</label>
+                        <div class="control">
+                            <input id="caTitle" class="input" type="text" name="title" value="{{ $activity->title }}" onkeyup="window.vue.invalidCreateActivity();" onchange="window.vue.invalidCreateActivity();" required>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">{{ __('app.description') }}</label>
+                        <div class="control">
+                            <textarea id="caDescription" name="description" onkeyup="window.vue.invalidCreateActivity();" onchange="window.vue.invalidCreateActivity();" required>{{ $activity->description }}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">{{ __('app.date') }}</label>
+                        <div class="control">
+                            <input id="caDate" class="input" type="date" name="date_of_activity" value="{{ date('Y-m-d', strtotime($activity->date_of_activity)) }}" onkeyup="window.vue.invalidCreateActivity();" onchange="window.vue.invalidCreateActivity();" required>
+                        </div>
+                        <p class="help is-danger is-hidden" id="activity-date-hint">{{ __('app.date_is_in_past') }}</p>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">{{ __('app.time') }}</label>
+                        <div class="control">
+                            <input id="caTime" class="input" type="time" name="time_of_activity" value="{{ date('H:i', strtotime($activity->date_of_activity)) }}" onkeyup="window.vue.invalidCreateActivity();" onchange="window.vue.invalidCreateActivity();" required>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">{{ __('app.location') }}</label>
+                        <div class="control">
+                            <input id="caLocation" class="input" type="text" name="location" value="{{ $activity->location }}" onkeyup="window.vue.invalidCreateActivity();" onchange="window.vue.invalidCreateActivity();" required>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">{{ __('app.limit') }}</label>
+                        <div class="control">
+                            <input class="input" type="number" name="limit" value="{{ $activity->limit }}" min="0">
+                        </div>
+                    </div>
+                </form>
+            </section>
+            <footer class="modal-card-foot is-stretched">
+                <span>
+                    <button id="btnCreateActivity" class="button is-success" onclick="if (!this.disabled) { document.getElementById('frmEditActivity').submit(); }">{{ __('app.save') }}</button>
+                </span>
+            </footer>
+        </div>
+    </div>
 @endsection
 
 @section('javascript')

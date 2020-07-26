@@ -37,6 +37,14 @@ class ParticipantModel extends Model
     public static function add($user, $activity, $type)
     {
         try {
+            if ($type === self::PARTICIPANT_ACTUAL) {
+                $count = ParticipantModel::where('activity', '=', $activity)->where('type', '=', $type)->count();
+                $act = ActivityModel::getActivity($activity);
+                if (($act->limit > 0) && ($count >= $act->limit)) {
+                    throw new Exception(__('app.activity_limit_reached'));
+                }
+            }
+
             $exists = ParticipantModel::where('participant', '=', $user)->where('activity', '=', $activity)->where('type', '=', $type)->first();
             if (!$exists) {
                 $item = new ParticipantModel();

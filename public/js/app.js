@@ -19357,7 +19357,8 @@ window.vue = new Vue({
     bShowCreateFaq: false,
     bShowEditFaq: false,
     bShowCreateTheme: false,
-    bShowEditTheme: false
+    bShowEditTheme: false,
+    bShowEditActivity: false
   },
   methods: {
     handleCookieConsent: function handleCookieConsent() {

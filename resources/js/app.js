@@ -29,6 +29,7 @@ window.vue = new Vue({
         bShowEditFaq: false,
         bShowCreateTheme: false,
         bShowEditTheme: false,
+        bShowEditActivity: false,
     },
 
     methods: {

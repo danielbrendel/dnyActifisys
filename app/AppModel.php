@@ -125,7 +125,7 @@ class AppModel extends Model
     public static function getFormattedProjectName()
     {
         return Cache::remember('formatted_project_name', AppModel::ONE_DAY, function() {
-            return DB::table('app_settings')->first()->formatted_project_name;
+            return DB::table('app_settings')->first()->project_name_formatted;
         });
     }
 

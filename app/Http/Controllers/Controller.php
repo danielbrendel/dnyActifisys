@@ -25,6 +25,18 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     /**
+     * Add language middleware here
+     */
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            \App::setLocale(env('APP_LANG', 'en'));
+
+            return $next($request);
+        });
+    }
+
+    /**
      * Validate authentication
      *
      * @throws Exception

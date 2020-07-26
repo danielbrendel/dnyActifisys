@@ -178,7 +178,7 @@ return [
     'view_profile' => 'View profile',
     'name' => 'Name',
     'bio' => 'Bio',
-    'avatar' => 'avatar',
+    'avatar' => 'Avatar',
     'password_confirmation' => 'Password confirmation',
     'newsletter_notice' => 'Receive newsletters',
     'email_on_message_notice' => 'Receive notification for new messages',
@@ -198,5 +198,13 @@ return [
     'contact_email' => 'Your E-Mail',
     'contact_subject' => 'Subject',
     'contact_body' => 'Message',
-    'submit' => 'Submit'
+    'submit' => 'Submit',
+    'time' => 'Time',
+    'lock' => 'Lock',
+    'edit' => 'Edit',
+    'participant_limit_reached_short' => 'Limit reached',
+    'activity_edited' => 'Activity has been updated',
+    'user_not_existing_or_deactivated' => 'User does not exist or is deactivated',
+    'edit_activity' => 'Edit activity',
+    'save' => 'Save'
 ];

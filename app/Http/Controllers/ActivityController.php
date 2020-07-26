@@ -43,6 +43,7 @@ class ActivityController extends Controller
                 'title' => 'required|max:100',
                 'description' => 'required',
                 'date_of_activity' => 'required|date',
+                'time_of_activity' => 'required|date_format:H:i',
                 'location' => 'required',
                 'limit' => 'nullable|numeric'
             ]);
@@ -54,6 +55,38 @@ class ActivityController extends Controller
             $id = ActivityModel::createActivity(auth()->id(), $attr);
 
             return redirect('/activity/' . $id)->with('flash.success', __('app.activity_created'));
+        } catch (Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Edit activity
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function edit()
+    {
+        try {
+            $this->validateAuth();
+
+            $attr = request()->validate([
+                'activityId' => 'required|numeric',
+                'title' => 'required|max:100',
+                'description' => 'required',
+                'date_of_activity' => 'required|date',
+                'time_of_activity' => 'required|date_format:H:i',
+                'location' => 'required',
+                'limit' => 'nullable|numeric'
+            ]);
+
+            if (!isset($attr['limit'])) {
+                $attr['limit'] = 0;
+            }
+
+            $id = ActivityModel::updateActivity($attr);
+
+            return back()->with('flash.success', __('app.activity_edited'));
         } catch (Exception $e) {
             return back()->with('error', $e->getMessage());
         }
@@ -545,6 +578,12 @@ class ActivityController extends Controller
         }
     }
 
+    /**
+     * Edit a comment
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function editComment($id)
     {
         try {

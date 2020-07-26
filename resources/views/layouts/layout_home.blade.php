@@ -54,7 +54,11 @@
             <nav class="navbar is-info" role="navigation" aria-label="main navigation">
                 <div class="navbar-brand">
                     <a class="navbar-item" href="{{ url('/') }}">
-                        <strong>{{ env('APP_PROJECTNAME') }}</strong>
+                        @if (strlen(\App\AppModel::getFormattedProjectName()) > 0)
+                            {!! \App\AppModel::getFormattedProjectName() !!}
+                        @else
+                            <strong>{{ env('APP_PROJECTNAME') }}</strong>
+                        @endif
                     </a>
 
                     @if (\App\User::isMaintainer(auth()->id()))
@@ -397,6 +401,13 @@
                                     <input id="caDate" class="input" type="date" name="date_of_activity" onkeyup="window.vue.invalidCreateActivity();" onchange="window.vue.invalidCreateActivity();" required>
                                 </div>
                                 <p class="help is-danger is-hidden" id="activity-date-hint">{{ __('app.date_is_in_past') }}</p>
+                            </div>
+
+                            <div class="field">
+                                <label class="label">{{ __('app.time') }}</label>
+                                <div class="control">
+                                    <input id="caTime" class="input" type="time" name="time_of_activity" onkeyup="window.vue.invalidCreateActivity();" onchange="window.vue.invalidCreateActivity();" required>
+                                </div>
                             </div>
 
                             <div class="field">

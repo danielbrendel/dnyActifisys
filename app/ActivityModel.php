@@ -60,7 +60,7 @@ class ActivityModel extends Model
             $item->owner = $owner;
             $item->title = $attr['title'];
             $item->description = $attr['description'];
-            $item->date_of_activity = $attr['date_of_activity'];
+            $item->date_of_activity = date('Y-m-d H:i:s', strtotime($attr['date_of_activity'] . ' ' . $attr['time_of_activity']));
             $item->location = strtolower(trim($attr['location']));
             $item->limit = $attr['limit'];
             $item->save();
@@ -79,6 +79,44 @@ class ActivityModel extends Model
             }
 
             return $item->id;
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Edit activity
+     *
+     * @param $owner
+     * @param array $attr
+     * @throws Exception
+     */
+    public static function updateActivity(array $attr)
+    {
+        try {
+            $user = User::get(auth()->id());
+            $item = ActivityModel::getActivity($attr['activityId']);
+
+            if ((!$user) || ($user->deactivated)) {
+                throw new Exception(__('app.user_not_existing_or_deactivated'));
+            }
+
+            if ((!$user->admin) && ($user->id !== $item->owner)) {
+                throw new Exception(__('app.insufficient_permissions'));
+            }
+
+            $dtActivity = new DateTime($attr['date_of_activity']);
+            $dtNow = new DateTime();
+            if ($dtActivity < $dtNow) {
+                throw new Exception(__('app.date_is_in_past'));
+            }
+
+            $item->title = $attr['title'];
+            $item->description = $attr['description'];
+            $item->date_of_activity = date('Y-m-d H:i:s', strtotime($attr['date_of_activity'] . ' ' . $attr['time_of_activity']));
+            $item->location = strtolower(trim($attr['location']));
+            $item->limit = $attr['limit'];
+            $item->save();
         } catch (Exception $e) {
             throw $e;
         }
