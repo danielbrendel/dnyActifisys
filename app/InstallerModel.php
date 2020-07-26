@@ -36,7 +36,7 @@ class InstallerModel extends Model
     public static function install($attr)
     {
         try {
-            $envcontent = '# ComAct Environment configuration' . PHP_EOL;
+            $envcontent = '# ComAct Environment configuration' . PHP_EOL . PHP_EOL;
             $envcontent .= 'APP_NAME=ComAct' . PHP_EOL;
             $envcontent .= 'APP_CODENAME=dnyComAct' . PHP_EOL;
             $envcontent .= 'APP_AUTHOR="Daniel Brendel"' . PHP_EOL;
