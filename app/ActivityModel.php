@@ -147,7 +147,7 @@ class ActivityModel extends Model
      * @return mixed
      * @throws Exception
      */
-    public static function fetchActivities($city = null, $paginate = null)
+    public static function fetchActivities($city = null, $paginate = null, $dateFrom = null, $dateTill = null)
     {
         try {
             $activities = ActivityModel::where('date_of_activity', '>=', date('Y-m-d H:i:s'))->where('locked', '=', false)->where('canceled', '=', false);
@@ -158,6 +158,31 @@ class ActivityModel extends Model
 
             if ($paginate !== null) {
                 $activities->where('date_of_activity', '>', date('Y-m-d H:i:s', strtotime($paginate)));
+            }
+
+            if ($dateFrom !== null) {
+                $asDate = date('Y-m-d H:i:s', strtotime($dateFrom));
+                if ((new DateTime($asDate) < (new DateTime('now')))) {
+                    throw new Exception(__('app.date_from_smaller_than_now'));
+                }
+
+                $activities->where('date_of_activity', '>=', $asDate);
+            }
+
+            if ($dateTill !== null) {
+                $asDate = date('Y-m-d H:i:s', strtotime($dateTill));
+                if ((new DateTime($asDate) < (new DateTime('now')))) {
+                    throw new Exception(__('app.date_till_smaller_than_now'));
+                }
+
+                if ($dateFrom !== null) {
+                    $asDate2 = date('Y-m-d H:i:s', strtotime($dateFrom));
+                    if ((new DateTime($asDate) < (new DateTime($asDate2)))) {
+                        throw new Exception(__('app.till_date_must_not_be_less_than_from_date'));
+                    }
+                }
+
+                $activities->where('date_of_activity', '<=', $asDate);
             }
 
             return $activities->orderBy('date_of_activity', 'asc')->limit(env('APP_ACTIVITYPACKLIMIT'))->get();

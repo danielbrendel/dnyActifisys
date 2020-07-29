@@ -303,5 +303,11 @@ return [
     'upload' => 'Hochladen',
     'image_upload' => 'Bilder Upload',
     'upload_image' => 'Lade ein Bild hoch',
-    'email_on_act_canceled_notice' => 'Nachricht an mich, wenn eine Aktivität an der ich teilnehme abgesagt wird'
+    'email_on_act_canceled_notice' => 'Nachricht an mich, wenn eine Aktivität an der ich teilnehme abgesagt wird',
+    'email_not_found' => 'E-Mail Adresse in unseren Datenbeständen nicht gefunden',
+    'date_from_smaller_than_now' => 'Von-Datum liegt in der Vergangenheit!',
+    'date_till_smaller_than_now' => 'Bis-Datum liegt in der Vergangenheit!',
+    'till_date_must_not_be_less_than_from_date' => 'Bis-Datum darf nicht kleiner als Von-Datum sein!',
+    'from' => 'Von',
+    'till' => 'Bis'
 ];

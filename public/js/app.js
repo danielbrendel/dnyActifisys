@@ -19389,6 +19389,11 @@ window.vue = new Vue({
       var expDate = new Date(Date.now() + 1000 * 60 * 60 * 24 * 365);
       document.cookie = 'filter_city=' + (city.length > 0 ? city : '_all') + '; expires=' + expDate.toUTCString() + '; path=/;';
     },
+    setDateCookieValue: function setDateCookieValue(from, till) {
+      var expDate = new Date(Date.now() + 1000 * 60 * 60 * 24 * 365);
+      document.cookie = 'filter_date_from=' + (from.value.length > 0 ? from.value : '_default') + '; expires=' + expDate.toUTCString() + '; path=/;';
+      document.cookie = 'filter_date_till=' + (till.value.length > 0 ? till.value : '_default') + '; expires=' + expDate.toUTCString() + '; path=/;';
+    },
     getCityCookieValue: function getCityCookieValue() {
       var cookies = document.cookie.split(';');
 
@@ -19399,6 +19404,28 @@ window.vue = new Vue({
       }
 
       return '_all';
+    },
+    getDateFromCookieValue: function getDateFromCookieValue() {
+      var cookies = document.cookie.split(';');
+
+      for (var i = 0; i < cookies.length; i++) {
+        if (cookies[i].indexOf('filter_date_from') !== -1) {
+          return cookies[i].substr(cookies[i].indexOf('=') + 1);
+        }
+      }
+
+      return '_default';
+    },
+    getDateTillCookieValue: function getDateTillCookieValue() {
+      var cookies = document.cookie.split(';');
+
+      for (var i = 0; i < cookies.length; i++) {
+        if (cookies[i].indexOf('filter_date_till') !== -1) {
+          return cookies[i].substr(cookies[i].indexOf('=') + 1);
+        }
+      }
+
+      return '_default';
     },
     ajaxRequest: function ajaxRequest(method, url) {
       var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};

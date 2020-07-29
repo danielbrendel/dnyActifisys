@@ -21,6 +21,7 @@ Route::get('/contact', 'MainController@viewContact');
 Route::post('/contact', 'MainController@contact');
 Route::get('/tos', 'MainController@tos');
 Route::post('/register', 'MainController@register');
+Route::post('/recover', 'MainController@recover');
 Route::post('/reset', 'MainController@reset');
 Route::get('/confirm', 'MainController@confirm');
 Route::post('/login', 'MainController@login');

@@ -473,7 +473,7 @@ a.navbar-item:hover {
 }
 
 .activity {
-  width: 310px;
+  width: 329px;
   border: 1px solid #ccc;
   border-radius: 4px;
   display: inline-block;
@@ -1061,5 +1061,9 @@ a.navbar-item:hover {
 
 .is-color-green {
   color: #009600;
+}
+
+.is-fixed-filter-button {
+  top: -14px;
 }
 

@@ -414,7 +414,7 @@ a.navbar-item:hover {
     color: rgb(150, 0, 0);
 }
 .activity {
-    width: 310px;
+    width: 329px;
     border: 1px solid #ccc;
     border-radius: 4px;
     display: inline-block;
@@ -887,4 +887,7 @@ a.navbar-item:hover {
 }
 .is-color-green {
     color: rgb(0, 150, 0);
+}
+.is-fixed-filter-button {
+    top: -14px;
 }

@@ -65,6 +65,13 @@ window.vue = new Vue({
             document.cookie = 'filter_city=' + ((city.length > 0) ? city : '_all') + '; expires=' + expDate.toUTCString() + '; path=/;';
         },
 
+        setDateCookieValue: function(from, till) {
+            let expDate = new Date(Date.now() + 1000 * 60 * 60 * 24 * 365);
+
+            document.cookie = 'filter_date_from=' + ((from.value.length > 0) ? from.value : '_default') + '; expires=' + expDate.toUTCString() + '; path=/;';
+            document.cookie = 'filter_date_till=' + ((till.value.length > 0) ? till.value : '_default') + '; expires=' + expDate.toUTCString() + '; path=/;';
+        },
+
         getCityCookieValue: function() {
             let cookies = document.cookie.split(';');
             for (let i = 0; i < cookies.length; i++) {
@@ -74,6 +81,28 @@ window.vue = new Vue({
             }
 
             return '_all';
+        },
+
+        getDateFromCookieValue: function() {
+            let cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                if (cookies[i].indexOf('filter_date_from') !== -1) {
+                    return cookies[i].substr(cookies[i].indexOf('=') + 1);
+                }
+            }
+
+            return '_default';
+        },
+
+        getDateTillCookieValue: function() {
+            let cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                if (cookies[i].indexOf('filter_date_till') !== -1) {
+                    return cookies[i].substr(cookies[i].indexOf('=') + 1);
+                }
+            }
+
+            return '_default';
         },
 
         ajaxRequest: function (method, url, data = {}, successfunc = function(data){}, finalfunc = function(){}, config = {})

@@ -31,10 +31,36 @@
                     </a>
                 </div>
             </div>
+
+            <div>
+                <div class="field is-inline-block">
+                    <label class="label">{{ __('app.from') }}</label>
+                    <div class="control is-inline-block">
+                        <input type="date" class="input" id="inpDateFrom">
+                    </div>
+                </div>
+
+                <div class="field is-inline-block">
+                    <label class="label">{{ __('app.till') }}</label>
+                    <div class="control is-inline-block">
+                        <input type="date" class="input" id="inpDateTill">
+                    </div>
+                </div>
+
+                <div class="field is-inline-block">
+                    <div class="control is-inline-block is-fixed-filter-button">
+                        <a id="btnFilterDate" class="button is-info" href="javascript:void(0);" onclick="window.vue.setDateCookieValue(document.getElementById('inpDateFrom'), document.getElementById('inpDateTill')); location.reload();">
+                            {{ __('app.do_filter') }}
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
         <hr/>
-        <br/>
-        <br/>
 
         <div id="activities"></div>
         <div id="loadmore" title="{{ __('app.load_more') }}" class="is-hidden" onclick="fetchActivities()"><center><i class="fas fa-arrow-down is-pointer"></i></center></div>
@@ -56,6 +82,20 @@
                 document.getElementById('inpCityFilter').value = window.city;
             }
 
+            window.dateFrom = window.vue.getDateFromCookieValue();
+            if (window.dateFrom === '_default') {
+                document.getElementById('inpDateFrom').value = '';
+            } else {
+                document.getElementById('inpDateFrom').value = window.dateFrom;
+            }
+
+            window.dateTill = window.vue.getDateTillCookieValue();
+            if (window.dateTill === '_default') {
+                document.getElementById('inpDateTill').value = '';
+            } else {
+                document.getElementById('inpDateTill').value = window.dateTill;
+            }
+
             fetchActivities();
         });
 
@@ -63,7 +103,7 @@
         {
             document.getElementById('load-spinner').innerHTML = '<center><i class="fas fa-spinner fa-spin"></i></center>';
 
-            window.vue.ajaxRequest('get', '{{ url('/activity/fetch') }}/' + ((window.paginate !== null) ? '?paginate=' + window.paginate : '?paginate=null') + '&city=' + window.city, {}, function(response) {
+            window.vue.ajaxRequest('get', '{{ url('/activity/fetch') }}/' + ((window.paginate !== null) ? '?paginate=' + window.paginate : '?paginate=null') + '&city=' + window.city + "&date_from=" + window.dateFrom + "&date_till=" + window.dateTill, {}, function(response) {
                 if (response.code === 200) {
                     if (response.data.length > 0) {
                         document.getElementById('load-spinner').innerHTML = '';

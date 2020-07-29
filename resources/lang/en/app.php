@@ -303,5 +303,11 @@ return [
     'upload' => 'Upload',
     'image_upload' => 'Image upload',
     'upload_image' => 'Upload an image',
-    'email_on_act_canceled_notice' => 'Receive notice if an activity I participate in is canceled'
+    'email_on_act_canceled_notice' => 'Receive notice if an activity I participate in is canceled',
+    'email_not_found' => 'E-Mail address not found in our records',
+    'date_from_smaller_than_now' => 'From date lies in the past!',
+    'date_till_smaller_than_now' => 'Till date lies in the past!',
+    'till_date_must_not_be_less_than_from_date' => 'Till date must not be less than from date!',
+    'from' => 'From',
+    'till' => 'Till'
 ];

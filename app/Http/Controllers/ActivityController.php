@@ -155,7 +155,17 @@ class ActivityController extends Controller
                 $city = null;
             }
 
-            $data = ActivityModel::fetchActivities($city, $paginate);
+            $dateFrom = request('date_from', null);
+            if ($dateFrom === '_default') {
+                $dateFrom = null;
+            }
+
+            $dateTill = request('date_till', null);
+            if ($dateTill === '_default') {
+                $dateTill = null;
+            }
+
+            $data = ActivityModel::fetchActivities($city, $paginate, $dateFrom, $dateTill);
             foreach ($data as &$item) {
                 $item->user = User::get($item->owner);
                 $item->participants = ParticipantModel::where('activity', '=', $item->id)->where('type', '=', ParticipantModel::PARTICIPANT_ACTUAL)->count();
