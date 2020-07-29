@@ -96,6 +96,10 @@
                             {{ __('app.messages') }}
                         </a>
 
+                        <a class="navbar-item fix-mobile-navbar-item is-white" href="{{ url('/user/' . auth()->id()) }}">
+                            {{ __('app.profile') }}
+                        </a>
+
                         <a class="navbar-item fix-mobile-navbar-item is-white" href="{{ url('/settings') }}">
                             {{ __('app.settings') }}
                         </a>
