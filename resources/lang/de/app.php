@@ -309,5 +309,12 @@ return [
     'date_till_smaller_than_now' => 'Bis-Datum liegt in der Vergangenheit!',
     'till_date_must_not_be_less_than_from_date' => 'Bis-Datum darf nicht kleiner als Von-Datum sein!',
     'from' => 'Von',
-    'till' => 'Bis'
+    'till' => 'Bis',
+    'only_gender' => 'Nur dieses Geschlecht',
+    'your_gender_excluded' => 'Sorry, aber dein Geschlecht ist vom Ersteller ausgeschlossen worden',
+    'all' => 'Alle',
+    'mail_fav_created_title' => 'Erstellte Aktivität',
+    'mail_fav_created_info' => 'Einer deiner Favoriten hat eine Aktivität erstellt',
+    'mail_fav_created_body' => 'Die folgende Aktivität wurde von :creator erstellt',
+    'gender_restricted' => 'Nicht für alle Geschlechter'
 ];

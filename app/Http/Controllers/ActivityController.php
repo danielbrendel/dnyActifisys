@@ -47,11 +47,16 @@ class ActivityController extends Controller
                 'date_of_activity' => 'required|date',
                 'time_of_activity' => 'required|date_format:H:i',
                 'location' => 'required',
-                'limit' => 'nullable|numeric'
+                'limit' => 'nullable|numeric',
+                'only_gender' => 'nullable|numeric'
             ]);
 
             if (!isset($attr['limit'])) {
                 $attr['limit'] = 0;
+            }
+
+            if (!isset($attr['only_gender'])) {
+                $attr['only_gender'] = 0;
             }
 
             $id = ActivityModel::createActivity(auth()->id(), $attr);
@@ -79,11 +84,16 @@ class ActivityController extends Controller
                 'date_of_activity' => 'required|date',
                 'time_of_activity' => 'required|date_format:H:i',
                 'location' => 'required',
-                'limit' => 'nullable|numeric'
+                'limit' => 'nullable|numeric',
+                'only_gender' => 'nullable|numeric'
             ]);
 
             if (!isset($attr['limit'])) {
                 $attr['limit'] = 0;
+            }
+
+            if (!isset($attr['only_gender'])) {
+                $attr['only_gender'] = 0;
             }
 
             $id = ActivityModel::updateActivity($attr);
@@ -362,9 +372,16 @@ class ActivityController extends Controller
                 throw new Exception(__('app.activity_not_found_or_locked'));
             }
 
+            $user = User::get(auth()->id());
+
+            if ($activity->only_gender !== 0) {
+                if ($user->gender !== $activity->only_gender) {
+                    throw new Exception(__('app.your_gender_excluded'));
+                }
+            }
+
             ParticipantModel::add(auth()->id(), $activityId, ParticipantModel::PARTICIPANT_ACTUAL);
 
-            $user = User::get(auth()->id());
             PushModel::addNotification(__('app.user_participated_short'), __('app.user_participated_long', ['name' => $user->name]), 'PUSH_PARTICIPATED', $activity->owner);
 
             $owner = User::get($activity->owner);

@@ -424,6 +424,18 @@
                                     <input class="input" type="number" name="limit" value="0" min="0">
                                 </div>
                             </div>
+
+                            <div class="field">
+                                <label class="label">{{ __('app.only_gender') }}</label>
+                                <div class="control">
+                                    <select name="gender">
+                                        <option value="0">{{ __('app.all') }}</option>
+                                        <option value="1">{{ __('app.gender_male') }}</option>
+                                        <option value="2">{{ __('app.gender_female') }}</option>
+                                        <option value="3">{{ __('app.gender_diverse') }}</option>
+                                    </select>
+                                </div>
+                            </div>
                         </form>
                     </section>
                     <footer class="modal-card-foot is-stretched">

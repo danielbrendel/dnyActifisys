@@ -63,6 +63,7 @@ class ActivityModel extends Model
             $item->date_of_activity = date('Y-m-d H:i:s', strtotime($attr['date_of_activity'] . ' ' . $attr['time_of_activity']));
             $item->location = strtolower(trim($attr['location']));
             $item->limit = $attr['limit'];
+            $item->only_gender = $attr['only_gender'];
             $item->save();
 
             ParticipantModel::add($owner, $item->id, ParticipantModel::PARTICIPANT_ACTUAL);
@@ -73,7 +74,7 @@ class ActivityModel extends Model
 
                 $favUser = User::get($fav->userId);
                 if (($favUser) && ($favUser->email_on_fav_created)) {
-                    $html = view('mail.fav_created', ['name' => $favUser->name, 'creator' => $user->id, 'title' => $attr['title'], 'description' => $attr['description']])->render();
+                    $html = view('mail.fav_created', ['name' => $favUser->name, 'creator' => $user->name, 'activity' => $item])->render();
                     MailerModel::sendMail($user->email, __('app.activity_created'), $html);
                 }
             }
@@ -116,6 +117,7 @@ class ActivityModel extends Model
             $item->date_of_activity = date('Y-m-d H:i:s', strtotime($attr['date_of_activity'] . ' ' . $attr['time_of_activity']));
             $item->location = strtolower(trim($attr['location']));
             $item->limit = $attr['limit'];
+            $item->only_gender = $attr['only_gender'];
             $item->save();
         } catch (Exception $e) {
             throw $e;

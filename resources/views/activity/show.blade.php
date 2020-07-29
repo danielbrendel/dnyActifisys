@@ -39,6 +39,21 @@
                         <div>&nbsp;<i class="far fa-clock"></i>&nbsp;<span title="{{ $activity->date_of_activity  }}">{{ $activity->date_of_activity->diffForHumans() }}</span></div>
                         <div class="is-capitalized">&nbsp;<i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;{{ $activity->location }}</div>
                         <div class="is-capitalized"><i class="fas fa-users"></i>&nbsp;{{ (($activity->limit === 0) ? __('app.no_limit') : __('app.limit_count', ['count' => $activity->limit])) }}</div>
+                        @if ($activity->only_gender !== 0)
+                            <div>
+                                <i class="fas fa-ban"></i>&nbsp;{{ __('app.gender_restricted') }}
+                                &nbsp;
+                                (
+                                    @if ($activity->only_gender === 1)
+                                        {{ __('app.gender_male') }}
+                                    @elseif ($activity->only_gender === 2)
+                                        {{ __('app.gender_female') }}
+                                    @elseif ($activity->only_gender === 3)
+                                        {{ __('app.gender_diverse') }}
+                                    @endif
+                                )
+                            </div>
+                        @endif
                     </div>
 
                     @if ($activity->canceled)
@@ -179,7 +194,7 @@
                         </div>
 
                         <div class="buttons-right is-inline-block">
-                            @if ((new DateTime('now')) < (new DateTime($activity->date_of_activity)))
+                            @if ((new DateTime('now')) < (new DateTime(date('Y-m-d H:i:s', strtotime($activity->date_of_activity)))))
                                 @if ($activity->owner !== auth()->id())
                                     @if (!$activity->selfParticipated)
                                         <div class="is-inline-block"><button type="button" id="btnParticipate" class="button is-success" onclick="location.href = '{{ url('/activity/' . $activity->id . '/participant/add') }}';">{{ __('app.participate') }}</button></div>
@@ -284,6 +299,18 @@
                         <label class="label">{{ __('app.limit') }}</label>
                         <div class="control">
                             <input class="input" type="number" name="limit" value="{{ $activity->limit }}" min="0">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">{{ __('app.only_gender') }}</label>
+                        <div class="control">
+                            <select name="gender">
+                                <option value="0">{{ __('app.all') }}</option>
+                                <option value="1">{{ __('app.gender_male') }}</option>
+                                <option value="2">{{ __('app.gender_female') }}</option>
+                                <option value="3">{{ __('app.gender_diverse') }}</option>
+                            </select>
                         </div>
                     </div>
                 </form>

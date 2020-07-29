@@ -32,6 +32,7 @@ class CreateActivityModelsTable extends Migration
             $table->dateTime('date_of_activity');
             $table->string('location');
             $table->integer('limit')->unsigned()->default(0); //0 = unlimited, >0 = limited
+            $table->integer('only_gender')->unsigned()->default(0); //0 = all, 1 = only male, 2 = only female, 3 = only diverse
             $table->integer('owner');
             $table->boolean('locked')->default(false);
             $table->boolean('canceled')->default(false);
