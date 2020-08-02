@@ -253,6 +253,11 @@ a.navbar-item:hover {
 }
 
 //Corrections
+.columns {
+    @media screen and (max-width: 367px) {
+        padding: 0;
+    }
+}
 .navbar {
     height: 15px;
 }
@@ -290,6 +295,12 @@ a.navbar-item:hover {
 }
 .is-default-padding {
     padding: 21px;
+}
+.is-def-padding-mobile {
+    @media screen and (max-width: 367px) {
+        padding-left: 0;
+        padding-right: 0;
+    }
 }
 .is-default-side-padding {
     padding-left: 21px;
@@ -422,7 +433,9 @@ a.navbar-item:hover {
     border: 1px solid #ccc;
     border-radius: 4px;
     display: inline-block;
-    margin: 15px;
+    @media screen and (min-width: 368px) {
+        margin: 15px;
+    }
     height: 540px;
 }
 .activity-header {
@@ -489,6 +502,11 @@ a.navbar-item:hover {
 }
 .activity-image-item a:hover {
     color: rgb(120, 120, 120);
+}
+#activities {
+    @media screen and (max-width: 767px) {
+        top: 25px;
+    }
 }
 
 //Thread

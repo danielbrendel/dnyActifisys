@@ -274,6 +274,12 @@ a.navbar-item:hover {
   background-color: #80ff80;
 }
 
+@media screen and (max-width: 367px) {
+  .columns {
+    padding: 0;
+  }
+}
+
 .navbar {
   height: 15px;
 }
@@ -321,6 +327,13 @@ a.navbar-item:hover {
 
 .is-default-padding {
   padding: 21px;
+}
+
+@media screen and (max-width: 367px) {
+  .is-def-padding-mobile {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 .is-default-side-padding {
@@ -482,8 +495,13 @@ a.navbar-item:hover {
   border: 1px solid #ccc;
   border-radius: 4px;
   display: inline-block;
-  margin: 15px;
   height: 540px;
+}
+
+@media screen and (min-width: 368px) {
+  .activity {
+    margin: 15px;
+  }
 }
 
 .activity-header {
@@ -564,6 +582,12 @@ a.navbar-item:hover {
 
 .activity-image-item a:hover {
   color: #787878;
+}
+
+@media screen and (max-width: 767px) {
+  #activities {
+    top: 25px;
+  }
 }
 
 .thread-input-avatar {
