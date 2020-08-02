@@ -27,9 +27,27 @@ class NotificationController extends Controller
     public function list()
     {
         try {
-            $notifications = PushModel::getUnseenNotifications(auth()->id());
+            $markSeen = (bool)request('mark', false);
+
+            $notifications = PushModel::getUnseenNotifications(auth()->id(), $markSeen);
 
             return response()->json(array('code' => 200, 'data' => $notifications));
+        } catch (\Exception $e) {
+            return response()->json(array('code' => 500, 'msg' => $e->getMessage()));
+        }
+    }
+
+    /**
+     * Mark notifications seen
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function seen()
+    {
+        try {
+            PushModel::markSeen(auth()->id());
+
+            return response()->json(array('code' => 200));
         } catch (\Exception $e) {
             return response()->json(array('code' => 500, 'msg' => $e->getMessage()));
         }

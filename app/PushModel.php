@@ -73,16 +73,20 @@ class PushModel extends Model
      * Get all unseen notifications and mark them as seen
      *
      * @param int $userId The ID of the user
+     * @param bool $markAsSeen
      * @return mixed Items or null if non exist
      * @throws \Exception
      */
-    public static function getUnseenNotifications($userId)
+    public static function getUnseenNotifications($userId, $markAsSeen = true)
     {
         try {
             $items = PushModel::where('userId', '=', $userId)->where('seen', '=', false)->get();
-            foreach ($items as $item) {
-                $item->seen = true;
-                $item->save();
+
+            if ($markAsSeen) {
+                foreach ($items as $item) {
+                    $item->seen = true;
+                    $item->save();
+                }
             }
 
             return $items;
@@ -110,6 +114,26 @@ class PushModel extends Model
             }
 
             return $rowset->orderBy('id', 'desc')->limit($limit)->get();
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Mark unseen notifications as seen
+     *
+     * @param $userId
+     * @throws \Exception
+     */
+    public static function markSeen($userId)
+    {
+        try {
+            $items = PushModel::where('userId', '=', $userId)->where('seen', '=', false)->get();
+
+            foreach ($items as $item) {
+                $item->seen = true;
+                $item->save();
+            }
         } catch (\Exception $e) {
             throw $e;
         }

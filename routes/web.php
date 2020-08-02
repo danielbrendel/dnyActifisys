@@ -66,6 +66,7 @@ Route::get('/favorites/fetch', 'FavoritesController@fetch');
 
 Route::get('/notifications/list', 'NotificationController@list');
 Route::get('/notifications/fetch', 'NotificationController@fetch');
+Route::get('/notifications/seen', 'NotificationController@seen');
 
 Route::get('/messages', 'MessageController@list');
 Route::get('/messages/list', 'MessageController@fetchList');

@@ -87,7 +87,7 @@
                             {{ __('app.favorites') }}
                         </a>
 
-                        <a class="navbar-item notification-badge" href="javascript:void(0);" onclick="window.vue.toggleNotifications('notifications'); document.getElementById('navbar-notify-count').classList.add('is-hidden'); if (window.menuVisible) { document.getElementById('navbarMenu').classList.remove('is-active'); document.getElementById('navbarBurger').classList.remove('is-active'); }">
+                        <a class="navbar-item notification-badge" href="javascript:void(0);" onclick="window.vue.toggleNotifications('notifications'); document.getElementById('navbar-notify-count').classList.add('is-hidden'); window.vue.markSeen(); if (window.menuVisible) { document.getElementById('navbarMenu').classList.remove('is-active'); document.getElementById('navbarBurger').classList.remove('is-active'); }">
                             <span>{{ __('app.notifications') }}</span>
                             <span class="notify-badge is-hidden" id="navbar-notify-count"></span>
                         </a>
@@ -549,7 +549,7 @@
         });
 
         window.fetchNotifications = function() {
-            window.vue.ajaxRequest('get', '{{ url('/notifications/list') }}', {}, function(response){
+            window.vue.ajaxRequest('get', '{{ url('/notifications/list?mark=0') }}', {}, function(response){
                 if (response.code === 200) {
                     if (response.data.length > 0) {
                         let noyet = document.getElementById('no-notifications-yet');

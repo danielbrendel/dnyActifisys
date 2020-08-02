@@ -302,9 +302,11 @@ window.vue = new Vue({
 
         renderActivity: function(elem) {
             let html = `<div class="activity is-default-padding">
-                <div class="activity-user">
-                    <center><div class="activity-user-avatar"><img src="` + window.location.origin + '/gfx/avatars/' + elem.user.avatar + `" class="is-pointer" onclick="location.href = '` + window.location.origin + '/user/' + elem.user.id + `';"></div>
-                        <div class="activity-user-name"><a href="` + window.location.origin + '/user/' + elem.user.id + `">` + elem.user.name + `</a></div></center>
+                <div class="activity-header">
+                    <div class="activity-user">
+                        <center><div class="activity-user-avatar"><img src="` + window.location.origin + '/gfx/avatars/' + elem.user.avatar + `" class="is-pointer" onclick="location.href = '` + window.location.origin + '/user/' + elem.user.id + `';"></div>
+                            <div class="activity-user-name"><a href="` + window.location.origin + '/user/' + elem.user.id + `">` + elem.user.name + `</a></div></center>
+                    </div>
                 </div>
 
                 <div class="activity-title is-pointer is-wordbreak" onclick="location.href = '` + window.location.origin + '/activity/' + elem.id + `';">
@@ -531,6 +533,14 @@ window.vue = new Vue({
 
                document.getElementById(target).classList.add('is-active');
                document.getElementById(target + '-form').classList.remove('is-hidden');
+            });
+        },
+
+        markSeen: function() {
+            this.ajaxRequest('get', window.location.origin + '/notifications/seen', {}, function(response) {
+                if (response.code !== 200) {
+                    console.log(response.msg);
+                }
             });
         },
     }
