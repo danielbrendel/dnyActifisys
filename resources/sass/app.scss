@@ -291,6 +291,10 @@ a.navbar-item:hover {
 .is-default-padding {
     padding: 21px;
 }
+.is-default-side-padding {
+    padding-left: 21px;
+    padding-right: 21px;
+}
 
 //Frames
 .frame {
@@ -421,9 +425,16 @@ a.navbar-item:hover {
     margin: 15px;
     height: 540px;
 }
+.activity-header {
+    width: 100%;
+    height: 100px;
+    top: -10px;
+    background-color: rgb(50, 190, 250);
+}
 .activity-user {
     margin-top: 10px;
     margin-bottom: 15px;
+    top: 25px;
 }
 .activity-user-avatar img {
     border-radius: 50%;
@@ -431,7 +442,7 @@ a.navbar-item:hover {
     height: 32px;
 }
 .activity-user-name a {
-    color: rgb(150, 150, 150);
+    color: rgb(255, 255, 255);
 }
 .activity-title {
     margin-bottom: 15px;
@@ -445,10 +456,14 @@ a.navbar-item:hover {
     max-height: 134px;
 }
 .activity-information {
+    top: -25px;
     margin-bottom: 15px;
     color: rgb(150, 150, 150);
     font-size: 0.9em;
     min-height: 151px;
+}
+.activity-footer {
+    top: -50px;
 }
 .activity-footer-view {
     float: right;

@@ -12,7 +12,7 @@
 
 require('./bootstrap');
 
-const MAX_ACTIVITY_DESCRIPTION_LENGTH = 279;
+const MAX_ACTIVITY_DESCRIPTION_LENGTH = 159;
 
 window.vue = new Vue({
     el: '#app',
@@ -301,7 +301,7 @@ window.vue = new Vue({
         },
 
         renderActivity: function(elem) {
-            let html = `<div class="activity is-default-padding">
+            let html = `<div class="activity">
                 <div class="activity-header">
                     <div class="activity-user">
                         <center><div class="activity-user-avatar"><img src="` + window.location.origin + '/gfx/avatars/' + elem.user.avatar + `" class="is-pointer" onclick="location.href = '` + window.location.origin + '/user/' + elem.user.id + `';"></div>
@@ -309,11 +309,11 @@ window.vue = new Vue({
                     </div>
                 </div>
 
-                <div class="activity-title is-pointer is-wordbreak" onclick="location.href = '` + window.location.origin + '/activity/' + elem.id + `';">
+                <div class="activity-title is-pointer is-wordbreak is-default-padding" onclick="location.href = '` + window.location.origin + '/activity/' + elem.id + `';">
                     <center>` + elem.title + `</center>
                 </div>
 
-                <div class="activity-infos">
+                <div class="activity-infos is-default-padding">
                     <center><span title="` + elem.date_of_activity + `"><i class="far fa-clock"></i>&nbsp;` + elem.diffForHumans + ` | </span>
                         <span class="is-capitalized"><i class="fas fa-map-marker-alt"></i>&nbsp;` + elem.location + `</span></center>
                 </div>
@@ -322,11 +322,11 @@ window.vue = new Vue({
                     <hr/>
                 </div>
 
-                <div class="activity-information is-wordbreak">
+                <div class="activity-information is-wordbreak is-default-side-padding">
                     ` + ((elem.description.length > MAX_ACTIVITY_DESCRIPTION_LENGTH) ? elem.description.substr(0, MAX_ACTIVITY_DESCRIPTION_LENGTH) + '...': elem.description) + `
                 </div>
 
-                <div class="activity-footer">
+                <div class="activity-footer is-default-side-padding">
                     <div class="activity-footer-stats">
                         <div class="is-inline-block"><i class="fas fa-users"></i>&nbsp;` + elem.participants + `</div>
                         <div class="is-inline-block"><i class="far fa-comments"></i>&nbsp;` + elem.messages + `</div>

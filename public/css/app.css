@@ -323,6 +323,11 @@ a.navbar-item:hover {
   padding: 21px;
 }
 
+.is-default-side-padding {
+  padding-left: 21px;
+  padding-right: 21px;
+}
+
 .frame {
   position: relative;
   padding: 15px;
@@ -481,9 +486,17 @@ a.navbar-item:hover {
   height: 540px;
 }
 
+.activity-header {
+  width: 100%;
+  height: 100px;
+  top: -10px;
+  background-color: #32befa;
+}
+
 .activity-user {
   margin-top: 10px;
   margin-bottom: 15px;
+  top: 25px;
 }
 
 .activity-user-avatar img {
@@ -493,7 +506,7 @@ a.navbar-item:hover {
 }
 
 .activity-user-name a {
-  color: #969696;
+  color: white;
 }
 
 .activity-title {
@@ -510,10 +523,15 @@ a.navbar-item:hover {
 }
 
 .activity-information {
+  top: -25px;
   margin-bottom: 15px;
   color: #969696;
   font-size: 0.9em;
   min-height: 151px;
+}
+
+.activity-footer {
+  top: -50px;
 }
 
 .activity-footer-view {
