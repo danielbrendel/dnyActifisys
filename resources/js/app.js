@@ -322,7 +322,7 @@ window.vue = new Vue({
                     <hr/>
                 </div>
 
-                <div class="activity-information  is-wordbreak">
+                <div class="activity-information is-wordbreak">
                     ` + ((elem.description.length > MAX_ACTIVITY_DESCRIPTION_LENGTH) ? elem.description.substr(0, MAX_ACTIVITY_DESCRIPTION_LENGTH) + '...': elem.description) + `
                 </div>
 
