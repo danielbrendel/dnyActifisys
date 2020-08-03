@@ -27,6 +27,7 @@ use App\User;
 use DateTime;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class ActivityController extends Controller
@@ -175,15 +176,21 @@ class ActivityController extends Controller
                 $dateTill = null;
             }
 
-            $data = ActivityModel::fetchActivities($city, $paginate, $dateFrom, $dateTill);
-            foreach ($data as &$item) {
-                $item->user = User::get($item->owner);
-                $item->participants = ParticipantModel::where('activity', '=', $item->id)->where('type', '=', ParticipantModel::PARTICIPANT_ACTUAL)->count();
-                $item->messages = ThreadModel::where('activityId', '=', $item->id)->count();
-                $item->diffForHumans = $item->date_of_activity->diffForHumans();
+            $data = ActivityModel::fetchActivities($city, $paginate, $dateFrom, $dateTill)->toArray();
+            foreach ($data as $key => &$item) {
+                $item['user'] = User::get($item['owner']);
+
+                if (IgnoreModel::hasIgnored($item['owner'], auth()->id())) {
+                    unset($data[$key]);
+                    continue;
+                }
+
+                $item['participants'] = ParticipantModel::where('activity', '=', $item['id'])->where('type', '=', ParticipantModel::PARTICIPANT_ACTUAL)->count();
+                $item['messages'] = ThreadModel::where('activityId', '=', $item['id'])->count();
+                $item['diffForHumans'] = Carbon::createFromDate($item['date_of_activity'])->diffForHumans();
             }
 
-            return response()->json(array('code' => 200, 'data' => $data, 'last' => count($data) === 0));
+            return response()->json(array('code' => 200, 'data' => array_values($data), 'last' => count($data) === 0));
         } catch (Exception $e) {
             return response()->json(array('code' => 500, 'msg' => $e->getMessage()));
         }

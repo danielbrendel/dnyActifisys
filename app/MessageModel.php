@@ -45,6 +45,10 @@ class MessageModel extends Model
                 throw new \Exception('Sender not found: ' . $senderId);
             }
 
+            if (IgnoreModel::hasIgnored($userId, $senderId)) {
+                throw new \Exception(__('app.user_no_messages'));
+            }
+
             $msg = new MessageModel();
             $msg->userId = $userId;
             $msg->senderId = $senderId;

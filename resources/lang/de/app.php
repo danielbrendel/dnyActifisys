@@ -316,5 +316,6 @@ return [
     'mail_fav_created_title' => 'Erstellte Aktivität',
     'mail_fav_created_info' => 'Einer deiner Favoriten hat eine Aktivität erstellt',
     'mail_fav_created_body' => 'Die folgende Aktivität wurde von :creator erstellt',
-    'gender_restricted' => 'Nicht für alle Geschlechter'
+    'gender_restricted' => 'Nicht für alle Geschlechter',
+    'user_no_messages' => 'Die Nachricht konnte nicht übermittelt werden'
 ];

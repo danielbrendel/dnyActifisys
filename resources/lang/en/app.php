@@ -316,5 +316,6 @@ return [
     'mail_fav_created_title' => 'Activity created',
     'mail_fav_created_info' => 'One of your favorites created an activity',
     'mail_fav_created_body' => 'The following activity has been created by :creator',
-    'gender_restricted' => 'Gender restricted'
+    'gender_restricted' => 'Gender restricted',
+    'user_no_messages' => 'The message could not be delivered'
 ];
