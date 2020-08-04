@@ -121,7 +121,7 @@
                 @csrf
 
                 <div class="field">
-                    <label class="label">{{ __('app.password') }}</label>
+                    <label class="label">{{ __('app.email') }}</label>
                     <div class="control">
                         <input type="email" name="email" value="{{ $self->email }}">
                     </div>

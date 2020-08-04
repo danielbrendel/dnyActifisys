@@ -96,7 +96,7 @@ return [
     'comment_edited' => 'Kommentar wurde aktualisiert',
     'favorite_added' => 'Zu Favoriten hinzugefügt',
     'favorite_removed' => 'Von Favoriten entfernt',
-    'product_installed' => 'Das Produkt wurde erfolgreich installiert',
+    'product_installed' => 'Das Produkt wurde erfolgreich installiert. Bitte gehe nun zu den Profileinstellungen und ändere dein Passwort!',
     'contact_success' => 'Deine Anfrage wurde aufgenommen. Wir melden uns bei dir so schnell wie möglich',
     'account_not_yet_confirmed' => 'Du musst erst deinen Account bestätigen',
     'account_deactivated' => 'Account deaktiviert',
@@ -317,5 +317,6 @@ return [
     'mail_fav_created_info' => 'Einer deiner Favoriten hat eine Aktivität erstellt',
     'mail_fav_created_body' => 'Die folgende Aktivität wurde von :creator erstellt',
     'gender_restricted' => 'Nicht für alle Geschlechter',
-    'user_no_messages' => 'Die Nachricht konnte nicht übermittelt werden'
+    'user_no_messages' => 'Die Nachricht konnte nicht übermittelt werden',
+	'no_notifications_yet' => 'Benachrichtigungen werden hier angezeigt.'
 ];

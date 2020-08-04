@@ -810,7 +810,7 @@ a.navbar-item:hover {
 
 @media screen and (min-width: 769px) {
   .notifications {
-    right: -111px;
+    right: 12px;
     width: 550px;
     height: 90%;
   }
@@ -936,7 +936,7 @@ a.navbar-item:hover {
 
 @media screen and (min-width: 769px) {
   .favorites {
-    right: -2px;
+    right: 127px;
     width: 550px;
     height: 90%;
   }

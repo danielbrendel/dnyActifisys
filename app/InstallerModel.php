@@ -109,7 +109,7 @@ class InstallerModel extends Model
             \Artisan::call('migrate:install');
             \Artisan::call('migrate:refresh', array('--path' => 'database/migrations', '--force' => true));
 
-            \DB::insert("INSERT INTO app_settings (cookie_consent, home_banner, about, imprint, tos, reg_info, project_name_formatted, default_theme, headline_top, headline_sub) VALUES('cookie_consent', 'banner.png', 'about', 'imprint', 'tos', 'reg_info', NULL, '_default', 'Headline top', 'Headline sub')");
+            \DB::insert("INSERT INTO app_settings (cookie_consent, home_banner, about, imprint, tos, reg_info, project_name_formatted, default_theme, headline_top, headline_sub) VALUES('cookie_consent', 'banner.jpg', 'about', 'imprint', 'tos', 'reg_info', '', '_default', 'Headline top', 'Headline sub')");
 
             $user = new User();
             $user->name = $attr['name'];
@@ -121,7 +121,7 @@ class InstallerModel extends Model
             $user->avatar = 'default.png';
             $user->bio = 'Project administrator';
             $user->gender = 0;
-            $user->birthday = null;
+            $user->birthday = date('Y-m-d H:i:s');
             $user->email_on_message = true;
             $user->save();
 
