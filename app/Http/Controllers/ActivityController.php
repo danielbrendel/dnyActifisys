@@ -389,7 +389,7 @@ class ActivityController extends Controller
 
             ParticipantModel::add(auth()->id(), $activityId, ParticipantModel::PARTICIPANT_ACTUAL);
 
-            PushModel::addNotification(__('app.user_participated_short'), __('app.user_participated_long', ['name' => $user->name]), 'PUSH_PARTICIPATED', $activity->owner);
+            PushModel::addNotification(__('app.user_participated_short'), __('app.user_participated_long', ['name' => $user->name, 'profile' => url('/user/' . $user->id), 'item' => url('/activity/' . $activity->id)]), 'PUSH_PARTICIPATED', $activity->owner);
 
             $owner = User::get($activity->owner);
             if (($owner) && ($owner->email_on_participated)) {

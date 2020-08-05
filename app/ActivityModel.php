@@ -70,7 +70,7 @@ class ActivityModel extends Model
 
             $favs = FavoritesModel::where('entityId', '=', $owner)->where('type', '=', 'ENT_USER')->get();
             foreach ($favs as $fav) {
-                PushModel::addNotification(__('app.activity_created_short'), __('app.activity_created_long', ['name' => $user->name, 'title' => $attr['title']]), 'PUSH_CREATED', $fav->userId);
+                PushModel::addNotification(__('app.activity_created_short'), __('app.activity_created_long', ['name' => $user->name, 'profile' => url('/user/' . $user->id), 'title' => $attr['title'], 'item' => url('/activity/' . $item->id)]), 'PUSH_CREATED', $fav->userId);
 
                 $favUser = User::get($fav->userId);
                 if (($favUser) && ($favUser->email_on_fav_created)) {
@@ -262,7 +262,7 @@ class ActivityModel extends Model
                         MailerModel::sendMail($userData->email, __('app.activity_canceled'), $html);
                     }
 
-                    PushModel::addNotification(__('app.activity_canceled'), __('app.activity_canceled_long', ['title' => $activity->title, 'owner' => $owner->name]), 'PUSH_CANCELED', $userData->id);
+                    PushModel::addNotification(__('app.activity_canceled'), __('app.activity_canceled_long', ['title' => $activity->title, 'item' => url('/activity/' . $activity->id), 'owner' => $owner->name, 'profile' => url('/user/' . $owner->id)]), 'PUSH_CANCELED', $userData->id);
                 }
             }
         } catch (Exception $e) {

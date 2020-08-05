@@ -70,7 +70,7 @@ class FavoritesModel extends Model
                 if ($entType === 'ENT_USER') {
                     $user = User::get($userId);
                     if ($user) {
-                        PushModel::addNotification(__('app.added_to_favorites_short'), __('app.added_to_favorites', ['name' => $user->username]), 'PUSH_FAVORITED', $entityId);
+                        PushModel::addNotification(__('app.added_to_favorites_short'), __('app.added_to_favorites', ['name' => $user->name, 'profile' => url('/user/' . $user->id)]), 'PUSH_FAVORITED', $entityId);
                     }
                 }
 

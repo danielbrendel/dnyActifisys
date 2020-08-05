@@ -56,7 +56,7 @@ class MessageModel extends Model
             $msg->message = $message;
             $msg->save();
 
-            PushModel::addNotification(__('app.new_message_short', ['name' => $sender->name]), __('app.new_message', ['name' => $sender->name, 'subject' => $subject]), 'PUSH_MESSAGED', $userId);
+            PushModel::addNotification(__('app.new_message_short', ['name' => $sender->name]), __('app.new_message', ['name' => $sender->name, 'subject' => $subject, 'profile' => url('/user/' . $sender->id)]), 'PUSH_MESSAGED', $userId);
 
             if ($user->email_on_message) {
                 $html = view('mail.message', ['msgid' => $msg->id, 'name' => $user->name, 'sender' => $sender->name, 'message' => $message])->render();
