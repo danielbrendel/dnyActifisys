@@ -197,7 +197,7 @@
 
                     <div>
                         <div class="is-inline-block"></div>
-                        <div class="is-inline-block float-right notification-close-icon" onclick="window.vue.toggleNotifications('notifications'); if (window.menuVisible) {document.getElementById('navbarMenu').classList.remove('is-active'); document.getElementById('navbarBurger').classList.remove('is-active'); }"><i class="fas fa-times is-pointer"></i></div>
+                        <div class="is-inline-block float-right notification-close-icon is-pointer" onclick="window.vue.toggleNotifications('notifications'); if (window.menuVisible) {document.getElementById('navbarMenu').classList.remove('is-active'); document.getElementById('navbarBurger').classList.remove('is-active'); }">{{ __('app.close') }}</div>
                     </div>
 
                     <div class="notifications-content" id="notification-content"></div>
