@@ -50,7 +50,7 @@ class MessageController extends Controller
 
             $data = MessageModel::fetch(auth()->id(), env('APP_MESSAGEPACKLIMIT'), $paginate);
             foreach ($data as &$item) {
-                $item->user = User::get($item->senderId);
+                $item->user = User::get($item->userId);
                 $item->diffForHumans = $item->created_at->diffForHumans();
             }
 

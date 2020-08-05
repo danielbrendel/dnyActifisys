@@ -231,7 +231,7 @@ class MainController extends Controller
     {
         return view('home.pwreset', [
             'hash' => request('hash', ''),
-            'captcha' => CaptchaModel::createSum(session()->getId()),
+            'captchadata' => CaptchaModel::createSum(session()->getId()),
             'cookie_consent' => $this->cookie_consent
         ]);
     }

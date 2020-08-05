@@ -318,5 +318,7 @@ return [
     'mail_fav_created_body' => 'Die folgende Aktivität wurde von :creator erstellt',
     'gender_restricted' => 'Nicht für alle Geschlechter',
     'user_no_messages' => 'Die Nachricht konnte nicht übermittelt werden',
-	'no_notifications_yet' => 'Benachrichtigungen werden hier angezeigt.'
+	'no_notifications_yet' => 'Benachrichtigungen werden hier angezeigt.',
+	'password_reset' => 'Passwort zurücksetzen',
+	'reset' => 'Zurücksetzen'
 ];

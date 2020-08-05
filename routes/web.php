@@ -23,6 +23,7 @@ Route::get('/tos', 'MainController@tos');
 Route::post('/register', 'MainController@register');
 Route::post('/recover', 'MainController@recover');
 Route::post('/reset', 'MainController@reset');
+Route::get('/reset', 'MainController@viewReset');
 Route::get('/confirm', 'MainController@confirm');
 Route::post('/login', 'MainController@login');
 Route::any('/logout', 'MainController@logout');

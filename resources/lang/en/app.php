@@ -318,5 +318,7 @@ return [
     'mail_fav_created_body' => 'The following activity has been created by :creator',
     'gender_restricted' => 'Gender restricted',
     'user_no_messages' => 'The message could not be delivered',
-	'no_notifications_yet' => 'Notifications will be shown here.'
+	'no_notifications_yet' => 'Notifications will be shown here.',
+	'password_reset' => 'Reset password',
+	'reset' => 'Reset'
 ];

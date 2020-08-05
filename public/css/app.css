@@ -420,6 +420,10 @@ a.navbar-item:hover {
   color: #c8c8c8;
 }
 
+.activity-divider {
+  top: -20px;
+}
+
 .activity-info {
   margin-left: 15px;
   margin-right: 15px;
@@ -533,10 +537,6 @@ a.navbar-item:hover {
   font-weight: bold;
   font-size: 1.2em;
   font-family: "Nunito", sans-serif;
-}
-
-.activity-title {
-  margin-top: -24px;
   max-height: 134px;
 }
 
@@ -710,6 +710,7 @@ a.navbar-item:hover {
 .messages-item-avatar img {
   width: 24px;
   height: 24px;
+  border-radius: 50%;
 }
 
 .messages-item-name {
@@ -779,6 +780,7 @@ a.navbar-item:hover {
 .message-thread-header-avatar img {
   width: 24px;
   height: 24px;
+  border-radius: 50%;
 }
 
 .message-thread-header-userinfo {

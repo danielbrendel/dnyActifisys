@@ -16,7 +16,7 @@
     <div class="column is-2"></div>
 
     <div class="column is-8">
-        <h1>{{ __('app.message_thread', ['name' => $thread['msg']->sender->name]) }}</h1>
+        <h1>{{ __('app.message_thread', ['name' => $thread['msg']->user->name]) }}</h1>
 
         <div class="is-default-padding">
             <form method="POST" action="{{ url('/messages/send') }}">
@@ -52,7 +52,7 @@
                     </div>
 
                     <div class="message-thread-header-userinfo">
-                        <div>{{ $thread['msg']->sender->name }}</div>
+                        <div class="is-pointer" onclick="window.location = '{{ url('/user/' . $thread['msg']->sender->id) }}';">{{ $thread['msg']->sender->name }}</div>
                         <div title="{{ $thread['msg']->created_at }}">{{ $thread['msg']->created_at->diffForHumans() }}</div>
                     </div>
 
@@ -70,7 +70,7 @@
                         </div>
 
                         <div class="message-thread-header-userinfo">
-                            <div>{{ $msg->sender->name }}</div>
+                            <div class="is-pointer" onclick="window.location = '{{ url('/user/' . $msg->sender->id) }}';">{{ $msg->sender->name }}</div>
                             <div title="{{ $msg->created_at }}">{{ $msg->created_at->diffForHumans() }}</div>
                         </div>
 

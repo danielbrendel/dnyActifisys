@@ -318,13 +318,11 @@ window.vue = new Vue({
                         <span class="is-capitalized"><i class="fas fa-map-marker-alt"></i>&nbsp;` + elem.location + `</span></center>
                 </div>
 
-                <div>
+                <div class="activity-divider">
                     <hr/>
                 </div>
 
-                <div class="activity-information is-wordbreak is-default-side-padding">
-                    ` + ((elem.description.length > MAX_ACTIVITY_DESCRIPTION_LENGTH) ? elem.description.substr(0, MAX_ACTIVITY_DESCRIPTION_LENGTH) + '...': elem.description) + `
-                </div>
+                <div class="activity-information is-wordbreak is-default-side-padding">` + ((elem.description.length > MAX_ACTIVITY_DESCRIPTION_LENGTH) ? elem.description.substr(0, MAX_ACTIVITY_DESCRIPTION_LENGTH) + '...': elem.description) + `</div>
 
                 <div class="activity-footer is-default-side-padding">
                     <div class="activity-footer-stats">

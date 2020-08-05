@@ -159,7 +159,7 @@ class FavoritesModel extends Model
                     $favorite->short_name = AppModel::getShortExpression($favorite->name);
                     $favorite->avatar = $user->avatar;
                     $favorite->diffForHumans = $favorite->created_at->diffForHumans();
-                    $favorite->activityCount = ActivityModel::where('canceled', '=', false)->where('locked', '=', false)->where('date_of_activity', '>', date('Y-m-d H:i:s'))->count();
+                    $favorite->activityCount = ActivityModel::where('canceled', '=', false)->where('locked', '=', false)->where('owner', '=', $user->id)->where('date_of_activity', '>', date('Y-m-d H:i:s'))->count();
                 }
             }
 
