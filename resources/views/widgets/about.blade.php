@@ -15,7 +15,7 @@
         <div class="column is-3"></div>
 
         <div class="column is-6">
-            <center>{{ \App\AppModel::getAboutContent() }}</center>
+            <center>{!! \App\AppModel::getAboutContent() !!}</center>
         </div>
 
         <div class="column is-3"></div>
