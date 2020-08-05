@@ -320,5 +320,6 @@ return [
     'user_no_messages' => 'Die Nachricht konnte nicht übermittelt werden',
 	'no_notifications_yet' => 'Benachrichtigungen werden hier angezeigt.',
 	'password_reset' => 'Passwort zurücksetzen',
-	'reset' => 'Zurücksetzen'
+	'reset' => 'Zurücksetzen',
+	'new_message' => 'Neue Nachricht empfangen'
 ];

@@ -852,7 +852,7 @@ a.navbar-item:hover {
   }
 }
 
-.notification-close-icon {
+.notification-close-action {
   margin-top: 22px;
   margin-right: 32px;
 }
@@ -978,7 +978,7 @@ a.navbar-item:hover {
   }
 }
 
-.favorites-close-icon {
+.favorites-close-action {
   margin-top: 22px;
   margin-right: 32px;
 }

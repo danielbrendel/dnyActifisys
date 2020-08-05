@@ -197,7 +197,7 @@
 
                     <div>
                         <div class="is-inline-block"></div>
-                        <div class="is-inline-block float-right notification-close-icon is-pointer" onclick="window.vue.toggleNotifications('notifications'); if (window.menuVisible) {document.getElementById('navbarMenu').classList.remove('is-active'); document.getElementById('navbarBurger').classList.remove('is-active'); }">{{ __('app.close') }}</div>
+                        <div class="is-inline-block float-right notification-close-action is-pointer" onclick="window.vue.toggleNotifications('notifications'); if (window.menuVisible) {document.getElementById('navbarMenu').classList.remove('is-active'); document.getElementById('navbarBurger').classList.remove('is-active'); }">{{ __('app.close') }}</div>
                     </div>
 
                     <div class="notifications-content" id="notification-content"></div>
@@ -208,7 +208,7 @@
 
                     <div>
                         <div class="is-inline-block"></div>
-                        <div class="is-inline-block float-right favorites-close-icon is-pointer" onclick="window.vue.toggleFavorites('favorites'); if (window.menuVisible) {document.getElementById('navbarMenu').classList.remove('is-active'); document.getElementById('navbarBurger').classList.remove('is-active'); }">{{ __('app.close') }}</div>
+                        <div class="is-inline-block float-right favorites-close-action is-pointer" onclick="window.vue.toggleFavorites('favorites'); if (window.menuVisible) {document.getElementById('navbarMenu').classList.remove('is-active'); document.getElementById('navbarBurger').classList.remove('is-active'); }">{{ __('app.close') }}</div>
                     </div>
 
                     <div class="favorites-content" id="favorites-content"><i class="fa fa-spinner fa-spin"></i></div>

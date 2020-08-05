@@ -320,5 +320,6 @@ return [
     'user_no_messages' => 'The message could not be delivered',
 	'no_notifications_yet' => 'Notifications will be shown here.',
 	'password_reset' => 'Reset password',
-	'reset' => 'Reset'
+	'reset' => 'Reset',
+	'new_message' => 'New message received'
 ];
