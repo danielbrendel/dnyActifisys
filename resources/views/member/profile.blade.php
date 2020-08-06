@@ -18,7 +18,7 @@
     <div class="column is-10">
         <div class="columns">
             <div class="column is-12 is-margin-top-20">
-                <h3>{{ __('app.profile_of', ['name' => $user->name]) }} @if ($user->id === auth()->id()) <div class="is-inline-block is-pointer" title="{{ __('app.settings') }}" onclick="location.href = '{{ url('/settings') }}';"><i class="fas fa-cog"></i></div> @endif</h3>
+                <h3 class="is-color-grey-light">{{ __('app.profile_of', ['name' => $user->name]) }} @if ($user->id === auth()->id()) <div class="is-inline-block is-pointer" title="{{ __('app.settings') }}" onclick="location.href = '{{ url('/settings') }}';"><i class="fas fa-cog"></i></div> @endif</h3>
                 <hr/>
             </div>
         </div>

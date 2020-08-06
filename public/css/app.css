@@ -290,6 +290,11 @@ a.navbar-item:hover {
   color: white;
 }
 
+a.navbar-item:hover {
+  background-color: unset;
+  color: white;
+}
+
 .fix-mobile-navbar-item {
   margin-left: 15px;
 }
@@ -435,6 +440,7 @@ h2 {
 
 .activity-user-top {
   font-family: "Nunito", sans-serif;
+  color: #c8c8c8;
 }
 
 .activity-user-top h1 {
@@ -459,6 +465,10 @@ h2 {
   margin-left: 15px;
   margin-right: 15px;
   color: #c8c8c8;
+}
+
+.activity-infos {
+  color: #f0f0f0;
 }
 
 .activity-headline {
@@ -596,6 +606,7 @@ h2 {
 
 .activity-footer-stats {
   top: 29px;
+  color: #f0f0f0;
 }
 
 #active-activities {
@@ -1097,14 +1108,13 @@ h2 {
 }
 
 .is-color-lightblue {
-  color: #649696;
+  color: lightsteelblue;
 }
 
 .is-color-grey-light {
   color: #c8c8c8;
 }
 
-.is-color-grey-dark,
 .is-color-grey {
   color: #bebebe;
 }
