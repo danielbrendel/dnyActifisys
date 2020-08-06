@@ -258,11 +258,11 @@ window.vue = new Vue({
 
             <div class="thread-header">
                 <div class="thread-header-avatar is-inline-block">
-                    <img width="24" height="24" src="` + window.location.origin + `/gfx/avatars/` + elem.user.avatar + `" class="is-pointer" onclick="location.href = '` + window.location.origin + `/u/` + elem.user.id + `';" title="">
+                    <img width="24" height="24" src="` + window.location.origin + `/gfx/avatars/` + elem.user.avatar + `" class="is-pointer" onclick="location.href = '` + window.location.origin + `/user/` + elem.user.id + `';" title="">
                 </div>
 
                 <div class="thread-header-info is-inline-block">
-                    <div><a href="` + window.location.origin + `/u/` + elem.user.id + `" class="is-color-grey">` + elem.user.name + `</a></div>
+                    <div><a href="` + window.location.origin + `/user/` + elem.user.id + `" class="is-color-grey">` + elem.user.name + `</a></div>
                     <div title="` + elem.created_at + `">` + elem.diffForHumans + `</div>
                 </div>
 
@@ -347,7 +347,7 @@ window.vue = new Vue({
                 </div>
 
                 <div class="messages-item-name">
-                    <a href="` + window.location.origin + `/u/` + item.user.id + `">` + item.user.name + `</a>
+                    <a href="` + window.location.origin + `/user/` + item.user.id + `">` + item.user.name + `</a>
                 </div>
 
                 <div class="messages-item-subject">

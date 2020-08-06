@@ -17,7 +17,7 @@
 
     <div class="column is-4">
         <div>
-            <h1>{{ __('app.faq') }}</h1>
+            <h1 class="is-color-grey-light">{{ __('app.faq') }}</h1>
 
             <div data-role="accordion" data-one-frame="true" data-show-active="true">
                 @foreach ($faqs as $faq)

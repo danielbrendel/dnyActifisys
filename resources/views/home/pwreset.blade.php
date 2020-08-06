@@ -15,10 +15,10 @@
 @section('content')
     <div class="column is-4"></div>
 
-    <div class="column is-4">
+    <div class="column is-4 fixed-form">
         <h1>{{ __('app.password_reset') }}</h1>
 
-        <div class="member-form is-default-padding">
+        <div class="is-default-padding">
             <form method="POST" action="{{ url('/reset?hash=' . $hash) }}">
                 @csrf
 

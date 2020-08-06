@@ -237,7 +237,7 @@ textarea {
 
 .flash {
   position: fixed;
-  left: 20%;
+  left: 25%;
   top: 105px;
   width: 50%;
   z-index: 3;
@@ -254,11 +254,11 @@ textarea {
 }
 
 .is-flash-error {
-  background-color: #ff7575;
+  background-color: rgba(255, 117, 117, 0.5);
 }
 
 .is-flash-success {
-  background-color: #80ff80;
+  background-color: rgba(128, 255, 128, 0.5);
 }
 
 @media screen and (max-width: 367px) {
@@ -376,6 +376,10 @@ h2 {
 .fas,
 .far {
   color: #e1e1e1;
+}
+
+.p-2 {
+  color: #c8c8c8;
 }
 
 .frame {
@@ -728,11 +732,6 @@ h2 {
 
 .is-profile-info-item {
   margin-bottom: 15px;
-}
-
-.member-actions {
-  background-color: #209cee;
-  color: white;
 }
 
 .messages {
@@ -1103,11 +1102,16 @@ h2 {
   margin-top: 20px;
 }
 
+.is-margin-top-94 {
+  margin-top: 94px;
+}
+
 .is-align-right {
   float: right;
 }
 
-.is-color-lightblue {
+.is-color-lightblue,
+.is-color-lightblue a {
   color: lightsteelblue;
 }
 
@@ -1181,6 +1185,11 @@ a.is-color-grey:hover {
 }
 
 .fixed-form {
-  background-color: #fafafa;
+  background-color: white;
+  border-radius: 4px;
+}
+
+.fixed-form h2 {
+  color: #282826;
 }
 

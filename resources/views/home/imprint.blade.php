@@ -16,7 +16,7 @@
     <div class="column is-4"></div>
 
     <div class="column is-4">
-        <div>
+        <div class="is-color-grey">
             {!! $imprint_content !!}
         </div>
     </div>

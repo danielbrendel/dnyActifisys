@@ -15,7 +15,7 @@
 @section('content')
     <div class="column is-2"></div>
 
-    <div class="column is-8 is-default-padding">
+    <div class="column is-8 is-default-padding fixed-form">
         <div class="has-text-centered info-headline"><h1>{{ __('app.contact') }}</h1></div>
 
         <div class="member-form is-default-padding">

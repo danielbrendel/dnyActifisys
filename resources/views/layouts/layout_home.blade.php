@@ -231,7 +231,7 @@
                 </div>
             </div>
 
-            <div class="overflow-hidden">
+            <div class="overflow-hidden is-margin-top-94">
                 @guest
                     @include('widgets.about')
                 @endguest

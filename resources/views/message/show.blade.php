@@ -15,7 +15,7 @@
 @section('content')
     <div class="column is-2"></div>
 
-    <div class="column is-8">
+    <div class="column is-8 fixed-form">
         <h1>{{ __('app.message_thread', ['name' => $thread['msg']->user->name]) }}</h1>
 
         <div class="is-default-padding">

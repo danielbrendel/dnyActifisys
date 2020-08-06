@@ -15,7 +15,7 @@
 @section('content')
     <div class="column is-2"></div>
 
-    <div class="column is-8 is-margin-top-20">
+    <div class="column is-8 fixed-form is-margin-top-20">
         <div>
             <h2>{{ __('app.settings') }}</h2>
         </div>

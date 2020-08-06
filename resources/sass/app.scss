@@ -219,7 +219,7 @@ textarea {
 //Flash messages
 .flash {
     position: fixed;
-    left: 20%;
+    left: 25%;
     top: 105px;
     width: 50%;
     z-index: 3;
@@ -234,10 +234,10 @@ textarea {
     color: rgb(255, 255, 255);
 }
 .is-flash-error {
-    background-color: rgb(255, 117, 117);
+    background-color: rgba(255, 117, 117, 0.5);
 }
 .is-flash-success {
-    background-color: rgb(128, 255, 128);
+    background-color: rgba(128, 255, 128, 0.5);
 }
 
 //Corrections
@@ -324,6 +324,9 @@ h2 {
 }
 .fas, .far {
     color: rgb(225, 225, 225);
+}
+.p-2 {
+    color: rgb(200, 200, 200);
 }
 
 //Frames
@@ -612,10 +615,6 @@ h2 {
 //Profile
 .is-profile-info-item {
     margin-bottom: 15px;
-}
-.member-actions {
-    background-color: rgb(32, 156, 238);
-    color: rgb(255, 255, 255);
 }
 
 //Messages
@@ -908,10 +907,13 @@ h2 {
 .is-margin-top-20 {
     margin-top: 20px;
 }
+.is-margin-top-94 {
+    margin-top: 94px;
+}
 .is-align-right {
     float: right;
 }
-.is-color-lightblue {
+.is-color-lightblue, .is-color-lightblue a {
     color: rgb(176, 196, 222);
 }
 .is-color-grey-light {
@@ -971,5 +973,9 @@ a.is-color-grey:hover {
     text-decoration: underline;
 }
 .fixed-form {
-    background-color: rgb(250, 250, 250);
+    background-color: rgb(255, 255, 255);
+    border-radius: 4px;
+}
+.fixed-form h2 {
+    color: rgb(40, 40, 38);
 }

@@ -57,9 +57,9 @@
 
                 @if (auth()->id() !== $user->id)
                 <div class="windowed-frame is-margin-top-20">
-                    <span class="member-actions"><h3>{{ __('app.profile_actions') }}</h3></span>
+                    <span class="member-actions"><h3 class="is-color-grey">{{ __('app.profile_actions') }}</h3></span>
 
-                    <div>
+                    <div class="is-color-lightblue">
                         @if ($user->hasFavorited)
                             <div><a href="{{ url('/user/' . $user->id . '/fav/remove') }}">{{ __('app.remove_favorite') }}</a></div>
                         @else

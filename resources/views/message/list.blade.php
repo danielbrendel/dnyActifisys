@@ -15,7 +15,7 @@
 @section('content')
     <div class="column is-2"></div>
 
-    <div class="column is-8">
+    <div class="column is-8 fixed-form">
         <div class="is-default-padding">
             <div>
                 <h1>{{ __('app.messages') }}</h1>

@@ -202,7 +202,7 @@ class User extends Authenticatable
             $user->password_reset = md5($user->email . date('c') . uniqid('', true));
             $user->save();
 
-            $htmlCode = view('mail.pwreset', ['username' => $user->username, 'hash' => $user->password_reset])->render();
+            $htmlCode = view('mail.pwreset', ['name' => $user->name, 'hash' => $user->password_reset])->render();
             MailerModel::sendMail($user->email, __('app.mail_password_reset_subject'), $htmlCode);
         } catch (Exception $e) {
             throw $e;

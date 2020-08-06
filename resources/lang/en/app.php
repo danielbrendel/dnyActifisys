@@ -15,8 +15,6 @@
 return [
     'login' => 'Login',
     'register' => 'Register',
-    'howto_headline' => 'How it works',
-    'howto_subheadline' => 'Easy, fast and satisfying',
     'news' => 'News',
     'tos' => 'ToS',
     'imprint' => 'Imprint',
@@ -31,9 +29,6 @@ return [
     'register_email' => 'E-Mail',
     'register_password' => 'Password',
     'register_password_confirmation' => 'Password confirmation',
-    'howto_step1' => 'Sign up',
-    'howto_step2' => 'Create or join an activity',
-    'howto_step3' => 'Meet the people',
     'messages' => 'Messages',
     'notifications' => 'Notifications',
     'create_activity' => 'Create activity',
