@@ -12,14 +12,16 @@
 
 <div class="header">
     <div class="columns">
-        <div class="column is-6"></div>
+        <div class="column is-2"></div>
 
-        <div class="column-is-6">
+        <div class="column-is-8">
             <div class="header-headline is-default-padding">
                 <h1>{{ \App\AppModel::getHeadlineTop() }}</h1>
 
                 <h3>{{ \App\AppModel::getHeadlineSub() }}</h3>
             </div>
         </div>
+
+        <div class="column is-2"></div>
     </div>
 </div>

@@ -20,7 +20,7 @@
             <h2>{{ __('app.view_activities') }}</h2>
         </div>
 
-        <div class="activity-filter-city is-inline-block">
+        <div class="activity-filter is-inline-block">
             <div class="field has-addons">
                 <div class="control">
                     <input class="input" type="text" id="inpCityFilter" onkeydown="if (event.keyCode === 13) { document.getElementById('btnFilterCity').click(); }" placeholder="{{ __('app.filter_by_city') }}">

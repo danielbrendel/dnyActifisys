@@ -171,7 +171,13 @@ textarea {
 .header-headline {
   color: white;
   top: 19%;
-  transform: translate(-50%);
+  width: 100%;
+}
+
+@media screen and (min-width: 1089px) {
+  .header-headline {
+    left: 50%;
+  }
 }
 
 .about {
@@ -523,14 +529,14 @@ h2 {
   margin-top: 15px;
   margin-left: 15px;
   margin-right: 15px;
-  color: #960000;
+  color: rgba(250, 0, 0, 0.9);
 }
 
 .activity-expired {
   margin-top: 15px;
   margin-left: 15px;
   margin-right: 15px;
-  color: #960000;
+  color: rgba(250, 0, 0, 0.9);
 }
 
 .activity-limit-reached {
@@ -552,6 +558,20 @@ h2 {
 @media screen and (min-width: 368px) {
   .activity {
     margin: 15px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .activity {
+    left: -15px;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 365px) {
+  .activity {
+    left: -15px;
+    width: 104%;
   }
 }
 
@@ -603,9 +623,14 @@ h2 {
   float: right;
 }
 
-.activity-filter-city {
+.activity-filter {
   top: 23px;
-  float: right;
+}
+
+@media screen and (min-width: 768px) {
+  .activity-filter {
+    float: right;
+  }
 }
 
 .activity-footer-stats {
@@ -638,6 +663,12 @@ h2 {
   }
 }
 
+@media screen and (max-width: 480px) {
+  #activities {
+    width: 100%;
+  }
+}
+
 .thread-input-avatar {
   width: 48px;
   height: 48px;
@@ -650,8 +681,16 @@ h2 {
   position: relative;
 }
 
-.thread-input-form {
-  width: 84%;
+@media screen and (min-width: 526px) {
+  .thread-input-form {
+    width: 84%;
+  }
+}
+
+@media screen and (max-width: 525px) {
+  .thread-input-form {
+    width: 67%;
+  }
 }
 
 .thread-input-form-text {
@@ -1191,5 +1230,9 @@ a.is-color-grey:hover {
 
 .fixed-form h2 {
   color: #282826;
+}
+
+.is-striked {
+  text-decoration: line-through;
 }
 

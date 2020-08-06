@@ -130,7 +130,7 @@
 
             <div class="column is-7">
                 <div class="activity-title">
-                    <div class="activity-headline is-inline-block is-breakall">
+                    <div class="activity-headline is-inline-block is-breakall @if ($activity->canceled) is-striked @endif">
                         {{ $activity->title }}
                     </div>
 
