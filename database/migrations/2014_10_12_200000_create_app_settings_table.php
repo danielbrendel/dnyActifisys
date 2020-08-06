@@ -28,7 +28,8 @@ class CreateAppSettingsTable extends Migration
         Schema::create('app_settings', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('cookie_consent', 512);
-            $table->string('home_banner', 512);
+            $table->string('home_bg', 512);
+            $table->float('home_bg_alpha')->default(0.5);
             $table->text('about');
             $table->text('imprint');
             $table->text('tos');

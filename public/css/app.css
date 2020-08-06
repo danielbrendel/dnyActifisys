@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);/*
+@import url(https://fonts.googleapis.com/css?family=Nunito);@import url(https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap);/*
     ComAct (dnyComAct) developed by Daniel Brendel
 
     (C) 2019 - 2020 by Daniel Brendel
@@ -12,11 +12,13 @@
 
 html {
   width: 100%;
+  height: 100%;
   overflow-y: auto;
 }
 
 body {
   width: 100%;
+  height: 100%;
   background-size: cover;
   padding: 0;
 }
@@ -24,6 +26,14 @@ body {
 textarea {
   line-height: 18px !important;
   padding: 10px !important;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .feedback-error {
@@ -151,52 +161,30 @@ textarea {
   font-weight: bold;
 }
 
-a.navbar-item:hover {
-  text-decoration: none !important;
-}
-
-.banner {
+.header {
   width: 100%;
   min-height: 242px;
   background-repeat: no-repeat;
   background-size: cover;
 }
 
-.banner-headline {
+.header-headline {
   color: white;
   top: 19%;
-  transform: translate(0%, 8%);
-}
-
-.howto {
-  background-color: #16303d;
-  color: white;
-}
-
-.howto-steps {
-  display: inline-block;
-  margin-top: 15px;
-  margin-bottom: 15px;
-}
-
-.howto-step-item {
-  display: inline-block;
-  margin-left: 10px;
-  margin-right: 10px;
+  transform: translate(-50%);
 }
 
 .about {
-  background-color: #d9e2e6;
+  background-color: rgba(255, 255, 255, 0.4);
   width: 100%;
   min-height: 200px;
+  margin-bottom: 12px;
 }
 
 .links {
-  margin-top: 15px;
-  margin-bottom: 15px;
   width: 100%;
   min-height: 95px;
-  background-color: #00aff0;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 @media screen and (max-width: 768px) {
@@ -230,11 +218,10 @@ a.navbar-item:hover {
 
 .bottom {
   width: 100%;
-  height: 1px;
-  background-color: white;
+  height: 25px;
+  background-color: rgba(0, 0, 0, 0.4);
   color: #969696;
   font-size: 0.7em;
-  margin-bottom: 15px;
 }
 
 .bottom span {
@@ -282,14 +269,25 @@ a.navbar-item:hover {
 
 .navbar {
   height: 15px;
+  background-color: transparent;
 }
 
 .navbar-burger {
   top: -50px;
 }
 
-.navbar-menu {
-  background-color: #209cee;
+.navbar-brand strong {
+  font-family: "Dancing Script", "Nunito", sans-serif;
+  font-size: 1.4em;
+  margin-left: 27px;
+}
+
+a.navbar-item:hover {
+  text-decoration: none !important;
+}
+
+.navbar-item strong {
+  color: white;
 }
 
 .fix-mobile-navbar-item {
@@ -341,10 +339,44 @@ a.navbar-item:hover {
   padding-right: 21px;
 }
 
+h2 {
+  color: #f0f0f0;
+}
+
+.is-def-color,
+.is-def-color label {
+  color: #f0f0f0;
+}
+
+.is-def-color input,
+.is-def-color textarea {
+  background-color: transparent;
+}
+
+::-moz-placeholder {
+  color: #a0a0a0 !important;
+}
+
+::placeholder,
+::-moz-placeholder,
+::-ms-input-placeholder {
+  color: #a0a0a0 !important;
+}
+
+.is-def-color input,
+.is-def-color textarea {
+  color: #f0f0f0;
+}
+
+.fas,
+.far {
+  color: #e1e1e1;
+}
+
 .frame {
   position: relative;
   padding: 15px;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 @media screen and (min-width: 380px) {
@@ -356,7 +388,7 @@ a.navbar-item:hover {
 
 .windowed-frame {
   position: relative;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 @media screen and (min-width: 380px) {
@@ -408,16 +440,15 @@ a.navbar-item:hover {
 .activity-user-top h1 {
   font-weight: bold;
   font-size: 1.2em;
-  color: #969696;
 }
 
 .activity-user-top h1 a {
-  color: #969696;
+  color: #c8c8c8;
 }
 
 .activity-user-sec h2 {
   font-size: 0.9em;
-  color: #c8c8c8;
+  color: #a5a5a5;
 }
 
 .activity-divider {
@@ -427,17 +458,18 @@ a.navbar-item:hover {
 .activity-info {
   margin-left: 15px;
   margin-right: 15px;
+  color: #c8c8c8;
 }
 
 .activity-headline {
   font-size: 1.4em;
-  color: #16303d;
+  color: gainsboro;
   font-weight: bold;
 }
 
 .activity-description {
   margin-top: 15px;
-  color: #969696;
+  color: #bebebe;
 }
 
 .activity-options {
@@ -453,12 +485,12 @@ a.navbar-item:hover {
 }
 
 .activity-participants {
-  background-color: #209cee;
+  background-color: rgba(50, 190, 250, 0.4);
   color: white;
 }
 
 .activity-potential {
-  background-color: gainsboro;
+  background-color: rgba(220, 220, 220, 0.4);
   color: #141414;
 }
 
@@ -500,6 +532,7 @@ a.navbar-item:hover {
   border-radius: 4px;
   display: inline-block;
   height: 560px;
+  background-color: rgba(255, 255, 255, 0.4);
 }
 
 @media screen and (min-width: 368px) {
@@ -512,7 +545,7 @@ a.navbar-item:hover {
   width: 100%;
   height: 100px;
   top: -10px;
-  background-color: #32befa;
+  background-color: rgba(50, 190, 250, 0.4);
 }
 
 .activity-user {
@@ -533,7 +566,7 @@ a.navbar-item:hover {
 
 .activity-title {
   margin-bottom: 15px;
-  color: #434190;
+  color: whitesmoke;
   font-weight: bold;
   font-size: 1.2em;
   font-family: "Nunito", sans-serif;
@@ -543,7 +576,7 @@ a.navbar-item:hover {
 .activity-information {
   top: -25px;
   margin-bottom: 15px;
-  color: #969696;
+  color: black;
   font-size: 0.9em;
   min-height: 151px;
 }
@@ -630,7 +663,7 @@ a.navbar-item:hover {
 
 .thread-header {
   margin-bottom: 25px;
-  color: #787878;
+  color: #aaaaaa;
   font-size: 0.8em;
 }
 
@@ -644,9 +677,15 @@ a.navbar-item:hover {
   top: 10px;
 }
 
+.thread-header-info a,
+.thread-footer a {
+  color: #c8c8c8;
+}
+
 .thread-text {
   margin-top: 15px;
   margin-bottom: 15px;
+  color: #c8c8c8;
 }
 
 .thread-footer {
@@ -1062,11 +1101,12 @@ a.navbar-item:hover {
 }
 
 .is-color-grey-light {
-  color: #969696;
+  color: #c8c8c8;
 }
 
-.is-color-grey-dark {
-  color: #5a5a5a;
+.is-color-grey-dark,
+.is-color-grey {
+  color: #bebebe;
 }
 
 .is-underlined {
@@ -1109,5 +1149,28 @@ a.navbar-item:hover {
 
 .is-fixed-filter-button {
   top: -14px;
+}
+
+.is-transparent-green {
+  background-color: rgba(50, 205, 50, 0.4);
+  border: 1px solid #00cd00;
+}
+
+.is-transparent-green:hover {
+  background-color: limegreen;
+  border: 1px solid #00cd00;
+}
+
+a.is-color-grey {
+  color: #bebebe;
+}
+
+a.is-color-grey:hover {
+  color: #c8c8c8;
+  text-decoration: underline;
+}
+
+.fixed-form {
+  background-color: #fafafa;
 }
 

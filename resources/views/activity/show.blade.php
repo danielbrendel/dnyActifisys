@@ -160,10 +160,10 @@
                                         <i class="far fa-copy"></i>&nbsp;{{ __('app.share_clipboard') }}
                                     </a>
 
-                                    <hr class="dropdown-divider">
-
                                     @auth
                                         @if (\App\User::isAdmin(auth()->id()) || $activity->owner === auth()->id())
+                                            <hr class="dropdown-divider">
+
                                             <a href="javascript:void(0)" onclick="window.vue.bShowEditActivity = true; window.vue.toggleActivityOptions(document.getElementById('activity-options-{{ $activity->id }}'));" class="dropdown-item">
                                                 {{ __('app.edit') }}
                                             </a>
@@ -223,7 +223,7 @@
                             <img src="{{ asset('gfx/avatars/' . \App\User::get(auth()->id())->avatar) }}">
                         </div>
 
-                        <div class="thread-input-form is-inline-block">
+                        <div class="thread-input-form is-inline-block is-def-color">
                             <form method="POST" action="{{ url('/activity/' . $activity->id . '/thread/add') }}">
                                 @csrf
 
@@ -466,7 +466,7 @@
                             document.getElementById('loading').innerHTML = '<br/><br/><center><i class="is-color-grey">{{ __('app.no_comments_yet')  }}</i></center>';
                         } else {
                             if (document.getElementById('no-more-comments') == null) {
-                                document.getElementById('thread').innerHTML += '<div id="no-more-comments"><br/><br/><center><i>{{ __('app.no_more_comments') }}</i></center><br/></div>';
+                                document.getElementById('thread').innerHTML += '<div id="no-more-comments"><br/><br/><center><i class="is-color-grey">{{ __('app.no_more_comments') }}</i></center><br/></div>';
                             }
                         }
                     }

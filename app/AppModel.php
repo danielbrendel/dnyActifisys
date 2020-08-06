@@ -31,14 +31,21 @@ class AppModel extends Model
     const MAX_EXPRESSION_LENGTH = 15;
 
     /**
-     * Get banner image
+     * Get home background
      * @return mixed
      */
-    public static function getHomeBanner()
+    public static function getHomeBackground()
     {
-        return Cache::remember('home_banner', AppModel::ONE_DAY, function() {
-            return DB::table('app_settings')->first()->home_banner;
-        });
+        return DB::table('app_settings')->first()->home_bg;
+    }
+
+    /**
+     * Get home background alpha value
+     * @return mixed
+     */
+    public static function getHomeBackgroundAlpha()
+    {
+        return DB::table('app_settings')->first()->home_bg_alpha;
     }
 
     /**

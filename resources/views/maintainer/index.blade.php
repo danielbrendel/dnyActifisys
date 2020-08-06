@@ -16,7 +16,7 @@
     <div class="column is-2"></div>
 
     <div class="column is-8">
-        <div class="member-form is-default-padding member-form-fixed-top">
+        <div class="fixed-form is-default-padding">
             <div>
                 <h1>{{ __('app.maintainer_area') }}</h1>
             </div>
@@ -42,7 +42,7 @@
                 <li><a href="#tab-page-9">{{ __('app.newsletter') }}</a></li>
                 <li><a href="#tab-page-10">{{ __('app.themes') }}</a></li>
                 <li><a href="#tab-page-11">{{ __('app.favicon') }}</a></li>
-                <li><a href="#tab-page-12">{{ __('app.banner') }}</a></li>
+                <li><a href="#tab-page-12">{{ __('app.background') }}</a></li>
                 <li><a href="#tab-page-13">{{ __('app.reports') }}</a></li>
                 <li><a href="#tab-page-14">{{ __('app.project_name_formatted') }}</a></li>
             </ul>
@@ -483,14 +483,21 @@
                 </div>
 
                 <div id="tab-page-12">
-                    <form method="POST" action="{{ url('/maintainer/banner/save') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ url('/maintainer/background/save') }}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="field">
-                            <label class="label">{{ __('app.banner_info') }}</label>
+                            <label class="label">{{ __('app.bg_info') }}</label>
                             <div class="control">
-                                <div><img src="{{ asset('gfx/' . $settings->home_banner) }}" alt="banner"></div>
-                                <div><input type="file" name="banner" data-role="file"></div>
+                                <div><img src="{{ asset('gfx/' . $settings->home_bg) }}" alt="banner"></div>
+                                <div><input type="file" name="bg" data-role="file"></div>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">{{ __('app.bg_alpha') }}</label>
+                            <div class="control">
+                                <input type="number" name="bg_alpha" value="{{ $settings->home_bg_alpha }}">
                             </div>
                         </div>
 

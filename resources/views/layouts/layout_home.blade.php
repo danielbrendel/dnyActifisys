@@ -49,9 +49,9 @@
         <script src="{{ asset('js/metro.min.js') }}"></script>
     </head>
 
-    <body>
-        <div id="app">
-            <nav class="navbar is-info" role="navigation" aria-label="main navigation">
+    <body style="background-image: url('{{ asset('gfx/' . \App\AppModel::getHomeBackground()) }}');">
+        <div id="app" style="background-color: rgba(0, 0, 0, {{ \App\AppModel::getHomeBackgroundAlpha() }});">
+            <nav class="navbar" role="navigation" aria-label="main navigation">
                 <div class="navbar-brand">
                     <a class="navbar-item" href="{{ url('/') }}">
                         @if (strlen(\App\AppModel::getFormattedProjectName()) > 0)
@@ -189,7 +189,7 @@
                 </p>
             </div>
 
-            @include('widgets.banner')
+            @include('widgets.header')
 
             <div class="container">
                 <div class="notifications" id="notifications">
@@ -233,7 +233,6 @@
 
             <div class="overflow-hidden">
                 @guest
-                    @include('widgets.howto')
                     @include('widgets.about')
                 @endguest
                 @include('widgets.links')

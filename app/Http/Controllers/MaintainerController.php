@@ -419,22 +419,24 @@ class MaintainerController extends Controller
     }
 
     /**
-     * Save banner
+     * Save background
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function saveBanner()
+    public function saveBackground()
     {
         try {
             $attr = request()->validate([
                 'headline_top' => 'required',
-                'headline_sub' => 'required'
+                'headline_sub' => 'required',
+                'bg_alpha' => 'required|numeric'
             ]);
 
             AppModel::saveSetting('headline_top', $attr['headline_top']);
             AppModel::saveSetting('headline_sub', $attr['headline_sub']);
+            AppModel::saveSetting('home_bg_alpha', $attr['bg_alpha']);
 
-            $ba = request()->file('banner');
+            $ba = request()->file('bg');
             if ($ba != null) {
                 $newName = md5(random_bytes(55));
                 $ba->move(base_path() . '/public/gfx/', $newName . '.' . $ba->getClientOriginalExtension());

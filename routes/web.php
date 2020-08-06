@@ -89,7 +89,7 @@ Route::post('/maintainer/themes/edit', 'MaintainerController@editTheme');
 Route::get('/maintainer/themes/delete', 'MaintainerController@deleteTheme');
 Route::get('/maintainer/themes/setdefault', 'MaintainerController@setDefaultTheme');
 Route::post('/maintainer/favicon/save', 'MaintainerController@saveFavicon');
-Route::post('/maintainer/banner/save', 'MaintainerController@saveBanner');
+Route::post('/maintainer/background/save', 'MaintainerController@saveBackground');
 Route::get('/maintainer/entity/lock', 'MaintainerController@lockEntity');
 Route::get('/maintainer/entity/delete', 'MaintainerController@deleteEntity');
 Route::get('/maintainer/entity/safe', 'MaintainerController@setSafeEntity');

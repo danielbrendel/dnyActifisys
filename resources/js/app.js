@@ -284,7 +284,7 @@ window.vue = new Vue({
                 </div>
             </div>
 
-            <div class="thread-text is-color-grey" id="thread-text-` + elem.id + `">
+            <div class="thread-text" id="thread-text-` + elem.id + `">
                 ` + elem.text + `
             </div>
 
@@ -331,7 +331,7 @@ window.vue = new Vue({
                     </div>
 
                     <div class="activity-footer-view is-inline-block">
-                        <a class="button is-success" onclick="location.href = '` + window.location.origin + '/activity/' + elem.id + `';">View</a>
+                        <a class="button is-transparent-green"  onclick="location.href = '` + window.location.origin + '/activity/' + elem.id + `';">View</a>
                     </div>
                 </div>
             </div>`;
@@ -492,7 +492,7 @@ window.vue = new Vue({
                             document.getElementById('sub-comment-more-' + parentId).remove();
                         }
 
-                        document.getElementById('sub-thread-' + parentId).innerHTML += `<center><div id="sub-comment-more-` + parentId + `"><a href="javascript:void(0)" onclick="window.vue.fetchSubThreadPosts(` + parentId + `)">View more</a></div></center>`;
+                        document.getElementById('sub-thread-' + parentId).innerHTML += `<center><div id="sub-comment-more-` + parentId + `"><a class="is-color-grey" href="javascript:void(0)" onclick="window.vue.fetchSubThreadPosts(` + parentId + `)">View more</a></div></center>`;
                     }
 
                     if (response.data.length === 0) {

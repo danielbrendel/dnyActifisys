@@ -15,7 +15,7 @@
 @section('content')
     <div class="column is-1"></div>
 
-    <div class="column is-10 is-default-padding is-def-padding-mobile">
+    <div class="column is-10 is-default-padding is-def-padding-mobile is-def-color">
         <div class="is-inline-block">
             <h2>{{ __('app.view_activities') }}</h2>
         </div>

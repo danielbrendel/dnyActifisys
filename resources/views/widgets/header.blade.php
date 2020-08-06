@@ -10,12 +10,12 @@
     Released under the MIT license
 --}}
 
-<div class="banner" style="background-image: url('{{ asset('gfx/' . \App\AppModel::getHomeBanner()) }}')">
+<div class="header">
     <div class="columns">
         <div class="column is-6"></div>
 
         <div class="column-is-6">
-            <div class="banner-headline is-default-padding">
+            <div class="header-headline is-default-padding">
                 <h1>{{ \App\AppModel::getHeadlineTop() }}</h1>
 
                 <h3>{{ \App\AppModel::getHeadlineSub() }}</h3>

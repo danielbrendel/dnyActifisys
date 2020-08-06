@@ -12,16 +12,19 @@
 
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
 
 //Global overwriting
 
 html {
     width: 100%;
+    height: 100%;
     overflow-y: auto;
 }
 
 body {
     width: 100%;
+    height: 100%;
     background-size: cover;
     padding: 0;
 }
@@ -29,6 +32,14 @@ body {
 textarea {
     line-height: 18px !important;
     padding: 10px !important;
+}
+
+#app {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 //Global area
@@ -141,54 +152,32 @@ textarea {
 	font-weight: bold;
 }
 
-//Navbar
-a.navbar-item:hover {
-    text-decoration: none !important;
-}
-
-//Banner
-.banner {
+//Header
+.header {
     width: 100%;
     min-height: 242px;
     background-repeat: no-repeat;
     background-size: cover;
 }
-.banner-headline {
+.header-headline {
     color: rgb(255, 255, 255);
     top: 19%;
-    transform: translate(0%, 8%);
-}
-
-//Howto
-.howto {
-    background-color: rgb(22, 48, 61);
-    color: rgb(255, 255, 255);
-}
-.howto-steps {
-    display: inline-block;
-    margin-top: 15px;
-    margin-bottom: 15px;
-}
-.howto-step-item {
-    display: inline-block;
-    margin-left: 10px;
-    margin-right: 10px;
+    transform: translate(-50%);
 }
 
 //About
 .about {
-    background-color: rgb(217, 226, 230);
+    background-color: rgba(255, 255, 255, 0.4);
     width: 100%;
     min-height: 200px;
+    margin-bottom: 12px;
 }
 
 //Links
 .links {
-    margin-top: 15px;
-    margin-bottom: 15px;
     width: 100%;
     min-height: 95px;
-    background-color: rgb(0, 175, 240);
+    background-color: rgba(0, 0, 0, 0.4);
     @media screen and (max-width: 768px) {
         margin-bottom: 55px;
     }
@@ -214,11 +203,10 @@ a.navbar-item:hover {
 //Bottom bar
 .bottom {
     width: 100%;
-    height: 1px;
-    background-color: rgb(255, 255, 255);
+    height: 25px;
+    background-color: rgba(0, 0, 0, 0.4);
     color: rgb(150, 150, 150);
     font-size: 0.7em;
-    margin-bottom: 15px;
 }
 .bottom span {
     position: relative;
@@ -260,12 +248,21 @@ a.navbar-item:hover {
 }
 .navbar {
     height: 15px;
+    background-color: transparent;
 }
 .navbar-burger {
     top: -50px;
 }
-.navbar-menu {
-    background-color: rgb(32, 156, 238);
+.navbar-brand strong {
+    font-family: 'Dancing Script', 'Nunito', sans-serif;
+    font-size: 1.4em;
+    margin-left: 27px;
+}
+a.navbar-item:hover {
+    text-decoration: none !important;
+}
+.navbar-item strong {
+    color: rgb(255, 255, 255);
 }
 .fix-mobile-navbar-item {
     margin-left: 15px;
@@ -306,6 +303,24 @@ a.navbar-item:hover {
     padding-left: 21px;
     padding-right: 21px;
 }
+h2 {
+    color: rgb(240, 240, 240);
+}
+.is-def-color, .is-def-color label {
+    color: rgb(240, 240, 240);
+}
+.is-def-color input, .is-def-color textarea {
+    background-color: transparent;
+}
+::placeholder, ::-moz-placeholder, ::-ms-input-placeholder  {
+    color: rgb(160, 160, 160) !important;
+}
+.is-def-color input, .is-def-color textarea {
+    color: rgb(240, 240, 240);
+}
+.fas, .far {
+    color: rgb(225, 225, 225);
+}
 
 //Frames
 .frame {
@@ -315,7 +330,7 @@ a.navbar-item:hover {
         border-radius: 4px;
     }
     padding: 15px;
-    background-color: rgb(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0.1);
 }
 .windowed-frame {
     position: relative;
@@ -323,7 +338,7 @@ a.navbar-item:hover {
         border: 1px solid #ccc;
         border-radius: 4px;
     }
-    background-color: rgb(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0.1);
 }
 .windowed-frame span {
     width: 100%;
@@ -362,14 +377,13 @@ a.navbar-item:hover {
 .activity-user-top h1 {
     font-weight: bold;
     font-size: 1.2em;
-    color: rgb(150, 150, 150);
 }
 .activity-user-top h1 a {
-    color: rgb(150, 150, 150);
+    color: rgb(200, 200, 200);
 }
 .activity-user-sec h2 {
     font-size: 0.9em;
-    color: rgb(200, 200, 200)
+    color: rgb(165, 165, 165)
 }
 .activity-divider {
 	top: -20px;
@@ -377,15 +391,16 @@ a.navbar-item:hover {
 .activity-info {
     margin-left: 15px;
     margin-right: 15px;
+    color: rgb(200, 200, 200);
 }
 .activity-headline {
     font-size: 1.4em;
-    color: rgb(22, 48, 61);
+    color: rgb(220, 220, 220);
     font-weight: bold;
 }
 .activity-description {
     margin-top: 15px;
-    color: rgb(150, 150, 150);
+    color: rgb(190, 190, 190);
 }
 .activity-options {
     float: right;
@@ -397,11 +412,11 @@ a.navbar-item:hover {
     float: right;
 }
 .activity-participants {
-    background-color: rgb(32, 156, 238);
+    background-color: rgba(50, 190, 250, 0.4);
     color: rgb(255, 255, 255);
 }
 .activity-potential {
-    background-color: rgb(220, 220, 220);
+    background-color: rgba(220, 220, 220, 0.4);
     color: rgb(20, 20, 20);
 }
 .activity-participant-avatar {
@@ -440,12 +455,13 @@ a.navbar-item:hover {
         margin: 15px;
     }
     height: 560px;
+    background-color: rgba(255, 255, 255, 0.4);
 }
 .activity-header {
     width: 100%;
     height: 100px;
     top: -10px;
-    background-color: rgb(50, 190, 250);
+    background-color: rgba(50, 190, 250, 0.4);
 }
 .activity-user {
     margin-top: 10px;
@@ -462,7 +478,7 @@ a.navbar-item:hover {
 }
 .activity-title {
     margin-bottom: 15px;
-    color: rgb(67, 65, 144);
+    color: rgb(245, 245, 245);
     font-weight: bold;
     font-size: 1.2em;
     font-family: 'Nunito', sans-serif;
@@ -471,7 +487,7 @@ a.navbar-item:hover {
 .activity-information {
     top: -25px;
     margin-bottom: 15px;
-    color: rgb(150, 150, 150);
+    color: rgb(0, 0, 0);
     font-size: 0.9em;
     min-height: 151px;
 }
@@ -542,7 +558,7 @@ a.navbar-item:hover {
 }
 .thread-header {
     margin-bottom: 25px;
-    color: rgb(120, 120, 120);
+    color: rgb(170, 170, 170);
     font-size: 0.8em;
 }
 .thread-header-avatar img {
@@ -553,9 +569,13 @@ a.navbar-item:hover {
     position: relative;
     top: 10px;
 }
+.thread-header-info a, .thread-footer a {
+    color: rgb(200, 200, 200);
+}
 .thread-text {
     margin-top: 15px;
     margin-bottom: 15px;
+    color: rgb(200, 200, 200);
 }
 .thread-footer {
     margin-bottom: 15px;
@@ -886,10 +906,10 @@ a.navbar-item:hover {
     color: rgb(100, 150, 150);
 }
 .is-color-grey-light {
-    color: rgb(150, 150, 150);
+    color: rgb(200, 200, 200);
 }
-.is-color-grey-dark {
-    color: rgb(90, 90, 90);
+.is-color-grey-dark, .is-color-grey {
+    color: rgb(190, 190, 190);
 }
 .is-underlined {
     border-bottom: 1px solid #ccc;
@@ -925,4 +945,22 @@ a.navbar-item:hover {
 }
 .is-fixed-filter-button {
     top: -14px;
+}
+.is-transparent-green {
+    background-color: rgba(50, 205, 50, 0.4);
+    border: 1px solid rgb(0, 205, 0);
+}
+.is-transparent-green:hover {
+    background-color: rgba(50, 205, 50, 1.0);
+    border: 1px solid rgb(0, 205, 0);
+}
+a.is-color-grey {
+    color: rgb(190, 190, 190);
+}
+a.is-color-grey:hover {
+    color: rgb(200, 200, 200);
+    text-decoration: underline;
+}
+.fixed-form {
+    background-color: rgb(250, 250, 250);
 }
