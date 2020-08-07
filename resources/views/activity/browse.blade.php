@@ -12,6 +12,10 @@
 
 @extends('layouts.layout_home')
 
+@section('title')
+    {{ env('APP_DESCRIPTION') }}
+@endsection
+
 @section('content')
     <div class="column is-1"></div>
 

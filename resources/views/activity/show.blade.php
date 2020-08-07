@@ -12,6 +12,10 @@
 
 @extends('layouts.layout_home')
 
+@section('title')
+    {{ $activity->title }}
+@endsection
+
 @section('content')
     <div class="column is-2"></div>
 

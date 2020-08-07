@@ -12,6 +12,10 @@
 
 @extends('layouts.layout_home')
 
+@section('title')
+    {{ $user->name }}
+@endsection
+
 @section('content')
     <div class="column is-1"></div>
 

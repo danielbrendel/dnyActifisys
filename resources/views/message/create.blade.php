@@ -12,6 +12,10 @@
 
 @extends('layouts.layout_home')
 
+@section('title')
+    {{ __('app.message_create') }}
+@endsection
+
 @section('content')
     <div class="column is-2"></div>
 

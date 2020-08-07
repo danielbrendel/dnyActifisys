@@ -12,6 +12,10 @@
 
 @extends('layouts.layout_home')
 
+@section('title')
+    {{ __('app.imprint') }}
+@endsection
+
 @section('content')
     <div class="column is-4"></div>
 

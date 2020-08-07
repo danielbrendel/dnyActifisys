@@ -12,6 +12,10 @@
 
 @extends('layouts.layout_home')
 
+@section('title')
+    {{ __('app.message_thread', ['name' => $thread['msg']->user->name]) }}
+@endsection
+
 @section('content')
     <div class="column is-2"></div>
 
