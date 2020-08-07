@@ -262,7 +262,7 @@ window.vue = new Vue({
                 </div>
 
                 <div class="thread-header-info is-inline-block">
-                    <div><a href="` + window.location.origin + `/user/` + elem.user.id + `" class="is-color-grey">` + elem.user.name + `</a></div>
+                    <div><a href="` + window.location.origin + `/user/` + elem.user.id + `" class="is-color-grey">` + elem.user.name + `</a>` + ((elem.user.verified) ? '&nbsp;<i class="far fa-check-circle" title="Verified user"></i>' : '') +  `</div>
                     <div title="` + elem.created_at + `">` + elem.diffForHumans + `</div>
                 </div>
 
@@ -305,7 +305,7 @@ window.vue = new Vue({
                 <div class="activity-header">
                     <div class="activity-user">
                         <center><div class="activity-user-avatar"><img src="` + window.location.origin + '/gfx/avatars/' + elem.user.avatar + `" class="is-pointer" onclick="location.href = '` + window.location.origin + '/user/' + elem.user.id + `';"></div>
-                            <div class="activity-user-name"><a href="` + window.location.origin + '/user/' + elem.user.id + `">` + elem.user.name + `</a></div></center>
+                            <div class="activity-user-name"><a href="` + window.location.origin + '/user/' + elem.user.id + `">` + elem.user.name + `</a>` + ((elem.user.verified) ? '&nbsp;<i class="far fa-check-circle" title="Verified user"></i>' : '') + `</div></center>
                     </div>
                 </div>
 
@@ -348,6 +348,7 @@ window.vue = new Vue({
 
                 <div class="messages-item-name">
                     <a href="` + window.location.origin + `/user/` + item.user.id + `">` + item.user.name + `</a>
+                    ` + ((elem.user.verified) ? '&nbsp;<i class="far fa-check-circle" title="Verified user"></i>' : '') + `
                 </div>
 
                 <div class="messages-item-subject">
@@ -406,7 +407,7 @@ window.vue = new Vue({
                         </div>
 
                         <div class="favorite-item-info">
-                            <div class="is-color-grey-dark"><a href="` + window.location.origin + '/user/' + elem.entityId + `">` + elem.name + `</a></div>
+                            <div class="is-color-grey-dark"><a href="` + window.location.origin + '/user/' + elem.entityId + `">` + elem.name + `</a>` + ((elem.verified) ? '&nbsp;<i class="far fa-check-circle" title="Verified user"></i>' : '') + `</div>
                             <div title="` + elem.created_at + `" class="is-color-grey-light">Added: ` + elem.diffForHumans + `</div>
                         </div>
                     </div>

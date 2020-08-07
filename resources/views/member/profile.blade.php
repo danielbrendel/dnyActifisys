@@ -33,7 +33,7 @@
                     <div class="activity-userdata">
                         <div class="activity-user-top">
                             <div class="is-inline-block">
-                                <h1>{{ $user->name }}</a></h1>
+                                <h1>{{ $user->name }} {!! (($user->verified) ? '&nbsp;<i class="far fa-check-circle" title="Verified user"></i>' : '') !!}</h1>
                             </div>
 
                             <div class="activity-avatar is-inline-block">

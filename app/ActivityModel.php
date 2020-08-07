@@ -100,11 +100,11 @@ class ActivityModel extends Model
 
             $item = new ActivityModel();
             $item->owner = $owner;
-            $item->title = $attr['title'];
-            $item->description = $attr['description'];
+            $item->title = htmlspecialchars($attr['title']);
+            $item->description = htmlspecialchars($attr['description']);
             $item->tags = (count($taglist) > 0) ? implode(' ', $taglist) . ' ' : '';
             $item->date_of_activity = date('Y-m-d H:i:s', strtotime($attr['date_of_activity'] . ' ' . $attr['time_of_activity']));
-            $item->location = strtolower(trim($attr['location']));
+            $item->location = htmlspecialchars(strtolower(trim($attr['location'])));
             $item->limit = $attr['limit'];
             $item->only_gender = $attr['only_gender'];
             $item->save();
@@ -157,11 +157,11 @@ class ActivityModel extends Model
 
             $taglist = static::getTagList($attr['description']);
 
-            $item->title = $attr['title'];
-            $item->description = $attr['description'];
+            $item->title = htmlspecialchars($attr['title']);
+            $item->description = htmlspecialchars($attr['description']);
             $item->tags = (count($taglist) > 0) ? implode(' ', $taglist) . ' ' : '';
             $item->date_of_activity = date('Y-m-d H:i:s', strtotime($attr['date_of_activity'] . ' ' . $attr['time_of_activity']));
-            $item->location = strtolower(trim($attr['location']));
+            $item->location = htmlspecialchars(strtolower(trim($attr['location'])));
             $item->limit = $attr['limit'];
             $item->only_gender = $attr['only_gender'];
             $item->save();

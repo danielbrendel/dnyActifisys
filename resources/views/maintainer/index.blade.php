@@ -49,6 +49,7 @@
                 <li><a href="#tab-page-12">{{ __('app.background') }}</a></li>
                 <li><a href="#tab-page-13">{{ __('app.reports') }}</a></li>
                 <li><a href="#tab-page-14">{{ __('app.project_name_formatted') }}</a></li>
+                <li><a href="#tab-page-15">{{ __('app.account_verification') }}</a></li>
             </ul>
             <div class="border bd-default no-border-top p-2">
                 <div id="tab-page-1">
@@ -313,6 +314,13 @@
                             <label class="label">{{ __('app.project_helprealm_tickettypeid') }}</label>
                             <div class="control">
                                 <input type="text" name="ENV_HELPREALM_TICKETTYPEID" value="{{ env('HELPREALM_TICKETTYPEID') }}">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">{{ __('app.account_verification') }}</label>
+                            <div class="control">
+                                <input type="number" name="ENV_APP_ACCOUNTVERIFICATION" value="{{ env('APP_ACCOUNTVERIFICATION') }}">
                             </div>
                         </div>
 
@@ -699,6 +707,56 @@
                             </div>
                         </div>
                     </form>
+                </div>
+
+                <div id="tab-page-15">
+                    <table class="table striped table-border mt-4" data-role="table" data-pagination="true"
+                           data-table-rows-count-title="{{ __('app.table_show_entries') }}"
+                           data-table-search-title="{{ __('app.table_search') }}"
+                           data-table-info-title="{{ __('app.table_row_info') }}"
+                           data-pagination-prev-title="{{ __('app.table_pagination_prev') }}"
+                           data-pagination-next-title="{{ __('app.table_pagination_next') }}">
+                        <thead>
+                        <tr>
+                            <th class="text-left">{{ __('app.verify_id') }}</th>
+                            <th class="text-left">{{ __('app.verify_user') }}</th>
+                            <th class="text-left">{{ __('app.verify_idcard_front') }}</th>
+                            <th class="text-left">{{ __('app.verify_idcard_back') }}</th>
+                            <th class="text-right">{{ __('app.verify_approve') }}</th>
+                            <th class="text-right">{{ __('app.verify_decline') }}</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        @foreach ($verification_users as $item)
+                            <tr>
+                                <td>
+                                    #{{ $item->id }}
+                                </td>
+
+                                <td class="right">
+                                    <a href="{{ url('/user/' . $item->userId) }}" target="_blank">{{ $item->user->name }}</a>
+                                </td>
+
+                                <td>
+                                    <a href=" {{ asset('gfx/idcards/' . $item->idcard_front) }}">{{ __('app.idcard_front') }}</a>
+                                </td>
+
+                                <td>
+                                    <a href="{{ asset('gfx/idcards/' . $item->idcard_back) }}">{{ __('app.idcard_back') }}</a>
+                                </td>
+
+                                <td>
+                                    <a href="javascript:void(0)" onclick="location.href = '{{ url('/maintainer/verify/' . $item->userId . '/approve') }}';">{{ __('app.verify_approve') }}</a>
+                                </td>
+
+                                <td>
+                                    <a href="javascript:void(0)" onclick="let inpReason = prompt('{{ __('app.decline_reason') }}', ''); if (!inpReason) return; location.href = '{{ url('/maintainer/verify/' . $item->userId . '/decline?reason=') }}' + encodeURIComponent(inpReason);">{{ __('app.verify_decline') }}</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
 

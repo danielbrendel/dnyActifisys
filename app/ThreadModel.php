@@ -16,6 +16,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class ThreadModel
+ *
+ * Interface to activity comment threads
+ */
 class ThreadModel extends Model
 {
     const MAX_PREVIEW_MSG = 25;
@@ -40,7 +45,7 @@ class ThreadModel extends Model
             $thread = new ThreadModel();
             $thread->userId = $userId;
             $thread->activityId = $activityId;
-            $thread->text = $text;
+            $thread->text = htmlspecialchars($text);
             $thread->save();
 
             $user = User::get($act->userId);
@@ -188,7 +193,7 @@ class ThreadModel extends Model
             $thread->userId = $userId;
             $thread->activityId = $parent->activityId;
             $thread->parentId = $parentId;
-            $thread->text = $text;
+            $thread->text = htmlspecialchars($text);
             $thread->save();
 
             $user = User::get($parent->userId);

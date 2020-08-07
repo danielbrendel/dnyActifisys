@@ -168,24 +168,76 @@
         </div>
 
         <div id="tabMembership-form" class="is-hidden">
-            <form method="POST" action="{{ url('/settings/delete') }}">
-                @csrf
+            @if (env('APP_ACCOUNTVERIFICATION'))
+            <div>
+                @if ($self->state === \App\VerifyModel::STATE_INPROGRESS)
+                    <strong>{{ __('app.verification_in_progress') }}</strong>
+                @elseif ($self->state === \App\VerifyModel::STATE_VERIFIED)
+                    <strong>{{ __('app.verification_succeeded') }}</strong>
+                @else
+                    <form method="POST" action="{{ url('/settings/verify') }}" id="frmVerify" enctype="multipart/form-data">
+                        @csrf
 
-                <div class="field">
-                    <label class="label">
-                        {{ __('app.delete_account_notice') }}
-                    </label>
-                </div>
+                        <div class="field">
+                            <label class="label">
+                                {{ __('app.verify_account') }}
+                            </label>
+                        </div>
 
-                <div class="field">
-                    <label class="label">{{ $captchadata[0] }} + {{ $captchadata[1] }} = ?</label>
-                    <div class="control">
-                        <input type="text" name="captcha">
+                        <div class="field">
+                            <label class="label">{{ __('app.identity_card_front') }}</label>
+                            <div class="control">
+                                <input type="file" name="idcard_front" data-role="file" data-type="2">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">{{ __('app.identity_card_back') }}</label>
+                            <div class="control">
+                                <input type="file" name="idcard_back" data-role="file" data-type="2">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <div class="control">
+                                <input type="checkbox" name="confirmation" data-role="checkbox" data-type="2" data-caption="{{ __('app.confirm_verify_permission') }}" value="1" onclick="if (this.checked) { document.getElementById('btnVerify').disabled = false; } else { document.getElementById('btnVerify').disabled = true; }">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <div class="control">
+                                <input type="button" class="button is-link" id="btnVerify" value="{{ __('app.submit') }}" onclick="if (!this.disabled) { document.getElementById('frmVerify').submit(); }" disabled>
+                            </div>
+                        </div>
+                    </form>
+                @endif
+            </div>
+
+            <div>
+                <hr/>
+            </div>
+            @endif
+
+            <div class="is-margin-top-20">
+                <form method="POST" action="{{ url('/settings/delete') }}">
+                    @csrf
+
+                    <div class="field">
+                        <label class="label">
+                            {{ __('app.delete_account_notice') }}
+                        </label>
                     </div>
-                </div>
 
-                <input type="submit" class="button is-success" value="{{ __('app.delete') }}">
-            </form>
+                    <div class="field">
+                        <label class="label">{{ $captchadata[0] }} + {{ $captchadata[1] }} = ?</label>
+                        <div class="control">
+                            <input type="text" name="captcha">
+                        </div>
+                    </div>
+
+                    <input type="submit" class="button is-success" value="{{ __('app.delete') }}">
+                </form>
+            </div>
         </div>
     </div>
 

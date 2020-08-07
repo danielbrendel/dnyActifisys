@@ -388,6 +388,10 @@ h2 {
   color: #c8c8c8;
 }
 
+.fa-check-circle {
+  color: lime;
+}
+
 .frame {
   position: relative;
   padding: 15px;

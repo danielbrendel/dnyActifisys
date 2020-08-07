@@ -62,6 +62,7 @@ Route::post('/settings', 'MemberController@saveSettings');
 Route::post('/settings/password', 'MemberController@savePassword');
 Route::post('/settings/email', 'MemberController@saveEMail');
 Route::post('/settings/notifications', 'MemberController@saveNotifications');
+Route::post('/settings/verify', 'MemberController@verifyAccount');
 Route::post('/settings/delete', 'MemberController@deleteUser');
 Route::get('/favorites/fetch', 'FavoritesController@fetch');
 
@@ -95,6 +96,8 @@ Route::get('/maintainer/entity/delete', 'MaintainerController@deleteEntity');
 Route::get('/maintainer/entity/safe', 'MaintainerController@setSafeEntity');
 Route::post('/maintainer/welcomecontent', 'MaintainerController@welcomeContent');
 Route::post('/maintainer/formattedprojectname', 'MaintainerController@saveFormattedProjectName');
+Route::get('/maintainer/verify/{id}/approve', 'MaintainerController@approveAccount');
+Route::get('/maintainer/verify/{id}/decline', 'MaintainerController@declineAccount');
 
 Route::get('/install', 'InstallerController@viewInstall');
 Route::post('/install', 'InstallerController@install');

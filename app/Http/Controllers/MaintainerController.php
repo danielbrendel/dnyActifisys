@@ -17,12 +17,14 @@ namespace App\Http\Controllers;
 use App\AppModel;
 use App\CaptchaModel;
 use App\FaqModel;
+use App\MailerModel;
 use App\PostModel;
 use App\ReportModel;
 use App\TagsModel;
 use App\ThemeModel;
 use App\ThreadModel;
 use App\User;
+use App\VerifyModel;
 use Dotenv\Dotenv;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
@@ -71,6 +73,8 @@ class MaintainerController extends Controller
             $themes[] = $item;
         }
 
+        $verification_users = VerifyModel::fetchPack();
+
         return view('maintainer.index', [
             'captchadata' => CaptchaModel::createSum(session()->getId()),
             'user' => User::get(auth()->id()),
@@ -79,7 +83,8 @@ class MaintainerController extends Controller
             'themes' => $themes,
             'langs' => AppModel::getLanguageList(),
 			'cookie_consent' => AppModel::getCookieConsentText(),
-            'reports' => $reports
+            'reports' => $reports,
+            'verification_users' => $verification_users
         ]);
     }
 
@@ -535,6 +540,52 @@ class MaintainerController extends Controller
             Artisan::call('cache:clear');
 
             return back()->with('flash.success', __('app.formatted_project_name_saved'));
+        } catch (\Exception $e) {
+            return back()->with('flash.error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Approve account
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function approveAccount($id)
+    {
+        try {
+            $user = User::get($id);
+
+            VerifyModel::verifyStatus($id, VerifyModel::STATE_VERIFIED);
+
+            $html = view('mail.acc_verify', ['name' => $user->name, 'state' => __('app.account_verified'), 'reason' => '-']);
+            MailerModel::sendMail($user->email, __('app.mail_acc_verify_title'), $html);
+
+            return back()->with('flash.success', __('app.account_verified'));
+        } catch (\Exception $e) {
+            return back()->with('flash.error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Decline account
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function declineAccount($id)
+    {
+        try {
+            $user = User::get($id);
+
+            $reason = request('reason', '');
+
+            VerifyModel::verifyStatus($id, VerifyModel::STATE_DECLINED, urldecode($reason));
+
+            $html = view('mail.acc_verify', ['name' => $user->name, 'state' => __('app.account_verification_declined'), 'reason' => urldecode($reason)]);
+            MailerModel::sendMail($user->email, __('app.mail_acc_verify_title'), $html);
+
+            return back()->with('flash.success', __('app.account_verification_declined'));
         } catch (\Exception $e) {
             return back()->with('flash.error', $e->getMessage());
         }

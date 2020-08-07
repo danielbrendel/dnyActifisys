@@ -150,7 +150,7 @@ class User extends Authenticatable
             }
 
             $user = new User();
-            $user->name = $attr['name'];
+            $user->name = htmlspecialchars($attr['name']);
             $user->password = password_hash($attr['password'], PASSWORD_BCRYPT);
             $user->email = $attr['email'];
             $user->avatar = 'default.png';

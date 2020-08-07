@@ -156,6 +156,7 @@ class FavoritesModel extends Model
                 if ($favorite->type === 'ENT_USER') {
                     $user = User::get($favorite->entityId);
                     $favorite->name = $user->name;
+                    $favorite->verified = VerifyModel::getState($user->id) === VerifyModel::STATE_VERIFIED;
                     $favorite->short_name = AppModel::getShortExpression($favorite->name);
                     $favorite->avatar = $user->avatar;
                     $favorite->diffForHumans = $favorite->created_at->diffForHumans();

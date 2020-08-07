@@ -21,6 +21,7 @@ use App\FavoritesModel;
 use App\IgnoreModel;
 use App\ReportModel;
 use App\User;
+use App\VerifyModel;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -60,6 +61,7 @@ class MemberController extends Controller
             }
             $user->ignored = IgnoreModel::hasIgnored(auth()->id(), $id);
             $user->hasFavorited = FavoritesModel::hasUserFavorited(auth()->id(), $id, 'ENT_USER');
+            $user->verified = VerifyModel::getState($user->id) === VerifyModel::STATE_VERIFIED;
 
             return view('member.profile', [
                'captchadata' => CaptchaModel::createSum(session()->getId()),
@@ -183,9 +185,12 @@ class MemberController extends Controller
         try {
             $this->validateAuth();
 
+            $self = User::get(auth()->id());
+            $self->state = VerifyModel::getState(auth()->id());
+
             return view('member.settings', [
                 'captchadata' => CaptchaModel::createSum(session()->getId()),
-                'self' => User::get(auth()->id())
+                'self' => $self
             ]);
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
@@ -200,6 +205,8 @@ class MemberController extends Controller
     public function saveSettings()
     {
         try {
+            $this->validateAuth();
+
             $attr = request()->validate([
                 'name' => 'required',
                 'birthday' => 'required|date',
@@ -261,6 +268,8 @@ class MemberController extends Controller
     public function savePassword()
     {
         try {
+            $this->validateAuth();
+
             $attr = request()->validate([
                 'password' => 'required',
                 'password_confirmation' => 'required'
@@ -277,6 +286,8 @@ class MemberController extends Controller
     public function saveEMail()
     {
         try {
+            $this->validateAuth();
+
             $attr = request()->validate([
                 'email' => 'required|email'
             ]);
@@ -298,6 +309,8 @@ class MemberController extends Controller
     public function saveNotifications()
     {
         try {
+            $this->validateAuth();
+
             $attr = request()->validate([
                 'newsletter' => 'nullable|numeric',
                 'email_on_message' => 'nullable|numeric',
@@ -335,6 +348,30 @@ class MemberController extends Controller
 
             return back()->with('flash.success', __('app.notifications_saved'));
         } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Apply for account verification
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function verifyAccount()
+    {
+        try {
+            $this->validateAuth();
+
+            $attr = request()->validate([
+                'idcard_front' => 'required|file',
+                'idcard_back' => 'required|file',
+                'confirmation' => 'required|numeric'
+            ]);
+
+            VerifyModel::addVerifyAccount(auth()->id(), $attr);
+
+            return back()->with('success', __('app.verify_account_ok'));
+        } catch (Exception $e) {
             return back()->with('error', $e->getMessage());
         }
     }

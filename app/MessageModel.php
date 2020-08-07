@@ -52,8 +52,8 @@ class MessageModel extends Model
             $msg = new MessageModel();
             $msg->userId = $userId;
             $msg->senderId = $senderId;
-            $msg->subject = $subject;
-            $msg->message = $message;
+            $msg->subject = htmlspecialchars($subject);
+            $msg->message = htmlspecialchars($message);
             $msg->save();
 
             PushModel::addNotification(__('app.new_message_short', ['name' => $sender->name]), __('app.new_message', ['name' => $sender->name, 'subject' => $subject, 'profile' => url('/user/' . $sender->id)]), 'PUSH_MESSAGED', $userId);

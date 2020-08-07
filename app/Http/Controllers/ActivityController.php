@@ -24,6 +24,7 @@ use App\PushModel;
 use App\ReportModel;
 use App\ThreadModel;
 use App\User;
+use App\VerifyModel;
 use DateTime;
 use Exception;
 use Illuminate\Http\Request;
@@ -125,6 +126,8 @@ class ActivityController extends Controller
                 throw new Exception(__('app.activity_not_found_or_locked'));
             }
 
+            $activity->user->verified = VerifyModel::getState($activity->user->id) === VerifyModel::STATE_VERIFIED;
+
             $activity->actualParticipants = ParticipantModel::getActualParticipants($activity->id);
             $activity->potentialParticipants = ParticipantModel::getPotentialParticipants($activity->id);
             $activity->selfParticipated = ParticipantModel::has(auth()->id(), $activity->id, ParticipantModel::PARTICIPANT_ACTUAL);
@@ -189,6 +192,7 @@ class ActivityController extends Controller
                     unset($data[$key]);
                     continue;
                 }
+                $item['user']->verified = VerifyModel::getState($item['user']->id) === VerifyModel::STATE_VERIFIED;
 
                 $item['participants'] = ParticipantModel::where('activity', '=', $item['id'])->where('type', '=', ParticipantModel::PARTICIPANT_ACTUAL)->count();
                 $item['messages'] = ThreadModel::where('activityId', '=', $item['id'])->count();
@@ -220,6 +224,7 @@ class ActivityController extends Controller
             $threads = ThreadModel::getFromActivity($id, $paginate);
             foreach ($threads as &$thread) {
                 $thread->user = User::get($thread->userId);
+                $thread->user->verified = VerifyModel::getState($thread->user->id) === VerifyModel::STATE_VERIFIED;
                 $thread->adminOrOwner = User::isAdmin(auth()->id()) || ($thread->userId === auth()->id());
                 $thread->diffForHumans = $thread->created_at->diffForHumans();
                 $thread->subCount = ThreadModel::getSubCount($thread->id);
@@ -245,6 +250,7 @@ class ActivityController extends Controller
             $threads = ThreadModel::fetchSubThread($parentId, $paginate);
             foreach ($threads as &$thread) {
                 $thread->user = User::get($thread->userId);
+                $thread->user->verified = VerifyModel::getState($thread->user->id) === VerifyModel::STATE_VERIFIED;
                 $thread->adminOrOwner = User::isAdmin(auth()->id()) || ($thread->userId === auth()->id());
                 $thread->diffForHumans = $thread->created_at->diffForHumans();
             }

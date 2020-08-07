@@ -24,6 +24,7 @@ For a full feature list see the list below.
 + Activity management
 + User profiles
 + Profile management
++ Account verification
 + Favorites system
 + Notification system
 + Messaging system
