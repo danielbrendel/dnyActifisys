@@ -137,6 +137,7 @@ return [
     'view_activities' => 'Available activities',
     'do_filter' => 'Filter',
     'filter_by_city' => 'Filter by city name',
+    'filter_by_tag' => 'Filter by tag',
     'load_more' => 'Load more',
     'no_more_activities' => 'No more activities',
     'no_participants' => 'No participants yet',

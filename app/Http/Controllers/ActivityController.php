@@ -176,7 +176,12 @@ class ActivityController extends Controller
                 $dateTill = null;
             }
 
-            $data = ActivityModel::fetchActivities($city, $paginate, $dateFrom, $dateTill)->toArray();
+            $tag = request('tag', null);
+            if ($tag === '') {
+                $tag = null;
+            }
+
+            $data = ActivityModel::fetchActivities($city, $paginate, $dateFrom, $dateTill, $tag)->toArray();
             foreach ($data as $key => &$item) {
                 $item['user'] = User::get($item['owner']);
 

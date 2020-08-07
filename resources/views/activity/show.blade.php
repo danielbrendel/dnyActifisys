@@ -187,6 +187,16 @@
                     {{ $activity->description }}
                 </div>
 
+                <div class="activity-tags">
+                    @foreach (explode(' ', $activity->tags) as $tag)
+                        @if ($tag !== '')
+                            <div class="activity-tag">
+                                <span><a href="{{ url('/?tag=' . $tag) }}">#{{ $tag }}</a></span>
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
+
                 @auth
                     <div class="activity-buttons">
                         <div class="buttons-left is-inline-block">

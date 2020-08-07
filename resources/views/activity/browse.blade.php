@@ -55,7 +55,22 @@
                     </div>
                 </div>
             </div>
+
+            <div>
+                <div class="field has-addons">
+                    <div class="control">
+                        <input id="inpFilterTag" class="input" type="text" onkeydown="if (event.keyCode === 13) { document.getElementById('btnFilterTag').click(); }" placeholder="{{ __('app.filter_by_tag') }}">
+                    </div>
+                    <div class="control">
+                        <a id="btnFilterTag" class="button is-info" href="javascript:void(0);" onclick="location.href = window.location.origin + '/?tag=' + document.getElementById('inpFilterTag').value;">
+                            {{ __('app.do_filter') }}
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
+        <br/>
+        <br/>
         <br/>
         <br/>
         <br/>
@@ -103,7 +118,7 @@
         {
             document.getElementById('load-spinner').innerHTML = '<center><i class="fas fa-spinner fa-spin"></i></center>';
 
-            window.vue.ajaxRequest('get', '{{ url('/activity/fetch') }}/' + ((window.paginate !== null) ? '?paginate=' + window.paginate : '?paginate=null') + '&city=' + window.city + "&date_from=" + window.dateFrom + "&date_till=" + window.dateTill, {}, function(response) {
+            window.vue.ajaxRequest('get', '{{ url('/activity/fetch') }}/' + ((window.paginate !== null) ? '?paginate=' + window.paginate : '?paginate=null') + '&city=' + window.city + "&date_from=" + window.dateFrom + "&date_till=" + window.dateTill + "<?= ((isset($_GET['tag'])) ? '&tag=' . $_GET['tag'] : '') ?>", {}, function(response) {
                 if (response.code === 200) {
                     if (response.data.length > 0) {
                         document.getElementById('load-spinner').innerHTML = '';

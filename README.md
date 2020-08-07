@@ -19,6 +19,7 @@ For a full feature list see the list below.
 + Add comments to activities
 + Reply to comments
 + Filter activities
++ Activity tags
 + Actual and potential participation
 + Activity management
 + User profiles

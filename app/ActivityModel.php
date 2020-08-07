@@ -35,6 +35,46 @@ class ActivityModel extends Model
     ];
 
     /**
+     * Get tag list from description
+     *
+     * @param $description
+     * @return array
+     * @throws Exception
+     */
+    private static function getTagList($description)
+    {
+        try {
+            $taglist = array();
+            $inTag = false;
+            $curTag = '';
+            for ($i = 0; $i < strlen($description); $i++) {
+                if ($description[$i] === '#') {
+                    $inTag = true;
+                    continue;
+                }
+
+                if ($inTag === true) {
+                    if (!ctype_alnum($description[$i])) {
+                        $taglist[] = $curTag;
+                        $curTag = '';
+                        $inTag = false;
+                        continue;
+                    }
+
+                    $curTag .= $description[$i];
+                }
+            }
+            if ($inTag === true) {
+                $taglist[] = $curTag;
+            }
+
+            return $taglist;
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
      * Create an activity
      *
      * @param $owner
@@ -56,10 +96,13 @@ class ActivityModel extends Model
                 throw new Exception(__('app.date_is_in_past'));
             }
 
+            $taglist = static::getTagList($attr['description']);
+
             $item = new ActivityModel();
             $item->owner = $owner;
             $item->title = $attr['title'];
             $item->description = $attr['description'];
+            $item->tags = (count($taglist) > 0) ? implode(' ', $taglist) . ' ' : '';
             $item->date_of_activity = date('Y-m-d H:i:s', strtotime($attr['date_of_activity'] . ' ' . $attr['time_of_activity']));
             $item->location = strtolower(trim($attr['location']));
             $item->limit = $attr['limit'];
@@ -112,8 +155,11 @@ class ActivityModel extends Model
                 throw new Exception(__('app.date_is_in_past'));
             }
 
+            $taglist = static::getTagList($attr['description']);
+
             $item->title = $attr['title'];
             $item->description = $attr['description'];
+            $item->tags = (count($taglist) > 0) ? implode(' ', $taglist) . ' ' : '';
             $item->date_of_activity = date('Y-m-d H:i:s', strtotime($attr['date_of_activity'] . ' ' . $attr['time_of_activity']));
             $item->location = strtolower(trim($attr['location']));
             $item->limit = $attr['limit'];
@@ -149,7 +195,7 @@ class ActivityModel extends Model
      * @return mixed
      * @throws Exception
      */
-    public static function fetchActivities($city = null, $paginate = null, $dateFrom = null, $dateTill = null)
+    public static function fetchActivities($city = null, $paginate = null, $dateFrom = null, $dateTill = null, $tag = null)
     {
         try {
             $activities = ActivityModel::where('date_of_activity', '>=', date('Y-m-d H:i:s'))->where('locked', '=', false)->where('canceled', '=', false);
@@ -185,6 +231,10 @@ class ActivityModel extends Model
                 }
 
                 $activities->where('date_of_activity', '<=', $asDate);
+            }
+
+            if ($tag !== null) {
+                $activities->where('tags', 'LIKE', '%' . $tag . ' %');
             }
 
             return $activities->orderBy('date_of_activity', 'asc')->limit(env('APP_ACTIVITYPACKLIMIT'))->get();

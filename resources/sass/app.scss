@@ -416,6 +416,27 @@ h2 {
     margin-top: 15px;
     color: rgb(190, 190, 190);
 }
+.activity-tags {
+    margin-top: 27px;
+    margin-bottom: 10px;
+}
+.activity-tag {
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: inline-block;
+    padding: 2px 15px;
+}
+.activity-tag:hover {
+    text-decoration: none;
+    background-color: rgba(150, 150, 150, 0.5);
+}
+.activity-tag a {
+    color: rgb(200, 200, 200);
+}
+.activity-tag a:hover {
+    text-decoration: none;
+}
 .activity-options {
     float: right;
 }

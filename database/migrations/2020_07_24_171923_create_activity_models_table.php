@@ -29,6 +29,7 @@ class CreateActivityModelsTable extends Migration
             $table->id();
             $table->string('title', 100);
             $table->text('description');
+            $table->string('tags', 1024)->default('');
             $table->dateTime('date_of_activity');
             $table->string('location');
             $table->integer('limit')->unsigned()->default(0); //0 = unlimited, >0 = limited
