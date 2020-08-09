@@ -37,6 +37,7 @@ For a full feature list see the list below.
 + Twitter news integration
 + HelpRealm integration
 + Ads system
++ Custom head code
 + Installer
 + Security
 + Responsive design
