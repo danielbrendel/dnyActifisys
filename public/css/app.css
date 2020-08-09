@@ -525,6 +525,11 @@ h2 {
   padding: 2px 15px;
 }
 
+.activty-dropdown-tags {
+  float: right;
+  top: 105px;
+}
+
 .activity-tag:hover {
   text-decoration: none;
   background-color: rgba(150, 150, 150, 0.5);
@@ -597,7 +602,7 @@ h2 {
   border: 1px solid #ccc;
   border-radius: 4px;
   display: inline-block;
-  height: 560px;
+  height: 583px;
   background-color: rgba(255, 255, 255, 0.4);
 }
 
@@ -656,7 +661,8 @@ h2 {
   font-weight: bold;
   font-size: 1.2em;
   font-family: "Nunito", sans-serif;
-  max-height: 134px;
+  max-height: 153px;
+  padding-top: unset;
 }
 
 .activity-information {
@@ -1216,6 +1222,10 @@ h2 {
 
 .is-color-grey {
   color: #bebebe;
+}
+
+.is-color-black a {
+  color: black;
 }
 
 .is-underlined {

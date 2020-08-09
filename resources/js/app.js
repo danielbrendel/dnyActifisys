@@ -222,6 +222,14 @@ window.vue = new Vue({
             }
         },
 
+        toggleActivityTags: function(elem) {
+            if (elem.classList.contains('is-active')) {
+                elem.classList.remove('is-active');
+            } else {
+                elem.classList.add('is-active');
+            }
+        },
+
         copyToClipboard: function(text) {
             const el = document.createElement('textarea');
             el.value = text;
@@ -310,6 +318,30 @@ window.vue = new Vue({
                 headerOverlay = `class="activity-header-overlay"`
             }
 
+            let taglist = '';
+            let tags = elem.tags.split(' ');
+            for (let i = 0; i < tags.length; i++) {
+                if (tags[i].length > 0) {
+                    taglist += `
+                        <a href="` + window.location.origin + '?tag=' + tags[i] + `" class="dropdown-item">
+                            #` + tags[i] + `
+                        </a>
+                    `;
+                }
+            }
+            let tagcode = '';
+            if (taglist.length > 0) {
+                tagcode = `
+                    <div class="activty-dropdown-tags dropdown is-right is-inline-block" id="activity-tags-` + elem.id + `">
+                        <div class="dropdown-menu is-color-black" role="menu">
+                            <div class="dropdown-content">
+                                ` + taglist + `
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
             let html = `<div class="activity">
                 <div class="activity-header" ` + headerStyle + `>
                     <div ` + headerOverlay + `>
@@ -320,8 +352,12 @@ window.vue = new Vue({
                     </div>
                 </div>
 
-                <div class="activity-title is-pointer is-wordbreak is-default-padding" onclick="location.href = '` + window.location.origin + '/activity/' + elem.id + `';">
-                    <center>` + elem.title + `</center>
+                <div class="is-inline-block is-stretched">
+                    <div class="activity-title is-pointer is-wordbreak is-default-padding is-inline-block is-stretched">
+                        <center><span onclick="location.href = '` + window.location.origin + '/activity/' + elem.id + `';">` + elem.title + `</span> <span class="dropdown-trigger ` + ((tagcode.length > 0) ? '': 'is-hidden') + `" onclick="window.vue.toggleActivityTags(document.getElementById('activity-tags-` + elem.id + `'));"><i class="fas fa-hashtag is-pointer"></i></span></center>
+                    </div>
+
+                    ` + tagcode + `
                 </div>
 
                 <div class="activity-infos is-default-padding">

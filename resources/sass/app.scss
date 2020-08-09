@@ -440,6 +440,10 @@ h2 {
     display: inline-block;
     padding: 2px 15px;
 }
+.activty-dropdown-tags {
+    float: right;
+    top: 105px;
+}
 .activity-tag:hover {
     text-decoration: none;
     background-color: rgba(150, 150, 150, 0.5);
@@ -510,7 +514,7 @@ h2 {
         left: -15px;
         width: 104%;
     }
-    height: 560px;
+    height: 583px;
     background-color: rgba(255, 255, 255, 0.4);
 }
 .activity-header {
@@ -543,7 +547,8 @@ h2 {
     font-weight: bold;
     font-size: 1.2em;
     font-family: 'Nunito', sans-serif;
-	max-height: 134px;
+	max-height: 153px;
+    padding-top: unset;
 }
 .activity-information {
     top: -25px;
@@ -984,6 +989,9 @@ h2 {
 }
 .is-color-grey {
     color: rgb(190, 190, 190);
+}
+.is-color-black a {
+    color: rgb(0, 0, 0);
 }
 .is-underlined {
     border-bottom: 1px solid #ccc;

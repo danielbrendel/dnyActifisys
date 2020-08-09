@@ -19534,6 +19534,13 @@ window.vue = new Vue({
         elem.classList.add('is-active');
       }
     },
+    toggleActivityTags: function toggleActivityTags(elem) {
+      if (elem.classList.contains('is-active')) {
+        elem.classList.remove('is-active');
+      } else {
+        elem.classList.add('is-active');
+      }
+    },
     copyToClipboard: function copyToClipboard(text) {
       var el = document.createElement('textarea');
       el.value = text;
@@ -19572,7 +19579,22 @@ window.vue = new Vue({
         headerOverlay = "class=\"activity-header-overlay\"";
       }
 
-      var html = "<div class=\"activity\">\n                <div class=\"activity-header\" " + headerStyle + ">\n                    <div " + headerOverlay + ">\n                        <div class=\"activity-user\">\n                            <center><div class=\"activity-user-avatar\"><img src=\"" + window.location.origin + '/gfx/avatars/' + elem.user.avatar + "\" class=\"is-pointer\" onclick=\"location.href = '" + window.location.origin + '/user/' + elem.user.id + "';\"></div>\n                                <div class=\"activity-user-name\"><a href=\"" + window.location.origin + '/user/' + elem.user.id + "\">" + elem.user.name + "</a>" + (elem.user.verified ? '&nbsp;<i class="far fa-check-circle" title="Verified user"></i>' : '') + "</div></center>\n                        </div>\n                    </div>\n                </div>\n\n                <div class=\"activity-title is-pointer is-wordbreak is-default-padding\" onclick=\"location.href = '" + window.location.origin + '/activity/' + elem.id + "';\">\n                    <center>" + elem.title + "</center>\n                </div>\n\n                <div class=\"activity-infos is-default-padding\">\n                    <center><span title=\"" + elem.date_of_activity + "\"><i class=\"far fa-clock\"></i>&nbsp;" + elem.diffForHumans + " | </span>\n                        <span class=\"is-capitalized\"><i class=\"fas fa-map-marker-alt\"></i>&nbsp;" + elem.location + "</span></center>\n                </div>\n\n                <div class=\"activity-divider\">\n                    <hr/>\n                </div>\n\n                <div class=\"activity-information is-wordbreak is-default-side-padding\">" + (elem.description.length > MAX_ACTIVITY_DESCRIPTION_LENGTH ? elem.description.substr(0, MAX_ACTIVITY_DESCRIPTION_LENGTH) + '...' : elem.description) + "</div>\n\n                <div class=\"activity-footer is-default-side-padding\">\n                    <div class=\"activity-footer-stats\">\n                        <div class=\"is-inline-block\"><i class=\"fas fa-users\"></i>&nbsp;" + elem.participants + "</div>\n                        <div class=\"is-inline-block\"><i class=\"far fa-comments\"></i>&nbsp;" + elem.messages + "</div>\n                    </div>\n\n                    <div class=\"activity-footer-view is-inline-block\">\n                        <a class=\"button is-transparent-green\"  onclick=\"location.href = '" + window.location.origin + '/activity/' + elem.id + "';\">View</a>\n                    </div>\n                </div>\n            </div>";
+      var taglist = '';
+      var tags = elem.tags.split(' ');
+
+      for (var i = 0; i < tags.length; i++) {
+        if (tags[i].length > 0) {
+          taglist += "\n                        <a href=\"" + window.location.origin + '?tag=' + tags[i] + "\" class=\"dropdown-item\">\n                            #" + tags[i] + "\n                        </a>\n                    ";
+        }
+      }
+
+      var tagcode = '';
+
+      if (taglist.length > 0) {
+        tagcode = "\n                    <div class=\"activty-dropdown-tags dropdown is-right is-inline-block\" id=\"activity-tags-" + elem.id + "\">\n                        <div class=\"dropdown-menu is-color-black\" role=\"menu\">\n                            <div class=\"dropdown-content\">\n                                " + taglist + "\n                            </div>\n                        </div>\n                    </div>\n                ";
+      }
+
+      var html = "<div class=\"activity\">\n                <div class=\"activity-header\" " + headerStyle + ">\n                    <div " + headerOverlay + ">\n                        <div class=\"activity-user\">\n                            <center><div class=\"activity-user-avatar\"><img src=\"" + window.location.origin + '/gfx/avatars/' + elem.user.avatar + "\" class=\"is-pointer\" onclick=\"location.href = '" + window.location.origin + '/user/' + elem.user.id + "';\"></div>\n                                <div class=\"activity-user-name\"><a href=\"" + window.location.origin + '/user/' + elem.user.id + "\">" + elem.user.name + "</a>" + (elem.user.verified ? '&nbsp;<i class="far fa-check-circle" title="Verified user"></i>' : '') + "</div></center>\n                        </div>\n                    </div>\n                </div>\n\n                <div class=\"is-inline-block is-stretched\">\n                    <div class=\"activity-title is-pointer is-wordbreak is-default-padding is-inline-block is-stretched\">\n                        <center><span onclick=\"location.href = '" + window.location.origin + '/activity/' + elem.id + "';\">" + elem.title + "</span> <span class=\"dropdown-trigger " + (tagcode.length > 0 ? '' : 'is-hidden') + "\" onclick=\"window.vue.toggleActivityTags(document.getElementById('activity-tags-" + elem.id + "'));\"><i class=\"fas fa-hashtag is-pointer\"></i></span></center>\n                    </div>\n\n                    " + tagcode + "\n                </div>\n\n                <div class=\"activity-infos is-default-padding\">\n                    <center><span title=\"" + elem.date_of_activity + "\"><i class=\"far fa-clock\"></i>&nbsp;" + elem.diffForHumans + " | </span>\n                        <span class=\"is-capitalized\"><i class=\"fas fa-map-marker-alt\"></i>&nbsp;" + elem.location + "</span></center>\n                </div>\n\n                <div class=\"activity-divider\">\n                    <hr/>\n                </div>\n\n                <div class=\"activity-information is-wordbreak is-default-side-padding\">" + (elem.description.length > MAX_ACTIVITY_DESCRIPTION_LENGTH ? elem.description.substr(0, MAX_ACTIVITY_DESCRIPTION_LENGTH) + '...' : elem.description) + "</div>\n\n                <div class=\"activity-footer is-default-side-padding\">\n                    <div class=\"activity-footer-stats\">\n                        <div class=\"is-inline-block\"><i class=\"fas fa-users\"></i>&nbsp;" + elem.participants + "</div>\n                        <div class=\"is-inline-block\"><i class=\"far fa-comments\"></i>&nbsp;" + elem.messages + "</div>\n                    </div>\n\n                    <div class=\"activity-footer-view is-inline-block\">\n                        <a class=\"button is-transparent-green\"  onclick=\"location.href = '" + window.location.origin + '/activity/' + elem.id + "';\">View</a>\n                    </div>\n                </div>\n            </div>";
       return html;
     },
     renderMessageListItem: function renderMessageListItem(item) {
