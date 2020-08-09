@@ -366,6 +366,10 @@ h2 {
   color: #f0f0f0;
 }
 
+.is-def-color:hover {
+  color: #f0f0f0;
+}
+
 .is-def-color input,
 .is-def-color textarea,
 .is-def-color select {

@@ -31,12 +31,13 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('slug', 1024);
             $table->string('avatar')->default('default.png');
             $table->string('password_reset')->nullable();
             $table->string('account_confirm');
             $table->boolean('deactivated')->default(false);
-            $table->dateTime('birthday');
-            $table->integer('gender'); //1 = male, 2 = female, 3 = diverse
+            $table->dateTime('birthday')->useCurrent();
+            $table->integer('gender')->default(0); //0 = unspecified, 1 = male, 2 = female, 3 = diverse
             $table->string('bio', 1024)->default('');
             $table->string('location')->default('');
             $table->boolean('admin')->default(false);

@@ -37,7 +37,7 @@
         <div id="tabProfile-form">
             <div>
                 <span><img class="is-rounded-image" src="{{ asset('gfx/avatars/' . $self->avatar) }}" alt="avatar"></span>
-                <span><a href="{{ url('/user/' . $self->id) }}">{{ __('app.view_profile') }}</a></span>
+                <span><a href="{{ url('/user/' . $self->slug) }}">{{ __('app.view_profile') }}</a></span>
             </div>
 
             <br/>

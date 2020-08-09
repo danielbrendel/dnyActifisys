@@ -320,6 +320,9 @@ h2 {
 .is-def-color, .is-def-color label, .is-def-color select, .is-def-color a {
     color: rgb(240, 240, 240);
 }
+.is-def-color:hover {
+    color: rgb(240, 240, 240);
+}
 .is-def-color input, .is-def-color textarea, .is-def-color select {
     background-color: transparent;
 }

@@ -18,6 +18,7 @@ use DateTime;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 
 /**
  * Class ActivityModel
@@ -110,6 +111,9 @@ class ActivityModel extends Model
             $item->only_gender = $attr['only_gender'];
             $item->save();
 
+            $item->slug = Str::slug(strval($item->id) . ' ' . $item->title, '-');
+            $item->save();
+
             ParticipantModel::add($owner, $item->id, ParticipantModel::PARTICIPANT_ACTUAL);
 
             $favs = FavoritesModel::where('entityId', '=', $owner)->where('type', '=', 'ENT_USER')->get();
@@ -160,6 +164,7 @@ class ActivityModel extends Model
 
             $item->title = htmlspecialchars($attr['title']);
             $item->description = htmlspecialchars($attr['description']);
+            $item->slug = Str::slug(strval($item->id) . ' ' . $item->title, '-');
             $item->tags = (count($taglist) > 0) ? implode(' ', $taglist) . ' ' : '';
             $item->date_of_activity = date('Y-m-d H:i:s', strtotime($attr['date_of_activity'] . ' ' . $attr['time_of_activity']));
             $item->category = $attr['category'];
@@ -183,6 +188,22 @@ class ActivityModel extends Model
     {
         try {
             return ActivityModel::where('id', '=', $id)->where('locked', '=', false)->first();
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Get activity by slug
+     *
+     * @param $slug
+     * @return mixed
+     * @throws Exception
+     */
+    public static function getActivityBySlug($slug)
+    {
+        try {
+            return ActivityModel::where('slug', '=', $slug)->where('locked', '=', false)->first();
         } catch (Exception $e) {
             throw $e;
         }

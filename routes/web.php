@@ -31,7 +31,7 @@ Route::any('/logout', 'MainController@logout');
 Route::post('/activity/create', 'ActivityController@create');
 Route::post('/activity/edit', 'ActivityController@edit');
 Route::get('/activity/fetch', 'ActivityController@fetch');
-Route::get('/activity/{id}', 'ActivityController@show');
+Route::get('/activity/{slugOrId}', 'ActivityController@show');
 Route::get('/activity/{id}/thread', 'ActivityController@fetchThread');
 Route::post('/activity/{id}/thread/add', 'ActivityController@addThread');
 Route::post('/thread/{parentId}/reply', 'ActivityController@replyThread');
@@ -50,7 +50,7 @@ Route::get('/activity/user/{id}', 'ActivityController@fetchUserActivities');
 Route::post('/activity/{id}/upload', 'ActivityController@uploadFile');
 Route::any('/file/{id}/delete', 'ActivityController@deleteFile');
 
-Route::get('/user/{id}', 'MemberController@show');
+Route::get('/user/{slugOrId}', 'MemberController@show');
 Route::get('/user/{id}/fav/add', 'FavoritesController@add');
 Route::get('/user/{id}/fav/remove', 'FavoritesController@remove');
 Route::get('/user/{id}/lock', 'MemberController@lock');

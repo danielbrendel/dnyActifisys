@@ -98,7 +98,7 @@
                             {{ __('app.messages') }}
                         </a>
 
-                        <a class="navbar-item fix-mobile-navbar-item is-white" href="{{ url('/user/' . auth()->id()) }}">
+                        <a class="navbar-item fix-mobile-navbar-item is-white" href="{{ url('/user/' . \App\User::get(auth()->id())->slug) }}">
                             {{ __('app.profile') }}
                         </a>
 

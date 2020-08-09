@@ -17,7 +17,7 @@
 @endsection
 
 @section('body')
-    {{ __('app.mail_salutation', ['name' => $username]) }}
+    {{ __('app.mail_salutation', ['name' => $name]) }}
     <br/><br/>
     {{ __('app.mail_registered_body') }}
 @endsection

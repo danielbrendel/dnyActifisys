@@ -55,7 +55,7 @@
                         <div class="is-color-lightblue is-underlined"><span>{{ __('app.age') }}:</span> <span class="is-align-right">{{ $user->age }}</span></div>
                         <div class="is-color-lightblue is-underlined"><span>{{ __('app.gender') }}:</span> <span class="is-align-right">{{ $user->genderText }}</span></div>
                         <div class="is-color-lightblue is-underlined"><span>{{ __('app.location') }}:</span> <span class="is-align-right">{{ $user->location }}</span></div>
-                        <div class="is-color-lightblue is-underlined"><span>{{ __('app.activities') }}:</span> <span class="is-align-right">{{ $user->activities }}</span></div>
+                        <div class="is-color-lightblue is-underlined"><span>{{ __('app.activities') }}:</span> <span class="is-align-right" id="activity-count">{{ $user->activities }}</span></div>
                     </div>
                 </div>
 
@@ -117,6 +117,8 @@
 
                            document.getElementById('active-activities').innerHTML += html;
                        });
+
+                       document.getElementById('activity-count').innerHTML = response.data.length + '/' + document.getElementById('activity-count').innerHTML;
                    } else {
                        document.getElementById('active-activities').innerHTML = '<center><i>{{ __('app.no_more_activities') }}</></center>';
                    }

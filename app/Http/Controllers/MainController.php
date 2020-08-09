@@ -244,7 +244,7 @@ class MainController extends Controller
     public function register()
     {
         $attr = request()->validate([
-            'name' => 'required|max:55',
+            'name' => 'required|min:3|max:55',
             'email' => 'required|email',
             'password' => 'required',
             'password_confirmation' => 'required',

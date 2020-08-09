@@ -31,20 +31,23 @@ class MemberController extends Controller
     /**
      * Show user profile
      *
-     * @param $id
+     * @param string $slugOrId Either slug or ID
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
-    public function show($id)
+    public function show($slugOrId)
     {
         try {
             $this->validateAuth();
 
-            $user = User::get($id);
+            $user = User::getBySlug($slugOrId);
             if (!$user) {
-                throw new \Exception(__('app.user_not_found_or_locked'));
+                $user = User::get($slugOrId);
+                if (!$user) {
+                    throw new \Exception(__('app.user_not_found_or_locked'));
+                }
             }
 
-            if (IgnoreModel::hasIgnored($id, auth()->id())) {
+            if (IgnoreModel::hasIgnored($user->id, auth()->id())) {
                 throw new \Exception(__('app.user_not_found_or_locked'));
             }
 
@@ -59,8 +62,8 @@ class MemberController extends Controller
             } else {
                 $user->genderText = __('app.gender_unspecified');
             }
-            $user->ignored = IgnoreModel::hasIgnored(auth()->id(), $id);
-            $user->hasFavorited = FavoritesModel::hasUserFavorited(auth()->id(), $id, 'ENT_USER');
+            $user->ignored = IgnoreModel::hasIgnored(auth()->id(), $user->id);
+            $user->hasFavorited = FavoritesModel::hasUserFavorited(auth()->id(), $user->id, 'ENT_USER');
             $user->verified = VerifyModel::getState($user->id) === VerifyModel::STATE_VERIFIED;
 
             return view('member.profile', [
@@ -208,7 +211,7 @@ class MemberController extends Controller
             $this->validateAuth();
 
             $attr = request()->validate([
-                'name' => 'required',
+                'name' => 'required|min:3|max:55',
                 'birthday' => 'required|date',
                 'gender' => 'required|numeric',
                 'location' => 'required',

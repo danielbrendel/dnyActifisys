@@ -113,15 +113,18 @@ class ActivityController extends Controller
     /**
      * Show activity details
      *
-     * @param $id
+     * @param string $slugOrId Either slug or ID
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
-    public function show($id)
+    public function show($slugOrId)
     {
         try {
-            $activity = ActivityModel::getActivity($id);
-            if ((!$activity) || ($activity->locked)) {
-                throw new Exception(__('app.activity_not_found_or_locked'));
+            $activity = ActivityModel::getActivityBySlug($slugOrId);
+            if (!$activity) {
+                $activity = ActivityModel::getActivity($slugOrId);
+                if ((!$activity) || ($activity->locked)) {
+                    throw new Exception(__('app.activity_not_found_or_locked'));
+                }
             }
 
             $activity->user = User::get($activity->owner);
@@ -299,9 +302,11 @@ class ActivityController extends Controller
         try {
             $data = ActivityModel::fetchUserActivities($id);
             foreach ($data as &$item) {
+                $item->_type = 'activity';
                 $item->diffForHumans = $item->date_of_activity->diffForHumans();
                 $item->participants = ParticipantModel::where('activity', '=', $item->id)->where('type', '=', ParticipantModel::PARTICIPANT_ACTUAL)->count();
                 $item->messages = ThreadModel::where('activityId', '=', $item->id)->count();
+                $item->categoryData = CategoryModel::where('id', '=', $item->category)->first();
             }
 
             return response()->json(array('code' => 200, 'data' => $data));

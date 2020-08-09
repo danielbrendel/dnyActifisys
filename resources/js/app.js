@@ -268,11 +268,11 @@ window.vue = new Vue({
 
             <div class="thread-header">
                 <div class="thread-header-avatar is-inline-block">
-                    <img width="24" height="24" src="` + window.location.origin + `/gfx/avatars/` + elem.user.avatar + `" class="is-pointer" onclick="location.href = '` + window.location.origin + `/user/` + elem.user.id + `';" title="">
+                    <img width="24" height="24" src="` + window.location.origin + `/gfx/avatars/` + elem.user.avatar + `" class="is-pointer" onclick="location.href = '` + window.location.origin + `/user/` + elem.user.slug + `';" title="` + elem.user.name + `">
                 </div>
 
                 <div class="thread-header-info is-inline-block">
-                    <div><a href="` + window.location.origin + `/user/` + elem.user.id + `" class="is-color-grey">` + elem.user.name + `</a>` + ((elem.user.verified) ? '&nbsp;<i class="far fa-check-circle" title="Verified user"></i>' : '') +  `</div>
+                    <div><a href="` + window.location.origin + `/user/` + elem.user.slug + `" class="is-color-grey">` + elem.user.name + `</a>` + ((elem.user.verified) ? '&nbsp;<i class="far fa-check-circle" title="Verified user"></i>' : '') +  `</div>
                     <div title="` + elem.created_at + `">` + elem.diffForHumans + `</div>
                 </div>
 
@@ -350,14 +350,14 @@ window.vue = new Vue({
                     <div ` + headerOverlay + `>
                         <div class="activity-user">
                             <center><div class="activity-user-avatar"><img src="` + window.location.origin + '/gfx/avatars/' + elem.user.avatar + `" class="is-pointer" onclick="location.href = '` + window.location.origin + '/user/' + elem.user.id + `';"></div>
-                                <div class="activity-user-name"><a href="` + window.location.origin + '/user/' + elem.user.id + `">` + elem.user.name + `</a>` + ((elem.user.verified) ? '&nbsp;<i class="far fa-check-circle" title="Verified user"></i>' : '') + `</div></center>
+                                <div class="activity-user-name"><a href="` + window.location.origin + '/user/' + elem.user.slug + `">` + elem.user.name + `</a>` + ((elem.user.verified) ? '&nbsp;<i class="far fa-check-circle" title="Verified user"></i>' : '') + `</div></center>
                         </div>
                     </div>
                 </div>
 
                 <div class="is-inline-block is-stretched">
                     <div class="activity-title is-pointer is-wordbreak is-default-padding is-inline-block is-stretched">
-                        <center><span onclick="location.href = '` + window.location.origin + '/activity/' + elem.id + `';">` + elem.title + `</span> <span class="dropdown-trigger ` + ((tagcode.length > 0) ? '': 'is-hidden') + `" onclick="window.vue.toggleActivityTags(document.getElementById('activity-tags-` + elem.id + `'));"><i class="fas fa-hashtag is-pointer"></i></span></center>
+                        <center><span><a class="is-def-color" href="` + window.location.origin + '/activity/' + elem.slug + `">` + elem.title + `</a></span> <span class="dropdown-trigger ` + ((tagcode.length > 0) ? '': 'is-hidden') + `" onclick="window.vue.toggleActivityTags(document.getElementById('activity-tags-` + elem.id + `'));"><i class="fas fa-hashtag is-pointer"></i></span></center>
                     </div>
 
                     ` + tagcode + `

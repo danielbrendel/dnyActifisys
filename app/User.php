@@ -19,6 +19,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -59,9 +60,18 @@ class User extends Authenticatable
      */
     public static function get($id)
     {
-        $user = User::where('id', '=', $id)->first();
+        return User::where('id', '=', $id)->first();
+    }
 
-        return $user;
+    /**
+     * Get user object by slug
+     *
+     * @param $slug
+     * @return mixed
+     */
+    public static function getBySlug($slug)
+    {
+        return User::where('deactivated', '=', false)->where('slug', '=', $slug)->first();
     }
 
     /**
@@ -155,6 +165,9 @@ class User extends Authenticatable
             $user->email = $attr['email'];
             $user->avatar = 'default.png';
             $user->account_confirm = md5($attr['email'] . $attr['name'] . random_bytes(55));
+            $user->save();
+
+            $user->slug = Str::slug(strval($user->id) . ' ' . $user->name, '-');
             $user->save();
 
             $html = view('mail.registered', ['name' => $user->name, 'hash' => $user->account_confirm])->render();
@@ -253,6 +266,7 @@ class User extends Authenticatable
 
             $user = User::get($id);
             $user->name = $attr['name'];
+            $user->slug = Str::slug(strval($user->id) . ' ' . $user->name, '-');
             $user->birthday = $attr['birthday'];
             $user->gender = $attr['gender'];
             if (($user->gender < 0) || ($user->gender > 3)) {
