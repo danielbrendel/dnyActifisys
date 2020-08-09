@@ -51,7 +51,7 @@ class InstallerModel extends Model
             $envcontent .= 'APP_TAGS="comact, daniel brendel, activities, appointment, meeting, community, opensource, freeware"' . PHP_EOL;
             $envcontent .= 'APP_TITLE="${APP_PROJECTNAME} - ${APP_DESCRIPTION}"' . PHP_EOL;
 			$envcontent .= 'APP_LANG=en' . PHP_EOL;
-            $envcontent .= 'APP_ACTIVITYPACKLIMIT=15' . PHP_EOL;
+            $envcontent .= 'APP_ACTIVITYPACKLIMIT=12' . PHP_EOL;
 			$envcontent .= 'APP_THREADPACKLIMIT=15' . PHP_EOL;
             $envcontent .= 'APP_MESSAGEPACKLIMIT=25' . PHP_EOL;
             $envcontent .= 'APP_ACCOUNTVERIFICATION=1' . PHP_EOL;
