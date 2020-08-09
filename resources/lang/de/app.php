@@ -370,7 +370,11 @@ return [
     'edit_category' => 'Kategorie ändern',
     'category' => 'Kategorie',
     'filter_by_category' => 'Per Kategorie filtern',
-    'category_all' => '- Alle -',
+    'category_all' => '- Alle Kategorien -',
     'filter_options' => 'Filteroptionen anzeigen',
-    'category_zero' => '- Keine -'
+    'category_zero' => '- Keine -',
+    'head_code' => 'Header code',
+    'head_code_description' => 'Hier kann benutzerdefinierter Code für den Head Bereich spezifiziert werden.',
+    'adcode' => 'Ad code',
+    'adcode_description' => 'Here kann Code für Ads spezifiziert werden. Ads werden dann im Aktivitäten-Feed angezeigt.'
 ];

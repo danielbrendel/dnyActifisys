@@ -38,6 +38,8 @@ class CreateAppSettingsTable extends Migration
             $table->string('default_theme')->default('_default');
             $table->string('headline_top');
             $table->string('headline_sub');
+            $table->text('head_code')->default('');
+            $table->text('adcode')->default('');
             $table->timestamps();
         });
     }

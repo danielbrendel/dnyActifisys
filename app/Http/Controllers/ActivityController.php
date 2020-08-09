@@ -16,6 +16,7 @@ namespace App\Http\Controllers;
 
 use App\ActivitiesHaveImages;
 use App\ActivityModel;
+use App\AppModel;
 use App\CaptchaModel;
 use App\CategoryModel;
 use App\IgnoreModel;
@@ -195,6 +196,8 @@ class ActivityController extends Controller
 
             $data = ActivityModel::fetchActivities($city, $paginate, $dateFrom, $dateTill, $tag, $category)->toArray();
             foreach ($data as $key => &$item) {
+                $item['_type'] = 'activity';
+
                 $item['user'] = User::get($item['owner']);
 
                 if (IgnoreModel::hasIgnored($item['owner'], auth()->id())) {
@@ -210,7 +213,20 @@ class ActivityController extends Controller
                 $item['categoryData'] = CategoryModel::where('id', '=', $item['category'])->first();
             }
 
-            return response()->json(array('code' => 200, 'data' => array_values($data), 'last' => count($data) === 0));
+            $data = array_values($data);
+
+            $adcode = AppModel::getAdCode();
+            if ((strlen($adcode) > 0) && (count($data) > 0)) {
+                $aditem = array();
+                $aditem['_type'] = 'ad';
+                $aditem['code'] = $adcode;
+                $aditem['tags'] = '';
+                $aditem['category'] = 0;
+                $aditem['date_of_activity'] = $data[count($data)-1]['date_of_activity'];
+                $data[] = $aditem;
+            }
+
+            return response()->json(array('code' => 200, 'data' => $data, 'last' => count($data) === 0));
         } catch (Exception $e) {
             return response()->json(array('code' => 500, 'msg' => $e->getMessage()));
         }

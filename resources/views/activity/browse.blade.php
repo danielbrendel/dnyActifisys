@@ -153,7 +153,7 @@
                             document.getElementById('loadmore').classList.remove('is-hidden');
                         });
 
-                        window.paginate = response.data[response.data.length - 1].date_of_activity;
+                        window.paginate = response.data[response.data.length - 2].date_of_activity;
                     } else {
                         if (response.last) {
                             document.getElementById('loadmore').classList.add('is-hidden');

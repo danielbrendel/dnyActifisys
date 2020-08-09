@@ -148,6 +148,28 @@ class AppModel extends Model
     }
 
     /**
+     * Get head code
+     * @return mixed
+     */
+    public static function getHeadCode()
+    {
+        return Cache::remember('head_code', AppModel::ONE_DAY, function() {
+            return DB::table('app_settings')->first()->head_code;
+        });
+    }
+
+    /**
+     * Get ad code
+     * @return mixed
+     */
+    public static function getAdCode()
+    {
+        return Cache::remember('ad_code', AppModel::ONE_DAY, function() {
+            return DB::table('app_settings')->first()->adcode;
+        });
+    }
+
+    /**
      * Get image type of file
      *
      * @param $file

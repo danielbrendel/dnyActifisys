@@ -563,6 +563,17 @@ h2 {
 .activity-footer-view {
     float: right;
 }
+.activity-ad {
+    position: relative;
+    display: inline-block;
+    height: 583px;
+    vertical-align: top;
+    width: 329px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 15px;
+    left: 15px;
+}
 .activity-filter {
     top: 23px;
     @media screen and (min-width: 768px) {

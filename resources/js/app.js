@@ -342,7 +342,10 @@ window.vue = new Vue({
                 `;
             }
 
-            let html = `<div class="activity">
+            let html = '';
+
+            if (elem._type === 'activity') {
+                html = `<div class="activity">
                 <div class="activity-header" ` + headerStyle + `>
                     <div ` + headerOverlay + `>
                         <div class="activity-user">
@@ -382,6 +385,9 @@ window.vue = new Vue({
                     </div>
                 </div>
             </div>`;
+            } else if (elem._type === 'ad') {
+                html = '<div class="activity-ad">' + elem.code + '</div>';
+            }
 
             return html;
         },

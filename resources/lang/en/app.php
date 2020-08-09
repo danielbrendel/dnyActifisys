@@ -370,7 +370,11 @@ return [
     'edit_category' => 'Edit category',
     'category' => 'Category',
     'filter_by_category' => 'Filter by category',
-    'category_all' => '- all -',
+    'category_all' => '- All categories -',
     'filter_options' => 'Show filter options',
-    'category_zero' => '- none -'
+    'category_zero' => '- none -',
+    'head_code' => 'Head code',
+    'head_code_description' => 'Here you can specify custom code to be inserted in the head section',
+    'adcode' => 'Ad code',
+    'adcode_description' => 'Here you can specify advertisement code. Ads will then be shown in the activity feed'
 ];

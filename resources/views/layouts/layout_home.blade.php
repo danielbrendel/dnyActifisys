@@ -47,6 +47,8 @@
         @endif
         <script src="{{ asset('js/fontawesome.js') }}"></script>
         <script src="{{ asset('js/metro.min.js') }}"></script>
+
+        {!! \App\AppModel::getHeadCode() !!}
     </head>
 
     <body style="background-image: url('{{ asset('gfx/' . \App\AppModel::getHomeBackground()) }}');">

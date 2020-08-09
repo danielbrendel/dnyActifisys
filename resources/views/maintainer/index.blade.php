@@ -51,6 +51,8 @@
                 <li><a href="#tab-page-14">{{ __('app.project_name_formatted') }}</a></li>
                 <li><a href="#tab-page-15">{{ __('app.account_verification') }}</a></li>
                 <li><a href="#tab-page-16">{{ __('app.categories') }}</a></li>
+                <li><a href="#tab-page-17">{{ __('app.head_code') }}</a></li>
+                <li><a href="#tab-page-18">{{ __('app.adcode') }}</a></li>
             </ul>
             <div class="border bd-default no-border-top p-2">
                 <div id="tab-page-1">
@@ -810,6 +812,48 @@
                             <button type="button" class="button is-primary" onclick="window.vue.bShowCreateCategory = true;">{{ __('app.category_create') }}</button>&nbsp;
                         </div>
                     </div>
+                </div>
+
+                <div id="tab-page-17">
+                    <form method="POST" action="{{ url('/maintainer/save') }}">
+                        @csrf
+
+                        <input type="hidden" name="attribute" value="header_code">
+
+                        <div class="field">
+                            <label class="label">{{ __('app.head_code_description') }}</label>
+                            <div class="control">
+                                <textarea class="textarea" name="content">{{ $settings->head_code }}</textarea>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <div class="control">
+                                <input type="submit" value="{{ __('app.save') }}">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="tab-page-18">
+                    <form method="POST" action="{{ url('/maintainer/save') }}">
+                        @csrf
+
+                        <input type="hidden" name="attribute" value="adcode">
+
+                        <div class="field">
+                            <label class="label">{{ __('app.adcode_description') }}</label>
+                            <div class="control">
+                                <textarea class="textarea" name="content">{{ $settings->adcode }}</textarea>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <div class="control">
+                                <input type="submit" value="{{ __('app.save') }}">
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
 
