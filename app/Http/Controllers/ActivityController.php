@@ -17,6 +17,7 @@ namespace App\Http\Controllers;
 use App\ActivitiesHaveImages;
 use App\ActivityModel;
 use App\CaptchaModel;
+use App\CategoryModel;
 use App\IgnoreModel;
 use App\MailerModel;
 use App\ParticipantModel;
@@ -48,6 +49,7 @@ class ActivityController extends Controller
                 'description' => 'required',
                 'date_of_activity' => 'required|date',
                 'time_of_activity' => 'required|date_format:H:i',
+                'category' => 'required|numeric',
                 'location' => 'required',
                 'limit' => 'nullable|numeric',
                 'only_gender' => 'nullable|numeric'
@@ -85,6 +87,7 @@ class ActivityController extends Controller
                 'description' => 'required',
                 'date_of_activity' => 'required|date',
                 'time_of_activity' => 'required|date_format:H:i',
+                'category' => 'required|numeric',
                 'location' => 'required',
                 'limit' => 'nullable|numeric',
                 'only_gender' => 'nullable|numeric'
@@ -133,6 +136,7 @@ class ActivityController extends Controller
             $activity->selfParticipated = ParticipantModel::has(auth()->id(), $activity->id, ParticipantModel::PARTICIPANT_ACTUAL);
             $activity->selfInterested = ParticipantModel::has(auth()->id(), $activity->id, ParticipantModel::PARTICIPANT_POTENTIAL);
             $activity->images = ActivitiesHaveImages::getForActivity($activity->id);
+            $activity->categoryData = CategoryModel::where('id', '=', $activity->category)->first();
 
             foreach ($activity->actualParticipants as &$item) {
                 $item->user = User::get($item->participant);
@@ -184,7 +188,12 @@ class ActivityController extends Controller
                 $tag = null;
             }
 
-            $data = ActivityModel::fetchActivities($city, $paginate, $dateFrom, $dateTill, $tag)->toArray();
+            $category = request('category', null);
+            if ($category == 0) {
+                $category = null;
+            }
+
+            $data = ActivityModel::fetchActivities($city, $paginate, $dateFrom, $dateTill, $tag, $category)->toArray();
             foreach ($data as $key => &$item) {
                 $item['user'] = User::get($item['owner']);
 
@@ -197,6 +206,8 @@ class ActivityController extends Controller
                 $item['participants'] = ParticipantModel::where('activity', '=', $item['id'])->where('type', '=', ParticipantModel::PARTICIPANT_ACTUAL)->count();
                 $item['messages'] = ThreadModel::where('activityId', '=', $item['id'])->count();
                 $item['diffForHumans'] = Carbon::createFromDate($item['date_of_activity'])->diffForHumans();
+
+                $item['categoryData'] = CategoryModel::where('id', '=', $item['category'])->first();
             }
 
             return response()->json(array('code' => 200, 'data' => array_values($data), 'last' => count($data) === 0));

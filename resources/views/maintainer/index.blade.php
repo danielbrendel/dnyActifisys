@@ -50,6 +50,7 @@
                 <li><a href="#tab-page-13">{{ __('app.reports') }}</a></li>
                 <li><a href="#tab-page-14">{{ __('app.project_name_formatted') }}</a></li>
                 <li><a href="#tab-page-15">{{ __('app.account_verification') }}</a></li>
+                <li><a href="#tab-page-16">{{ __('app.categories') }}</a></li>
             </ul>
             <div class="border bd-default no-border-top p-2">
                 <div id="tab-page-1">
@@ -320,7 +321,7 @@
                         <div class="field">
                             <label class="label">{{ __('app.account_verification') }}</label>
                             <div class="control">
-                                <input type="number" name="ENV_APP_ACCOUNTVERIFICATION" value="{{ env('APP_ACCOUNTVERIFICATION') }}">
+                                <input type="number" name="ENV_APP_ACCOUNTVERIFICATION" value="{{ env('APP_ACCOUNTVERIFICATION') }}" min="0" max="1">
                             </div>
                         </div>
 
@@ -758,6 +759,58 @@
                         </tbody>
                     </table>
                 </div>
+
+                <div id="tab-page-16">
+                    <table class="table striped table-border mt-4" data-role="table" data-pagination="true"
+                           data-table-rows-count-title="{{ __('app.table_show_entries') }}"
+                           data-table-search-title="{{ __('app.table_search') }}"
+                           data-table-info-title="{{ __('app.table_row_info') }}"
+                           data-pagination-prev-title="{{ __('app.table_pagination_prev') }}"
+                           data-pagination-next-title="{{ __('app.table_pagination_next') }}">
+                        <thead>
+                        <tr>
+                            <th class="text-left">{{ __('app.category_id') }}</th>
+                            <th class="text-left">{{ __('app.category_name') }}</th>
+                            <th class="text-left">{{ __('app.category_edit') }}</th>
+                            <th class="text-left">{{ __('app.category_inactive') }}</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        @foreach ($categories as $item)
+                            <tr>
+                                <td>
+                                    #{{ $item->id }}
+                                </td>
+
+                                <td class="right">
+                                    {{ $item->name }}
+                                </td>
+
+                                <td>
+                                    <a href="javascript:void(0);" onclick="document.getElementById('editCategoryName').value = '{{ $item->name }}'; document.getElementById('editCategoryDesc').value = '{{ $item->description }}'; document.getElementById('editCategoryImage').src = '{{ asset('gfx/categories/' . $item->image) }}'; document.getElementById('formEditCategory').action = '{{ url('/maintainer/category/' . $item->id . '/edit') }}'; window.vue.bShowEditCategory = true;">{{ __('app.category_edit') }}</a>
+                                </td>
+
+                                <td>
+                                    @if ($item->inactive == true)
+                                        <a href="{{ url('/maintainer/category/' . $item->id . '/inactive/0') }}">{{ __('app.set_category_active') }}</a>
+                                    @else
+                                        <a href="{{ url('/maintainer/category/' . $item->id . '/inactive/1') }}">{{ __('app.set_category_inactive') }}</a>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+
+                    <br/>
+
+                    <div class="field">
+                        <div class="control">
+                            <button type="button" class="button is-primary" onclick="window.vue.bShowCreateCategory = true;">{{ __('app.category_create') }}</button>&nbsp;
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="modal" :class="{'is-active': bShowCreateFaq}">
@@ -885,6 +938,87 @@
                     <footer class="modal-card-foot is-stretched">
                         <button class="button is-success" onclick="document.getElementById('formEditTheme').submit();">{{ __('app.save') }}</button>
                         <button class="button" onclick="vue.bShowEditTheme = false;">{{ __('app.cancel') }}</button>
+                    </footer>
+                </div>
+            </div>
+
+            <div class="modal" :class="{'is-active': bShowCreateCategory}">
+                <div class="modal-background"></div>
+                <div class="modal-card">
+                    <header class="modal-card-head is-stretched">
+                        <p class="modal-card-title">{{ __('app.create_category') }}</p>
+                        <button class="delete" aria-label="close" onclick="vue.bShowCreateCategory = false;"></button>
+                    </header>
+                    <section class="modal-card-body is-stretched">
+                        <form method="POST" action="{{ url('/maintainer/category/add') }}" id="formCreateCategory" enctype="multipart/form-data">
+                            @csrf
+
+                            <div class="field is-stretched">
+                                <label class="label">{{ __('app.category_name') }}</label>
+                                <div class="control">
+                                    <input type="text" name="name">
+                                </div>
+                            </div>
+
+                            <div class="field is-stretched">
+                                <label class="label">{{ __('app.category_description') }}</label>
+                                <div class="control">
+                                    <input type="text" name="description">
+                                </div>
+                            </div>
+
+                            <div class="field is-stretched">
+                                <label class="label">{{ __('app.category_image') }}</label>
+                                <div class="control">
+                                    <input type="file" name="image" data-role="file" data-type="2">
+                                </div>
+                            </div>
+                        </form>
+                    </section>
+                    <footer class="modal-card-foot is-stretched">
+                        <button class="button is-success" onclick="document.getElementById('formCreateCategory').submit();">{{ __('app.create') }}</button>
+                        <button class="button" onclick="vue.bShowCreateCategory = false;">{{ __('app.cancel') }}</button>
+                    </footer>
+                </div>
+            </div>
+
+            <div class="modal" :class="{'is-active': bShowEditCategory}">
+                <div class="modal-background"></div>
+                <div class="modal-card">
+                    <header class="modal-card-head is-stretched">
+                        <p class="modal-card-title">{{ __('app.edit_category') }}</p>
+                        <button class="delete" aria-label="close" onclick="vue.bShowEditCategory = false;"></button>
+                    </header>
+                    <section class="modal-card-body is-stretched">
+                        <form method="POST" id="formEditCategory" enctype="multipart/form-data">
+                            @csrf
+
+                            <div class="field is-stretched">
+                                <label class="label">{{ __('app.category_name') }}</label>
+                                <div class="control">
+                                    <input type="text" name="name" id="editCategoryName">
+                                </div>
+                            </div>
+
+                            <div class="field is-stretched">
+                                <label class="label">{{ __('app.category_description') }}</label>
+                                <div class="control">
+                                    <input type="text" name="description" id="editCategoryDesc">
+                                </div>
+                            </div>
+
+                            <div class="field is-stretched">
+                                <label class="label">{{ __('app.category_image') }}</label>
+                                <div class="control">
+                                    <input type="file" name="image" data-role="file" data-type="2"><br/>
+                                    <img id="editCategoryImage"/>
+                                </div>
+                            </div>
+                        </form>
+                    </section>
+                    <footer class="modal-card-foot is-stretched">
+                        <button class="button is-success" onclick="document.getElementById('formEditCategory').submit();">{{ __('app.save') }}</button>
+                        <button class="button" onclick="vue.bShowEditCategory = false;">{{ __('app.cancel') }}</button>
                     </footer>
                 </div>
             </div>

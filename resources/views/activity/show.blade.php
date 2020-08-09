@@ -43,6 +43,7 @@
                         <div>&nbsp;<i class="far fa-clock"></i>&nbsp;<span title="{{ $activity->date_of_activity  }}">{{ $activity->date_of_activity->diffForHumans() }}</span></div>
                         <div class="is-capitalized">&nbsp;<i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;{{ $activity->location }}</div>
                         <div class="is-capitalized"><i class="fas fa-users"></i>&nbsp;{{ (($activity->limit === 0) ? __('app.no_limit') : __('app.limit_count', ['count' => $activity->limit])) }}</div>
+                        <div class=""><i class="fas fa-th-list"></i>&nbsp;@if ($activity->category === 0) {{ __('app.category_zero') }} @else {{ $activity->categoryData->name }} @endif</div>
                         @if ($activity->only_gender !== 0)
                             <div>
                                 <i class="fas fa-ban"></i>&nbsp;{{ __('app.gender_restricted') }}
@@ -299,6 +300,17 @@
                         <label class="label">{{ __('app.time') }}</label>
                         <div class="control">
                             <input id="caTime" class="input" type="time" name="time_of_activity" value="{{ date('H:i', strtotime($activity->date_of_activity)) }}" onkeyup="window.vue.invalidCreateActivity();" onchange="window.vue.invalidCreateActivity();" required>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">{{ __('app.category') }}</label>
+                        <div class="control">
+                            <select name="category">
+                                @foreach (\App\CategoryModel::fetch() as $category)
+                                    <option value="{{ $category->id }}" @if ($category->id === $activity->category) {{ 'selected' }} @endif>{{ $category->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
 

@@ -22,6 +22,7 @@ For a full feature list see the list below.
 + Activity tags
 + Actual and potential participation
 + Activity management
++ Activity categories
 + User profiles
 + Profile management
 + Account verification

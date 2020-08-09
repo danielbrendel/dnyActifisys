@@ -98,6 +98,9 @@ Route::post('/maintainer/welcomecontent', 'MaintainerController@welcomeContent')
 Route::post('/maintainer/formattedprojectname', 'MaintainerController@saveFormattedProjectName');
 Route::get('/maintainer/verify/{id}/approve', 'MaintainerController@approveAccount');
 Route::get('/maintainer/verify/{id}/decline', 'MaintainerController@declineAccount');
+Route::post('/maintainer/category/add', 'MaintainerController@addCategory');
+Route::post('/maintainer/category/{id}/edit', 'MaintainerController@editCategory');
+Route::any('/maintainer/category/{id}/inactive/{status}', 'MaintainerController@categoryInactiveStatus');
 
 Route::get('/install', 'InstallerController@viewInstall');
 Route::post('/install', 'InstallerController@install');

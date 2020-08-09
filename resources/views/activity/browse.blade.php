@@ -24,62 +24,81 @@
             <h2>{{ __('app.view_activities') }}</h2>
         </div>
 
-        <div class="activity-filter is-inline-block">
-            <div class="field has-addons">
-                <div class="control">
-                    <input class="input" type="text" id="inpCityFilter" onkeydown="if (event.keyCode === 13) { document.getElementById('btnFilterCity').click(); }" placeholder="{{ __('app.filter_by_city') }}">
-                </div>
-                <div class="control">
-                    <a id="btnFilterCity" class="button is-info" href="javascript:void(0);" onclick="window.vue.setCityCookieValue(document.getElementById('inpCityFilter').value); location.reload();">
-                        {{ __('app.do_filter') }}
-                    </a>
-                </div>
+        <div class="activity-filter">
+            <div class="activity-filter-toggle is-def-color" id="activity-filter-action">
+                <a href="javascript:void(0);" onclick="document.getElementById('activity-filter-options').classList.toggle('is-hidden'); document.getElementById('activity-filter-action').classList.add('is-hidden'); document.getElementById('activity-divider').classList.toggle('activity-filter-margin');">{{ __('app.filter_options') }}</a>&nbsp;<i class="fas fa-chevron-down"></i>
             </div>
 
-            <div>
-                <div class="field is-inline-block">
-                    <label class="label">{{ __('app.from') }}</label>
-                    <div class="control is-inline-block">
-                        <input type="date" class="input" id="inpDateFrom">
-                    </div>
-                </div>
-
-                <div class="field is-inline-block">
-                    <label class="label">{{ __('app.till') }}</label>
-                    <div class="control is-inline-block">
-                        <input type="date" class="input" id="inpDateTill">
-                    </div>
-                </div>
-
-                <div class="field is-inline-block">
-                    <div class="control is-inline-block is-fixed-filter-button">
-                        <a id="btnFilterDate" class="button is-info" href="javascript:void(0);" onclick="window.vue.setDateCookieValue(document.getElementById('inpDateFrom'), document.getElementById('inpDateTill')); location.reload();">
-                            {{ __('app.do_filter') }}
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div>
+            <div class="is-inline-block is-hidden" id="activity-filter-options">
                 <div class="field has-addons">
                     <div class="control">
-                        <input id="inpFilterTag" class="input" type="text" onkeydown="if (event.keyCode === 13) { document.getElementById('btnFilterTag').click(); }" placeholder="{{ __('app.filter_by_tag') }}">
+                        <input class="input" type="text" id="inpCityFilter" onkeydown="if (event.keyCode === 13) { document.getElementById('btnFilterCity').click(); }" placeholder="{{ __('app.filter_by_city') }}">
                     </div>
                     <div class="control">
-                        <a id="btnFilterTag" class="button is-info" href="javascript:void(0);" onclick="location.href = window.location.origin + '/?tag=' + document.getElementById('inpFilterTag').value;">
+                        <a id="btnFilterCity" class="button is-info" href="javascript:void(0);" onclick="window.vue.setCityCookieValue(document.getElementById('inpCityFilter').value); location.reload();">
                             {{ __('app.do_filter') }}
                         </a>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="field is-inline-block">
+                        <label class="label">{{ __('app.from') }}</label>
+                        <div class="control is-inline-block">
+                            <input type="date" class="input" id="inpDateFrom">
+                        </div>
+                    </div>
+
+                    <div class="field is-inline-block">
+                        <label class="label">{{ __('app.till') }}</label>
+                        <div class="control is-inline-block">
+                            <input type="date" class="input" id="inpDateTill">
+                        </div>
+                    </div>
+
+                    <div class="field is-inline-block">
+                        <div class="control is-inline-block is-fixed-filter-button">
+                            <a id="btnFilterDate" class="button is-info" href="javascript:void(0);" onclick="window.vue.setDateCookieValue(document.getElementById('inpDateFrom'), document.getElementById('inpDateTill')); location.reload();">
+                                {{ __('app.do_filter') }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="field has-addons">
+                        <div class="control">
+                            <input id="inpFilterTag" class="input" type="text" onkeydown="if (event.keyCode === 13) { document.getElementById('btnFilterTag').click(); }" placeholder="{{ __('app.filter_by_tag') }}">
+                        </div>
+                        <div class="control">
+                            <a id="btnFilterTag" class="button is-info" href="javascript:void(0);" onclick="location.href = window.location.origin + '/?tag=' + document.getElementById('inpFilterTag').value;">
+                                {{ __('app.do_filter') }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <br/>
+                <div>
+                    <div class="field has-addons">
+                        <div class="control">
+                            <select id="inpSelectCategory">
+                                <option value="0">{{ __('app.category_all') }}</option>
+                                @foreach (\App\CategoryModel::fetch() as $category)
+                                    <option value="{{ $category->id }}" @if ((isset($_GET['category'])) && ($_GET['category'] == $category->id)) {{ 'selected' }} @endif>{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="control">
+                            <a class="button is-info" href="javascript:void(0);" onclick="location.href = window.location.origin + '/?category=' + document.getElementById('inpSelectCategory').value;">
+                                {{ __('app.do_filter') }}
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <hr/>
+        <hr id="activity-divider"/>
 
         <div id="activities"></div>
         <div id="loadmore" title="{{ __('app.load_more') }}" class="is-hidden" onclick="fetchActivities()"><center><i class="fas fa-arrow-down is-pointer"></i></center></div>
@@ -122,7 +141,7 @@
         {
             document.getElementById('load-spinner').innerHTML = '<center><i class="fas fa-spinner fa-spin"></i></center>';
 
-            window.vue.ajaxRequest('get', '{{ url('/activity/fetch') }}/' + ((window.paginate !== null) ? '?paginate=' + window.paginate : '?paginate=null') + '&city=' + window.city + "&date_from=" + window.dateFrom + "&date_till=" + window.dateTill + "<?= ((isset($_GET['tag'])) ? '&tag=' . $_GET['tag'] : '') ?>", {}, function(response) {
+            window.vue.ajaxRequest('get', '{{ url('/activity/fetch') }}/' + ((window.paginate !== null) ? '?paginate=' + window.paginate : '?paginate=null') + '&city=' + window.city + "&date_from=" + window.dateFrom + "&date_till=" + window.dateTill + "<?= ((isset($_GET['tag'])) ? '&tag=' . $_GET['tag'] : '') ?>" + "<?= ((isset($_GET['category'])) ? '&category=' . $_GET['category'] : '') ?>", {}, function(response) {
                 if (response.code === 200) {
                     if (response.data.length > 0) {
                         document.getElementById('load-spinner').innerHTML = '';

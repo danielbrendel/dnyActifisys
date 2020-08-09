@@ -104,6 +104,7 @@ class ActivityModel extends Model
             $item->description = htmlspecialchars($attr['description']);
             $item->tags = (count($taglist) > 0) ? implode(' ', $taglist) . ' ' : '';
             $item->date_of_activity = date('Y-m-d H:i:s', strtotime($attr['date_of_activity'] . ' ' . $attr['time_of_activity']));
+            $item->category = $attr['category'];
             $item->location = htmlspecialchars(strtolower(trim($attr['location'])));
             $item->limit = $attr['limit'];
             $item->only_gender = $attr['only_gender'];
@@ -161,6 +162,7 @@ class ActivityModel extends Model
             $item->description = htmlspecialchars($attr['description']);
             $item->tags = (count($taglist) > 0) ? implode(' ', $taglist) . ' ' : '';
             $item->date_of_activity = date('Y-m-d H:i:s', strtotime($attr['date_of_activity'] . ' ' . $attr['time_of_activity']));
+            $item->category = $attr['category'];
             $item->location = htmlspecialchars(strtolower(trim($attr['location'])));
             $item->limit = $attr['limit'];
             $item->only_gender = $attr['only_gender'];
@@ -189,13 +191,16 @@ class ActivityModel extends Model
     /**
      * Fetch activity package
      *
-     * @param $id
      * @param null $city
      * @param null $paginate
+     * @param null $dateFrom
+     * @param null $dateTill
+     * @param null $tag
+     * @param null $category
      * @return mixed
      * @throws Exception
      */
-    public static function fetchActivities($city = null, $paginate = null, $dateFrom = null, $dateTill = null, $tag = null)
+    public static function fetchActivities($city = null, $paginate = null, $dateFrom = null, $dateTill = null, $tag = null, $category = null)
     {
         try {
             $activities = ActivityModel::where('date_of_activity', '>=', date('Y-m-d H:i:s'))->where('locked', '=', false)->where('canceled', '=', false);
@@ -235,6 +240,10 @@ class ActivityModel extends Model
 
             if ($tag !== null) {
                 $activities->where('tags', 'LIKE', '%' . $tag . ' %');
+            }
+
+            if ($category !== null) {
+                $activities->where('category', '=', $category);
             }
 
             return $activities->orderBy('date_of_activity', 'asc')->limit(env('APP_ACTIVITYPACKLIMIT'))->get();

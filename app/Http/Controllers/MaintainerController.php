@@ -16,6 +16,7 @@ namespace App\Http\Controllers;
 
 use App\AppModel;
 use App\CaptchaModel;
+use App\CategoryModel;
 use App\FaqModel;
 use App\MailerModel;
 use App\PostModel;
@@ -84,7 +85,8 @@ class MaintainerController extends Controller
             'langs' => AppModel::getLanguageList(),
 			'cookie_consent' => AppModel::getCookieConsentText(),
             'reports' => $reports,
-            'verification_users' => $verification_users
+            'verification_users' => $verification_users,
+            'categories' => CategoryModel::all()
         ]);
     }
 
@@ -586,6 +588,68 @@ class MaintainerController extends Controller
             MailerModel::sendMail($user->email, __('app.mail_acc_verify_title'), $html);
 
             return back()->with('flash.success', __('app.account_verification_declined'));
+        } catch (\Exception $e) {
+            return back()->with('flash.error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Add new category
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function addCategory()
+    {
+        try {
+            $attr = request()->validate([
+                'name' => 'required',
+                'description' => 'required',
+                'image' => 'required|file'
+            ]);
+
+            CategoryModel::add($attr);
+
+            return back()->with('flash.success', __('app.category_added'));
+        } catch (\Exception $e) {
+            return back()->with('flash.error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Edit existing category
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function editCategory($id)
+    {
+        try {
+            $attr = request()->validate([
+                'name' => 'required',
+                'description' => 'required'
+            ]);
+
+            CategoryModel::edit($id, $attr);
+
+            return back()->with('flash.success', __('app.category_edited'));
+        } catch (\Exception $e) {
+            return back()->with('flash.error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Set inactive status of a category
+     *
+     * @param $id
+     * @param $status
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function categoryInactiveStatus($id, $status)
+    {
+        try {
+            CategoryModel::setInactiveStatus($id, (bool)$status);
+
+            return back()->with('flash.success', __('app.category_status_changed'));
         } catch (\Exception $e) {
             return back()->with('flash.error', $e->getMessage());
         }

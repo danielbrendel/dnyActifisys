@@ -259,13 +259,17 @@ textarea {
 .navbar-brand strong {
     font-family: 'Dancing Script', 'Nunito', sans-serif;
     font-size: 1.4em;
-    margin-left: 27px;
 }
 a.navbar-item:hover {
     text-decoration: none !important;
 }
 .navbar-item strong {
     color: rgb(255, 255, 255);
+}
+#navbarMenu {
+    @media screen and (max-width: 1088px) {
+        background-color: rgb(0, 0, 0);
+    }
 }
 a.navbar-item:hover {
     background-color: unset;
@@ -313,11 +317,17 @@ a.navbar-item:hover {
 h2 {
     color: rgb(240, 240, 240);
 }
-.is-def-color, .is-def-color label {
+.is-def-color, .is-def-color label, .is-def-color select, .is-def-color a {
     color: rgb(240, 240, 240);
 }
-.is-def-color input, .is-def-color textarea {
+.is-def-color input, .is-def-color textarea, .is-def-color select {
     background-color: transparent;
+}
+.is-def-color option {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.is-def-color select {
+    width: 228px;
 }
 ::placeholder, ::-moz-placeholder, ::-ms-input-placeholder  {
     color: rgb(160, 160, 160) !important;
@@ -509,6 +519,11 @@ h2 {
     top: -10px;
     background-color: rgba(50, 190, 250, 0.4);
 }
+.activity-header-overlay {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
 .activity-user {
     margin-top: 10px;
     margin-bottom: 15px;
@@ -548,6 +563,9 @@ h2 {
     @media screen and (min-width: 768px) {
         float: right;
     }
+}
+.activity-filter-margin {
+    margin-top: 224px;
 }
 .activity-footer-stats {
     top: 29px;

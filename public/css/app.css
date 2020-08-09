@@ -285,7 +285,6 @@ textarea {
 .navbar-brand strong {
   font-family: "Dancing Script", "Nunito", sans-serif;
   font-size: 1.4em;
-  margin-left: 27px;
 }
 
 a.navbar-item:hover {
@@ -294,6 +293,12 @@ a.navbar-item:hover {
 
 .navbar-item strong {
   color: white;
+}
+
+@media screen and (max-width: 1088px) {
+  #navbarMenu {
+    background-color: black;
+  }
 }
 
 a.navbar-item:hover {
@@ -355,13 +360,24 @@ h2 {
 }
 
 .is-def-color,
-.is-def-color label {
+.is-def-color label,
+.is-def-color select,
+.is-def-color a {
   color: #f0f0f0;
 }
 
 .is-def-color input,
-.is-def-color textarea {
+.is-def-color textarea,
+.is-def-color select {
   background-color: transparent;
+}
+
+.is-def-color option {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.is-def-color select {
+  width: 228px;
 }
 
 ::-moz-placeholder {
@@ -612,6 +628,12 @@ h2 {
   background-color: rgba(50, 190, 250, 0.4);
 }
 
+.activity-header-overlay {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
 .activity-user {
   margin-top: 10px;
   margin-bottom: 15px;
@@ -661,6 +683,10 @@ h2 {
   .activity-filter {
     float: right;
   }
+}
+
+.activity-filter-margin {
+  margin-top: 224px;
 }
 
 .activity-footer-stats {

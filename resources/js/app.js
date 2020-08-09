@@ -32,7 +32,9 @@ window.vue = new Vue({
         bShowEditActivity: false,
         bShowCancelActivity: false,
         bShowActivityExpired: false,
-        bShowUploadImage: false
+        bShowUploadImage: false,
+        bShowCreateCategory: false,
+        bShowEditCategory: false
     },
 
     methods: {
@@ -301,11 +303,20 @@ window.vue = new Vue({
         },
 
         renderActivity: function(elem) {
+            let headerStyle = ``;
+            let headerOverlay = ``;
+            if (elem.category !== 0) {
+                headerStyle = `style="background-image: url('` + window.location.origin + '/gfx/categories/' + elem.categoryData.image + `'); background-size: cover; background-repeat: no-repeat;"`;
+                headerOverlay = `class="activity-header-overlay"`
+            }
+
             let html = `<div class="activity">
-                <div class="activity-header">
-                    <div class="activity-user">
-                        <center><div class="activity-user-avatar"><img src="` + window.location.origin + '/gfx/avatars/' + elem.user.avatar + `" class="is-pointer" onclick="location.href = '` + window.location.origin + '/user/' + elem.user.id + `';"></div>
-                            <div class="activity-user-name"><a href="` + window.location.origin + '/user/' + elem.user.id + `">` + elem.user.name + `</a>` + ((elem.user.verified) ? '&nbsp;<i class="far fa-check-circle" title="Verified user"></i>' : '') + `</div></center>
+                <div class="activity-header" ` + headerStyle + `>
+                    <div ` + headerOverlay + `>
+                        <div class="activity-user">
+                            <center><div class="activity-user-avatar"><img src="` + window.location.origin + '/gfx/avatars/' + elem.user.avatar + `" class="is-pointer" onclick="location.href = '` + window.location.origin + '/user/' + elem.user.id + `';"></div>
+                                <div class="activity-user-name"><a href="` + window.location.origin + '/user/' + elem.user.id + `">` + elem.user.name + `</a>` + ((elem.user.verified) ? '&nbsp;<i class="far fa-check-circle" title="Verified user"></i>' : '') + `</div></center>
+                        </div>
                     </div>
                 </div>
 

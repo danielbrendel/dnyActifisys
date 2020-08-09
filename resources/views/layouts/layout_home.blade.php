@@ -415,6 +415,17 @@
                             </div>
 
                             <div class="field">
+                                <label class="label">{{ __('app.category') }}</label>
+                                <div class="control">
+                                    <select name="category">
+                                        @foreach (\App\CategoryModel::fetch() as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="field">
                                 <label class="label">{{ __('app.location') }}</label>
                                 <div class="control">
                                     <input id="caLocation" class="input" type="text" name="location" onkeyup="window.vue.invalidCreateActivity();" onchange="window.vue.invalidCreateActivity();" required>
