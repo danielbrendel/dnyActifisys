@@ -23,6 +23,7 @@ For a full feature list see the list below.
 + Actual and potential participation
 + Activity management
 + Activity categories
++ Activity tags
 + User profiles
 + Profile management
 + Account verification
@@ -35,6 +36,7 @@ For a full feature list see the list below.
 + Theme system
 + Twitter news integration
 + HelpRealm integration
++ Ads system
 + Installer
 + Security
 + Responsive design
