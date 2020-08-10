@@ -42,7 +42,7 @@ class InstallerModel extends Model
             $envcontent .= 'APP_AUTHOR="Daniel Brendel"' . PHP_EOL;
             $envcontent .= 'APP_CONTACT="dbrendel1988@gmail.com"' . PHP_EOL;
             $envcontent .= 'APP_VERSION="1.0"' . PHP_EOL;
-            $envcontent .= 'APP_ENV=local' . PHP_EOL;
+            $envcontent .= 'APP_ENV=production' . PHP_EOL;
             $envcontent .= 'APP_KEY=base64:7k+Tx55iMcgSa4DOcQpDktQ69VCmKTmJQYEeIYDtGIU=' . PHP_EOL;
             $envcontent .= 'APP_DEBUG=false' . PHP_EOL;
             $envcontent .= 'APP_URL="' . url('/') . '"' . PHP_EOL;
