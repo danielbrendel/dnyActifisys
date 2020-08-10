@@ -11,8 +11,9 @@ Released under the MIT license
 ## Description:
 ComAct is a software system that lets users create and join activities. Users
 can set themselves interested in an activity or join them. Activities whose
-activity date is in the future are listed in a feed. Users can comment on activities.
-For a full feature list see the list below.
+activity date is in the future are listed in a feed. Users can comment on activities,
+send private messages, manage their favorites and receive notifications. For a full 
+feature list see the list below.
 
 ## Features:
 + Create and join activities
