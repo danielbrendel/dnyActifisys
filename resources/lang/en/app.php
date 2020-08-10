@@ -376,5 +376,6 @@ return [
     'head_code' => 'Head code',
     'head_code_description' => 'Here you can specify custom code to be inserted in the head section',
     'adcode' => 'Ad code',
-    'adcode_description' => 'Here you can specify advertisement code. Ads will then be shown in the activity feed'
+    'adcode_description' => 'Here you can specify advertisement code. Ads will then be shown in the activity feed',
+    'date_format' => 'Y-m-d H:i:s'
 ];

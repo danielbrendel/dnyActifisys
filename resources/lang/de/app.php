@@ -376,5 +376,6 @@ return [
     'head_code' => 'Header code',
     'head_code_description' => 'Hier kann benutzerdefinierter Code für den Head Bereich spezifiziert werden.',
     'adcode' => 'Ad code',
-    'adcode_description' => 'Here kann Code für Ads spezifiziert werden. Ads werden dann im Aktivitäten-Feed angezeigt.'
+    'adcode_description' => 'Here kann Code für Ads spezifiziert werden. Ads werden dann im Aktivitäten-Feed angezeigt.',
+    'date_format' => 'd.m.Y H:i:s'
 ];

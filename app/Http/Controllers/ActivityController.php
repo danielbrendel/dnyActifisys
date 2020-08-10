@@ -211,7 +211,9 @@ class ActivityController extends Controller
 
                 $item['participants'] = ParticipantModel::where('activity', '=', $item['id'])->where('type', '=', ParticipantModel::PARTICIPANT_ACTUAL)->count();
                 $item['messages'] = ThreadModel::where('activityId', '=', $item['id'])->count();
-                $item['diffForHumans'] = Carbon::createFromDate($item['date_of_activity'])->diffForHumans();
+                $item['date_of_activity'] = Carbon::createFromDate($item['date_of_activity']);
+                $item['diffForHumans'] = $item['date_of_activity']->diffForHumans();
+                $item['date_of_activity'] = $item['date_of_activity']->format(__('app.date_format'));
 
                 $item['categoryData'] = CategoryModel::where('id', '=', $item['category'])->first();
             }
@@ -251,16 +253,17 @@ class ActivityController extends Controller
                 throw new Exception(__('app.activity_not_found_or_locked'));
             }
 
-            $threads = ThreadModel::getFromActivity($id, $paginate);
+            $threads = ThreadModel::getFromActivity($id, $paginate)->toArray();
             foreach ($threads as &$thread) {
-                $thread->user = User::get($thread->userId);
-                $thread->user->verified = VerifyModel::getState($thread->user->id) === VerifyModel::STATE_VERIFIED;
-                $thread->adminOrOwner = User::isAdmin(auth()->id()) || ($thread->userId === auth()->id());
-                $thread->diffForHumans = $thread->created_at->diffForHumans();
-                $thread->subCount = ThreadModel::getSubCount($thread->id);
+                $thread['user'] = User::get($thread['userId']);
+                $thread['user']->verified = VerifyModel::getState($thread['user']->id) === VerifyModel::STATE_VERIFIED;
+                $thread['adminOrOwner'] = User::isAdmin(auth()->id()) || ($thread['userId'] === auth()->id());
+                $thread['diffForHumans'] = Carbon::createFromDate($thread['created_at'])->diffForHumans();
+                $thread['created_at'] = date(__('app.date_format'), strtotime($thread['created_at']));
+                $thread['subCount'] = ThreadModel::getSubCount($thread['id']);
             }
 
-            return response()->json(array('code' => 200, 'data' => $threads, 'last' => (count($threads) === 0)));
+            return response()->json(array('code' => 200, 'data' => array_values($threads), 'last' => (count($threads) === 0)));
         } catch (Exception $e) {
             return response()->json(array('code' => 500, 'msg' => $e->getMessage()));
         }
@@ -277,15 +280,16 @@ class ActivityController extends Controller
         try {
             $paginate = request('paginate', null);
 
-            $threads = ThreadModel::fetchSubThread($parentId, $paginate);
+            $threads = ThreadModel::fetchSubThread($parentId, $paginate)->toArray();
             foreach ($threads as &$thread) {
-                $thread->user = User::get($thread->userId);
-                $thread->user->verified = VerifyModel::getState($thread->user->id) === VerifyModel::STATE_VERIFIED;
-                $thread->adminOrOwner = User::isAdmin(auth()->id()) || ($thread->userId === auth()->id());
-                $thread->diffForHumans = $thread->created_at->diffForHumans();
+                $thread['user'] = User::get($thread['userId']);
+                $thread['user']->verified = VerifyModel::getState($thread['user']->id) === VerifyModel::STATE_VERIFIED;
+                $thread['adminOrOwner'] = User::isAdmin(auth()->id()) || ($thread['userId'] === auth()->id());
+                $thread['diffForHumans'] = Carbon::createFromDate($thread['created_at'])->diffForHumans();
+                $thread['created_at'] = date(__('app.date_format'), strtotime($thread['created_at']));
             }
 
-            return response()->json(array('code' => 200, 'data' => $threads, 'last' => (count($threads) === 0)));
+            return response()->json(array('code' => 200, 'data' => array_values($threads), 'last' => (count($threads) === 0)));
         } catch (Exception $e) {
             return response()->json(array('code' => 500, 'msg' => $e->getMessage()));
         }
@@ -300,16 +304,17 @@ class ActivityController extends Controller
     public function fetchUserActivities($id)
     {
         try {
-            $data = ActivityModel::fetchUserActivities($id);
+            $data = ActivityModel::fetchUserActivities($id)->toArray();
             foreach ($data as &$item) {
-                $item->_type = 'activity';
-                $item->diffForHumans = $item->date_of_activity->diffForHumans();
-                $item->participants = ParticipantModel::where('activity', '=', $item->id)->where('type', '=', ParticipantModel::PARTICIPANT_ACTUAL)->count();
-                $item->messages = ThreadModel::where('activityId', '=', $item->id)->count();
-                $item->categoryData = CategoryModel::where('id', '=', $item->category)->first();
+                $item['_type'] = 'activity';
+                $item['diffForHumans'] = Carbon::createFromDate($item['date_of_activity'])->diffForHumans();
+                $item['date_of_activity'] = date(__('app.date_format'), strtotime($item['date_of_activity']));
+                $item['participants'] = ParticipantModel::where('activity', '=', $item['id'])->where('type', '=', ParticipantModel::PARTICIPANT_ACTUAL)->count();
+                $item['messages'] = ThreadModel::where('activityId', '=', $item['id'])->count();
+                $item['categoryData'] = CategoryModel::where('id', '=', $item['category'])->first();
             }
 
-            return response()->json(array('code' => 200, 'data' => $data));
+            return response()->json(array('code' => 200, 'data' => array_values($data)));
         } catch (Exception $e) {
             return response()->json(array('code' => 500, 'msg' => $e->getMessage()));
         }
