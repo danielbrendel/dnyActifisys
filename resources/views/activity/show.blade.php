@@ -94,7 +94,7 @@
                                 </div>
                             @endforeach
                         @else
-                            <i>{{ __('app.no_participants') }}</i>
+                            <i class="is-color-grey">{{ __('app.no_participants') }}</i>
                         @endif
                     </div>
                 </div>
@@ -110,7 +110,7 @@
                                 </div>
                             @endforeach
                         @else
-                            <i>{{ __('app.no_one_interested') }}</i>
+                            <i class="is-color-grey">{{ __('app.no_one_interested') }}</i>
                         @endif
                     </div>
                 </div>
