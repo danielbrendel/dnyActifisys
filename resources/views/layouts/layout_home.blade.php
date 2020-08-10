@@ -235,7 +235,7 @@
 
             <div class="overflow-hidden is-margin-top-94">
                 @guest
-                    @include('widgets.about')
+                    @include('widgets.about', ['about_content' => \App\AppModel::getAboutContent()])
                 @endguest
                 @include('widgets.links')
                 @include('widgets.bottom')

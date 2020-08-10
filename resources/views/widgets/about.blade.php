@@ -10,14 +10,16 @@
     Released under the MIT license
 --}}
 
+@if (strlen($about_content) > 0)
 <div class="about">
     <div class="columns">
         <div class="column is-3"></div>
 
         <div class="column is-6">
-            <center>{!! \App\AppModel::getAboutContent() !!}</center>
+            {!! $about_content !!}
         </div>
 
         <div class="column is-3"></div>
     </div>
 </div>
+@endif
