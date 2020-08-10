@@ -452,6 +452,15 @@
                                     </select>
                                 </div>
                             </div>
+
+                            @if (\App\VerifyModel::getState(auth()->id()) == \App\VerifyModel::STATE_VERIFIED)
+                            <div class="field">
+                                <label class="label">{{ __('app.only_verified') }}</label>
+                                <div class="control">
+                                    <input type="checkbox" data-role="checkbox" data-type="2" data-caption="{{ __('app.only_verified_long') }}" name="only_verified" value="1">
+                                </div>
+                            </div>
+                            @endif
                         </form>
                     </section>
                     <footer class="modal-card-foot is-stretched">

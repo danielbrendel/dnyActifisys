@@ -43,7 +43,7 @@
                         <div>&nbsp;<i class="far fa-clock"></i>&nbsp;<span title="{{ $activity->date_of_activity  }}">{{ $activity->date_of_activity->diffForHumans() }}</span></div>
                         <div class="is-capitalized">&nbsp;<i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;{{ $activity->location }}</div>
                         <div class="is-capitalized"><i class="fas fa-users"></i>&nbsp;{{ (($activity->limit === 0) ? __('app.no_limit') : __('app.limit_count', ['count' => $activity->limit])) }}</div>
-                        <div class=""><i class="fas fa-th-list"></i>&nbsp;@if ($activity->category === 0) {{ __('app.category_zero') }} @else {{ $activity->categoryData->name }} @endif</div>
+                        <div><i class="fas fa-th-list"></i>&nbsp;@if ($activity->category === 0) {{ __('app.category_zero') }} @else {{ $activity->categoryData->name }} @endif</div>
                         @if ($activity->only_gender !== 0)
                             <div>
                                 <i class="fas fa-ban"></i>&nbsp;{{ __('app.gender_restricted') }}
@@ -58,6 +58,9 @@
                                     @endif
                                 )
                             </div>
+                        @endif
+                        @if ($activity->only_verified)
+                            <div><i class="far fa-check-circle"></i>&nbsp;{{ __('app.only_verified') }}</div>
                         @endif
                     </div>
 
@@ -339,6 +342,15 @@
                             </select>
                         </div>
                     </div>
+
+                    @if (\App\VerifyModel::getState(auth()->id()) == \App\VerifyModel::STATE_VERIFIED)
+                    <div class="field">
+                        <label class="label">{{ __('app.only_verified') }}</label>
+                        <div class="control">
+                            <input type="checkbox" data-role="checkbox" data-type="2" data-caption="{{ __('app.only_verified_long') }}" name="only_verified" value="1" @if ($activity->only_verified) {{ 'checked' }} @endif>
+                        </div>
+                    </div>
+                    @endif
                 </form>
             </section>
             <footer class="modal-card-foot is-stretched">

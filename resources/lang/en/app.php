@@ -377,5 +377,9 @@ return [
     'head_code_description' => 'Here you can specify custom code to be inserted in the head section',
     'adcode' => 'Ad code',
     'adcode_description' => 'Here you can specify advertisement code. Ads will then be shown in the activity feed',
-    'date_format' => 'Y-m-d H:i:s'
+    'date_format' => 'Y-m-d H:i:s',
+    'only_for_verified_users' => 'This feature is only for verified users',
+    'activity_verified_only' => 'This activity is only available to verified users',
+    'only_verified' => 'Only for verified users',
+    'only_verified_long' => 'Make this activity only available to verified users'
 ];

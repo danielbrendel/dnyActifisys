@@ -53,7 +53,8 @@ class ActivityController extends Controller
                 'category' => 'required|numeric',
                 'location' => 'required',
                 'limit' => 'nullable|numeric',
-                'only_gender' => 'nullable|numeric'
+                'only_gender' => 'nullable|numeric',
+                'only_verified' => 'nullable|numeric'
             ]);
 
             if (!isset($attr['limit'])) {
@@ -62,6 +63,10 @@ class ActivityController extends Controller
 
             if (!isset($attr['only_gender'])) {
                 $attr['only_gender'] = 0;
+            }
+
+            if (!isset($attr['only_verified'])) {
+                $attr['only_verified'] = 0;
             }
 
             $id = ActivityModel::createActivity(auth()->id(), $attr);
@@ -91,7 +96,8 @@ class ActivityController extends Controller
                 'category' => 'required|numeric',
                 'location' => 'required',
                 'limit' => 'nullable|numeric',
-                'only_gender' => 'nullable|numeric'
+                'only_gender' => 'nullable|numeric',
+                'only_verified' => 'nullable|numeric'
             ]);
 
             if (!isset($attr['limit'])) {
@@ -100,6 +106,10 @@ class ActivityController extends Controller
 
             if (!isset($attr['only_gender'])) {
                 $attr['only_gender'] = 0;
+            }
+
+            if (!isset($attr['only_verified'])) {
+                $attr['only_verified'] = 0;
             }
 
             $id = ActivityModel::updateActivity($attr);
@@ -131,6 +141,12 @@ class ActivityController extends Controller
 
             if (IgnoreModel::hasIgnored($activity->owner, auth()->id())) {
                 throw new Exception(__('app.activity_not_found_or_locked'));
+            }
+
+            if ($activity->only_verified == true) {
+                if ((Auth::guest()) || (VerifyModel::getState(auth()->id()) != VerifyModel::STATE_VERIFIED)) {
+                    throw new Exception(__('app.activity_verified_only'));
+                }
             }
 
             $activity->user->verified = VerifyModel::getState($activity->user->id) === VerifyModel::STATE_VERIFIED;
@@ -207,6 +223,12 @@ class ActivityController extends Controller
                     unset($data[$key]);
                     continue;
                 }
+
+                if (($item['only_verified'] == true) && (VerifyModel::getState(auth()->id()) != VerifyModel::STATE_VERIFIED)) {
+                    unset($data[$key]);
+                    continue;
+                }
+
                 $item['user']->verified = VerifyModel::getState($item['user']->id) === VerifyModel::STATE_VERIFIED;
 
                 $item['participants'] = ParticipantModel::where('activity', '=', $item['id'])->where('type', '=', ParticipantModel::PARTICIPANT_ACTUAL)->count();
@@ -251,6 +273,10 @@ class ActivityController extends Controller
             $activity = ActivityModel::getActivity($id);
             if (IgnoreModel::hasIgnored($activity->owner, auth()->id())) {
                 throw new Exception(__('app.activity_not_found_or_locked'));
+            }
+
+            if (($activity->only_verified == true) && (VerifyModel::getState(auth()->id()) != VerifyModel::STATE_VERIFIED)) {
+                throw new Exception(__('app.activity_verified_only'));
             }
 
             $threads = ThreadModel::getFromActivity($id, $paginate)->toArray();
@@ -304,8 +330,17 @@ class ActivityController extends Controller
     public function fetchUserActivities($id)
     {
         try {
+            if (IgnoreModel::hasIgnored($id, auth()->id())) {
+                throw new Exception(__('app.user_not_found_or_locked'));
+            }
+
             $data = ActivityModel::fetchUserActivities($id)->toArray();
-            foreach ($data as &$item) {
+            foreach ($data as $key => &$item) {
+                if (($item['only_verified'] == true) && (VerifyModel::getState(auth()->id()) != VerifyModel::STATE_VERIFIED)) {
+                    unset($data[$key]);
+                    continue;
+                }
+
                 $item['_type'] = 'activity';
                 $item['diffForHumans'] = Carbon::createFromDate($item['date_of_activity'])->diffForHumans();
                 $item['date_of_activity'] = date(__('app.date_format'), strtotime($item['date_of_activity']));
@@ -343,6 +378,10 @@ class ActivityController extends Controller
 
             if (IgnoreModel::hasIgnored($activity->owner, auth()->id())) {
                 throw new Exception(__('app.activity_not_found_or_locked'));
+            }
+
+            if (($activity->only_verified == true) && (VerifyModel::getState(auth()->id()) != VerifyModel::STATE_VERIFIED)) {
+                throw new Exception(__('app.activity_verified_only'));
             }
 
             ThreadModel::add(auth()->id(), $id, $attr['message']);
@@ -427,6 +466,10 @@ class ActivityController extends Controller
                 throw new Exception(__('app.activity_not_found_or_locked'));
             }
 
+            if (($activity->only_verified == true) && (VerifyModel::getState(auth()->id()) != VerifyModel::STATE_VERIFIED)) {
+                throw new Exception(__('app.activity_verified_only'));
+            }
+
             $user = User::get(auth()->id());
 
             if ($activity->only_gender !== 0) {
@@ -502,6 +545,10 @@ class ActivityController extends Controller
 
             if (IgnoreModel::hasIgnored($activity->owner, auth()->id())) {
                 throw new Exception(__('app.activity_not_found_or_locked'));
+            }
+
+            if (($activity->only_verified == true) && (VerifyModel::getState(auth()->id()) != VerifyModel::STATE_VERIFIED)) {
+                throw new Exception(__('app.activity_verified_only'));
             }
 
             ParticipantModel::add(auth()->id(), $activityId, ParticipantModel::PARTICIPANT_POTENTIAL);

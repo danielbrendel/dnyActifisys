@@ -24,10 +24,10 @@ use Illuminate\Database\Eloquent\Model;
  */
 class VerifyModel extends Model
 {
-    const STATE_NOTAPPLIED = -1;
-    const STATE_INPROGRESS = 0;
-    const STATE_VERIFIED = 1;
-    const STATE_DECLINED = 2;
+    public const STATE_NOTAPPLIED = -1;
+    public const STATE_INPROGRESS = 0;
+    public const STATE_VERIFIED = 1;
+    public const STATE_DECLINED = 2;
 
     /**
      * Check if file is a valid image

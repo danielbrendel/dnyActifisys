@@ -377,5 +377,9 @@ return [
     'head_code_description' => 'Hier kann benutzerdefinierter Code für den Head Bereich spezifiziert werden.',
     'adcode' => 'Ad code',
     'adcode_description' => 'Here kann Code für Ads spezifiziert werden. Ads werden dann im Aktivitäten-Feed angezeigt.',
-    'date_format' => 'd.m.Y H:i:s'
+    'date_format' => 'd.m.Y H:i:s',
+    'only_for_verified_users' => 'Diese Funktion steht nur verifizierten Benutzern zur Verfügung.',
+    'activity_verified_only' => 'Diese Aktivität ist nur für verifizierte Benutzer',
+    'only_verified' => 'Nur für verifizierte Benutzer',
+    'only_verified_long' => 'Diese Aktivität soll nur für verifizierte Nutzer zugänglich sein'
 ];

@@ -37,6 +37,7 @@ class CreateActivityModelsTable extends Migration
             $table->integer('only_gender')->unsigned()->default(0); //0 = all, 1 = only male, 2 = only female, 3 = only diverse
             $table->integer('owner');
             $table->integer('category')->default(0);
+            $table->boolean('only_verified')->default(false);
             $table->boolean('locked')->default(false);
             $table->boolean('canceled')->default(false);
             $table->string('cancelReason')->default('');

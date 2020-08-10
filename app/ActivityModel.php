@@ -99,6 +99,10 @@ class ActivityModel extends Model
 
             $taglist = static::getTagList($attr['description']);
 
+            if (($attr['only_verified'] == true) && (VerifyModel::getState($owner) != VerifyModel::STATE_VERIFIED)) {
+                throw new Exception(__('app.only_for_verified_users'));
+            }
+
             $item = new ActivityModel();
             $item->owner = $owner;
             $item->title = htmlspecialchars($attr['title']);
@@ -109,6 +113,7 @@ class ActivityModel extends Model
             $item->location = htmlspecialchars(strtolower(trim($attr['location'])));
             $item->limit = $attr['limit'];
             $item->only_gender = $attr['only_gender'];
+            $item->only_verified = $attr['only_verified'];
             $item->save();
 
             $item->slug = Str::slug(strval($item->id) . ' ' . $item->title, '-');
@@ -160,6 +165,10 @@ class ActivityModel extends Model
                 throw new Exception(__('app.date_is_in_past'));
             }
 
+            if (($attr['only_verified'] == true) && (VerifyModel::getState($user->id) != VerifyModel::STATE_VERIFIED)) {
+                throw new Exception(__('app.only_for_verified_users'));
+            }
+
             $taglist = static::getTagList($attr['description']);
 
             $item->title = htmlspecialchars($attr['title']);
@@ -171,6 +180,7 @@ class ActivityModel extends Model
             $item->location = htmlspecialchars(strtolower(trim($attr['location'])));
             $item->limit = $attr['limit'];
             $item->only_gender = $attr['only_gender'];
+            $item->only_verified = $attr['only_verified'];
             $item->save();
         } catch (Exception $e) {
             throw $e;
