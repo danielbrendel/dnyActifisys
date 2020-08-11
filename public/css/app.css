@@ -1056,11 +1056,13 @@ h2 {
 
 .notification-icon {
   display: inline-block;
+  top: -12%;
 }
 
 .notification-info {
   display: inline-block;
   margin-left: 15px;
+  width: 84%;
 }
 
 .is-new-notification {
