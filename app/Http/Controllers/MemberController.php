@@ -19,6 +19,7 @@ use App\AppModel;
 use App\CaptchaModel;
 use App\FavoritesModel;
 use App\IgnoreModel;
+use App\ParticipantModel;
 use App\ReportModel;
 use App\User;
 use App\VerifyModel;
@@ -65,6 +66,21 @@ class MemberController extends Controller
             $user->ignored = IgnoreModel::hasIgnored(auth()->id(), $user->id);
             $user->hasFavorited = FavoritesModel::hasUserFavorited(auth()->id(), $user->id, 'ENT_USER');
             $user->verified = VerifyModel::getState($user->id) === VerifyModel::STATE_VERIFIED;
+
+            if ($user->id === auth()->id()) {
+                $interestedIn = ParticipantModel::where('participant', '=', $user->id)->where('type', '=', ParticipantModel::PARTICIPANT_POTENTIAL)->get();
+                foreach ($interestedIn as &$potential) {
+                    $potential->activity = ActivityModel::getActivity($potential->activity);
+                }
+
+                $participatingIn = ParticipantModel::where('participant', '=', $user->id)->where('type', '=', ParticipantModel::PARTICIPANT_ACTUAL)->get();
+                foreach ($participatingIn as &$participating) {
+                    $participating->activity = ActivityModel::getActivity($participating->activity);
+                }
+
+                $user->potential = $interestedIn;
+                $user->actual = $participatingIn;
+            }
 
             return view('member.profile', [
                'captchadata' => CaptchaModel::createSum(session()->getId()),
