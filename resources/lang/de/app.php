@@ -384,5 +384,6 @@ return [
     'only_verified_long' => 'Diese Aktivität soll nur für verifizierte Nutzer zugänglich sein',
     'participating' => 'Teilnehmend',
     'not_yet_participating' => 'Noch nirgends Teilnehmer',
-    'not_yet_interested' => 'Noch nirgends als interessiert markiert'
+    'not_yet_interested' => 'Noch nirgends als interessiert markiert',
+    'message_list_phrase' => 'von'
 ];

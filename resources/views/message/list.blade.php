@@ -88,7 +88,7 @@
                      document.getElementById('browse-left').classList.remove('is-color-black-force');
                  }
 
-                 document.getElementById('msg-count').innerHTML = (response.data.length) + ' of total ' + response.max;
+                 document.getElementById('msg-count').innerHTML = (response.data.length) + ' {{ __('app.message_list_phrase') }} ' + response.max;
              }
           });
         };
