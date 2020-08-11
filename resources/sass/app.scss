@@ -890,6 +890,10 @@ h2 {
     background: rgb(255, 0, 0);
     color: rgb(255, 255, 255);
 }
+.notify-badge .notify-badge-count {
+    position: relative;
+    top: -2px;
+}
 
 //Favorites area
 .favorites {

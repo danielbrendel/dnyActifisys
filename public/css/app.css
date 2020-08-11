@@ -1094,6 +1094,11 @@ h2 {
   color: white;
 }
 
+.notify-badge .notify-badge-count {
+  position: relative;
+  top: -2px;
+}
+
 .favorites {
   position: absolute;
   top: -203px;
