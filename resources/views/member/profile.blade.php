@@ -102,7 +102,7 @@
                             @endforeach
                         </div>
                         @else
-                            <i>{{ __('app.not_yet_participating') }}</i>
+                            <div><i class="is-color-grey">{{ __('app.not_yet_participating') }}</i></div>
                         @endif
                     </div>
 
