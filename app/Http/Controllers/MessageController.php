@@ -47,8 +47,9 @@ class MessageController extends Controller
     {
         try {
             $paginate = request('paginate', null);
+            $direction = request('direction', null);
 
-            $data = MessageModel::fetch(auth()->id(), env('APP_MESSAGEPACKLIMIT'), $paginate);
+            $data = MessageModel::fetch(auth()->id(), env('APP_MESSAGEPACKLIMIT'), $paginate, $direction);
             foreach ($data as &$item) {
                 $item->user = User::get($item->userId);
                 $item->diffForHumans = $item->created_at->diffForHumans();

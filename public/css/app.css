@@ -1259,6 +1259,10 @@ h2 {
   color: black;
 }
 
+.is-color-black-force {
+  color: black !important;
+}
+
 .is-underlined {
   border-bottom: 1px solid #ccc;
 }

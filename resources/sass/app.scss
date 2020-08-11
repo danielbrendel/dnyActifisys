@@ -1019,6 +1019,9 @@ h2 {
 .is-color-black a, .is-color-black .caption {
     color: rgb(0, 0, 0);
 }
+.is-color-black-force {
+    color: rgb(0, 0, 0) !important;
+}
 .is-underlined {
     border-bottom: 1px solid #ccc;
 }

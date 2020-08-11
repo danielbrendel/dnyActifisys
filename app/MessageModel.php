@@ -14,6 +14,7 @@
 
 namespace App;
 
+use Exception;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -23,6 +24,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class MessageModel extends Model
 {
+    public const DIRECTION_LEFT = 0;
+    public const DIRECTION_RIGHT = 1;
+
     /**
      * Add message
      *
@@ -77,20 +81,29 @@ class MessageModel extends Model
      * @param $userId
      * @param $limit
      * @param null $paginate
+     * @param null $direction
      * @return mixed
-     * @throws \Exception
+     * @throws Exception
      */
-    public static function fetch($userId, $limit, $paginate = null)
+    public static function fetch($userId, $limit, $paginate = null, $direction = null)
     {
         try {
             $rowset = MessageModel::where('senderId', '=', $userId);
 
             if ($paginate !== null) {
-                $rowset->where('id', '<', $paginate);
+                if ($direction == self::DIRECTION_LEFT) {
+                    $rowset->where('id', '>', $paginate)->orderBy('id', 'asc');
+                } else if ($direction == self::DIRECTION_RIGHT) {
+                    $rowset->where('id', '<=', $paginate - $limit)->orderBy('id', 'desc');
+                } else {
+                    throw new Exception('Invalid direction value: ' . $direction);
+                }
+            } else {
+                $rowset->orderBy('id', 'desc');
             }
 
-            return $rowset->orderBy('id', 'desc')->limit($limit)->get();
-        } catch (\Exception $e) {
+            return $rowset->limit($limit)->get();
+        } catch (Exception $e) {
             throw $e;
         }
     }
