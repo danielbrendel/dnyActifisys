@@ -381,5 +381,8 @@ return [
     'only_for_verified_users' => 'Diese Funktion steht nur verifizierten Benutzern zur Verfügung.',
     'activity_verified_only' => 'Diese Aktivität ist nur für verifizierte Benutzer',
     'only_verified' => 'Nur für verifizierte Benutzer',
-    'only_verified_long' => 'Diese Aktivität soll nur für verifizierte Nutzer zugänglich sein'
+    'only_verified_long' => 'Diese Aktivität soll nur für verifizierte Nutzer zugänglich sein',
+    'participating' => 'Teilnehmend',
+    'not_yet_participating' => 'Noch nirgends Teilnehmer',
+    'not_yet_interested' => 'Noch nirgends als interessiert markiert'
 ];

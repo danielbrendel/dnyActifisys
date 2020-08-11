@@ -381,5 +381,8 @@ return [
     'only_for_verified_users' => 'This feature is only for verified users',
     'activity_verified_only' => 'This activity is only available to verified users',
     'only_verified' => 'Only for verified users',
-    'only_verified_long' => 'Make this activity only available to verified users'
+    'only_verified_long' => 'Make this activity only available to verified users',
+    'participating' => 'Participating',
+    'not_yet_participating' => 'Not yet participating',
+    'not_yet_interested' => 'Not yet interested in activities'
 ];
