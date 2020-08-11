@@ -89,9 +89,9 @@
                             {{ __('app.favorites') }}
                         </a>
 
-                        <a class="navbar-item notification-badge" href="javascript:void(0);" onclick="window.vue.toggleNotifications('notifications'); document.getElementById('navbar-notify-count').classList.add('is-hidden'); window.vue.markSeen(); if (window.menuVisible) { document.getElementById('navbarMenu').classList.remove('is-active'); document.getElementById('navbarBurger').classList.remove('is-active'); }">
+                        <a class="navbar-item notification-badge" href="javascript:void(0);" onclick="window.vue.toggleNotifications('notifications'); document.getElementById('navbar-notify-wrapper').classList.add('is-hidden'); window.vue.markSeen(); if (window.menuVisible) { document.getElementById('navbarMenu').classList.remove('is-active'); document.getElementById('navbarBurger').classList.remove('is-active'); }">
                             <span>{{ __('app.notifications') }}</span>
-                            <span class="notify-badge is-hidden"><span class="notify-badge-count" id="navbar-notify-count"></span></span>
+                            <span class="notify-badge is-hidden" id="navbar-notify-wrapper"><span class="notify-badge-count" id="navbar-notify-count"></span></span>
                         </a>
 
                         <a class="navbar-item fix-mobile-navbar-item is-white" href="{{ url('/messages') }}">
@@ -578,10 +578,14 @@
                             noyet.remove();
                         }
 
-                        let indicator = document.getElementById('navbar-notify-count');
+                        let indicator = document.getElementById('navbar-notify-wrapper');
                         if (indicator) {
                             indicator.classList.remove('is-hidden');
-                            indicator.innerHTML = response.data.length;
+
+                            count = document.getElementById('navbar-notify-count');
+                            if (count) {
+                                count.innerHTML = response.data.length;
+                            }
                         }
 
                         response.data.forEach(function(elem, index) {
