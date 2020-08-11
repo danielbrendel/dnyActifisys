@@ -68,18 +68,18 @@ class MemberController extends Controller
             $user->verified = VerifyModel::getState($user->id) === VerifyModel::STATE_VERIFIED;
 
             if ($user->id === auth()->id()) {
-                $interestedIn = ParticipantModel::where('participant', '=', $user->id)->where('type', '=', ParticipantModel::PARTICIPANT_POTENTIAL)->get();
+                $interestedIn = ParticipantModel::where('participant', '=', $user->id)->where('type', '=', ParticipantModel::PARTICIPANT_POTENTIAL)->get()->toArray();
                 foreach ($interestedIn as &$potential) {
-                    $potential->activity = ActivityModel::getActivity($potential->activity);
+                    $potential['activityData'] = ActivityModel::getActivity($potential['activity']);
                 }
 
-                $participatingIn = ParticipantModel::where('participant', '=', $user->id)->where('type', '=', ParticipantModel::PARTICIPANT_ACTUAL)->get();
+                $participatingIn = ParticipantModel::where('participant', '=', $user->id)->where('type', '=', ParticipantModel::PARTICIPANT_ACTUAL)->get()->toArray();
                 foreach ($participatingIn as &$participating) {
-                    $participating->activity = ActivityModel::getActivity($participating->activity);
+                    $participating['activityData'] = ActivityModel::getActivity($participating['activity']);
                 }
 
-                $user->potential = $interestedIn;
-                $user->actual = $participatingIn;
+                $user->potential = array_values($interestedIn);
+                $user->actual = array_values($participatingIn);
             }
 
             return view('member.profile', [

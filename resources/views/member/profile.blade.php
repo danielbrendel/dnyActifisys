@@ -89,6 +89,18 @@
                         @endauth
                     </div>
                 </div>
+                @else
+                    <div class="windowed-frame">
+                        <h3 class="is-color-grey">{{ __('app.participating') }}</h3>
+
+                        <div>
+                            @foreach ($user->actual as $actual)
+                                @if ($actual['activityData'] !== null)
+                                    <div class="is-color-lightblue is-underlined"><a href="{{ url('/activity/' . $actual['activityData']->id) }}">{{ $actual['activityData']->title }}</a></div>
+                                @endif
+                            @endforeach
+                        </div>
+                    </div>
                 @endif
             </div>
 
