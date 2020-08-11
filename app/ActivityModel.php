@@ -222,7 +222,7 @@ class ActivityModel extends Model
     /**
      * Fetch activity package
      *
-     * @param null $city
+     * @param null $location
      * @param null $paginate
      * @param null $dateFrom
      * @param null $dateTill
@@ -231,13 +231,13 @@ class ActivityModel extends Model
      * @return mixed
      * @throws Exception
      */
-    public static function fetchActivities($city = null, $paginate = null, $dateFrom = null, $dateTill = null, $tag = null, $category = null)
+    public static function fetchActivities($location = null, $paginate = null, $dateFrom = null, $dateTill = null, $tag = null, $category = null)
     {
         try {
             $activities = ActivityModel::where('date_of_activity', '>=', date('Y-m-d H:i:s'))->where('locked', '=', false)->where('canceled', '=', false);
 
-            if ($city !== null) {
-                $activities->where('location', 'like', '%' . strtolower($city) . '%');
+            if ($location !== null) {
+                $activities->where('location', 'like', '%' . strtolower($location) . '%');
             }
 
             if ($paginate !== null) {

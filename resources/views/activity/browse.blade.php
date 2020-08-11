@@ -32,10 +32,10 @@
             <div class="is-inline-block is-hidden" id="activity-filter-options">
                 <div class="field has-addons">
                     <div class="control">
-                        <input class="input" type="text" id="inpCityFilter" onkeydown="if (event.keyCode === 13) { document.getElementById('btnFilterCity').click(); }" placeholder="{{ __('app.filter_by_city') }}">
+                        <input class="input" type="text" id="inpLocationFilter" onkeydown="if (event.keyCode === 13) { document.getElementById('btnFilterLocation').click(); }" placeholder="{{ __('app.filter_by_location') }}">
                     </div>
                     <div class="control">
-                        <a id="btnFilterCity" class="button is-info" href="javascript:void(0);" onclick="window.vue.setCityCookieValue(document.getElementById('inpCityFilter').value); location.reload();">
+                        <a id="btnFilterLocation" class="button is-info" href="javascript:void(0);" onclick="window.vue.setLocationCookieValue(document.getElementById('inpLocationFilter').value); location.reload();">
                             {{ __('app.do_filter') }}
                         </a>
                     </div>
@@ -113,11 +113,11 @@
         document.addEventListener('DOMContentLoaded', function() {
             window.paginate = null;
 
-            window.city = window.vue.getCityCookieValue();
-            if (window.city === '_all') {
-                document.getElementById('inpCityFilter').value = '';
+            window.locationIdent = window.vue.getLocationCookieValue();
+            if (window.locationIdent === '_all') {
+                document.getElementById('inpLocationFilter').value = '';
             } else {
-                document.getElementById('inpCityFilter').value = window.city;
+                document.getElementById('inpLocationFilter').value = window.locationIdent;
             }
 
             window.dateFrom = window.vue.getDateFromCookieValue();
@@ -141,7 +141,7 @@
         {
             document.getElementById('load-spinner').innerHTML = '<center><i class="fas fa-spinner fa-spin"></i></center>';
 
-            window.vue.ajaxRequest('get', '{{ url('/activity/fetch') }}/' + ((window.paginate !== null) ? '?paginate=' + window.paginate : '?paginate=null') + '&city=' + window.city + "&date_from=" + window.dateFrom + "&date_till=" + window.dateTill + "<?= ((isset($_GET['tag'])) ? '&tag=' . $_GET['tag'] : '') ?>" + "<?= ((isset($_GET['category'])) ? '&category=' . $_GET['category'] : '') ?>", {}, function(response) {
+            window.vue.ajaxRequest('get', '{{ url('/activity/fetch') }}/' + ((window.paginate !== null) ? '?paginate=' + window.paginate : '?paginate=null') + '&location=' + window.locationIdent + "&date_from=" + window.dateFrom + "&date_till=" + window.dateTill + "<?= ((isset($_GET['tag'])) ? '&tag=' . $_GET['tag'] : '') ?>" + "<?= ((isset($_GET['category'])) ? '&category=' . $_GET['category'] : '') ?>", {}, function(response) {
                 if (response.code === 200) {
                     if (response.data.length > 0) {
                         document.getElementById('load-spinner').innerHTML = '';

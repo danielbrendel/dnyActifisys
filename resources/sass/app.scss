@@ -278,6 +278,11 @@ a.navbar-item:hover {
 .fix-mobile-navbar-item {
     margin-left: 15px;
 }
+.fix-mobile-navbar-item-mobile {
+    @media screen and (min-width: 1089px) {
+        margin-left: 15px;
+    }
+}
 .is-white {
     color: rgb(255, 255, 255);
 }

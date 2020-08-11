@@ -310,6 +310,12 @@ a.navbar-item:hover {
   margin-left: 15px;
 }
 
+@media screen and (min-width: 1089px) {
+  .fix-mobile-navbar-item-mobile {
+    margin-left: 15px;
+  }
+}
+
 .is-white {
   color: white;
 }

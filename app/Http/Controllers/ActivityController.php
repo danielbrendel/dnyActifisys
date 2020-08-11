@@ -188,9 +188,9 @@ class ActivityController extends Controller
                 $paginate = null;
             }
 
-            $city = request('city', null);
-            if ($city === '_all') {
-                $city = null;
+            $location = request('location', null);
+            if ($location === '_all') {
+                $location = null;
             }
 
             $dateFrom = request('date_from', null);
@@ -213,7 +213,7 @@ class ActivityController extends Controller
                 $category = null;
             }
 
-            $data = ActivityModel::fetchActivities($city, $paginate, $dateFrom, $dateTill, $tag, $category)->toArray();
+            $data = ActivityModel::fetchActivities($location, $paginate, $dateFrom, $dateTill, $tag, $category)->toArray();
             foreach ($data as $key => &$item) {
                 $item['_type'] = 'activity';
 

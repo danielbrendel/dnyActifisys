@@ -136,7 +136,7 @@ return [
     'message_sent' => 'Nachricht wurde verschickt',
     'view_activities' => 'Laufende Aktivitäten',
     'do_filter' => 'Filter',
-    'filter_by_city' => 'Filter per Stadtnamen',
+    'filter_by_location' => 'Filter per Ortsnamen',
     'filter_by_tag' => 'Filter per Tag',
     'load_more' => 'Mehr laden',
     'no_more_activities' => 'Keine weiteren Aktivitäten',

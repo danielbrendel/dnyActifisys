@@ -19387,20 +19387,20 @@ window.vue = new Vue({
       document.cookie = 'cookieconsent=1; expires=' + expDate.toUTCString() + ';';
       document.getElementById('cookie-consent').style.display = 'none';
     },
-    setCityCookieValue: function setCityCookieValue(city) {
+    setLocationCookieValue: function setLocationCookieValue(city) {
       var expDate = new Date(Date.now() + 1000 * 60 * 60 * 24 * 365);
-      document.cookie = 'filter_city=' + (city.length > 0 ? city : '_all') + '; expires=' + expDate.toUTCString() + '; path=/;';
+      document.cookie = 'filter_location=' + (city.length > 0 ? city : '_all') + '; expires=' + expDate.toUTCString() + '; path=/;';
     },
     setDateCookieValue: function setDateCookieValue(from, till) {
       var expDate = new Date(Date.now() + 1000 * 60 * 60 * 24 * 365);
       document.cookie = 'filter_date_from=' + (from.value.length > 0 ? from.value : '_default') + '; expires=' + expDate.toUTCString() + '; path=/;';
       document.cookie = 'filter_date_till=' + (till.value.length > 0 ? till.value : '_default') + '; expires=' + expDate.toUTCString() + '; path=/;';
     },
-    getCityCookieValue: function getCityCookieValue() {
+    getLocationCookieValue: function getLocationCookieValue() {
       var cookies = document.cookie.split(';');
 
       for (var i = 0; i < cookies.length; i++) {
-        if (cookies[i].indexOf('filter_city') !== -1) {
+        if (cookies[i].indexOf('filter_location') !== -1) {
           return cookies[i].substr(cookies[i].indexOf('=') + 1);
         }
       }
