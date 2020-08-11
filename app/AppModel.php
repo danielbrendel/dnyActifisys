@@ -1,7 +1,7 @@
 <?php
 
 /*
-    ComAct (dnyComAct) developed by Daniel Brendel
+    Actifisys (dnyActifisys) developed by Daniel Brendel
 
     (C) 2019 - 2020 by Daniel Brendel
 
@@ -276,7 +276,7 @@ class AppModel extends Model
     public static function saveEnvironmentConfig()
     {
         try {
-            $content = '# ComAct environment configuration' . PHP_EOL;
+            $content = '# Actifisys environment configuration' . PHP_EOL;
 
             foreach ($_ENV as $key => $value) {
                 $type = gettype($value);

@@ -1,5 +1,5 @@
 /*
-    ComAct (dnyComAct) developed by Daniel Brendel
+    Actifisys (dnyActifisys) developed by Daniel Brendel
 
     (C) 2019 - 2020 by Daniel Brendel
 
@@ -401,7 +401,7 @@ window.vue = new Vue({
 
                 <div class="messages-item-name">
                     <a href="` + window.location.origin + `/user/` + item.user.id + `">` + item.user.name + `</a>
-                    ` + ((elem.user.verified) ? '&nbsp;<i class="far fa-check-circle" title="Verified user"></i>' : '') + `
+                    ` + ((item.user.verified) ? '&nbsp;<i class="far fa-check-circle" title="Verified user"></i>' : '') + `
                 </div>
 
                 <div class="messages-item-subject">

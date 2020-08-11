@@ -1,4 +1,4 @@
-# ComAct (dnyComAct) developed by Daniel Brendel
+# Actifisys (dnyActifisys) developed by Daniel Brendel
 
 (C) 2019 - 2020 by Daniel Brendel
 
@@ -9,7 +9,7 @@
 Released under the MIT license
 
 ## Description:
-ComAct is a software system that lets users create and join activities. Users
+Actifisys is a software system that lets users create and join activities. Users
 can set themselves interested in an activity or join them. Activities whose
 activity date is in the future are listed in a feed. Users can comment on activities,
 send private messages, manage their favorites and receive notifications. For a full 

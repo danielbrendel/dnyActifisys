@@ -1,5 +1,5 @@
 {{--
-    ComAct (dnyComAct) developed by Daniel Brendel
+    Actifisys (dnyActifisys) developed by Daniel Brendel
 
     (C) 2019 - 2020 by Daniel Brendel
 
@@ -28,7 +28,7 @@
             <script src="{{ asset('js/vue.min.js') }}"></script>
         @endif
 
-        <title>ComAct - Installation</title>
+        <title>Actifisys - Installation</title>
     </head>
 
     <body>
@@ -84,10 +84,10 @@
                 <div class="column is-2 is-sidespacing"></div>
 
                 <div class="column is-8">
-                    <h1>Install ComAct</h1>
+                    <h1>Install Actifisys</h1>
                     <br/>
                     <span>
-                        Welcome to the installation of ComAct. The installation is intended to be fast. Just fill out and submit the form
+                        Welcome to the installation of Actifisys. The installation is intended to be fast. Just fill out and submit the form
                         and the system will perform the installation. If everything goes well you will then be redirected to the index page.
                     </span>
 
@@ -119,7 +119,7 @@
                             <div class="field">
                                 <label class="label">Database name</label>
                                 <div class="control">
-                                    <input type="text" name="database" value="comact" required>
+                                    <input type="text" name="database" value="actifisys" required>
                                 </div>
                             </div>
 
@@ -191,7 +191,7 @@
 
         <br/><br/><br/><br/><br/>
 
-        <nav class="navbar is-fixed-bottom">
+        <nav class="navbar is-fixed-bottom is-install-navbar">
             <div class="is-uppercase is-stretched">
                 <center>Copyright &copy; {{ date('Y') }} by Daniel Brendel | <a href="https://github.com/danielbrendel/" target="_blank">GitHub</a>&nbsp;&nbsp;<a href="mailto:dbrendel1988<at>gmail<dot>com" target="_blank">Contact</a></center>
             </div>

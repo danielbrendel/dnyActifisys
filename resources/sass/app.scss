@@ -1,5 +1,5 @@
 /*
-    ComAct (dnyComAct) developed by Daniel Brendel
+    Actifisys (dnyActifisys) developed by Daniel Brendel
 
     (C) 2019 - 2020 by Daniel Brendel
 
@@ -1011,7 +1011,7 @@ h2 {
 .is-color-grey {
     color: rgb(190, 190, 190);
 }
-.is-color-black a {
+.is-color-black a, .is-color-black .caption {
     color: rgb(0, 0, 0);
 }
 .is-underlined {
@@ -1076,4 +1076,7 @@ a.is-color-grey:hover {
 }
 .is-margin-left-15 {
     margin-left: 15px;
+}
+.is-install-navbar {
+    background-color: rgb(255, 255, 255);
 }

@@ -1,5 +1,5 @@
 {{--
-    ComAct (dnyComAct) developed by Daniel Brendel
+    Actifisys (dnyActifisys) developed by Daniel Brendel
 
     (C) 2019 - 2020 by Daniel Brendel
 
@@ -366,19 +366,19 @@
 
                             <div class="field">
                                 <div class="control">
-                                    <input type class="checkbox" name="deactivated" id="user_deactivated" data-role="checkbox" data-style="2" data-caption="{{ __('app.deactivated') }}" value="1">
+                                    <input type class="checkbox is-color-black" name="deactivated" id="user_deactivated" data-role="checkbox" data-style="2" data-caption="{{ __('app.deactivated') }}" value="1">
                                 </div>
                             </div>
 
                             <div class="field">
                                 <div class="control">
-                                    <input type class="checkbox" name="admin" id="user_admin" data-role="checkbox" data-style="2" data-caption="{{ __('app.admin') }}" value="1">
+                                    <input type class="checkbox is-color-black" name="admin" id="user_admin" data-role="checkbox" data-style="2" data-caption="{{ __('app.admin') }}" value="1">
                                 </div>
                             </div>
 
                             <div class="field">
                                 <div class="control">
-                                    <input type class="checkbox" name="maintainer" id="user_maintainer" data-role="checkbox" data-style="2" data-caption="{{ __('app.maintainer') }}" value="1">
+                                    <input type class="checkbox is-color-black" name="maintainer" id="user_maintainer" data-role="checkbox" data-style="2" data-caption="{{ __('app.maintainer') }}" value="1">
                                 </div>
                             </div>
 

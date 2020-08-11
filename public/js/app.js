@@ -19331,7 +19331,7 @@ module.exports = function(module) {
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
-    ComAct (dnyComAct) developed by Daniel Brendel
+    Actifisys (dnyActifisys) developed by Daniel Brendel
 
     (C) 2019 - 2020 by Daniel Brendel
 
@@ -19605,7 +19605,7 @@ window.vue = new Vue({
       return html;
     },
     renderMessageListItem: function renderMessageListItem(item) {
-      var html = "\n            <div class=\"messages-item " + (!item.seen ? 'is-new-message' : '') + "\">\n                <div class=\"messages-item-avatar\">\n                    <img src=\"" + window.location.origin + "/gfx/avatars/" + item.user.avatar + "\">\n                </div>\n\n                <div class=\"messages-item-name\">\n                    <a href=\"" + window.location.origin + "/user/" + item.user.id + "\">" + item.user.name + "</a>\n                    " + (elem.user.verified ? '&nbsp;<i class="far fa-check-circle" title="Verified user"></i>' : '') + "\n                </div>\n\n                <div class=\"messages-item-subject\">\n                    <a href=\"" + window.location.origin + "/messages/show/" + item.id + "\">" + item.subject + "</a>\n                </div>\n\n                <div class=\"messages-item-date\" title=\"" + item.created_at + "\">\n                    " + item.diffForHumans + "\n                </div>\n            </div>\n            ";
+      var html = "\n            <div class=\"messages-item " + (!item.seen ? 'is-new-message' : '') + "\">\n                <div class=\"messages-item-avatar\">\n                    <img src=\"" + window.location.origin + "/gfx/avatars/" + item.user.avatar + "\">\n                </div>\n\n                <div class=\"messages-item-name\">\n                    <a href=\"" + window.location.origin + "/user/" + item.user.id + "\">" + item.user.name + "</a>\n                    " + (item.user.verified ? '&nbsp;<i class="far fa-check-circle" title="Verified user"></i>' : '') + "\n                </div>\n\n                <div class=\"messages-item-subject\">\n                    <a href=\"" + window.location.origin + "/messages/show/" + item.id + "\">" + item.subject + "</a>\n                </div>\n\n                <div class=\"messages-item-date\" title=\"" + item.created_at + "\">\n                    " + item.diffForHumans + "\n                </div>\n            </div>\n            ";
       return html;
     },
     renderNotification: function renderNotification(elem) {
@@ -19801,8 +19801,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\Projects\dnyComAct\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\Projects\dnyComAct\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\Projects\dnyActifisys\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\Projects\dnyActifisys\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

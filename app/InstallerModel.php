@@ -1,7 +1,7 @@
 <?php
 
 /*
-    ComAct (dnyComAct) developed by Daniel Brendel
+    Actifisys (dnyActifisys) developed by Daniel Brendel
 
     (C) 2019 - 2020 by Daniel Brendel
 
@@ -36,9 +36,9 @@ class InstallerModel extends Model
     public static function install($attr)
     {
         try {
-            $envcontent = '# ComAct Environment configuration' . PHP_EOL . PHP_EOL;
-            $envcontent .= 'APP_NAME=ComAct' . PHP_EOL;
-            $envcontent .= 'APP_CODENAME=dnyComAct' . PHP_EOL;
+            $envcontent = '# Actifisys Environment configuration' . PHP_EOL . PHP_EOL;
+            $envcontent .= 'APP_NAME=Actifisys' . PHP_EOL;
+            $envcontent .= 'APP_CODENAME=dnyActifisys' . PHP_EOL;
             $envcontent .= 'APP_AUTHOR="Daniel Brendel"' . PHP_EOL;
             $envcontent .= 'APP_CONTACT="dbrendel1988@gmail.com"' . PHP_EOL;
             $envcontent .= 'APP_VERSION="1.0"' . PHP_EOL;
@@ -48,7 +48,7 @@ class InstallerModel extends Model
             $envcontent .= 'APP_URL="' . url('/') . '"' . PHP_EOL;
             $envcontent .= 'APP_PROJECTNAME="' . $attr['project'] . '"' . PHP_EOL;
             $envcontent .= 'APP_DESCRIPTION="The lightweight activity finder platform"' . PHP_EOL;
-            $envcontent .= 'APP_TAGS="comact, daniel brendel, activities, appointment, meeting, community, social, opensource, freeware"' . PHP_EOL;
+            $envcontent .= 'APP_TAGS="Actifisys, daniel brendel, activities, appointment, meeting, community, social, opensource, freeware"' . PHP_EOL;
             $envcontent .= 'APP_TITLE="${APP_PROJECTNAME} - ${APP_DESCRIPTION}"' . PHP_EOL;
 			$envcontent .= 'APP_LANG=en' . PHP_EOL;
             $envcontent .= 'APP_ACTIVITYPACKLIMIT=12' . PHP_EOL;
