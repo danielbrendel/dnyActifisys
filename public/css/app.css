@@ -1319,3 +1319,7 @@ a.is-color-grey:hover {
   text-decoration: line-through;
 }
 
+.is-margin-left-15 {
+  margin-left: 15px;
+}
+

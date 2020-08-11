@@ -90,16 +90,36 @@
                     </div>
                 </div>
                 @else
-                    <div class="windowed-frame">
-                        <h3 class="is-color-grey">{{ __('app.participating') }}</h3>
+                    <div class="windowed-frame is-margin-top-20">
+                        <h3 class="is-margin-left-15 is-color-grey">{{ __('app.participating') }}</h3>
 
+                        @if (count($user->actual) > 0)
                         <div>
                             @foreach ($user->actual as $actual)
                                 @if ($actual['activityData'] !== null)
-                                    <div class="is-color-lightblue is-underlined"><a href="{{ url('/activity/' . $actual['activityData']->id) }}">{{ $actual['activityData']->title }}</a></div>
+                                    <div class="is-color-lightblue is-underlined"><a href="{{ url('/activity/' . $actual['activityData']->slug) }}">{{ $actual['activityData']->title }}</a></div>
                                 @endif
                             @endforeach
                         </div>
+                        @else
+                            <i>{{ __('app.not_yet_participating') }}</i>
+                        @endif
+                    </div>
+
+                    <div class="windowed-frame is-margin-top-20">
+                        <h3 class="is-margin-left-15 is-color-grey">{{ __('app.interested') }}</h3>
+
+                        @if (count($user->potential) > 0)
+                            <div>
+                                @foreach ($user->potential as $potential)
+                                    @if ($potential['activityData'] !== null)
+                                        <div class="is-color-lightblue is-underlined"><a href="{{ url('/activity/' . $potential['activityData']->slug) }}">{{ $potential['activityData']->title }}</a></div>
+                                    @endif
+                                @endforeach
+                            </div>
+                        @else
+                            <div><i class="is-color-grey">{{ __('app.not_yet_interested') }}</i></div>
+                        @endif
                     </div>
                 @endif
             </div>
