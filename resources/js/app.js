@@ -442,7 +442,7 @@ window.vue = new Vue({
                     </div>
                     <div class="notification-info">
                         <div class="notification-item-message is-color-grey-dark">` + elem.longMsg + `</div>
-                        <div class="notification-item-message is-color-grey-light">` + elem.created_at + `</div>
+                        <div class="notification-item-message is-color-grey-light">` + elem.diffForHumans + `</div>
                     </div>
                 </div>
             `;

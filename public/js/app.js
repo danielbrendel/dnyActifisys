@@ -19628,7 +19628,7 @@ window.vue = new Vue({
         icon = 'fas fa-times-circle';
       }
 
-      var html = "\n                <div class=\"notification-item " + (newItem ? 'is-new-notification' : '') + "\">\n                    <div class=\"notification-icon\">\n                        <div class=\"notification-item-icon\"><i class=\"" + icon + " fa-3x\"></i></div>\n                    </div>\n                    <div class=\"notification-info\">\n                        <div class=\"notification-item-message is-color-grey-dark\">" + elem.longMsg + "</div>\n                        <div class=\"notification-item-message is-color-grey-light\">" + elem.created_at + "</div>\n                    </div>\n                </div>\n            ";
+      var html = "\n                <div class=\"notification-item " + (newItem ? 'is-new-notification' : '') + "\">\n                    <div class=\"notification-icon\">\n                        <div class=\"notification-item-icon\"><i class=\"" + icon + " fa-3x\"></i></div>\n                    </div>\n                    <div class=\"notification-info\">\n                        <div class=\"notification-item-message is-color-grey-dark\">" + elem.longMsg + "</div>\n                        <div class=\"notification-item-message is-color-grey-light\">" + elem.diffForHumans + "</div>\n                    </div>\n                </div>\n            ";
       return html;
     },
     renderFavorite: function renderFavorite(elem) {

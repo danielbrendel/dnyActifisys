@@ -64,6 +64,9 @@ class NotificationController extends Controller
             $paginate = request('paginate', null);
 
             $notifications = PushModel::getNotifications(auth()->id(), env('APP_PUSHPACKLIMIT'), $paginate);
+            foreach ($notifications as &$notification) {
+                $notification->diffForHumans = $notification->created_at->diffForHumans();
+            }
 
             return response()->json(array('code' => 200, 'data' => $notifications));
         } catch (\Exception $e) {
