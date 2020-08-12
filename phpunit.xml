@@ -38,5 +38,6 @@
         <server name="TEST_MESSAGEID" value="1"/>
         <server name="TEST_ACTIVITYID" value="1"/>
         <server name="TEST_THREADID" value="1"/>
+        <server name="TEST_CATEGORYID" value="1"/>
     </php>
 </phpunit>

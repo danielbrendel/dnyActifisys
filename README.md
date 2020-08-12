@@ -65,4 +65,5 @@ In order to run the tests successfully you need to ensure that the following tes
 + TEST_ACTIVITYID: ID of an existing activity
 + TEST_MESSAGEID: ID of an existing message
 + TEST_THREADID: ID of an existing thread (parent)
++ TEST_CATEGORYID: ID of an existing category
 
