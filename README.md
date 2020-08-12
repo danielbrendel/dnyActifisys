@@ -49,7 +49,7 @@ feature list see the list below.
 The product is being developed with the following engine versions:
 + PHP 7.4.6
 + MySQL 10.4.11-MariaDB
-+ Default XAMPP 3.2.4 enabled PHP extensions
++ Standard PHP extensions
 
 ## Installation:
 Place a file 'do_install' in the root directory of the project.
