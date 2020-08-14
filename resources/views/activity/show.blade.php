@@ -217,7 +217,7 @@
                                     @if (!$activity->selfParticipated)
                                         <div class="is-inline-block"><button type="button" id="btnParticipate" class="button is-success" onclick="location.href = '{{ url('/activity/' . $activity->id . '/participant/add') }}';">{{ __('app.participate') }}</button></div>
                                     @else
-                                        <div class="is-inline-block"><button type="button" id="btnParticipate" class="button is-success is-outlined" onclick="location.href = '{{ url('/activity/' . $activity->id . '/participant/remove') }}';">{{ __('app.not_participate') }}</button></div>
+                                        <div class="is-inline-block"><button type="button" id="btnParticipate" class="button is-danger is-outlined" onclick="location.href = '{{ url('/activity/' . $activity->id . '/participant/remove') }}';">{{ __('app.not_participate') }}</button></div>
                                     @endif
                                 @endif
 

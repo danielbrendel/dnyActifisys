@@ -153,7 +153,8 @@ class MainController extends Controller
                 'email' => $attr['email'],
                 'password' => $attr['password']
             ])) {
-                return redirect('/')->with('flash.success', __('app.login_welcome_back'));
+                $user = User::get(auth()->id());
+                return redirect('/')->with('flash.success', __('app.login_welcome_msg', ['name' => $user->name]));
             } else {
                 return back()->with('error', __('app.login_failed'));
             }

@@ -72,7 +72,7 @@
             text-decoration: none;
             border-radius: 5px;
             background-color: rgb(64, 173, 225);
-            color: rgb(255, 255, 255);
+            color: rgb(255, 255, 255) !important;
             font-weight: bold;
         }
         .button:hover {

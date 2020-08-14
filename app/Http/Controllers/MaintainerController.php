@@ -560,7 +560,7 @@ class MaintainerController extends Controller
 
             VerifyModel::verifyStatus($id, VerifyModel::STATE_VERIFIED);
 
-            $html = view('mail.acc_verify', ['name' => $user->name, 'state' => __('app.account_verified'), 'reason' => '-']);
+            $html = view('mail.acc_verify', ['name' => $user->name, 'state' => __('app.account_verified'), 'reason' => '-'])->render();
             MailerModel::sendMail($user->email, __('app.mail_acc_verify_title'), $html);
 
             return back()->with('flash.success', __('app.account_verified'));
@@ -584,7 +584,7 @@ class MaintainerController extends Controller
 
             VerifyModel::verifyStatus($id, VerifyModel::STATE_DECLINED, urldecode($reason));
 
-            $html = view('mail.acc_verify', ['name' => $user->name, 'state' => __('app.account_verification_declined'), 'reason' => urldecode($reason)]);
+            $html = view('mail.acc_verify', ['name' => $user->name, 'state' => __('app.account_verification_declined'), 'reason' => urldecode($reason)])->render();
             MailerModel::sendMail($user->email, __('app.mail_acc_verify_title'), $html);
 
             return back()->with('flash.success', __('app.account_verification_declined'));

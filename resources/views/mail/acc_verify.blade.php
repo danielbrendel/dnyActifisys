@@ -25,6 +25,3 @@
     <br/><br/>
 @endsection
 
-@section('action')
-    <a class="button" href="{{ url('/activity/' . $activity->id) }}" target="_blank">{{ __('app.mail_activity_open') }}</a>
-@endsection
