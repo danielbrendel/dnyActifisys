@@ -385,5 +385,6 @@ return [
     'participating' => 'Participating',
     'not_yet_participating' => 'Not yet participating',
     'not_yet_interested' => 'Not yet interested in activities',
-    'message_list_phrase' => 'of total'
+    'message_list_phrase' => 'of total',
+    'email_changed' => 'E-Mail address changed'
 ];

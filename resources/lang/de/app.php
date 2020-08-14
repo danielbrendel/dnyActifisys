@@ -385,5 +385,6 @@ return [
     'participating' => 'Teilnehmend',
     'not_yet_participating' => 'Noch nirgends Teilnehmer',
     'not_yet_interested' => 'Noch nirgends als interessiert markiert',
-    'message_list_phrase' => 'von'
+    'message_list_phrase' => 'von',
+    'email_changed' => 'E-Mail Adresse geändert'
 ];
