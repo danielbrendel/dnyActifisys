@@ -101,7 +101,7 @@ return [
     'logout_success' => 'See you soon!',
     'not_logged_in' => 'You are not logged in',
     'pw_recovery_ok' => 'A recovery e-mail has been sent to your inbox. Please follow its instructions.',
-    'password_reset_ok' => 'Your password has been changed',
+    'password_reset_ok' => 'Your password has been changed. You may now login with the new password.',
     'register_confirm_email' => 'Welcome on board! Please also confirm your account.',
     'register_confirmed_ok' => 'Your account has been confirmed. You may now login',
     'settings_saved' => 'Settings saved successfully',
@@ -386,5 +386,7 @@ return [
     'not_yet_participating' => 'Not yet participating',
     'not_yet_interested' => 'Not yet interested in activities',
     'message_list_phrase' => 'of total',
-    'email_changed' => 'E-Mail address changed'
+    'email_changed' => 'E-Mail address changed',
+    'password_changed' => 'Password changed',
+    'mail_password_reset_subject' => 'Password reset'
 ];

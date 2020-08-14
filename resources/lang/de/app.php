@@ -101,7 +101,7 @@ return [
     'logout_success' => 'Tschüss, bis bald!',
     'not_logged_in' => 'Du bist nicht eingeloggt',
     'pw_recovery_ok' => 'Eine Wiederherstellungs E-Mail wurde an dein Postfach verschickt. Bitte befolge die dortigen Anweisungen',
-    'password_reset_ok' => 'Dein Passwort wurde aktualisiert',
+    'password_reset_ok' => 'Dein Passwort wurde aktualisiert. Du kannst dich jetzt mit dem neuen Passwort anmelden.',
     'register_confirm_email' => 'Willkommen an Board! Bitte bestätige noch deinen Account.',
     'register_confirmed_ok' => 'Dein Account wurde bestätigt. Du kannst dich jetzt einloggen.',
     'settings_saved' => 'Einstellungen erfolgreich gespeichert.',
@@ -386,5 +386,7 @@ return [
     'not_yet_participating' => 'Noch nirgends Teilnehmer',
     'not_yet_interested' => 'Noch nirgends als interessiert markiert',
     'message_list_phrase' => 'von',
-    'email_changed' => 'E-Mail Adresse geändert'
+    'email_changed' => 'E-Mail Adresse geändert',
+    'password_changed' => 'Passwort geändert',
+    'mail_password_reset_subject' => 'Passwort zurücksetzen'
 ];

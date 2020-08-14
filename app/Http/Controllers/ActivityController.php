@@ -392,7 +392,7 @@ class ActivityController extends Controller
 
             if (($owner) && ($owner->email_on_comment)) {
                 $html = view('mail.user_commented', ['name' => $owner->name, 'sender' => $user->name, 'message' => $attr['message'], 'activityId' => $activity->id])->render();
-                MailerModel::sendMail($user->email, __('app.mail_user_commented_title'), $html);
+                MailerModel::sendMail($owner->email, __('app.mail_user_commented_title'), $html);
             }
 
             return redirect('/activity/' . $id . '#thread')->with('flash.success', __('app.comment_added'));
