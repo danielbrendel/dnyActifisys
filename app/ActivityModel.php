@@ -128,7 +128,7 @@ class ActivityModel extends Model
                 $favUser = User::get($fav->userId);
                 if (($favUser) && ($favUser->email_on_fav_created)) {
                     $html = view('mail.fav_created', ['name' => $favUser->name, 'creator' => $user->name, 'activity' => $item])->render();
-                    MailerModel::sendMail($user->email, __('app.activity_created'), $html);
+                    MailerModel::sendMail($favUser->email, __('app.activity_created'), $html);
                 }
             }
 
