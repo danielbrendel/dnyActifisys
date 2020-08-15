@@ -95,7 +95,7 @@ return [
     'contact_success' => 'Deine Anfrage wurde aufgenommen. Wir melden uns bei dir so schnell wie möglich',
     'account_not_yet_confirmed' => 'Du musst erst deinen Account bestätigen',
     'account_deactivated' => 'Account deaktiviert',
-    'login_welcome_msg' => 'Hi :name. Du bist jetzt angemeldet!',
+    'login_welcome_msg' => 'Hi :name. Du wurdest erfolgreich angemeldet!',
     'login_failed' => 'Login fehlgeschlagen. Überprüfe deine Benutzerdaten oder setze dein Passwort zurück',
     'login_already_logged_in' => 'Du bist bereits eingeloggt',
     'logout_success' => 'Tschüss, bis bald!',
