@@ -95,7 +95,7 @@ return [
     'contact_success' => 'Your request has been stored. We will process it as soon as possible',
     'account_not_yet_confirmed' => 'You must confirm your account before logging in',
     'account_deactivated' => 'Account deactivated',
-    'login_welcome_msg' => 'Hi :name. You are now logged in',
+    'login_welcome_msg' => 'Hi :name. You are now logged in.',
     'login_failed' => 'Failed to login. Please check your credentials. Alternatively you can reset your password.',
     'login_already_logged_in' => 'You are already logged in',
     'logout_success' => 'See you soon!',
