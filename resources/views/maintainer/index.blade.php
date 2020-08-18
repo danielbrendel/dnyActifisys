@@ -818,7 +818,7 @@
                     <form method="POST" action="{{ url('/maintainer/save') }}">
                         @csrf
 
-                        <input type="hidden" name="attribute" value="header_code">
+                        <input type="hidden" name="attribute" value="head_code">
 
                         <div class="field">
                             <label class="label">{{ __('app.head_code_description') }}</label>
