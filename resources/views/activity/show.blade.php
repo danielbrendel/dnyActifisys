@@ -511,6 +511,7 @@
                         } else {
                             if (document.getElementById('no-more-comments') == null) {
                                 document.getElementById('thread').innerHTML += '<div id="no-more-comments"><br/><br/><center><i class="is-color-grey">{{ __('app.no_more_comments') }}</i></center><br/></div>';
+                                document.getElementById('loading').style.display = 'none';
                             }
                         }
                     }

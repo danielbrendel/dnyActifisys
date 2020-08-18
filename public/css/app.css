@@ -422,6 +422,10 @@ h2 {
   color: lime;
 }
 
+#loadmore {
+  margin-top: 25px;
+}
+
 .frame {
   position: relative;
   padding: 15px;
@@ -638,6 +642,7 @@ h2 {
   .activity {
     left: -15px;
     width: 104%;
+    margin-bottom: 25px;
   }
 }
 

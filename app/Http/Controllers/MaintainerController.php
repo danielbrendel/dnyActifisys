@@ -100,8 +100,12 @@ class MaintainerController extends Controller
         try {
             $attr = request()->validate([
                'attribute' => 'required',
-               'content' => 'required'
+               'content' => 'nullable'
             ]);
+
+            if (!isset($attr['content'])) {
+                $attr['content'] = '';
+            }
 
             AppModel::saveSetting($attr['attribute'], $attr['content']);
 
