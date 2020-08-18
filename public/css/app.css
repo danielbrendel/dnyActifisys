@@ -282,6 +282,10 @@ textarea {
   top: -50px;
 }
 
+#navbarBurger span {
+  background-color: white;
+}
+
 .navbar-brand strong {
   font-family: "Dancing Script", "Nunito", sans-serif;
   font-size: 1.4em;
