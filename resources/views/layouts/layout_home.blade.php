@@ -538,6 +538,15 @@
         document.addEventListener('DOMContentLoaded', () => {
             window.menuVisible = false;
 
+            window.vue.lang.copiedToClipboard = '{{ __('app.copiedToClipboard') }}';
+            window.vue.lang.edit = '{{ __('app.edit') }}';
+            window.vue.lang.lock = '{{ __('app.lock') }}';
+            window.vue.lang.expandThread = '{{ __('app.expandThread') }}';
+            window.vue.lang.reply = '{{ __('app.reply') }}';
+            window.vue.lang.report = '{{ __('app.report') }}';
+            window.vue.lang.view = '{{ __('app.view') }}';
+            window.vue.lang.verifiedUser = '{{ __('app.verifiedUser') }}';
+
             window.vue.handleCookieConsent();
 
             @if (Session::has('flash.error'))

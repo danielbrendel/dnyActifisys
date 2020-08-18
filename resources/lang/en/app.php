@@ -388,5 +388,10 @@ return [
     'message_list_phrase' => 'of total',
     'email_changed' => 'E-Mail address changed',
     'password_changed' => 'Password changed',
-    'mail_password_reset_subject' => 'Password reset'
+    'mail_password_reset_subject' => 'Password reset',
+    'copiedToClipboard' => 'Link has been copied to clipboard',
+    'expandThread' => 'Expand thread',
+    'reply' => 'Reply',
+    'view' => 'View',
+    'verifiedUser' => 'Verified user'
 ];

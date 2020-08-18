@@ -34,7 +34,18 @@ window.vue = new Vue({
         bShowActivityExpired: false,
         bShowUploadImage: false,
         bShowCreateCategory: false,
-        bShowEditCategory: false
+        bShowEditCategory: false,
+
+        lang: {
+            copiedToClipboard: 'Text has been copied to clipboard!',
+            edit: 'Edit',
+            lock: 'Lock',
+            expandThread: 'Expand thread',
+            reply: 'Reply',
+            report: 'Report',
+            view: 'View',
+            verifiedUser: 'Verified user',
+        }
     },
 
     methods: {
@@ -237,7 +248,7 @@ window.vue = new Vue({
             el.select();
             document.execCommand('copy');
             document.body.removeChild(el);
-            alert('Text has been copyied to clipboard!');
+            alert(this.lang.copiedToClipboard);
         },
 
         renderThread: function(elem, adminOrOwner = false, isSubComment = false, parentId = 0) {
@@ -246,10 +257,10 @@ window.vue = new Vue({
             if (adminOrOwner) {
                 options = `
             <a onclick="window.vue.showEditComment(` + elem.id + `); window.vue.toggleCommentOptions(document.getElementById('thread-options-` + elem.id + `'));" href="javascript:void(0)" class="dropdown-item">
-                <i class="far fa-edit"></i>&nbsp;Edit
+                <i class="far fa-edit"></i>&nbsp;` + this.lang.edit + `
             </a>
             <a onclick="window.vue.lockComment(` + elem.id + `); window.vue.toggleCommentOptions(document.getElementById('thread-options-` + elem.id + `'));" href="javascript:void(0)" class="dropdown-item">
-                <i class="fas fa-times"></i>&nbsp;Lock
+                <i class="fas fa-times"></i>&nbsp;` + this.lang.lock + `
             </a>
             <hr class="dropdown-divider">
         `;
@@ -257,10 +268,10 @@ window.vue = new Vue({
 
             let expandThread = '';
             if (elem.subCount > 0) {
-                expandThread = `<div class="thread-footer-subthread is-inline-block is-centered"><a class="is-color-grey" href="javascript:void(0)" onclick="window.vue.fetchSubThreadPosts(` + elem.id + `)">Expand thread</a></div>`;
+                expandThread = `<div class="thread-footer-subthread is-inline-block is-centered"><a class="is-color-grey" href="javascript:void(0)" onclick="window.vue.fetchSubThreadPosts(` + elem.id + `)">` + this.lang.expandThread + `</a></div>`;
             }
 
-            let replyThread = `<div class="is-inline-block float-right"><a class="is-color-grey" href="javascript:void(0)" onclick="document.getElementById('thread-reply-parent').value = '` + ((isSubComment) ? parentId : elem.id) + `'; document.getElementById('thread-reply-textarea').value = '` + elem.user.name + `: '; window.vue.bShowReplyThread = true;">Reply</a></div>`;
+            let replyThread = `<div class="is-inline-block float-right"><a class="is-color-grey" href="javascript:void(0)" onclick="document.getElementById('thread-reply-parent').value = '` + ((isSubComment) ? parentId : elem.id) + `'; document.getElementById('thread-reply-textarea').value = '` + elem.user.name + `: '; window.vue.bShowReplyThread = true;">` + this.lang.reply + `</a></div>`;
 
             let html = `
         <div id="thread-` + elem.id + `" class="thread-elem ` + ((isSubComment) ? 'is-sub-comment': '') + `">
@@ -272,7 +283,7 @@ window.vue = new Vue({
                 </div>
 
                 <div class="thread-header-info is-inline-block">
-                    <div><a href="` + window.location.origin + `/user/` + elem.user.slug + `" class="is-color-grey">` + elem.user.name + `</a>` + ((elem.user.verified) ? '&nbsp;<i class="far fa-check-circle" title="Verified user"></i>' : '') +  `</div>
+                    <div><a href="` + window.location.origin + `/user/` + elem.user.slug + `" class="is-color-grey">` + elem.user.name + `</a>` + ((elem.user.verified) ? '&nbsp;<i class="far fa-check-circle" title="' + this.lang.verifiedUser + '"></i>' : '') +  `</div>
                     <div title="` + elem.created_at + `">` + elem.diffForHumans + `</div>
                 </div>
 
@@ -286,7 +297,7 @@ window.vue = new Vue({
                                 ` + options + `
 
                                 <a href="javascript:void(0)" onclick="window.vue.reportComment(` + elem.id + `); window.vue.toggleCommentOptions(document.getElementById('thread-options-` + elem.id + `'));" class="dropdown-item">
-                                    Report
+                                    ` + this.lang.report + `
                                 </a>
                             </div>
                         </div>
@@ -350,7 +361,7 @@ window.vue = new Vue({
                     <div ` + headerOverlay + `>
                         <div class="activity-user">
                             <center><div class="activity-user-avatar"><img src="` + window.location.origin + '/gfx/avatars/' + elem.user.avatar + `" class="is-pointer" onclick="location.href = '` + window.location.origin + '/user/' + elem.user.id + `';"></div>
-                                <div class="activity-user-name"><a href="` + window.location.origin + '/user/' + elem.user.slug + `">` + elem.user.name + `</a>` + ((elem.user.verified) ? '&nbsp;<i class="far fa-check-circle" title="Verified user"></i>' : '') + `</div></center>
+                                <div class="activity-user-name"><a href="` + window.location.origin + '/user/' + elem.user.slug + `">` + elem.user.name + `</a>` + ((elem.user.verified) ? '&nbsp;<i class="far fa-check-circle" title="' + this.lang.verifiedUser + '"></i>' : '') + `</div></center>
                         </div>
                     </div>
                 </div>
@@ -381,7 +392,7 @@ window.vue = new Vue({
                     </div>
 
                     <div class="activity-footer-view is-inline-block">
-                        <a class="button is-transparent-green"  onclick="location.href = '` + window.location.origin + '/activity/' + elem.id + `';">View</a>
+                        <a class="button is-transparent-green"  onclick="location.href = '` + window.location.origin + '/activity/' + elem.id + `';">` + this.lang.view + `</a>
                     </div>
                 </div>
             </div>`;
@@ -401,7 +412,7 @@ window.vue = new Vue({
 
                 <div class="messages-item-name">
                     <a href="` + window.location.origin + `/user/` + item.user.id + `">` + item.user.name + `</a>
-                    ` + ((item.user.verified) ? '&nbsp;<i class="far fa-check-circle" title="Verified user"></i>' : '') + `
+                    ` + ((item.user.verified) ? '&nbsp;<i class="far fa-check-circle" title="' + this.lang.verifiedUser + '"></i>' : '') + `
                 </div>
 
                 <div class="messages-item-subject">
@@ -460,7 +471,7 @@ window.vue = new Vue({
                         </div>
 
                         <div class="favorite-item-info">
-                            <div class="is-color-grey-dark"><a href="` + window.location.origin + '/user/' + elem.entityId + `">` + elem.name + `</a>` + ((elem.verified) ? '&nbsp;<i class="far fa-check-circle" title="Verified user"></i>' : '') + `</div>
+                            <div class="is-color-grey-dark"><a href="` + window.location.origin + '/user/' + elem.entityId + `">` + elem.name + `</a>` + ((elem.verified) ? '&nbsp;<i class="far fa-check-circle" title="' + this.lang.verifiedUser +' "></i>' : '') + `</div>
                             <div title="` + elem.created_at + `" class="is-color-grey-light">Added: ` + elem.diffForHumans + `</div>
                         </div>
                     </div>

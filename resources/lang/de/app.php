@@ -388,5 +388,10 @@ return [
     'message_list_phrase' => 'von',
     'email_changed' => 'E-Mail Adresse geändert',
     'password_changed' => 'Passwort geändert',
-    'mail_password_reset_subject' => 'Passwort zurücksetzen'
+    'mail_password_reset_subject' => 'Passwort zurücksetzen',
+    'copiedToClipboard' => 'Link in die Zwischenablage kopiert!',
+    'expandThread' => 'Antworten anzeigen',
+    'reply' => 'Antworten',
+    'view' => 'Ansehen',
+    'verifiedUser' => 'Identität verifiziert'
 ];
