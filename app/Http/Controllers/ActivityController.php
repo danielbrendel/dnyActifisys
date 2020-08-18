@@ -234,6 +234,7 @@ class ActivityController extends Controller
                 $item['participants'] = ParticipantModel::where('activity', '=', $item['id'])->where('type', '=', ParticipantModel::PARTICIPANT_ACTUAL)->count();
                 $item['messages'] = ThreadModel::where('activityId', '=', $item['id'])->count();
                 $item['date_of_activity'] = Carbon::createFromDate($item['date_of_activity']);
+                $item['date_of_activity_display'] = $item['date_of_activity']->format(__('app.date_format_display'));
                 $item['diffForHumans'] = $item['date_of_activity']->diffForHumans();
                 $item['date_of_activity'] = $item['date_of_activity']->format(__('app.date_format'));
 
@@ -343,6 +344,7 @@ class ActivityController extends Controller
 
                 $item['_type'] = 'activity';
                 $item['diffForHumans'] = Carbon::createFromDate($item['date_of_activity'])->diffForHumans();
+                $item['date_of_activity_display'] = Carbon::createFromDate($item['date_of_activity'])->format(__('app.date_format_display'));
                 $item['date_of_activity'] = date(__('app.date_format'), strtotime($item['date_of_activity']));
                 $item['participants'] = ParticipantModel::where('activity', '=', $item['id'])->where('type', '=', ParticipantModel::PARTICIPANT_ACTUAL)->count();
                 $item['messages'] = ThreadModel::where('activityId', '=', $item['id'])->count();

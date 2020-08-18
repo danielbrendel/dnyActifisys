@@ -397,5 +397,6 @@ return [
     'account_already_confirmed' => 'Das angegebene Konto wurde bereits aktiviert.',
     'register_confirm_resend' => 'Die Bestätigungs E-Mail wurde erneut gesendet. Bitte überprüfe dein Postfach. <a href=":link">Erneut senden</a>',
     'about_description' => 'Dieser Text wird unterhalb des Aktivitäten-Feeds für Gäste angezeigt.',
-    'reply_thread' => 'Antwort hinzufügen'
+    'reply_thread' => 'Antwort hinzufügen',
+    'date_format_display' => 'd.m.Y H:i',
 ];

@@ -389,7 +389,7 @@ window.vue = new Vue({
                 </div>
 
                 <div class="activity-infos is-default-padding">
-                    <center><span title="` + elem.date_of_activity + `"><i class="far fa-clock"></i>&nbsp;` + elem.diffForHumans + ` | </span>
+                    <center><span title="` + elem.date_of_activity + `"><i class="far fa-clock"></i>&nbsp;` + elem.date_of_activity_display + ` | </span>
                         <span class="is-capitalized"><i class="fas fa-map-marker-alt"></i>&nbsp;` + elem.location + `</span></center>
                 </div>
 

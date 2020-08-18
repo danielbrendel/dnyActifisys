@@ -172,7 +172,7 @@ class CategoryModel extends Model
     public static function fetch()
     {
         try {
-            return CategoryModel::where('inactive', '=', false)->get();
+            return CategoryModel::where('inactive', '=', false)->orderBy('name', 'asc')->get();
         } catch (\Exception $e) {
             throw $e;
         }
