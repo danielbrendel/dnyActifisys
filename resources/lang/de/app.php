@@ -64,7 +64,7 @@ return [
     'mail_password_reset_body' => 'Klicke auf den Link unten, um dein Passwort zurückzusetzen.',
     'mail_password_reset' => 'Zurücksetzen',
     'mail_registered_title' => 'Willkommen an Board!',
-    'mail_registered_body' => 'Wir freuen uns, dich als neues Mitglied begrüßen zu dürfen. Jetzt musst du nur noch deinen Account bestätigen. Dafür klicke einfach auf den Link unten.',
+    'mail_registered_body' => 'Es ist schön, dich als neues Mitglied begrüßen zu dürfen. Jetzt musst du nur noch deinen Account bestätigen. Dafür klicke einfach auf den Link unten.',
     'mail_registered_confirm' => 'Bestätigen',
     'activity_created' => 'Neue Aktivität wurde erstellt',
     'activity_not_found_or_locked' => 'Aktivit existiert nicht oder wurde gesperrt.',
@@ -92,7 +92,7 @@ return [
     'favorite_added' => 'Zu Favoriten hinzugefügt',
     'favorite_removed' => 'Von Favoriten entfernt',
     'product_installed' => 'Das Produkt wurde erfolgreich installiert. Bitte gehe nun zu den Profileinstellungen und ändere dein Passwort!',
-    'contact_success' => 'Deine Anfrage wurde aufgenommen. Wir melden uns bei dir so schnell wie möglich',
+    'contact_success' => 'Deine Anfrage wurde aufgenommen. Sie wird so schnell wie möglich bearbeitet.',
     'account_not_yet_confirmed' => 'Du musst erst deinen Account bestätigen',
     'account_deactivated' => 'Account deaktiviert',
     'login_welcome_msg' => 'Hi :name. Du wurdest erfolgreich angemeldet!',
@@ -102,7 +102,7 @@ return [
     'not_logged_in' => 'Du bist nicht eingeloggt',
     'pw_recovery_ok' => 'Eine Wiederherstellungs E-Mail wurde an dein Postfach verschickt. Bitte befolge die dortigen Anweisungen',
     'password_reset_ok' => 'Dein Passwort wurde aktualisiert. Du kannst dich jetzt mit dem neuen Passwort anmelden.',
-    'register_confirm_email' => 'Willkommen an Board! Bitte bestätige noch deinen Account. Dafür wurde dir eine E-Mail an dein angegebenes E-Mail Konto geschickt. Danach kannst du dich dann anmelden.',
+    'register_confirm_email' => 'Willkommen an Board! Bitte bestätige noch deinen Account. Dafür wurde dir eine E-Mail an dein angegebenes E-Mail Konto geschickt. Danach kannst du dich dann anmelden. <a href=":link">Erneut senden</a>',
     'register_confirmed_ok' => 'Dein Account wurde bestätigt. Du kannst dich jetzt einloggen.',
     'settings_saved' => 'Einstellungen erfolgreich gespeichert.',
     'faq_saved' => 'FAQ Eintrag gespeichert',
@@ -393,5 +393,7 @@ return [
     'expandThread' => 'Antworten anzeigen',
     'reply' => 'Antworten',
     'view' => 'Ansehen',
-    'verifiedUser' => 'Identität verifiziert'
+    'verifiedUser' => 'Identität verifiziert',
+    'account_already_confirmed' => 'Das angegebene Konto wurde bereits aktiviert.',
+    'register_confirm_resend' => 'Die Bestätigungs E-Mail wurde erneut gesendet. Bitte überprüfe dein Postfach. <a href=":link">Erneut senden</a>'
 ];

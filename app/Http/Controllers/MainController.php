@@ -253,9 +253,26 @@ class MainController extends Controller
         ]);
 
         try {
-            User::register($attr);
+            $userId = User::register($attr);
 
-            return back()->with('success', __('app.register_confirm_email'));
+            return back()->with('success', __('app.register_confirm_email', ['link' => url('/resend/' . $userId)]));
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Resend account confirmation e-mail
+     *
+     * @param $userId
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function resend($userId)
+    {
+        try {
+            User::resend($userId);
+
+            return back()->with('success', __('app.register_confirm_resend', ['link' => url('/resend/' . $userId)]));
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }

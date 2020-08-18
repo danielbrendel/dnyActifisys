@@ -137,6 +137,7 @@ class User extends Authenticatable
      * Perform registration
      *
      * @param $attr
+     * @return mixed
      * @throws Exception
      */
     public static function register($attr)
@@ -169,6 +170,33 @@ class User extends Authenticatable
 
             $user->slug = Str::slug(strval($user->id) . ' ' . $user->name, '-');
             $user->save();
+
+            $html = view('mail.registered', ['name' => $user->name, 'hash' => $user->account_confirm])->render();
+            MailerModel::sendMail($user->email, __('app.mail_subject_register'), $html);
+
+            return $user->id;
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Resend account confirmation e-mail
+     *
+     * @param $userId
+     * @throws Exception
+     */
+    public static function resend($userId)
+    {
+        try {
+            $user = User::get($userId);
+            if (!$user) {
+                throw new Exception(__('app.user_not_found'));
+            }
+
+            if ($user->account_confirm === '_confirmed') {
+                throw new Exception(__('app.account_already_confirmed'));
+            }
 
             $html = view('mail.registered', ['name' => $user->name, 'hash' => $user->account_confirm])->render();
             MailerModel::sendMail($user->email, __('app.mail_subject_register'), $html);

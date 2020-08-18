@@ -168,7 +168,7 @@
                             <button class="delete" aria-label="delete" onclick="document.getElementById('success-message').style.display = 'none';"></button>
                         </div>
                         <div class="message-body">
-                            {{ Session::get('success') }}
+                            {!! Session::get('success') !!}
                         </div>
                     </article>
                 </div>
