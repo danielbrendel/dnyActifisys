@@ -98,35 +98,35 @@
                             <div class="field">
                                 <label class="label">Project name</label>
                                 <div class="control">
-                                    <input type="text" name="project" placeholder="Name of your project" required>
+                                    <input type="text" name="project" placeholder="Name of your project" value="{{ old('project') }}" required>
                                 </div>
                             </div>
 
                             <div class="field">
                                 <label class="label">Your name</label>
                                 <div class="control">
-                                    <input type="text" name="name" placeholder="Your full name" required>
+                                    <input type="text" name="name" placeholder="Your full name" value="{{ old('name') }}" required>
                                 </div>
                             </div>
 
                             <div class="field">
                                 <label class="label">E-Mail address</label>
                                 <div class="control">
-                                    <input type="text" name="email" placeholder="name@domain.tld" required>
+                                    <input type="text" name="email" placeholder="name@domain.tld" value="{{ old('email') }}" required>
                                 </div>
                             </div>
 
                             <div class="field">
                                 <label class="label">Database name</label>
                                 <div class="control">
-                                    <input type="text" name="database" value="actifisys" required>
+                                    <input type="text" name="database" value="{{ old('database', 'actifisys') }}" required>
                                 </div>
                             </div>
 
                             <div class="field">
                                 <label class="label">Database user</label>
                                 <div class="control">
-                                    <input type="text" name="dbuser" value="root" required>
+                                    <input type="text" name="dbuser" value="{{ old('dbuser', 'root') }}" required>
                                 </div>
                             </div>
 
@@ -140,28 +140,28 @@
                             <div class="field">
                                 <label class="label">Database host</label>
                                 <div class="control">
-                                    <input type="text" name="dbhost" value="127.0.0.1" required>
+                                    <input type="text" name="dbhost" value="{{ old('dbhost', '127.0.0.1') }}" required>
                                 </div>
                             </div>
 
                             <div class="field">
                                 <label class="label">Database port</label>
                                 <div class="control">
-                                    <input type="text" name="dbport" value="3306" required>
+                                    <input type="text" name="dbport" value="{{ old('dbport', '3306') }}" required>
                                 </div>
                             </div>
 
                             <div class="field">
                                 <label class="label">SMTP Host</label>
                                 <div class="control">
-                                    <input type="text" name="smtphost" value="127.0.0.1" required>
+                                    <input type="text" name="smtphost" value="{{ old('smtphost', '127.0.0.1') }}" required>
                                 </div>
                             </div>
 
                             <div class="field">
                                 <label class="label">SMTP User</label>
                                 <div class="control">
-                                    <input type="text" name="smtpuser" required>
+                                    <input type="text" name="smtpuser" value="{{ old('smtpuser') }}" required>
                                 </div>
                             </div>
 
@@ -175,7 +175,7 @@
                             <div class="field">
                                 <label class="label">SMTP From-Address</label>
                                 <div class="control">
-                                    <input type="email" name="smtpfromaddress" required>
+                                    <input type="email" name="smtpfromaddress" value="{{ old('smtpfromaddress') }}" required>
                                 </div>
                             </div>
 
