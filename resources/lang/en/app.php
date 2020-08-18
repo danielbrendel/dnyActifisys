@@ -396,5 +396,6 @@ return [
     'verifiedUser' => 'Verified user',
     'account_already_confirmed' => 'Account already confirmed',
     'register_confirm_resend' => 'The confirmation e-mail has been resent to your inbox. Please check again. <a href=":link">Resend again</a>',
-    'about_description' => 'This text will be shown for guests below the activity feed.'
+    'about_description' => 'This text will be shown for guests below the activity feed.',
+    'reply_thread' => 'Reply to post'
 ];

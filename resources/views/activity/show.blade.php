@@ -483,11 +483,17 @@
             document.getElementById('loading').style.display = 'block';
             document.getElementById('loadmore').style.display = 'none';
 
+            @auth
+                window.isAuth = true;
+            @elseguest
+                window.isAuth = false;
+            @endauth
+
             window.vue.ajaxRequest('get', '{{ url('/activity/' . $activity->id . '/thread') }}' + ((window.paginate !== null) ? '?paginate=' + window.paginate : ''), {}, function(response){
                 if (response.code == 200) {
                     if (response.data.length > 0) {
                         response.data.forEach(function (elem, index) {
-                            let insertHtml = window.vue.renderThread(elem, elem.adminOrOwner);
+                            let insertHtml = window.vue.renderThread(elem, elem.adminOrOwner, false, 0, window.isAuth);
                             document.getElementById('thread').innerHTML += insertHtml;
                         });
 

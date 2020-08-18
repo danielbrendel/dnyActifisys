@@ -251,7 +251,7 @@ window.vue = new Vue({
             alert(this.lang.copiedToClipboard);
         },
 
-        renderThread: function(elem, adminOrOwner = false, isSubComment = false, parentId = 0) {
+        renderThread: function(elem, adminOrOwner = false, isSubComment = false, parentId = 0, isAuth = false) {
             let options = '';
 
             if (adminOrOwner) {
@@ -266,12 +266,41 @@ window.vue = new Vue({
         `;
             }
 
+            if (isAuth) {
+                options += `
+                <a href="javascript:void(0)" onclick="window.vue.reportComment(` + elem.id + `); window.vue.toggleCommentOptions(document.getElementById('thread-options-` + elem.id + `'));" class="dropdown-item">
+                    ` + this.lang.report + `
+                </a>
+                `;
+            }
+
+            let threadOptions = '';
+            if (options.length > 0) {
+                threadOptions = `
+                    <div class="thread-header-options is-inline-block">
+                        <div class="dropdown is-right" id="thread-options-` + elem.id + `">
+                            <div class="dropdown-trigger" onclick="window.vue.toggleCommentOptions(document.getElementById('thread-options-` + elem.id + `'));">
+                                <i class="fas fa-ellipsis-v is-pointer"></i>
+                            </div>
+                            <div class="dropdown-menu" role="menu">
+                                <div class="dropdown-content">
+                                    ` + options + `
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
             let expandThread = '';
             if (elem.subCount > 0) {
                 expandThread = `<div class="thread-footer-subthread is-inline-block is-centered"><a class="is-color-grey" href="javascript:void(0)" onclick="window.vue.fetchSubThreadPosts(` + elem.id + `)">` + this.lang.expandThread + `</a></div>`;
             }
 
-            let replyThread = `<div class="is-inline-block float-right"><a class="is-color-grey" href="javascript:void(0)" onclick="document.getElementById('thread-reply-parent').value = '` + ((isSubComment) ? parentId : elem.id) + `'; document.getElementById('thread-reply-textarea').value = '` + elem.user.name + `: '; window.vue.bShowReplyThread = true;">` + this.lang.reply + `</a></div>`;
+            let replyThread = '';
+            if (isAuth) {
+                replyThread = `<div class="is-inline-block float-right"><a class="is-color-grey" href="javascript:void(0)" onclick="document.getElementById('thread-reply-parent').value = '` + ((isSubComment) ? parentId : elem.id) + `'; document.getElementById('thread-reply-textarea').value = '` + elem.user.name + `: '; window.vue.bShowReplyThread = true;">` + this.lang.reply + `</a></div>`;
+            }
 
             let html = `
         <div id="thread-` + elem.id + `" class="thread-elem ` + ((isSubComment) ? 'is-sub-comment': '') + `">
@@ -287,22 +316,7 @@ window.vue = new Vue({
                     <div title="` + elem.created_at + `">` + elem.diffForHumans + `</div>
                 </div>
 
-                <div class="thread-header-options is-inline-block">
-                    <div class="dropdown is-right" id="thread-options-` + elem.id + `">
-                        <div class="dropdown-trigger" onclick="window.vue.toggleCommentOptions(document.getElementById('thread-options-` + elem.id + `'));">
-                            <i class="fas fa-ellipsis-v is-pointer"></i>
-                        </div>
-                        <div class="dropdown-menu" role="menu">
-                            <div class="dropdown-content">
-                                ` + options + `
-
-                                <a href="javascript:void(0)" onclick="window.vue.reportComment(` + elem.id + `); window.vue.toggleCommentOptions(document.getElementById('thread-options-` + elem.id + `'));" class="dropdown-item">
-                                    ` + this.lang.report + `
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                ` + threadOptions + `
             </div>
 
             <div class="thread-text" id="thread-text-` + elem.id + `">

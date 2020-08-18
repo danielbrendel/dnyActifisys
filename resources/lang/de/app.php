@@ -30,7 +30,7 @@ return [
     'register_password' => 'Passwort',
     'register_password_confirmation' => 'Passwort Bestätigung',
     'messages' => 'Nachrichten',
-    'notifications' => 'Notifikation',
+    'notifications' => 'Benachrichtigungen',
     'create_activity' => 'Aktivität erstellen',
     'logout' => 'Logout',
     'settings' => 'Einstellungen',
@@ -396,5 +396,6 @@ return [
     'verifiedUser' => 'Identität verifiziert',
     'account_already_confirmed' => 'Das angegebene Konto wurde bereits aktiviert.',
     'register_confirm_resend' => 'Die Bestätigungs E-Mail wurde erneut gesendet. Bitte überprüfe dein Postfach. <a href=":link">Erneut senden</a>',
-    'about_description' => 'Dieser Text wird unterhalb des Aktivitäten-Feeds für Gäste angezeigt.'
+    'about_description' => 'Dieser Text wird unterhalb des Aktivitäten-Feeds für Gäste angezeigt.',
+    'reply_thread' => 'Antwort hinzufügen'
 ];
