@@ -395,5 +395,6 @@ return [
     'view' => 'Ansehen',
     'verifiedUser' => 'Identität verifiziert',
     'account_already_confirmed' => 'Das angegebene Konto wurde bereits aktiviert.',
-    'register_confirm_resend' => 'Die Bestätigungs E-Mail wurde erneut gesendet. Bitte überprüfe dein Postfach. <a href=":link">Erneut senden</a>'
+    'register_confirm_resend' => 'Die Bestätigungs E-Mail wurde erneut gesendet. Bitte überprüfe dein Postfach. <a href=":link">Erneut senden</a>',
+    'about_description' => 'Dieser Text wird unterhalb des Aktivitäten-Feeds für Gäste angezeigt.'
 ];

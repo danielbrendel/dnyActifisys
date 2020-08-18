@@ -181,7 +181,7 @@ textarea {
 }
 
 .about {
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.75);
   width: 100%;
   min-height: 200px;
   margin-bottom: 12px;
@@ -408,6 +408,10 @@ h2 {
 .fas,
 .far {
   color: #e1e1e1;
+}
+
+.dropdown-content i {
+  color: #282828;
 }
 
 .p-2 {
