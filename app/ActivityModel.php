@@ -114,6 +114,7 @@ class ActivityModel extends Model
             $item->limit = $attr['limit'];
             $item->only_gender = $attr['only_gender'];
             $item->only_verified = $attr['only_verified'];
+            $item->slug = '';
             $item->save();
 
             $item->slug = Str::slug(strval($item->id) . ' ' . $item->title, '-');

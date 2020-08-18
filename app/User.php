@@ -166,6 +166,7 @@ class User extends Authenticatable
             $user->email = $attr['email'];
             $user->avatar = 'default.png';
             $user->account_confirm = md5($attr['email'] . $attr['name'] . random_bytes(55));
+            $user->slug = '';
             $user->save();
 
             $user->slug = Str::slug(strval($user->id) . ' ' . $user->name, '-');
