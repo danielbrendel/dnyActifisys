@@ -20,11 +20,11 @@
     <div class="column is-1"></div>
 
     <div class="column is-10 is-default-padding is-def-padding-mobile is-def-color">
-        <div class="is-inline-block">
+        <div class="is-inline-block is-default-side-padding-mobile">
             <h2>{{ __('app.view_activities') }}</h2>
         </div>
 
-        <div class="activity-filter">
+        <div class="activity-filter is-default-side-padding-mobile">
             <div class="activity-filter-toggle is-def-color" id="activity-filter-action">
                 <a href="javascript:void(0);" onclick="document.getElementById('activity-filter-options').classList.toggle('is-hidden'); document.getElementById('activity-filter-action').classList.add('is-hidden'); document.getElementById('activity-divider').classList.toggle('activity-filter-margin');">{{ __('app.filter_options') }}</a>&nbsp;<i class="fas fa-chevron-down"></i>
             </div>

@@ -365,6 +365,13 @@ a.navbar-item:hover {
   padding-right: 21px;
 }
 
+@media screen and (max-width: 367px) {
+  .is-default-side-padding-mobile {
+    padding-left: 21px;
+    padding-right: 21px;
+  }
+}
+
 h2 {
   color: #f0f0f0;
 }
@@ -428,6 +435,12 @@ h2 {
 
 #loadmore {
   margin-top: 25px;
+}
+
+@media screen and (min-width: 366px) and (max-width: 767px) {
+  #loadmore {
+    margin-top: 50px;
+  }
 }
 
 .frame {
@@ -644,7 +657,6 @@ h2 {
 
 @media screen and (max-width: 365px) {
   .activity {
-    left: -15px;
     width: 104%;
     margin-bottom: 25px;
   }
@@ -718,6 +730,20 @@ h2 {
   left: 15px;
 }
 
+@media screen and (max-width: 480px) {
+  .activity-ad {
+    left: -2px;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 365px) {
+  .activity-ad {
+    width: 104%;
+    margin-bottom: 25px;
+  }
+}
+
 .activity-filter {
   top: 23px;
 }
@@ -728,8 +754,10 @@ h2 {
   }
 }
 
-.activity-filter-margin {
-  margin-top: 224px;
+@media screen and (min-width: 768px) {
+  .activity-filter-margin {
+    margin-top: 224px;
+  }
 }
 
 .activity-footer-stats {
