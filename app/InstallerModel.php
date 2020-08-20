@@ -70,7 +70,7 @@ class InstallerModel extends Model
             $envcontent .= 'GA_TOKEN=null' . PHP_EOL;
 			$envcontent .= 'TWITTER_NEWS=null' . PHP_EOL;
 			$envcontent .= 'HELPREALM_WORKSPACE=null' . PHP_EOL;
-			$envcontent .= 'HELPREALM_TOKEN=null' . PHP_EOL;
+			$envcontent .= 'HELPREALM_TOKEN=' . PHP_EOL;
 			$envcontent .= 'HELPREALM_TICKETTYPEID=' . PHP_EOL;
             $envcontent .= 'BROADCAST_DRIVER=log' . PHP_EOL;
             $envcontent .= 'CACHE_DRIVER=file' . PHP_EOL;
