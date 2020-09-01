@@ -401,4 +401,5 @@ return [
     'date_format_display' => 'd.m.Y H:i',
     'load_older_posts' => 'Ältere Posts laden',
     'imprint_description' => 'Hier kannst du den Inhalt des Impressums festlegen',
+    'tos_description' => 'Hier kannst du den Inhalt der Nutzungsbedingungen festlegen',
 ];
