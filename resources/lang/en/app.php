@@ -402,4 +402,5 @@ return [
     'load_older_posts' => 'Load older posts',
     'imprint_description' => 'Define the imprint content here',
     'tos_description' => 'Define your terms of service here',
+    'reg_info_description' => 'This formatted text will be shown on the registration form'
 ];

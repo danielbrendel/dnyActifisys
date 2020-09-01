@@ -402,4 +402,5 @@ return [
     'load_older_posts' => 'Ältere Posts laden',
     'imprint_description' => 'Hier kannst du den Inhalt des Impressums festlegen',
     'tos_description' => 'Hier kannst du den Inhalt der Nutzungsbedingungen festlegen',
+    'reg_info_description' => 'Dieser formatierte Text wird im Registrierungsformular angezeigt'
 ];
