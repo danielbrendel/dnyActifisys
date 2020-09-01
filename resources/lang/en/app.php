@@ -399,5 +399,6 @@ return [
     'about_description' => 'This text will be shown for guests below the activity feed.',
     'reply_thread' => 'Reply to post',
     'date_format_display' => 'Y-m-d H:i',
-    'load_older_posts' => 'Load older posts'
+    'load_older_posts' => 'Load older posts',
+    'imprint_description' => 'Define the imprint content here',
 ];

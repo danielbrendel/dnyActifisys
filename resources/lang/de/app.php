@@ -399,5 +399,6 @@ return [
     'about_description' => 'Dieser Text wird unterhalb des Aktivitäten-Feeds für Gäste angezeigt.',
     'reply_thread' => 'Antwort hinzufügen',
     'date_format_display' => 'd.m.Y H:i',
-    'load_older_posts' => 'Ältere Posts laden'
+    'load_older_posts' => 'Ältere Posts laden',
+    'imprint_description' => 'Hier kannst du den Inhalt des Impressums festlegen',
 ];
