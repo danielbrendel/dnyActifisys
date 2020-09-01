@@ -26,7 +26,7 @@
 
         <div class="activity-filter is-default-side-padding-mobile">
             <div class="activity-filter-toggle is-def-color" id="activity-filter-action">
-                <a href="javascript:void(0);" onclick="document.getElementById('activity-filter-options').classList.toggle('is-hidden'); document.getElementById('activity-filter-action').classList.add('is-hidden'); document.getElementById('activity-divider').classList.toggle('activity-filter-margin');">{{ __('app.filter_options') }}</a>&nbsp;<i class="fas fa-chevron-down"></i>
+                <a href="javascript:void(0);" onclick="document.getElementById('activity-filter-options').classList.toggle('is-hidden'); document.getElementById('activity-filter-action').classList.add('is-hidden'); document.getElementById('activity-divider').classList.toggle('activity-filter-margin');">{{ __('app.filter_options') }}</a>&nbsp;<span onclick="document.getElementById('activity-filter-options').classList.toggle('is-hidden'); document.getElementById('activity-filter-action').classList.add('is-hidden'); document.getElementById('activity-divider').classList.toggle('activity-filter-margin');"><i class="fas fa-chevron-down is-pointer"></i></span>
             </div>
 
             <div class="is-inline-block is-hidden" id="activity-filter-options">
