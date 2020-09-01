@@ -401,4 +401,5 @@ return [
     'date_format_display' => 'Y-m-d H:i',
     'load_older_posts' => 'Load older posts',
     'imprint_description' => 'Define the imprint content here',
+    'tos_description' => 'Define your terms of service here',
 ];
