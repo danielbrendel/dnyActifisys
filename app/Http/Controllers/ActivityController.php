@@ -280,7 +280,11 @@ class ActivityController extends Controller
                 throw new Exception(__('app.activity_verified_only'));
             }
 
-            $threads = ThreadModel::getFromActivity($id, $paginate)->toArray();
+            $threads = ThreadModel::getFromActivity($id, $paginate);
+            if ($paginate !== null) {
+                $threads = $threads->sortByDesc('id');
+            }
+            $threads = $threads->toArray();
             foreach ($threads as &$thread) {
                 $thread['user'] = User::get($thread['userId']);
                 $thread['user']->verified = VerifyModel::getState($thread['user']->id) === VerifyModel::STATE_VERIFIED;

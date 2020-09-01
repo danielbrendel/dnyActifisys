@@ -118,18 +118,34 @@ class ThreadModel extends Model
      * Get thread posts from activity
      * @param $id
      * @param null $paginate
+     * @param bool $special
      * @return mixed
      * @throws \Exception
      */
-    public static function getFromActivity($id, $paginate = null)
+    public static function getFromActivity($id, $paginate = null, $special = false)
     {
         try {
             $threads = ThreadModel::where('activityId', '=', $id)->where('locked', '=', false)->where('parentId', '=', 0);
             if ($paginate !== null) {
-                $threads->where('id', '<', $paginate);
+                $initialPaginate = $paginate;
+
+                if ($special === false) {
+                    for ($i = 0; $i < env('APP_THREADPACKLIMIT'); $i++) {
+                        $coll = static::getFromActivity($id, $paginate, true);
+                        $paginate = (count($coll) > 0) ? $coll[count($coll)-1]->id : 0;
+                    }
+                }
+
+                if ($special) {
+                    $threads->where('id', '<', $paginate)->orderBy('id', 'desc');
+                } else {
+                    $threads->where('id', '>=', $paginate)->where('id', '<', $initialPaginate)->orderBy('id', 'asc');
+                }
+            } else {
+                $threads->orderBy('id', 'desc');
             }
 
-            return $threads->orderBy('id', 'desc')->limit(env('APP_THREADPACKLIMIT'))->get();
+            return $threads->limit((($special) ? 1 : env('APP_THREADPACKLIMIT')))->get();
         } catch (\Exception $e) {
             throw $e;
         }

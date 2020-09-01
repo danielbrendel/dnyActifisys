@@ -254,9 +254,9 @@
 
                 <div>
                     <a name="thread"></a>
-                    <div id="thread"></div>
                     <div id="loading" style="display: none;"><center><i class="fas fa-spinner fa-spin"></i></center></div>
-                    <div id="loadmore" style="display: none;"><center><i class="fas fa-arrow-down is-pointer" onclick="fetchThread()"></i></center></div>
+                    <div id="loadmore" style="display: none;"><center><a class="is-color-grey is-underlined2" href="javascript:void(0);" onclick="fetchThread()">{{ __('app.load_older_posts') }}</a></center></div>
+                    <div id="thread"></div>
                 </div>
             </div>
         </div>
@@ -494,7 +494,7 @@
                     if (response.data.length > 0) {
                         response.data.forEach(function (elem, index) {
                             let insertHtml = window.vue.renderThread(elem, elem.adminOrOwner, false, 0, window.isAuth);
-                            document.getElementById('thread').innerHTML += insertHtml;
+                            document.getElementById('thread').innerHTML = insertHtml + document.getElementById('thread').innerHTML;
                         });
 
                         window.paginate = response.data[response.data.length - 1].id;
@@ -510,7 +510,7 @@
                             document.getElementById('loading').innerHTML = '<br/><br/><center><i class="is-color-grey">{{ __('app.no_comments_yet')  }}</i></center>';
                         } else {
                             if (document.getElementById('no-more-comments') == null) {
-                                document.getElementById('thread').innerHTML += '<div id="no-more-comments"><br/><br/><center><i class="is-color-grey">{{ __('app.no_more_comments') }}</i></center><br/></div>';
+                                document.getElementById('thread').innerHTML = '<div id="no-more-comments"><br/><br/><center><i class="is-color-grey">{{ __('app.no_more_comments') }}</i></center><br/></div>' + document.getElementById('thread').innerHTML;
                                 document.getElementById('loading').style.display = 'none';
                             }
                         }

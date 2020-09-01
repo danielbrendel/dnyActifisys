@@ -1309,6 +1309,10 @@ h2 {
   border-bottom: 1px solid #ccc;
 }
 
+.is-underlined2 {
+  text-decoration: underline;
+}
+
 .is-rounded-image {
   border-radius: 50%;
 }
