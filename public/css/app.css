@@ -651,7 +651,7 @@ h2 {
 
 @media screen and (max-width: 480px) {
   .activity {
-    left: -15px;
+    left: -13px;
     width: 100%;
   }
 }
