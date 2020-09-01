@@ -120,7 +120,7 @@ class InstallerModel extends Model
             $user->admin = true;
             $user->account_confirm = '_confirmed';
             $user->avatar = 'default.png';
-            $user->bio = 'Project administrator';
+            $user->bio = 'Project maintainer and administrator';
             $user->gender = 0;
             $user->birthday = date('Y-m-d H:i:s');
             $user->email_on_message = true;
