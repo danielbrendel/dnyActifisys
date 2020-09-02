@@ -230,9 +230,15 @@ class MemberController extends Controller
                 'name' => 'required|min:3|max:55',
                 'birthday' => 'required|date',
                 'gender' => 'required|numeric',
-                'location' => 'required',
-                'bio' => 'required'
+                'location' => 'nullable',
+                'bio' => 'nullable'
             ]);
+			
+			if (!isset($attr['location'])) {
+				$attr['location'] = '';
+			}
+			
+			
 
             User::saveSettings($attr);
 
