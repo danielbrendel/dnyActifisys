@@ -238,7 +238,9 @@ class MemberController extends Controller
 				$attr['location'] = '';
 			}
 			
-			
+			if (!isset($attr['bio'])) {
+				$attr['bio'] = '';
+			}
 
             User::saveSettings($attr);
 
