@@ -14,7 +14,6 @@
 <html lang="{{ str_replace('_', '-', App::getLocale()) }}">
     <head>
         @if (env('GA_TOKEN'))
-            <!-- Global site tag (gtag.js) - Google Analytics -->
             <script async src="https://www.googletagmanager.com/gtag/js?id={{ env('GA_TOKEN') }}"></script>
             <script>
                 window.dataLayer = window.dataLayer || [];
