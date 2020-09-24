@@ -155,6 +155,24 @@
                             document.getElementById('loadmore').classList.remove('is-hidden');
                         });
 
+                        let tagElems = [];
+                        let adsNodes = document.getElementsByClassName('activity-ad');
+                        if (adsNodes.length > 0) {
+                            let childNodes = adsNodes[adsNodes.length - 1].childNodes;
+                            for (let i = 0; i < childNodes.length; i++) {
+                                if (childNodes[i].tagName = 'script') {
+                                    let scriptTag = document.createElement('script');
+                                    let tagCode = document.createTextNode(childNodes[i].innerHTML);
+                                    scriptTag.appendChild(tagCode);
+                                    tagElems.push(scriptTag);
+                                }
+                            }
+
+                            for (let i = 0; i < tagElems.length; i++) {
+                                adsNodes[adsNodes.length - 1].appendChild(tagElems[i]);
+                            }
+                        }
+
                         window.paginate = response.data[response.data.length - window.lastActivityId].date_of_activity;
                     } else {
                         if (response.last) {
