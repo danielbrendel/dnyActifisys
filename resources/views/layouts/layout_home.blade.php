@@ -33,7 +33,7 @@
         <meta name="description" content="{{ env('APP_DESCRIPTION') }}">
         <meta name="tags" content="{{ env('APP_TAGS') }}">
 
-        <link rel="shortcut icon" href="{{ asset('favicon.png') }}">
+        <link rel="icon" type="image/png" href="{{ asset('logo.png') }}">
 
         <link rel="stylesheet" type="text/css" href="{{ asset('css/bulma.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('css/metro-all.min.css') }}">
