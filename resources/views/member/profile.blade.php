@@ -152,7 +152,7 @@
 
                        document.getElementById('activity-count').innerHTML = response.data.length + '/' + document.getElementById('activity-count').innerHTML;
                    } else {
-                       document.getElementById('active-activities').innerHTML = '<center><i>{{ __('app.no_more_activities') }}</i></center>';
+                       document.getElementById('active-activities').innerHTML = '<center><i class="is-def-color">{{ __('app.no_more_activities') }}</i></center>';
                    }
                }
             });
