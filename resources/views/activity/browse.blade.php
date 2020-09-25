@@ -160,13 +160,15 @@
                         if (adsNodes.length > 0) {
                             let childNodes = adsNodes[adsNodes.length - 1].childNodes;
                             for (let i = 0; i < childNodes.length; i++) {
-                                if (childNodes[i].tagName = 'script') {
-                                    let scriptTag = document.createElement('script');
+                                if (typeof childNodes[i].tagName !== 'undefined') {
+                                    let childTag = document.createElement(childNodes[i].tagName);
                                     let tagCode = document.createTextNode(childNodes[i].innerHTML);
-                                    scriptTag.appendChild(tagCode);
-                                    tagElems.push(scriptTag);
+                                    childTag.appendChild(tagCode);
+                                    tagElems.push(childTag);
                                 }
                             }
+
+                            adsNodes[adsNodes.length - 1].innerHTML = '';
 
                             for (let i = 0; i < tagElems.length; i++) {
                                 adsNodes[adsNodes.length - 1].appendChild(tagElems[i]);
