@@ -40,7 +40,7 @@
                     </div>
 
                     <div class="activity-info">
-                        <div>&nbsp;<i class="far fa-clock"></i>&nbsp;<span title="{{ $activity->date_of_activity->diffForHumans()  }}">{{ $activity->date_of_activity }}</span></div>
+                        <div>&nbsp;<i class="far fa-clock"></i>&nbsp;<span title="{{ $activity->date_of_activity->diffForHumans()  }}">{{ $activity->date_of_activity_display }}</span></div>
                         <div class="is-capitalized">&nbsp;<i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;{{ $activity->location }}</div>
                         <div class="is-capitalized"><i class="fas fa-users"></i>&nbsp;{{ (($activity->limit === 0) ? __('app.no_limit') : __('app.limit_count', ['count' => $activity->limit])) }}</div>
                         <div><i class="fas fa-th-list"></i>&nbsp;@if ($activity->category === 0) {{ __('app.category_zero') }} @else {{ $activity->categoryData->name }} @endif</div>

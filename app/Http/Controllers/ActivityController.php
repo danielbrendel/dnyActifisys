@@ -157,6 +157,7 @@ class ActivityController extends Controller
             $activity->selfInterested = ParticipantModel::has(auth()->id(), $activity->id, ParticipantModel::PARTICIPANT_POTENTIAL);
             $activity->images = ActivitiesHaveImages::getForActivity($activity->id);
             $activity->categoryData = CategoryModel::where('id', '=', $activity->category)->first();
+			$activity->date_of_activity_display = $activity->date_of_activity->format(__('app.date_format_display'));
 
             foreach ($activity->actualParticipants as &$item) {
                 $item->user = User::get($item->participant);
