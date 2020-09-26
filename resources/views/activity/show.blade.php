@@ -47,7 +47,6 @@
                         @if ($activity->only_gender !== 0)
                             <div>
                                 <i class="fas fa-ban"></i>&nbsp;{{ __('app.gender_restricted') }}
-                                &nbsp;
                                 (
                                     @if ($activity->only_gender === 1)
                                         {{ __('app.gender_male') }}
