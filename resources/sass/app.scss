@@ -649,6 +649,12 @@ h2 {
         width: 100%;
     }
 }
+.is-mobile-refresh {
+    float: right;
+    @media screen and (min-width: 768px) {
+        display: none;
+    }
+}
 
 //Thread
 .thread-input-avatar {

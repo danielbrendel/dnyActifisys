@@ -797,6 +797,16 @@ h2 {
   }
 }
 
+.is-mobile-refresh {
+  float: right;
+}
+
+@media screen and (min-width: 768px) {
+  .is-mobile-refresh {
+    display: none;
+  }
+}
+
 .thread-input-avatar {
   width: 48px;
   height: 48px;
