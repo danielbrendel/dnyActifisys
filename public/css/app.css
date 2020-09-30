@@ -807,6 +807,12 @@ h2 {
   }
 }
 
+@media screen and (min-width: 1089px) {
+  .is-mobile-refresh2 {
+    display: none;
+  }
+}
+
 .thread-input-avatar {
   width: 48px;
   height: 48px;

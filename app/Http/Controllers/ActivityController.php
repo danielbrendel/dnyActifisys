@@ -175,6 +175,29 @@ class ActivityController extends Controller
             return back()->with('error', $e->getMessage());
         }
     }
+	
+	/**
+     * Refresh activity page
+     *
+	 * @param $slugOrId
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+	public function refresh($slugOrId)
+	{
+		try {
+			$activity = ActivityModel::getActivityBySlug($slugOrId);
+            if (!$activity) {
+                $activity = ActivityModel::getActivity($slugOrId);
+                if ((!$activity) || ($activity->locked)) {
+                    throw new Exception(__('app.activity_not_found_or_locked'));
+                }
+            }
+			
+			return redirect('/activity/' . $activity->slug . '#title');
+		} catch (Exception $e) {
+			return back()->with('error', $e->getMessage());
+		}
+	}
 
     /**
      * Fetch activity package

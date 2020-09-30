@@ -138,7 +138,9 @@
             <div class="column is-7">
                 <div class="activity-title">
                     <div class="activity-headline is-inline-block is-breakall @if ($activity->canceled) is-striked @endif">
+                        <a name="title"></a>
                         {{ $activity->title }}
+                        <a href="javascript:void(0);" onclick="location.href = '{{ url('/activity/' . $activity->slug . '/refresh') }}';" class="is-mobile-refresh2"><i class="fas fa-sync-alt"></i></a>
                     </div>
 
                     <div class="activity-options is-inline-block">

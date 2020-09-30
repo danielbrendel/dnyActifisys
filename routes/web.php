@@ -34,6 +34,7 @@ Route::post('/activity/create', 'ActivityController@create');
 Route::post('/activity/edit', 'ActivityController@edit');
 Route::get('/activity/fetch', 'ActivityController@fetch');
 Route::get('/activity/{slugOrId}', 'ActivityController@show');
+Route::get('/activity/{slugOrId}/refresh', 'ActivityController@refresh');
 Route::get('/activity/{id}/thread', 'ActivityController@fetchThread');
 Route::post('/activity/{id}/thread/add', 'ActivityController@addThread');
 Route::post('/thread/{parentId}/reply', 'ActivityController@replyThread');
