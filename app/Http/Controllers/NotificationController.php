@@ -30,6 +30,9 @@ class NotificationController extends Controller
             $markSeen = (bool)request('mark', false);
 
             $notifications = PushModel::getUnseenNotifications(auth()->id(), $markSeen);
+            foreach ($notifications as &$notification) {
+                $notification->diffForHumans = $notification->created_at->diffForHumans();
+            }
 
             return response()->json(array('code' => 200, 'data' => $notifications));
         } catch (\Exception $e) {
