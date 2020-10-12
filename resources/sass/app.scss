@@ -951,6 +951,18 @@ h2 {
     position: relative;
     top: -2px;
 }
+#burger-notification {
+    position: absolute;
+    background-color: rgb(255, 0, 0) !important;
+    border: 1px solid rgb(255, 0, 0);
+    border-radius: 50%;
+    width: 6px;
+    height: 6px;
+    z-index: 4;
+    top: 17px;
+    left: 30px;
+    display: none;
+}
 
 //Favorites area
 .favorites {

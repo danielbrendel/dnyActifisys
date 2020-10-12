@@ -1180,6 +1180,19 @@ h2 {
   top: -2px;
 }
 
+#burger-notification {
+  position: absolute;
+  background-color: red !important;
+  border: 1px solid red;
+  border-radius: 50%;
+  width: 6px;
+  height: 6px;
+  z-index: 4;
+  top: 17px;
+  left: 30px;
+  display: none;
+}
+
 .favorites {
   position: absolute;
   top: -203px;
