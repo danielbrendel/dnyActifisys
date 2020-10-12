@@ -39,6 +39,8 @@ class MaintainerController extends Controller
      */
     public function __construct()
     {
+        parent::__construct();
+
         $this->middleware(function ($request, $next) {
             $user = User::get(auth()->id());
             if ((!$user) || (!$user->maintainer)) {

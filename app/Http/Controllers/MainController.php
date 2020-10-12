@@ -30,6 +30,8 @@ class MainController extends Controller
      */
     public function __construct()
     {
+        parent::__construct();
+
         $this->cookie_consent = AppModel::getCookieConsentText();
     }
 
