@@ -30,7 +30,7 @@
                             </div>
 
                             <div class="activity-avatar is-inline-block">
-                                <img src="{{ asset('gfx/avatars/' . $activity->user->avatar) }}" alt="avatar">
+                                <a href="{{ asset('gfx/avatars/' . $activity->user->avatar) }}" target="_blank"><img src="{{ asset('gfx/avatars/' . $activity->user->avatar) }}" alt="avatar"></a>
                             </div>
                         </div>
 

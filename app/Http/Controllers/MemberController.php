@@ -252,7 +252,7 @@ class MemberController extends Controller
 
                 list($width, $height) = getimagesize(base_path() . '/public/gfx/avatars/' . $tmpName . '.' . $av->getClientOriginalExtension());
 
-                $avimg = imagecreatetruecolor(64, 64);
+                $avimg = imagecreatetruecolor(192, 192);
                 if (!$avimg)
                     throw new \Exception('imagecreatetruecolor() failed');
 
@@ -261,12 +261,12 @@ class MemberController extends Controller
                 switch (AppModel::getImageType(base_path() . '/public/gfx/avatars/' . $tmpName . '.' . $av->getClientOriginalExtension())) {
                     case IMAGETYPE_PNG:
                         $srcimage = imagecreatefrompng(base_path() . '/public/gfx/avatars/' . $tmpName . '.' . $av->getClientOriginalExtension());
-                        imagecopyresampled($avimg, $srcimage, 0, 0, 0, 0, 64, 64, $width, $height);
+                        imagecopyresampled($avimg, $srcimage, 0, 0, 0, 0, 192, 192, $width, $height);
                         imagepng($avimg, base_path() . '/public/gfx/avatars/' . $newname);
                         break;
                     case IMAGETYPE_JPEG:
                         $srcimage = imagecreatefromjpeg(base_path() . '/public/gfx/avatars/' . $tmpName . '.' . $av->getClientOriginalExtension());
-                        imagecopyresampled($avimg, $srcimage, 0, 0, 0, 0, 64, 64, $width, $height);
+                        imagecopyresampled($avimg, $srcimage, 0, 0, 0, 0, 192, 192, $width, $height);
                         imagejpeg($avimg, base_path() . '/public/gfx/avatars/' . $newname);
                         break;
                     default:
