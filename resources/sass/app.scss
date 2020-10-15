@@ -182,7 +182,7 @@ textarea {
     min-height: 95px;
     background-color: rgba(0, 0, 0, 0.4);
     @media screen and (max-width: 768px) {
-        margin-bottom: 55px;
+        margin-bottom: -20px;
     }
 }
 .linklist {
@@ -210,12 +210,19 @@ textarea {
     background-color: rgba(0, 0, 0, 0.4);
     color: rgb(150, 150, 150);
     font-size: 0.7em;
+    @media screen and (max-width: 768px) {
+        top: 12px;
+        height: 50px;
+    }
 }
 .bottom span {
     position: relative;
     top: -22px;
     @media screen and (min-width: 769px) {
         top: -7px;
+    }
+    @media screen and (max-width: 768px) {
+        top: -3px;
     }
 }
 

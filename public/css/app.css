@@ -195,7 +195,7 @@ textarea {
 
 @media screen and (max-width: 768px) {
   .links {
-    margin-bottom: 55px;
+    margin-bottom: -20px;
   }
 }
 
@@ -230,6 +230,13 @@ textarea {
   font-size: 0.7em;
 }
 
+@media screen and (max-width: 768px) {
+  .bottom {
+    top: 12px;
+    height: 50px;
+  }
+}
+
 .bottom span {
   position: relative;
   top: -22px;
@@ -238,6 +245,12 @@ textarea {
 @media screen and (min-width: 769px) {
   .bottom span {
     top: -7px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .bottom span {
+    top: -3px;
   }
 }
 
