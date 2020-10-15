@@ -353,8 +353,14 @@ h2 {
 .is-def-color select {
     width: 228px;
 }
-::placeholder, ::-moz-placeholder, ::-ms-input-placeholder  {
-    color: rgb(160, 160, 160) !important;
+::placeholder  {
+    color: rgb(150, 150, 150) !important;
+}
+::-moz-placeholder  {
+    color: rgb(150, 150, 150) !important;
+}
+::-webkit-input-placeholder  {
+    color: rgb(150, 150, 150) !important;
 }
 .is-def-color input, .is-def-color textarea {
     color: rgb(240, 240, 240);

@@ -415,13 +415,27 @@ h2 {
 }
 
 ::-moz-placeholder {
-  color: #a0a0a0 !important;
+  color: #969696 !important;
 }
 
-::placeholder,
-::-moz-placeholder,
+:-ms-input-placeholder {
+  color: #969696 !important;
+}
+
 ::-ms-input-placeholder {
-  color: #a0a0a0 !important;
+  color: #969696 !important;
+}
+
+::placeholder {
+  color: #969696 !important;
+}
+
+::-moz-placeholder {
+  color: #969696 !important;
+}
+
+::-webkit-input-placeholder {
+  color: #969696 !important;
 }
 
 .is-def-color input,
