@@ -212,9 +212,9 @@ class ThreadModel extends Model
             $thread->text = htmlspecialchars($text);
             $thread->save();
 
-            $user = User::get($parent->userId);
+            $user = User::get($userId);
             if (($user) && ($userId !== $parent->userId)) {
-                PushModel::addNotification(__('app.user_replied_comment_short', ['name' => $user->name]), __('app.user_replied_comment', ['name' => $user->name, 'profile' => url('/user/' . $user->id),'msg' => ((strlen($text) > self::MAX_PREVIEW_MSG) ? substr($text, 0, self::MAX_PREVIEW_MSG) . '...' : $text), 'item' => url('/p/' . $parent->postId . '?c=' . $thread->id . '#' . $thread->id)]), 'PUSH_COMMENTED', $user->id);
+                PushModel::addNotification(__('app.user_replied_comment_short', ['name' => $user->name]), __('app.user_replied_comment', ['name' => $user->name, 'profile' => url('/user/' . $user->slug),'msg' => ((strlen($text) > self::MAX_PREVIEW_MSG) ? substr($text, 0, self::MAX_PREVIEW_MSG) . '...' : $text), 'item' => url('/activity/' . $parent->activityId . '#' . $thread->id)]), 'PUSH_COMMENTED', $parent->userId);
             }
 
             return $thread;
