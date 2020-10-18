@@ -33,7 +33,13 @@
             <div class="is-inline-block is-hidden" id="activity-filter-options">
                 <div class="field has-addons">
                     <div class="control">
-                        <input class="input" type="text" id="inpLocationFilter" onkeydown="if (event.keyCode === 13) { document.getElementById('btnFilterLocation').click(); }" placeholder="{{ __('app.filter_by_location') }}">
+                        <select class="input" id="inpLocationFilter">
+                            <option value="">{{ __('app.locations_all') }}</option>
+
+                            @foreach (\App\LocationModel::fetch() as $location)
+                                <option value="{{ $location->name }}">{{ ucfirst($location->name) }}</option>
+                            @endforeach 
+                        </select>
                     </div>
                     <div class="control">
                         <a id="btnFilterLocation" class="button is-info" href="javascript:void(0);" onclick="window.vue.setLocationCookieValue(document.getElementById('inpLocationFilter').value); location.reload();">

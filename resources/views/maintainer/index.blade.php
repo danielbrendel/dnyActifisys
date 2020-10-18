@@ -53,6 +53,7 @@
                 <li><a href="#tab-page-16">{{ __('app.categories') }}</a></li>
                 <li><a href="#tab-page-17">{{ __('app.head_code') }}</a></li>
                 <li><a href="#tab-page-18">{{ __('app.adcode') }}</a></li>
+                <li><a href="#tab-page-19">{{ __('app.locations') }}</a></li>
             </ul>
             <div class="border bd-default no-border-top p-2">
                 <div id="tab-page-1">
@@ -855,6 +856,58 @@
                         </div>
                     </form>
                 </div>
+
+                <div id="tab-page-19">
+                    <table class="table striped table-border mt-4" data-role="table" data-pagination="true"
+                           data-table-rows-count-title="{{ __('app.table_show_entries') }}"
+                           data-table-search-title="{{ __('app.table_search') }}"
+                           data-table-info-title="{{ __('app.table_row_info') }}"
+                           data-pagination-prev-title="{{ __('app.table_pagination_prev') }}"
+                           data-pagination-next-title="{{ __('app.table_pagination_next') }}">
+                        <thead>
+                        <tr>
+                            <th class="text-left">{{ __('app.location_id') }}</th>
+                            <th class="text-left">{{ __('app.location_name') }}</th>
+                            <th class="text-left">{{ __('app.location_edit') }}</th>
+                            <th class="text-left">{{ __('app.location_active') }}</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        @foreach ($locations as $item)
+                            <tr>
+                                <td>
+                                    #{{ $item->id }}
+                                </td>
+
+                                <td class="right">
+                                    {{ ucfirst($item->name) }}
+                                </td>
+
+                                <td>
+                                    <a href="javascript:void(0);" onclick="document.getElementById('editLocationName').value = '{{ $item->name }}'; document.getElementById('formEditLocation').action = '{{ url('/maintainer/location/' . $item->id . '/edit') }}'; window.vue.bShowEditLocation = true;">{{ __('app.location_edit') }}</a>
+                                </td>
+
+                                <td>
+                                    @if (!$item->active)
+                                        <a href="{{ url('/maintainer/location/' . $item->id . '/active/1') }}">{{ __('app.set_location_active') }}</a>
+                                    @else
+                                        <a href="{{ url('/maintainer/location/' . $item->id . '/active/0') }}">{{ __('app.set_location_inactive') }}</a>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+
+                    <br/>
+
+                    <div class="field">
+                        <div class="control">
+                            <button type="button" class="button is-primary" onclick="window.vue.bShowAddLocation = true;">{{ __('app.location_add') }}</button>&nbsp;
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="modal" :class="{'is-active': bShowCreateFaq}">
@@ -1063,6 +1116,58 @@
                     <footer class="modal-card-foot is-stretched">
                         <button class="button is-success" onclick="document.getElementById('formEditCategory').submit();">{{ __('app.save') }}</button>
                         <button class="button" onclick="vue.bShowEditCategory = false;">{{ __('app.cancel') }}</button>
+                    </footer>
+                </div>
+            </div>
+
+            <div class="modal" :class="{'is-active': bShowAddLocation}">
+                <div class="modal-background"></div>
+                <div class="modal-card">
+                    <header class="modal-card-head is-stretched">
+                        <p class="modal-card-title">{{ __('app.add_location') }}</p>
+                        <button class="delete" aria-label="close" onclick="vue.bShowAddLocation = false;"></button>
+                    </header>
+                    <section class="modal-card-body is-stretched">
+                        <form method="POST" action="{{ url('/maintainer/location/add') }}" id="formAddLocation">
+                            @csrf
+
+                            <div class="field is-stretched">
+                                <label class="label">{{ __('app.location_name') }}</label>
+                                <div class="control">
+                                    <input type="text" name="name">
+                                </div>
+                            </div>
+                        </form>
+                    </section>
+                    <footer class="modal-card-foot is-stretched">
+                        <button class="button is-success" onclick="document.getElementById('formAddLocation').submit();">{{ __('app.add') }}</button>
+                        <button class="button" onclick="vue.bShowAddLocation = false;">{{ __('app.cancel') }}</button>
+                    </footer>
+                </div>
+            </div>
+
+            <div class="modal" :class="{'is-active': bShowEditLocation}">
+                <div class="modal-background"></div>
+                <div class="modal-card">
+                    <header class="modal-card-head is-stretched">
+                        <p class="modal-card-title">{{ __('app.edit_location') }}</p>
+                        <button class="delete" aria-label="close" onclick="vue.bShowEditLocation = false;"></button>
+                    </header>
+                    <section class="modal-card-body is-stretched">
+                        <form method="POST" id="formEditLocation">
+                            @csrf
+
+                            <div class="field is-stretched">
+                                <label class="label">{{ __('app.location_name') }}</label>
+                                <div class="control">
+                                    <input type="text" name="name" id="editLocationName">
+                                </div>
+                            </div>
+                        </form>
+                    </section>
+                    <footer class="modal-card-foot is-stretched">
+                        <button class="button is-success" onclick="document.getElementById('formEditLocation').submit();">{{ __('app.save') }}</button>
+                        <button class="button" onclick="vue.bShowEditLocation = false;">{{ __('app.cancel') }}</button>
                     </footer>
                 </div>
             </div>

@@ -97,7 +97,7 @@ class ActivityModel extends Model
                 throw new Exception(__('app.date_is_in_past'));
             }
 
-            $taglist = static::getTagList($attr['description']);
+            $taglist = static::getTagList(htmlspecialchars($attr['description']));
 
             if (($attr['only_verified'] == true) && (VerifyModel::getState($owner) != VerifyModel::STATE_VERIFIED)) {
                 throw new Exception(__('app.only_for_verified_users'));
@@ -170,7 +170,7 @@ class ActivityModel extends Model
                 throw new Exception(__('app.only_for_verified_users'));
             }
 
-            $taglist = static::getTagList($attr['description']);
+            $taglist = static::getTagList(htmlspecialchars($attr['description']));
 
             $item->title = htmlspecialchars($attr['title']);
             $item->description = htmlspecialchars($attr['description']);

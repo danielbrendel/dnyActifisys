@@ -430,7 +430,11 @@
                             <div class="field">
                                 <label class="label">{{ __('app.location') }}</label>
                                 <div class="control">
-                                    <input id="caLocation" class="input" type="text" name="location" onkeyup="window.vue.invalidCreateActivity();" onchange="window.vue.invalidCreateActivity();" required>
+                                    <select class="input" name="location" id="caLocation">
+                                        @foreach (\App\LocationModel::fetch() as $location)
+                                            <option value="{{ $location->name }}">{{ ucfirst($location->name) }}</option>
+                                        @endforeach 
+                                    </select>
                                 </div>
                             </div>
 

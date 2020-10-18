@@ -104,6 +104,9 @@ Route::get('/maintainer/verify/{id}/decline', 'MaintainerController@declineAccou
 Route::post('/maintainer/category/add', 'MaintainerController@addCategory');
 Route::post('/maintainer/category/{id}/edit', 'MaintainerController@editCategory');
 Route::any('/maintainer/category/{id}/inactive/{status}', 'MaintainerController@categoryInactiveStatus');
+Route::post('/maintainer/location/add', 'MaintainerController@addLocation');
+Route::post('/maintainer/location/{id}/edit', 'MaintainerController@editLocation');
+Route::any('/maintainer/location/{id}/active/{status}', 'MaintainerController@locationActiveStatus');
 
 Route::get('/install', 'InstallerController@viewInstall');
 Route::post('/install', 'InstallerController@install');

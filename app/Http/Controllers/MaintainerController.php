@@ -17,6 +17,7 @@ namespace App\Http\Controllers;
 use App\AppModel;
 use App\CaptchaModel;
 use App\CategoryModel;
+use App\LocationModel;
 use App\FaqModel;
 use App\MailerModel;
 use App\PostModel;
@@ -88,7 +89,8 @@ class MaintainerController extends Controller
 			'cookie_consent' => AppModel::getCookieConsentText(),
             'reports' => $reports,
             'verification_users' => $verification_users,
-            'categories' => CategoryModel::all()
+            'categories' => CategoryModel::all(),
+            'locations' => LocationModel::all()
         ]);
     }
 
@@ -656,6 +658,65 @@ class MaintainerController extends Controller
             CategoryModel::setInactiveStatus($id, (bool)$status);
 
             return back()->with('flash.success', __('app.category_status_changed'));
+        } catch (\Exception $e) {
+            return back()->with('flash.error', $e->getMessage());
+        }
+    }
+
+     /**
+     * Add new location
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function addLocation()
+    {
+        try {
+            $attr = request()->validate([
+                'name' => 'required'
+            ]);
+
+            LocationModel::add($attr['name']);
+
+            return back()->with('flash.success', __('app.location_added'));
+        } catch (\Exception $e) {
+            return back()->with('flash.error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Edit existing location
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function editLocation($id)
+    {
+        try {
+            $attr = request()->validate([
+                'name' => 'required'
+            ]);
+
+            LocationModel::edit($id, $attr['name']);
+
+            return back()->with('flash.success', __('app.location_edited'));
+        } catch (\Exception $e) {
+            return back()->with('flash.error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Set active status of a location
+     *
+     * @param $id
+     * @param $status
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function locationActiveStatus($id, $status)
+    {
+        try {
+            LocationModel::setActiveStatus($id, (bool)$status);
+
+            return back()->with('flash.success', __('app.location_status_changed'));
         } catch (\Exception $e) {
             return back()->with('flash.error', $e->getMessage());
         }

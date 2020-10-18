@@ -403,5 +403,21 @@ return [
     'imprint_description' => 'Define the imprint content here',
     'tos_description' => 'Define your terms of service here',
     'reg_info_description' => 'This formatted text will be shown on the registration form',
-    'register_confirm_token_not_found' => 'The token could not be found'
+    'register_confirm_token_not_found' => 'The token could not be found',
+    'add_location' => 'Add location',
+    'location_name' => 'Name',
+    'edit_location' => 'Edit location',
+    'location_id' => 'ID',
+    'location_name' => 'Name',
+    'location_edit' => 'Edit',
+    'location_active' => 'Active',
+    'set_location_active' => 'Set active',
+    'set_location_inactive' => 'Set inactive',
+    'locations' => 'Locations',
+    'location_add' => 'Add',
+    'add' => 'Add',
+    'location_added' => 'Location was added',
+    'location_edited' => 'Location was edited',
+    'location_status_changed' => 'Location status was changed',
+    'locations_all' => '- All -'
 ];

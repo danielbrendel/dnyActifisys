@@ -19364,6 +19364,8 @@ window.vue = new Vue({
     bShowUploadImage: false,
     bShowCreateCategory: false,
     bShowEditCategory: false,
+    bShowAddLocation: false,
+    bShowEditLocation: false,
     lang: {
       copiedToClipboard: 'Text has been copied to clipboard!',
       edit: 'Edit',
