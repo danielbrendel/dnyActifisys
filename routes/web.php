@@ -81,6 +81,7 @@ Route::post('/messages/send', 'MessageController@send');
 
 Route::get('/maintainer', 'MaintainerController@index');
 Route::post('/maintainer/save', 'MaintainerController@save');
+Route::post('/maintainer/about', 'MaintainerController@about');
 Route::post('/maintainer/faq/create', 'MaintainerController@addFaq');
 Route::post('/maintainer/faq/edit', 'MaintainerController@editFaq');
 Route::get('/maintainer/faq/{id}/remove', 'MaintainerController@removeFaq');

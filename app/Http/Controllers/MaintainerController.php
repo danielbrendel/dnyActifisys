@@ -122,6 +122,32 @@ class MaintainerController extends Controller
     }
 
     /**
+     * Save about settings
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function about()
+    {
+        try {
+            $attr = request()->validate([
+               'headline_top' => 'required',
+               'headline_sub' => 'required',
+               'about' => 'required'
+            ]);
+
+            AppModel::saveSetting('headline_top', $attr['headline_top']);
+            AppModel::saveSetting('headline_sub', $attr['headline_sub']);
+            AppModel::saveSetting('about', $attr['about']);
+
+            Artisan::call('cache:clear');
+
+            return back()->with('flash.success', __('app.settings_saved'));
+        } catch (\Exception $e) {
+            return back()->with('flash.error', $e->getMessage());
+        }
+    }
+
+    /**
      * Add FAQ item
      *
      * @return \Illuminate\Http\RedirectResponse

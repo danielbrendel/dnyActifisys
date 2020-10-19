@@ -78,15 +78,27 @@
                 </div>
 
                 <div id="tab-page-2">
-                    <form method="POST" action="{{ url('/maintainer/save') }}">
+                    <form method="POST" action="{{ url('/maintainer/about') }}">
                         @csrf
 
-                        <input type="hidden" name="attribute" value="about">
+                        <div class="field">
+                            <label class="label">{{ __('app.headline_top') }}</label>
+                            <div class="control">
+                                <input type="text" class="input" name="headline_top" value="{{ $settings->headline_top }}">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">{{ __('app.headline_sub') }}</label>
+                            <div class="control">
+                                <input type="text" class="input" name="headline_sub" value="{{ $settings->headline_sub }}">
+                            </div>
+                        </div>
 
                         <div class="field">
                             <label class="label">{{ __('app.about_description') }}</label>
                             <div class="control">
-                                <textarea class="textarea" name="content">{{ $settings->about }}</textarea>
+                                <textarea class="textarea" name="about">{{ $settings->about }}</textarea>
                             </div>
                         </div>
 
