@@ -217,6 +217,36 @@ class MemberController extends Controller
     }
 
     /**
+     * Correct image rotation of uploaded image
+     *
+     * @param $filename
+     * @param $image
+     * @return void
+     */
+    private function correctImageRotation($filename, &$image)
+    {
+        $exif = @exif_read_data($filename);
+
+        if (!isset($exif['Orientation']))
+            return;
+
+        switch($exif['Orientation'])
+        {
+            case 8:
+                $image = imagerotate($image, 90, 0);
+                break;
+            case 3:
+                $image = imagerotate($image, 180, 0);
+                break;
+            case 6:
+                $image = imagerotate($image, 270, 0);
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**
      * Save settings
      *
      * @return \Illuminate\Http\RedirectResponse
@@ -262,11 +292,13 @@ class MemberController extends Controller
                     case IMAGETYPE_PNG:
                         $srcimage = imagecreatefrompng(base_path() . '/public/gfx/avatars/' . $tmpName . '.' . $av->getClientOriginalExtension());
                         imagecopyresampled($avimg, $srcimage, 0, 0, 0, 0, 192, 192, $width, $height);
+                        $this->correctImageRotation(base_path() . '/public/gfx/avatars/' . $tmpName . '.' . $av->getClientOriginalExtension(), $avimg);
                         imagepng($avimg, base_path() . '/public/gfx/avatars/' . $newname);
                         break;
                     case IMAGETYPE_JPEG:
                         $srcimage = imagecreatefromjpeg(base_path() . '/public/gfx/avatars/' . $tmpName . '.' . $av->getClientOriginalExtension());
                         imagecopyresampled($avimg, $srcimage, 0, 0, 0, 0, 192, 192, $width, $height);
+                        $this->correctImageRotation(base_path() . '/public/gfx/avatars/' . $tmpName . '.' . $av->getClientOriginalExtension(), $avimg);
                         imagejpeg($avimg, base_path() . '/public/gfx/avatars/' . $newname);
                         break;
                     default:
