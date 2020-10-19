@@ -419,5 +419,14 @@ return [
     'location_added' => 'Ort wurde hinzugefügt',
     'location_edited' => 'Ort wurde bearbeitet',
     'location_status_changed' => 'Aktivitätsstatus wurde aktualisiert',
-    'locations_all' => '- Alle -'
+    'locations_all' => '- Alle -',
+    'purchase_pro_mode' => 'Pro-Mode kaufen',
+    'purchase_pro_mode_title' => 'Pro-Mode kaufen',
+    'purchase_pro_mode_info' => 'Hier kannst du für :costs den Pro-Mode kaufen. Auf diese Art kannst du unseren Service unterstützen. Ausserdem wird dir danach keine Werbung mehr angezeigt.',
+    'credit_or_debit_card' => 'Kredit-oder Debitkarte',
+    'submit_payment' => 'Kaufen',
+    'payment_service_deactivated' => 'Payment service ist deaktiviert',
+    'user_not_found_or_locked_or_already_pro' => 'User nicht gefunden, gesperrt oder hat bereits Pro-Mode',
+    'payment_failed' => 'Zahlung fehlgeschlagen',
+    'payment_succeeded' => 'Die Zahlung war erfolgreich'
 ];
