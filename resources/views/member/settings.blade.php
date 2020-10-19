@@ -133,6 +133,13 @@
 
                 <input type="submit" class="button is-success" value="{{ __('app.save') }}">
             </form>
+
+            <hr/>
+
+            <div>
+                <input type="checkbox" data-role="checkbox" data-style="2" data-caption="{{ __('app.public_profile_label') }}" value="1" onclick="window.vue.togglePublicProfile(this);" @if ($self->public_profile) {{ 'checked' }} @endif>
+                <br/><br/>
+            </div>
         </div>
 
         <div id="tabNotifications-form" class="is-hidden">
@@ -140,27 +147,27 @@
                 @csrf
 
                 <div class="field">
-                    <input type="checkbox" name="newsletter" data-role="checkbox" value="1" data-caption="{{ __('app.newsletter_notice') }}" @if ($self->newsletter) {{ 'checked' }} @endif>
+                    <input type="checkbox" name="newsletter" data-role="checkbox" data-style="2" value="1" data-caption="{{ __('app.newsletter_notice') }}" @if ($self->newsletter) {{ 'checked' }} @endif>
                 </div>
 
                 <div class="field">
-                    <input type="checkbox" name="email_on_message" data-role="checkbox" value="1" data-caption="{{ __('app.email_on_message_notice') }}" @if ($self->email_on_message) {{ 'checked' }} @endif>
+                    <input type="checkbox" name="email_on_message" data-role="checkbox" data-style="2" value="1" data-caption="{{ __('app.email_on_message_notice') }}" @if ($self->email_on_message) {{ 'checked' }} @endif>
                 </div>
 
                 <div class="field">
-                    <input type="checkbox" name="email_on_comment" data-role="checkbox" value="1" data-caption="{{ __('app.email_on_comment_notice') }}" @if ($self->email_on_comment) {{ 'checked' }} @endif>
+                    <input type="checkbox" name="email_on_comment" data-role="checkbox" data-style="2" value="1" data-caption="{{ __('app.email_on_comment_notice') }}" @if ($self->email_on_comment) {{ 'checked' }} @endif>
                 </div>
 
                 <div class="field">
-                    <input type="checkbox" name="email_on_participated" data-role="checkbox" value="1" data-caption="{{ __('app.email_on_participated_notice') }}" @if ($self->email_on_participated) {{ 'checked' }} @endif>
+                    <input type="checkbox" name="email_on_participated" data-role="checkbox" data-style="2" value="1" data-caption="{{ __('app.email_on_participated_notice') }}" @if ($self->email_on_participated) {{ 'checked' }} @endif>
                 </div>
 
                 <div class="field">
-                    <input type="checkbox" name="email_on_fav_created" data-role="checkbox" value="1" data-caption="{{ __('app.email_on_fav_created_notice') }}" @if ($self->email_on_fav_created) {{ 'checked' }} @endif>
+                    <input type="checkbox" name="email_on_fav_created" data-role="checkbox" data-style="2" value="1" data-caption="{{ __('app.email_on_fav_created_notice') }}" @if ($self->email_on_fav_created) {{ 'checked' }} @endif>
                 </div>
 
                 <div class="field">
-                    <input type="checkbox" name="email_on_act_canceled" data-role="checkbox" value="1" data-caption="{{ __('app.email_on_act_canceled_notice') }}" @if ($self->email_on_act_canceled) {{ 'checked' }} @endif>
+                    <input type="checkbox" name="email_on_act_canceled" data-role="checkbox" data-style="2" value="1" data-caption="{{ __('app.email_on_act_canceled_notice') }}" @if ($self->email_on_act_canceled) {{ 'checked' }} @endif>
                 </div>
 
                 <input type="submit" class="button is-success" value="{{ __('app.save') }}">

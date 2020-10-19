@@ -38,14 +38,16 @@ class MemberController extends Controller
     public function show($slugOrId)
     {
         try {
-            $this->validateAuth();
-
             $user = User::getBySlug($slugOrId);
             if (!$user) {
                 $user = User::get($slugOrId);
                 if (!$user) {
                     throw new \Exception(__('app.user_not_found_or_locked'));
                 }
+            }
+
+            if (!$user->public_profile) {
+                $this->validateAuth();
             }
 
             if (IgnoreModel::hasIgnored($user->id, auth()->id())) {
@@ -342,6 +344,11 @@ class MemberController extends Controller
         }
     }
 
+    /**
+     * Save E-Mail address
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function saveEMail()
     {
         try {
@@ -356,6 +363,30 @@ class MemberController extends Controller
             return back()->with('flash.success', __('app.email_saved'));
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Save public profile value
+     *
+     * @return JsonResponse
+     */
+    public function setPublicProfileValue()
+    {
+        try {
+            $attr = request()->validate([
+                'value' => 'nullable'
+            ]);
+
+            if (!isset($attr['value'])) {
+                $attr['value'] = 0;
+            }
+
+            User::savePublicProfileValue($attr['value']);
+
+            return response()->json(array('code' => 200, 'value' => $attr['value']));
+        } catch (Exception $e) {
+            return response()->json(array('code' => 500, 'msg' => $e->getMessage()));
         }
     }
 

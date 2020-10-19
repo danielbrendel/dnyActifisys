@@ -19774,6 +19774,15 @@ window.vue = new Vue({
           console.log(response.msg);
         }
       });
+    },
+    togglePublicProfile: function togglePublicProfile(obj) {
+      this.ajaxRequest('post', window.location.origin + '/settings/privacy/publicprofile', {
+        value: obj.checked
+      }, function (response) {
+        if (response.code !== 200) {
+          obj.checked = !obj.checked;
+        }
+      });
     }
   }
 });

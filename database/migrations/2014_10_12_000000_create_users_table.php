@@ -43,6 +43,7 @@ class CreateUsersTable extends Migration
             $table->boolean('admin')->default(false);
             $table->boolean('maintainer')->default(false);
             $table->boolean('pro')->default(false);
+            $table->boolean('public_profile')->default(false);
             $table->boolean('newsletter')->default(true);
             $table->boolean('email_on_message')->default(true);
             $table->boolean('email_on_fav_created')->default(true);

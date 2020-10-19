@@ -428,5 +428,6 @@ return [
     'payment_service_deactivated' => 'Payment service ist deaktiviert',
     'user_not_found_or_locked_or_already_pro' => 'User nicht gefunden, gesperrt oder hat bereits Pro-Mode',
     'payment_failed' => 'Zahlung fehlgeschlagen',
-    'payment_succeeded' => 'Die Zahlung war erfolgreich'
+    'payment_succeeded' => 'Die Zahlung war erfolgreich',
+    'public_profile_label' => 'Gästen erlauben, mein Profil zu sehen'
 ];

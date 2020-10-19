@@ -343,6 +343,7 @@ class User extends Authenticatable
      *
      * @param $attr
      * @param null $id
+     * @return void
      * @throws \Throwable
      */
     public static function saveEMail($attr, $id = null)
@@ -360,6 +361,29 @@ class User extends Authenticatable
             $html = view('mail.email_changed', ['name' => $user->name, 'email' => $attr['email']])->render();
             MailerModel::sendMail($user->email, __('app.email_changed'), $html);
             MailerModel::sendMail($oldMail, __('app.email_changed'), $html);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Save public profile value
+     * 
+     * @param $value
+     * @param $id optional
+     * @return void
+     * @throws Exception
+     */
+    public static function savePublicProfileValue($value, $id = null)
+    {
+        try {
+            if ($id === null) {
+                $id = auth()->id();
+            }
+
+            $user = User::get($id);
+            $user->public_profile = (bool)$value;
+            $user->save();
         } catch (Exception $e) {
             throw $e;
         }
@@ -384,7 +408,7 @@ class User extends Authenticatable
             $user->email_on_message = $attr['email_on_message'];
             $user->email_on_participated = $attr['email_on_participated'];
             $user->email_on_fav_created = $attr['email_on_fav_created'];
-            $user->email_on_commented = $attr['email_on_commented'];
+            $user->email_on_comment = $attr['email_on_comment'];
             $user->email_on_act_canceled = $attr['email_on_act_canceled'];
             $user->save();
         } catch (Exception $e) {

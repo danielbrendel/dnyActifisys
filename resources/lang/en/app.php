@@ -428,5 +428,6 @@ return [
     'payment_service_deactivated' => 'Payment service is deactivated',
     'user_not_found_or_locked_or_already_pro' => 'User not found, locked or has already pro mode enabled',
     'payment_failed' => 'The payment has failed',
-    'payment_succeeded' => 'Payment has succeeded'
+    'payment_succeeded' => 'Payment has succeeded',
+    'public_profile_label' => 'Allow guests to view my profile'
 ];
