@@ -419,7 +419,7 @@ return [
     'location_added' => 'Location was added',
     'location_edited' => 'Location was edited',
     'location_status_changed' => 'Location status was changed',
-    'locations_all' => '- All -',
+    'locations_all' => '- All locations -',
     'purchase_pro_mode' => 'Purchase pro mode',
     'purchase_pro_mode_title' => 'Purchase pro mode',
     'purchase_pro_mode_info' => 'Here you can purchase pro mode for :costs. This way you can support our service. Also ads won\'t be shown to you anymore afterwards.',
