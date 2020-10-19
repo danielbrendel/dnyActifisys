@@ -168,6 +168,16 @@
         </div>
 
         <div id="tabMembership-form" class="is-hidden">
+            @if ((env('STRIPE_ENABLE')) && (!$self->pro))
+                <div>
+                    <strong><a href="javascript:void(0);" onclick="window.vue.bShowPurchaseProMode = true;">{{ __('app.purchase_pro_mode') }}</a></strong>
+                </div>
+
+                <div>
+                    <hr/>
+                </div>
+            @endif
+
             @if (env('APP_ACCOUNTVERIFICATION'))
             <div>
                 @if ($self->state === \App\VerifyModel::STATE_INPROGRESS)
@@ -239,7 +249,87 @@
                 </form>
             </div>
         </div>
+
+        @if (env('STRIPE_ENABLE') == true)
+            <div class="modal" :class="{'is-active': bShowPurchaseProMode}">
+                <div class="modal-background"></div>
+                <div class="modal-card">
+                    <header class="modal-card-head is-stretched">
+                        <p class="modal-card-title">{{ __('app.purchase_pro_mode_title') }}</p>
+                        <button class="delete" aria-label="close" onclick="vue.bShowPurchaseProMode = false;"></button>
+                    </header>
+                    <section class="modal-card-body is-stretched">
+                        <div class="field">
+                            {!! __('app.purchase_pro_mode_info', ['costs' => env('STRIPE_COSTS_LABEL')]) !!}
+                        </div>
+
+                        <form action="{{ url('/payment/charge') }}" method="post" id="payment-form" class="stripe">
+                            @csrf
+
+                            <div class="form-row">
+                                <label for="card-element">
+                                    {{ __('app.credit_or_debit_card') }}
+                                </label>
+                                <div id="card-element"></div>
+
+                                <div id="card-errors" role="alert"></div>
+                            </div>
+
+                            <br/>
+
+                            <button class="button is-link">{{ __('app.submit_payment') }}</button>
+                        </form>
+                    </section>
+                    <footer class="modal-card-foot is-stretched">
+                        <button class="button" onclick="vue.bShowPurchaseProMode = false;">{{ __('app.close') }}</button>
+                    </footer>
+                </div>
+            </div>
+			@endif
     </div>
 
     <div class="column is-2"></div>
+@endsection
+
+@section('javascript')
+    <script>
+        @if (env('STRIPE_ENABLE'))
+                const stripeTokenHandler = (token) => {
+                    const form = document.getElementById('payment-form');
+                    const hiddenInput = document.createElement('input');
+                    hiddenInput.setAttribute('type', 'hidden');
+                    hiddenInput.setAttribute('name', 'stripeToken');
+                    hiddenInput.setAttribute('value', token.id);
+                    form.appendChild(hiddenInput);
+                    form.submit();
+                }
+
+				var stripe = Stripe('{{ env('STRIPE_TOKEN_PUBLIC') }}');
+				var elements = stripe.elements();
+
+				const style = {
+					base: {
+						fontSize: '16px',
+						color: '#32325d',
+					},
+				};
+
+				const card = elements.create('card', {style});
+				card.mount('#card-element');
+
+				const form = document.getElementById('payment-form');
+				form.addEventListener('submit', async (event) => {
+					event.preventDefault();
+
+					const {token, error} = await stripe.createToken(card);
+
+					if (error) {
+						const errorElement = document.getElementById('card-errors');
+						errorElement.textContent = error.message;
+					} else {
+						stripeTokenHandler(token);
+					}
+				});
+			@endif
+    </script>
 @endsection

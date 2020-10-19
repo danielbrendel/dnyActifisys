@@ -19366,6 +19366,7 @@ window.vue = new Vue({
     bShowEditCategory: false,
     bShowAddLocation: false,
     bShowEditLocation: false,
+    bShowPurchaseProMode: false,
     lang: {
       copiedToClipboard: 'Text has been copied to clipboard!',
       edit: 'Edit',

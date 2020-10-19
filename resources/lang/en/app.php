@@ -419,5 +419,14 @@ return [
     'location_added' => 'Location was added',
     'location_edited' => 'Location was edited',
     'location_status_changed' => 'Location status was changed',
-    'locations_all' => '- All -'
+    'locations_all' => '- All -',
+    'purchase_pro_mode' => 'Purchase pro mode',
+    'purchase_pro_mode_title' => 'Purchase pro mode',
+    'purchase_pro_mode_info' => 'Here you can purchase pro mode for :costs. This way you can support our service. Also ads won\'t be shown to you anymore afterwards.',
+    'credit_or_debit_card' => 'Credit or debit card',
+    'submit_payment' => 'Purchase',
+    'payment_service_deactivated' => 'Payment service is deactivated',
+    'user_not_found_or_locked_or_already_pro' => 'User not found, locked or has already pro mode enabled',
+    'payment_failed' => 'The payment has failed',
+    'payment_succeeded' => 'Payment has succeeded'
 ];

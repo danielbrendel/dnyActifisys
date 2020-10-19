@@ -434,4 +434,25 @@ class User extends Authenticatable
             throw $e;
         }
     }
+
+    /**
+     * Indicate if user has pro mode enabled
+     * 
+     * @param $userId
+     * @return bool
+     * @throws Exception
+     */
+    public static function hasProMode($userId)
+    {
+        try {
+            $user = User::get($userId);
+            if (!$user) {
+                return false;
+            }
+
+            return $user->pro;
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
 }

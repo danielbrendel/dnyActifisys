@@ -38,6 +38,7 @@ feature list see the list below.
 + Twitter news integration
 + HelpRealm integration
 + Ads system
++ Purchasable pro mode
 + Custom head code
 + Installer
 + Security

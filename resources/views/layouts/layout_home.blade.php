@@ -46,6 +46,9 @@
         @endif
         <script src="{{ asset('js/fontawesome.js') }}"></script>
         <script src="{{ asset('js/metro.min.js') }}"></script>
+        @if (env('STRIPE_ENABLE'))
+        <script src="https://js.stripe.com/v3/"></script>
+        @endif
 
         {!! \App\AppModel::getHeadCode() !!}
     </head>

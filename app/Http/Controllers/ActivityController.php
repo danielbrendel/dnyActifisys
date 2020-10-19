@@ -267,15 +267,17 @@ class ActivityController extends Controller
 
             $data = array_values($data);
 
-            $adcode = AppModel::getAdCode();
-            if ((strlen($adcode) > 0) && (count($data) > 0)) {
-                $aditem = array();
-                $aditem['_type'] = 'ad';
-                $aditem['code'] = $adcode;
-                $aditem['tags'] = '';
-                $aditem['category'] = 0;
-                $aditem['date_of_activity'] = $data[count($data)-1]['date_of_activity'];
-                $data[] = $aditem;
+            if (!User::hasProMode(auth()->id())) {
+                $adcode = AppModel::getAdCode();
+                if ((strlen($adcode) > 0) && (count($data) > 0)) {
+                    $aditem = array();
+                    $aditem['_type'] = 'ad';
+                    $aditem['code'] = $adcode;
+                    $aditem['tags'] = '';
+                    $aditem['category'] = 0;
+                    $aditem['date_of_activity'] = $data[count($data)-1]['date_of_activity'];
+                    $data[] = $aditem;
+                }
             }
 
             return response()->json(array('code' => 200, 'data' => $data, 'last' => count($data) === 0));

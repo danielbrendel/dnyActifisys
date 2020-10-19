@@ -109,5 +109,7 @@ Route::post('/maintainer/location/add', 'MaintainerController@addLocation');
 Route::post('/maintainer/location/{id}/edit', 'MaintainerController@editLocation');
 Route::any('/maintainer/location/{id}/active/{status}', 'MaintainerController@locationActiveStatus');
 
+Route::post('/payment/charge', 'PaymentController@charge');
+
 Route::get('/install', 'InstallerController@viewInstall');
 Route::post('/install', 'InstallerController@install');
