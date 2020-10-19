@@ -76,6 +76,26 @@ class ActivityModel extends Model
     }
 
     /**
+     * Replace umlauts
+     * 
+     * @param $str
+     * @return string
+     * @throws Exception
+     */
+    private static function replaceUmlauts($str)
+    {
+        try {
+            $str = str_replace('ü', 'ue', $str);
+            $str = str_replace('ö', 'oe', $str);
+            $str = str_replace('ä', 'ae', $str);
+
+            return $str;
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
      * Create an activity
      *
      * @param $owner
@@ -97,7 +117,7 @@ class ActivityModel extends Model
                 throw new Exception(__('app.date_is_in_past'));
             }
 
-            $taglist = static::getTagList(htmlspecialchars($attr['description']));
+            $taglist = static::getTagList(static::replaceUmlauts($attr['description']));
 
             if (($attr['only_verified'] == true) && (VerifyModel::getState($owner) != VerifyModel::STATE_VERIFIED)) {
                 throw new Exception(__('app.only_for_verified_users'));
@@ -170,7 +190,7 @@ class ActivityModel extends Model
                 throw new Exception(__('app.only_for_verified_users'));
             }
 
-            $taglist = static::getTagList(htmlspecialchars($attr['description']));
+            $taglist = static::getTagList(static::replaceUmlauts($attr['description']));
 
             $item->title = htmlspecialchars($attr['title']);
             $item->description = htmlspecialchars($attr['description']);
