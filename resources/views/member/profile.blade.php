@@ -151,7 +151,12 @@
                        });
 
                        document.getElementById('activity-count').innerHTML = response.data.length + '/' + document.getElementById('activity-count').innerHTML;
-                   } else {
+                   
+					   let allActivities = document.getElementsByClassName('activity');
+					   for (let i = 0; i < allActivities.length; i++) {
+						   allActivities[i].style.left = '-6px';
+					   }
+				   } else {
                        document.getElementById('active-activities').innerHTML = '<center><i class="is-def-color">{{ __('app.no_more_activities') }}</i></center>';
                    }
                }

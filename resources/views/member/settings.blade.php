@@ -74,7 +74,11 @@
                 <div class="field">
                     <label class="label">{{ __('app.location') }}</label>
                     <div class="control">
-                        <input type="text" name="location" value="{{ $self->location }}">
+						<select name="location">
+							@foreach (\App\LocationModel::fetch() as $location)
+								<option value="{{ $location->name }}" @if ($location->name === $self->location) {{ 'selected' }} @endif>{{ ucfirst($location->name) }}</option>
+							@endforeach
+						</select>
                     </div>
                 </div>
 
