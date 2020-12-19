@@ -206,14 +206,14 @@
                     @endforeach
                 </div>
 
-                @auth
-                    <div class="activity-buttons">
-                        <div class="buttons-left is-inline-block">
-                            <a class="button is-outlined" href="{{ url('/activity/' . $activity->id . '/report') }}">{{ __('app.report') }}</a>
-                        </div>
+                <div class="activity-buttons">
+                    <div class="buttons-left is-inline-block">
+                        <a class="button is-outlined" href="@auth {{ url('/activity/' . $activity->id . '/report') }} @elseguest {{ 'javascript:void(0);' }} @endauth" @guest onclick="window.vue.bShowLogin = true;" @endguest>{{ __('app.report') }}</a>
+                    </div>
 
-                        <div class="buttons-right is-inline-block">
-                            @if ((new DateTime('now')) < (new DateTime(date('Y-m-d H:i:s', strtotime($activity->date_of_activity)))))
+                    <div class="buttons-right is-inline-block">
+                        @if ((new DateTime('now')) < (new DateTime(date('Y-m-d H:i:s', strtotime($activity->date_of_activity)))))
+                            @auth 
                                 @if ($activity->owner !== auth()->id())
                                     @if (!$activity->selfParticipated)
                                         <div class="is-inline-block"><button type="button" id="btnParticipate" class="button is-success" onclick="location.href = '{{ url('/activity/' . $activity->id . '/participant/add') }}';">{{ __('app.participate') }}</button></div>
@@ -221,7 +221,11 @@
                                         <div class="is-inline-block"><button type="button" id="btnParticipate" class="button is-danger is-outlined" onclick="location.href = '{{ url('/activity/' . $activity->id . '/participant/remove') }}';">{{ __('app.not_participate') }}</button></div>
                                     @endif
                                 @endif
+                            @elseguest
+                                <div class="is-inline-block"><button type="button" id="btnParticipate" class="button is-success" onclick="window.vue.bShowLogin = true;">{{ __('app.participate') }}</button></div>
+                            @endauth
 
+                            @auth
                                 @if (!$activity->selfParticipated)
                                     @if (!$activity->selfInterested)
                                         <div class="is-inline-block"><button type="button" id="btnPotential" class="button is-info is-outlined" onclick="location.href = '{{ url('/activity/' . $activity->id . '/interested/add') }}';">{{ __('app.interested') }}</button></div>
@@ -229,28 +233,37 @@
                                         <div class="is-inline-block"><button type="button" id="btnPotential" class="button is-info is-outlined" onclick="location.href = '{{ url('/activity/' . $activity->id . '/interested/remove') }}';">{{ __('app.not_interested') }}</button></div>
                                     @endif
                                 @endif
-                            @endif
-                        </div>
+                            @elseguest
+                                <div class="is-inline-block"><button type="button" id="btnPotential" class="button is-info is-outlined" onclick="window.vue.bShowLogin = true;">{{ __('app.interested') }}</button></div> 
+                            @endauth
+                        @endif
                     </div>
-                @endauth
+                </div>
 
                 <hr/>
 
                 <div>
-                    @auth
-                        <div class="thread-input-avatar is-inline-block">
-                            <img src="{{ asset('gfx/avatars/' . \App\User::get(auth()->id())->avatar) }}">
-                        </div>
+                    <div class="thread-input-avatar is-inline-block">
+                        <img src="{{ asset('gfx/avatars/' . ((auth()->id() != null) ? \App\User::get(auth()->id())->avatar : 'default.png' )) }}">
+                    </div>
 
-                        <div class="thread-input-form is-inline-block is-def-color">
-                            <form method="POST" action="{{ url('/activity/' . $activity->id . '/thread/add') }}">
-                                @csrf
+                    <div class="thread-input-form is-inline-block is-def-color">
+                        <form method="POST" action="{{ url('/activity/' . $activity->id . '/thread/add') }}">
+                            @csrf
 
-                                <div class="thread-input-form-text"><textarea name="message" placeholder="{{ __('app.type_a_message') }}"></textarea></div>
-                                <div class="thread-input-form-button"><input type="submit" class="button is-link" value="{{ __('app.send') }}"/></div>
-                            </form>
-                        </div>
-                    @endauth
+                            <div class="thread-input-form-text">
+                                <textarea name="message" placeholder="{{ __('app.type_a_message') }}"></textarea>
+                            </div>
+
+                            <div class="thread-input-form-button">
+                                @auth
+                                    <input type="submit" class="button is-link" value="{{ __('app.send') }}"/>
+                                @elseguest
+                                    <button type="button" class="button is-link" onclick="window.vue.bShowLogin = true;">{{ __('app.send') }}</button> 
+                                @endauth
+                            </div>
+                        </form>
+                    </div>
                 </div>
 
                 <div>

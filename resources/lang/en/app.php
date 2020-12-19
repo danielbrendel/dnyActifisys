@@ -110,7 +110,7 @@ return [
     'env_saved' => 'Environment configuration saved',
     'user_not_found' => 'User not found',
     'saved' => 'Saved successfully!',
-    'newsletter_sent' => 'Newsletter has been sent',
+    'newsletter_in_progress' => 'Newsletter sending is now in progress',
     'theme_created' => 'Theme has been created',
     'theme_default_saved' => 'Default theme set!',
     'theme_edited' => 'Theme has been edited',
@@ -429,5 +429,6 @@ return [
     'user_not_found_or_locked_or_already_pro' => 'User not found, locked or has already pro mode enabled',
     'payment_failed' => 'The payment has failed',
     'payment_succeeded' => 'Payment has succeeded',
-    'public_profile_label' => 'Allow guests to view my profile'
+    'public_profile_label' => 'Allow guests to view my profile',
+    'no_account_yet' => 'No account yet? Sign up'
 ];

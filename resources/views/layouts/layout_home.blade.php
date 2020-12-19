@@ -336,6 +336,11 @@
                                     </div>
                                 </form>
                             </div>
+
+                            <div>
+                                <br/>
+                                <a href="javascript:void(0);" onclick="window.vue.bShowRegister = true; window.vue.bShowLogin = false;">{{ __('app.no_account_yet') }}</a>
+                            </div>
                         </section>
                         <footer class="modal-card-foot is-stretched">
                         <span>

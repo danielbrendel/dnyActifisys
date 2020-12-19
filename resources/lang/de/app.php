@@ -110,7 +110,7 @@ return [
     'env_saved' => 'Einstellungen der Umgebung gespeichert',
     'user_not_found' => 'Benutzer nicht gefunden',
     'saved' => 'Erfolgreich gespeichert!',
-    'newsletter_sent' => 'Newsletter wurde verschickt',
+    'newsletter_in_progress' => 'Newsletter wird verschickt',
     'theme_created' => 'Theme wurde erstellt',
     'theme_default_saved' => 'Standard Theme wurde gesetzt!',
     'theme_edited' => 'Theme wurde aktualisiert',
@@ -429,5 +429,6 @@ return [
     'user_not_found_or_locked_or_already_pro' => 'User nicht gefunden, gesperrt oder hat bereits Pro-Mode',
     'payment_failed' => 'Zahlung fehlgeschlagen',
     'payment_succeeded' => 'Die Zahlung war erfolgreich',
-    'public_profile_label' => 'Gästen erlauben, mein Profil zu sehen'
+    'public_profile_label' => 'Gästen erlauben, mein Profil zu sehen',
+    'no_account_yet' => 'Noch kein Konto? Jetzt registrieren'
 ];

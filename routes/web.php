@@ -114,3 +114,5 @@ Route::post('/payment/charge', 'PaymentController@charge');
 
 Route::get('/install', 'InstallerController@viewInstall');
 Route::post('/install', 'InstallerController@install');
+
+Route::any('/newsletter_cronjob/{password}', 'MainController@newsletter_cronjob');

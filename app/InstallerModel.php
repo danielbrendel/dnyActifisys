@@ -55,6 +55,8 @@ class InstallerModel extends Model
 			$envcontent .= 'APP_THREADPACKLIMIT=15' . PHP_EOL;
             $envcontent .= 'APP_MESSAGEPACKLIMIT=20' . PHP_EOL;
             $envcontent .= 'APP_ACCOUNTVERIFICATION=1' . PHP_EOL;
+            $envcontent .= 'APP_NEWSLETTER_COUNT=5' . PHP_EOL;
+            $envcontent .= 'APP_CRONPW="' . substr(md5(random_bytes(55)), 10) . '"' . PHP_EOL;
             $envcontent .= 'LOG_CHANNEL=stack' . PHP_EOL;
             $envcontent .= 'DB_CONNECTION=mysql' . PHP_EOL;
             $envcontent .= 'DB_HOST="' . $attr['dbhost'] . '"' . PHP_EOL;

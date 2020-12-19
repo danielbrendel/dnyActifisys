@@ -314,9 +314,9 @@ class MaintainerController extends Controller
                'content' => 'required'
             ]);
 
-            User::sendNewsletter($attr['subject'], $attr['content']);
+            AppModel::initiateNewsletter($attr['subject'], $attr['content']);
 
-            return back()->with('flash.success', __('app.newsletter_sent'));
+            return back()->with('flash.success', __('app.newsletter_in_progress'));
         } catch (\Exception $e) {
             return back()->with('flash.error', $e->getMessage());
         }

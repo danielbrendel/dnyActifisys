@@ -40,6 +40,9 @@ class CreateAppSettingsTable extends Migration
             $table->string('headline_sub');
             $table->text('head_code')->default('');
             $table->text('adcode')->default('');
+            $table->string('newsletter_token')->nullable();
+            $table->string('newsletter_subject')->nullable();
+            $table->text('newsletter_content')->nullable();
             $table->timestamps();
         });
     }
