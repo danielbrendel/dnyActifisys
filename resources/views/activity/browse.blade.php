@@ -33,13 +33,13 @@
             <div class="is-inline-block is-hidden" id="activity-filter-options">
                 <div class="field has-addons">
                     <div class="control">
-                        <select class="input" id="inpLocationFilter">
-                            <option value="">{{ __('app.locations_all') }}</option>
-
-                            @foreach (\App\LocationModel::fetch() as $location)
-                                <option value="{{ $location->name }}">{{ ucfirst($location->name) }}</option>
-                            @endforeach 
-                        </select>
+                        <input type="text" id="inpLocationFilter" placeholder="{{ __('app.locations_all') }}" onkeyup="document.getElementById('location-list-content-feed').innerHTML = ''; window.vue.queryLocation(this, 'feed', 'inpLocationFilter');">
+                        <div class="dropdown is-left is-inline-block" id="location-list-feed">
+                            <div class="dropdown-menu is-color-black-force" role="menu">
+                                <div class="dropdown-content" id="location-list-content-feed">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="control">
                         <a id="btnFilterLocation" class="button is-info" href="javascript:void(0);" onclick="window.vue.setLocationCookieValue(document.getElementById('inpLocationFilter').value); location.reload();">

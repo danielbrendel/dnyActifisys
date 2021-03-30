@@ -27,6 +27,7 @@ use App\ReportModel;
 use App\ThreadModel;
 use App\User;
 use App\VerifyModel;
+use App\LocationModel;
 use DateTime;
 use Exception;
 use Illuminate\Http\Request;
@@ -851,6 +852,27 @@ class ActivityController extends Controller
             return back()->with('flash.success', __('app.file_deleted'));
         } catch (Exception $e) {
             return back()->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Query location by term
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function queryLocation()
+    {
+        try {
+            $term = request('term', '');
+            $items = array();
+
+            if (strlen($term) >= 2) {
+                $items = LocationModel::queryByTerm($term);
+            }
+            
+            return response()->json(array('code' => 200, 'data' => $items));
+        } catch (Exception $e) {
+            return response()->json(array('code' => 500, 'msg' => $e->getMessage()));
         }
     }
 }

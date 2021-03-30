@@ -334,11 +334,13 @@
                     <div class="field">
                         <label class="label">{{ __('app.location') }}</label>
                         <div class="control">
-                            <select class="input" name="location" id="caLocation">
-                                @foreach (\App\LocationModel::fetch() as $location)
-                                    <option value="{{ $location->name }}">{{ ucfirst($location->name) }}</option>
-                                @endforeach 
-                            </select>
+                            <input type="text" class="input" name="location" id="eaLocation" value="{{ ucfirst($activity->location) }}" placeholder="{{ __('app.location') }}" onkeyup="document.getElementById('location-list-content-edit').innerHTML = ''; window.vue.queryLocation(this, 'edit', 'eaLocation');" required>
+                            <div class="dropdown is-left is-inline-block" id="location-list-edit">
+                                <div class="dropdown-menu is-color-black-force" role="menu">
+                                    <div class="dropdown-content" id="location-list-content-edit">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 

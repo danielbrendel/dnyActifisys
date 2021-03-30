@@ -103,4 +103,20 @@ class LocationModel extends Model
             throw $e;
         }
     }
+
+    /**
+     * Query locations by term
+     * 
+     * @param $term
+     * @return mixed
+     * @throws Exception
+     */
+    public static function queryByTerm($term)
+    {
+        try {
+            return LocationModel::whereRaw('LOWER(name) LIKE "%' . strtolower($term) . '%"')->get();
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
 }

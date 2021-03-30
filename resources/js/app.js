@@ -631,5 +631,32 @@ window.vue = new Vue({
                 }
             });
         },
+
+        queryLocation: function(src, dst, fill) {
+            if (src.value.length >= 2) {
+                this.ajaxRequest('get', window.location.origin + '/locations/query?term=' + src.value, {}, function(response) {
+                    if (response.code == 200) {
+                        let dest = document.getElementById('location-list-content-' + dst);
+                        if (dest !== null) {
+                            dest.innerHTML = '';
+
+                            response.data.forEach(function(elem, index) {
+                                dest.innerHTML += '<div class="dropdown-item is-pointer" onclick="document.getElementById(\'' + fill + '\').value = \'' + elem.name + '\'; document.getElementById(\'location-list-' + dst + '\').classList.remove(\'is-active\');">' + elem.name + '</div>';
+                            });
+                        }
+
+                        let menu = document.getElementById('location-list-' + dst);
+                        if (menu !== null) {
+                            menu.classList.add('is-active');
+                        }
+                    }
+                });
+            } else {
+                let menu = document.getElementById('location-list-' + dst);
+                if (menu !== null) {
+                    menu.classList.remove('is-active');
+                }
+            }
+        },
     }
 });
