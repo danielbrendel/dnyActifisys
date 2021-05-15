@@ -1,97 +1,11 @@
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// define __esModule on exports
-/******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
-/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/";
-/******/
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
-/******/ })
-/************************************************************************/
-/******/ ({
+/******/ (() => { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ({
 
 /***/ "./node_modules/axios/index.js":
 /*!*************************************!*\
   !*** ./node_modules/axios/index.js ***!
   \*************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 module.exports = __webpack_require__(/*! ./lib/axios */ "./node_modules/axios/lib/axios.js");
 
@@ -101,8 +15,7 @@ module.exports = __webpack_require__(/*! ./lib/axios */ "./node_modules/axios/li
 /*!************************************************!*\
   !*** ./node_modules/axios/lib/adapters/xhr.js ***!
   \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -292,8 +205,7 @@ module.exports = function xhrAdapter(config) {
 /*!*****************************************!*\
   !*** ./node_modules/axios/lib/axios.js ***!
   \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -360,8 +272,7 @@ module.exports.default = axios;
 /*!*************************************************!*\
   !*** ./node_modules/axios/lib/cancel/Cancel.js ***!
   \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module) => {
 
 "use strict";
 
@@ -391,8 +302,7 @@ module.exports = Cancel;
 /*!******************************************************!*\
   !*** ./node_modules/axios/lib/cancel/CancelToken.js ***!
   \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -460,8 +370,7 @@ module.exports = CancelToken;
 /*!***************************************************!*\
   !*** ./node_modules/axios/lib/cancel/isCancel.js ***!
   \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module) => {
 
 "use strict";
 
@@ -477,8 +386,7 @@ module.exports = function isCancel(value) {
 /*!**********************************************!*\
   !*** ./node_modules/axios/lib/core/Axios.js ***!
   \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -584,8 +492,7 @@ module.exports = Axios;
 /*!***********************************************************!*\
   !*** ./node_modules/axios/lib/core/InterceptorManager.js ***!
   \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -648,8 +555,7 @@ module.exports = InterceptorManager;
 /*!******************************************************!*\
   !*** ./node_modules/axios/lib/core/buildFullPath.js ***!
   \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -680,8 +586,7 @@ module.exports = function buildFullPath(baseURL, requestedURL) {
 /*!****************************************************!*\
   !*** ./node_modules/axios/lib/core/createError.js ***!
   \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -710,8 +615,7 @@ module.exports = function createError(message, config, code, request, response) 
 /*!********************************************************!*\
   !*** ./node_modules/axios/lib/core/dispatchRequest.js ***!
   \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -801,8 +705,7 @@ module.exports = function dispatchRequest(config) {
 /*!*****************************************************!*\
   !*** ./node_modules/axios/lib/core/enhanceError.js ***!
   \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module) => {
 
 "use strict";
 
@@ -855,8 +758,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 /*!****************************************************!*\
   !*** ./node_modules/axios/lib/core/mergeConfig.js ***!
   \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -954,8 +856,7 @@ module.exports = function mergeConfig(config1, config2) {
 /*!***********************************************!*\
   !*** ./node_modules/axios/lib/core/settle.js ***!
   \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -991,8 +892,7 @@ module.exports = function settle(resolve, reject, response) {
 /*!******************************************************!*\
   !*** ./node_modules/axios/lib/core/transformData.js ***!
   \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -1023,11 +923,11 @@ module.exports = function transformData(data, headers, fns) {
 /*!********************************************!*\
   !*** ./node_modules/axios/lib/defaults.js ***!
   \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
+/* provided dependency */ var process = __webpack_require__(/*! process/browser */ "./node_modules/process/browser.js");
+
 
 var utils = __webpack_require__(/*! ./utils */ "./node_modules/axios/lib/utils.js");
 var normalizeHeaderName = __webpack_require__(/*! ./helpers/normalizeHeaderName */ "./node_modules/axios/lib/helpers/normalizeHeaderName.js");
@@ -1126,7 +1026,6 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../process/browser.js */ "./node_modules/process/browser.js")))
 
 /***/ }),
 
@@ -1134,8 +1033,7 @@ module.exports = defaults;
 /*!************************************************!*\
   !*** ./node_modules/axios/lib/helpers/bind.js ***!
   \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module) => {
 
 "use strict";
 
@@ -1157,8 +1055,7 @@ module.exports = function bind(fn, thisArg) {
 /*!****************************************************!*\
   !*** ./node_modules/axios/lib/helpers/buildURL.js ***!
   \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -1239,8 +1136,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 /*!*******************************************************!*\
   !*** ./node_modules/axios/lib/helpers/combineURLs.js ***!
   \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module) => {
 
 "use strict";
 
@@ -1265,8 +1161,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 /*!***************************************************!*\
   !*** ./node_modules/axios/lib/helpers/cookies.js ***!
   \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -1330,8 +1225,7 @@ module.exports = (
 /*!*********************************************************!*\
   !*** ./node_modules/axios/lib/helpers/isAbsoluteURL.js ***!
   \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module) => {
 
 "use strict";
 
@@ -1356,8 +1250,7 @@ module.exports = function isAbsoluteURL(url) {
 /*!********************************************************!*\
   !*** ./node_modules/axios/lib/helpers/isAxiosError.js ***!
   \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module) => {
 
 "use strict";
 
@@ -1379,8 +1272,7 @@ module.exports = function isAxiosError(payload) {
 /*!***********************************************************!*\
   !*** ./node_modules/axios/lib/helpers/isURLSameOrigin.js ***!
   \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -1459,8 +1351,7 @@ module.exports = (
 /*!***************************************************************!*\
   !*** ./node_modules/axios/lib/helpers/normalizeHeaderName.js ***!
   \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -1483,8 +1374,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 /*!********************************************************!*\
   !*** ./node_modules/axios/lib/helpers/parseHeaders.js ***!
   \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -1548,8 +1438,7 @@ module.exports = function parseHeaders(headers) {
 /*!**************************************************!*\
   !*** ./node_modules/axios/lib/helpers/spread.js ***!
   \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module) => {
 
 "use strict";
 
@@ -1587,8 +1476,7 @@ module.exports = function spread(callback) {
 /*!*****************************************!*\
   !*** ./node_modules/axios/lib/utils.js ***!
   \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
 
@@ -1946,14 +1834,556 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./resources/js/app.js":
+/*!*****************************!*\
+  !*** ./resources/js/app.js ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+/*
+    Actifisys (dnyActifisys) developed by Daniel Brendel
+
+    (C) 2019 - 2021 by Daniel Brendel
+
+    Version: 1.0
+    Contact: dbrendel1988<at>gmail<dot>com
+    GitHub: https://github.com/danielbrendel/
+
+    Released under the MIT license
+*/
+__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+
+var MAX_ACTIVITY_DESCRIPTION_LENGTH = 159;
+window.vue = new Vue({
+  el: '#app',
+  data: {
+    bShowRecover: false,
+    bShowRegister: false,
+    bShowLogin: false,
+    bShowCreateActivity: false,
+    bShowReplyThread: false,
+    bShowActivityCanceled: false,
+    bShowEditComment: false,
+    bShowCreateFaq: false,
+    bShowEditFaq: false,
+    bShowCreateTheme: false,
+    bShowEditTheme: false,
+    bShowEditActivity: false,
+    bShowCancelActivity: false,
+    bShowActivityExpired: false,
+    bShowUploadImage: false,
+    bShowCreateCategory: false,
+    bShowEditCategory: false,
+    bShowAddLocation: false,
+    bShowEditLocation: false,
+    bShowPurchaseProMode: false,
+    lang: {
+      copiedToClipboard: 'Text has been copied to clipboard!',
+      edit: 'Edit',
+      lock: 'Lock',
+      expandThread: 'Expand thread',
+      reply: 'Reply',
+      report: 'Report',
+      view: 'View',
+      verifiedUser: 'Verified user'
+    }
+  },
+  methods: {
+    handleCookieConsent: function handleCookieConsent() {
+      //Show cookie consent if not already for this client
+      var cookies = document.cookie.split(';');
+      var foundCookie = false;
+
+      for (var i = 0; i < cookies.length; i++) {
+        if (cookies[i].indexOf('cookieconsent') !== -1) {
+          foundCookie = true;
+          break;
+        }
+      }
+
+      if (foundCookie === false) {
+        document.getElementById('cookie-consent').style.display = 'inline-block';
+      }
+    },
+    clickedCookieConsentButton: function clickedCookieConsentButton() {
+      var expDate = new Date(Date.now() + 1000 * 60 * 60 * 24 * 365);
+      document.cookie = 'cookieconsent=1; expires=' + expDate.toUTCString() + ';';
+      document.getElementById('cookie-consent').style.display = 'none';
+    },
+    setLocationCookieValue: function setLocationCookieValue(city) {
+      var expDate = new Date(Date.now() + 1000 * 60 * 60 * 24 * 365);
+      document.cookie = 'filter_location=' + (city.length > 0 ? city : '_all') + '; expires=' + expDate.toUTCString() + '; path=/;';
+    },
+    setDateCookieValue: function setDateCookieValue(from, till) {
+      var expDate = new Date(Date.now() + 1000 * 60 * 60 * 24 * 365);
+      document.cookie = 'filter_date_from=' + (from.value.length > 0 ? from.value : '_default') + '; expires=' + expDate.toUTCString() + '; path=/;';
+      document.cookie = 'filter_date_till=' + (till.value.length > 0 ? till.value : '_default') + '; expires=' + expDate.toUTCString() + '; path=/;';
+    },
+    getLocationCookieValue: function getLocationCookieValue() {
+      var cookies = document.cookie.split(';');
+
+      for (var i = 0; i < cookies.length; i++) {
+        if (cookies[i].indexOf('filter_location') !== -1) {
+          return cookies[i].substr(cookies[i].indexOf('=') + 1);
+        }
+      }
+
+      return '_all';
+    },
+    getDateFromCookieValue: function getDateFromCookieValue() {
+      var cookies = document.cookie.split(';');
+
+      for (var i = 0; i < cookies.length; i++) {
+        if (cookies[i].indexOf('filter_date_from') !== -1) {
+          return cookies[i].substr(cookies[i].indexOf('=') + 1);
+        }
+      }
+
+      return '_default';
+    },
+    getDateTillCookieValue: function getDateTillCookieValue() {
+      var cookies = document.cookie.split(';');
+
+      for (var i = 0; i < cookies.length; i++) {
+        if (cookies[i].indexOf('filter_date_till') !== -1) {
+          return cookies[i].substr(cookies[i].indexOf('=') + 1);
+        }
+      }
+
+      return '_default';
+    },
+    ajaxRequest: function ajaxRequest(method, url) {
+      var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+      var successfunc = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : function (data) {};
+      var finalfunc = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : function () {};
+      var config = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : {};
+      //Perform ajax request
+      var func = window.axios.get;
+
+      if (method == 'post') {
+        func = window.axios.post;
+      } else if (method == 'patch') {
+        func = window.axios.patch;
+      } else if (method == 'delete') {
+        func = window.axios["delete"];
+      }
+
+      func(url, data, config).then(function (response) {
+        successfunc(response.data);
+      })["catch"](function (error) {
+        console.log(error);
+      })["finally"](function () {
+        finalfunc();
+      });
+    },
+    showError: function showError() {
+      document.getElementById('flash-error').style.display = 'inherit';
+      setTimeout(function () {
+        document.getElementById('flash-error').style.display = 'none';
+      }, 3500);
+    },
+    showSuccess: function showSuccess() {
+      document.getElementById('flash-success').style.display = 'inherit';
+      setTimeout(function () {
+        document.getElementById('flash-success').style.display = 'none';
+      }, 3500);
+    },
+    invalidLoginEmail: function invalidLoginEmail() {
+      var el = document.getElementById("loginemail");
+
+      if (el.value.length == 0 || el.value.indexOf('@') == -1 || el.value.indexOf('.') == -1) {
+        el.classList.add('is-danger');
+      } else {
+        el.classList.remove('is-danger');
+      }
+    },
+    invalidRecoverEmail: function invalidRecoverEmail() {
+      var el = document.getElementById("recoveremail");
+
+      if (el.value.length == 0 || el.value.indexOf('@') == -1 || el.value.indexOf('.') == -1) {
+        el.classList.add('is-danger');
+      } else {
+        el.classList.remove('is-danger');
+      }
+    },
+    invalidLoginPassword: function invalidLoginPassword() {
+      var el = document.getElementById("loginpw");
+
+      if (el.value.length == 0) {
+        el.classList.add('is-danger');
+      } else {
+        el.classList.remove('is-danger');
+      }
+    },
+    invalidRequiredInput: function invalidRequiredInput(obj, btn) {
+      if (obj.value.length === 0) {
+        obj.classList.add('is-danger');
+        btn.disabled = true;
+      } else {
+        obj.classList.remove('is-danger');
+        btn.disabled = false;
+      }
+    },
+    invalidDate: function invalidDate(obj, hint, btn) {
+      var dateVal = new Date(obj.value);
+      var curDate = new Date();
+
+      if (dateVal.setHours(0, 0, 0, 0) < curDate.setHours(0, 0, 0, 0)) {
+        hint.classList.remove('is-hidden');
+        btn.disabled = true;
+      } else {
+        hint.classList.add('is-hidden');
+        btn.disabled = false;
+      }
+    },
+    invalidCreateActivity: function invalidCreateActivity() {
+      var btn = document.getElementById('btnCreateActivity');
+      this.invalidRequiredInput(document.getElementById('caTitle'), btn);
+      this.invalidRequiredInput(document.getElementById('caDescription'), btn);
+      this.invalidDate(document.getElementById('caDate'), document.getElementById('activity-date-hint'), btn);
+      this.invalidRequiredInput(document.getElementById('caLocation'), btn);
+    },
+    toggleActivityOptions: function toggleActivityOptions(elem) {
+      if (elem.classList.contains('is-active')) {
+        elem.classList.remove('is-active');
+      } else {
+        elem.classList.add('is-active');
+      }
+    },
+    toggleCommentOptions: function toggleCommentOptions(elem) {
+      if (elem.classList.contains('is-active')) {
+        elem.classList.remove('is-active');
+      } else {
+        elem.classList.add('is-active');
+      }
+    },
+    toggleActivityTags: function toggleActivityTags(elem) {
+      if (elem.classList.contains('is-active')) {
+        elem.classList.remove('is-active');
+      } else {
+        elem.classList.add('is-active');
+      }
+    },
+    copyToClipboard: function copyToClipboard(text) {
+      var el = document.createElement('textarea');
+      el.value = text;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand('copy');
+      document.body.removeChild(el);
+      alert(this.lang.copiedToClipboard);
+    },
+    renderThread: function renderThread(elem) {
+      var adminOrOwner = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+      var isSubComment = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+      var parentId = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
+      var isAuth = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
+      var options = '';
+
+      if (adminOrOwner) {
+        options = "\n            <a onclick=\"window.vue.showEditComment(" + elem.id + "); window.vue.toggleCommentOptions(document.getElementById('thread-options-" + elem.id + "'));\" href=\"javascript:void(0)\" class=\"dropdown-item\">\n                <i class=\"far fa-edit\"></i>&nbsp;" + this.lang.edit + "\n            </a>\n            <a onclick=\"window.vue.lockComment(" + elem.id + "); window.vue.toggleCommentOptions(document.getElementById('thread-options-" + elem.id + "'));\" href=\"javascript:void(0)\" class=\"dropdown-item\">\n                <i class=\"fas fa-times\"></i>&nbsp;" + this.lang.lock + "\n            </a>\n            <hr class=\"dropdown-divider\">\n        ";
+      }
+
+      if (isAuth) {
+        options += "\n                <a href=\"javascript:void(0)\" onclick=\"window.vue.reportComment(" + elem.id + "); window.vue.toggleCommentOptions(document.getElementById('thread-options-" + elem.id + "'));\" class=\"dropdown-item\">\n                    " + this.lang.report + "\n                </a>\n                ";
+      }
+
+      var threadOptions = '';
+
+      if (options.length > 0) {
+        threadOptions = "\n                    <div class=\"thread-header-options is-inline-block\">\n                        <div class=\"dropdown is-right\" id=\"thread-options-" + elem.id + "\">\n                            <div class=\"dropdown-trigger\" onclick=\"window.vue.toggleCommentOptions(document.getElementById('thread-options-" + elem.id + "'));\">\n                                <i class=\"fas fa-ellipsis-v is-pointer\"></i>\n                            </div>\n                            <div class=\"dropdown-menu\" role=\"menu\">\n                                <div class=\"dropdown-content\">\n                                    " + options + "\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                ";
+      }
+
+      var expandThread = '';
+
+      if (elem.subCount > 0) {
+        expandThread = "<div class=\"thread-footer-subthread is-inline-block is-centered\"><a class=\"is-color-grey\" href=\"javascript:void(0)\" onclick=\"window.vue.fetchSubThreadPosts(" + elem.id + ")\">" + this.lang.expandThread + "</a></div>";
+      }
+
+      var replyThread = '';
+
+      if (isAuth) {
+        replyThread = "<div class=\"is-inline-block float-right\"><a class=\"is-color-grey\" href=\"javascript:void(0)\" onclick=\"document.getElementById('thread-reply-parent').value = '" + (isSubComment ? parentId : elem.id) + "'; document.getElementById('thread-reply-textarea').value = '" + elem.user.name + ": '; window.vue.bShowReplyThread = true;\">" + this.lang.reply + "</a></div>";
+      }
+
+      var html = "\n        <div id=\"thread-" + elem.id + "\" class=\"thread-elem " + (isSubComment ? 'is-sub-comment' : '') + "\">\n            <a name=\"" + elem.id + "\"></a>\n\n            <div class=\"thread-header\">\n                <div class=\"thread-header-avatar is-inline-block\">\n                    <img width=\"24\" height=\"24\" src=\"" + window.location.origin + "/gfx/avatars/" + elem.user.avatar + "\" class=\"is-pointer\" onclick=\"location.href = '" + window.location.origin + "/user/" + elem.user.slug + "';\" title=\"" + elem.user.name + "\">\n                </div>\n\n                <div class=\"thread-header-info is-inline-block\">\n                    <div><a href=\"" + window.location.origin + "/user/" + elem.user.slug + "\" class=\"is-color-grey\">" + elem.user.name + "</a>" + (elem.user.verified ? '&nbsp;<i class="far fa-check-circle" title="' + this.lang.verifiedUser + '"></i>' : '') + "</div>\n                    <div title=\"" + elem.created_at + "\">" + elem.diffForHumans + "</div>\n                </div>\n\n                " + threadOptions + "\n            </div>\n\n            <div class=\"thread-text\" id=\"thread-text-" + elem.id + "\">\n                " + elem.text + "\n            </div>\n\n            <div class=\"thread-footer\">\n                " + expandThread + "\n                " + replyThread + "\n            </div>\n\n            <div id=\"sub-thread-" + elem.id + "\"></div>\n        </div>\n    ";
+      return html;
+    },
+    renderActivity: function renderActivity(elem) {
+      var headerStyle = "";
+      var headerOverlay = "";
+
+      if (elem.category !== 0) {
+        headerStyle = "style=\"background-image: url('" + window.location.origin + '/gfx/categories/' + elem.categoryData.image + "'); background-size: cover; background-repeat: no-repeat;\"";
+        headerOverlay = "class=\"activity-header-overlay\"";
+      }
+
+      var taglist = '';
+      var tags = elem.tags.split(' ');
+
+      for (var i = 0; i < tags.length; i++) {
+        if (tags[i].length > 0) {
+          taglist += "\n                        <a href=\"" + window.location.origin + '?tag=' + tags[i] + "\" class=\"dropdown-item\">\n                            #" + tags[i] + "\n                        </a>\n                    ";
+        }
+      }
+
+      var tagcode = '';
+
+      if (taglist.length > 0) {
+        tagcode = "\n                    <div class=\"activty-dropdown-tags dropdown is-right is-inline-block\" id=\"activity-tags-" + elem.id + "\">\n                        <div class=\"dropdown-menu is-color-black\" role=\"menu\">\n                            <div class=\"dropdown-content\">\n                                " + taglist + "\n                            </div>\n                        </div>\n                    </div>\n                ";
+      }
+
+      var html = '';
+
+      if (elem._type === 'activity') {
+        html = "<div class=\"activity\">\n                <div class=\"activity-header\" " + headerStyle + ">\n                    <div " + headerOverlay + ">\n                        <div class=\"activity-user\">\n                            <center><div class=\"activity-user-avatar\"><img src=\"" + window.location.origin + '/gfx/avatars/' + elem.user.avatar + "\" class=\"is-pointer\" onclick=\"location.href = '" + window.location.origin + '/user/' + elem.user.id + "';\"></div>\n                                <div class=\"activity-user-name\"><a href=\"" + window.location.origin + '/user/' + elem.user.slug + "\">" + elem.user.name + "</a>" + (elem.user.verified ? '&nbsp;<i class="far fa-check-circle" title="' + this.lang.verifiedUser + '"></i>' : '') + "</div></center>\n                        </div>\n                    </div>\n                </div>\n\n                <div class=\"is-inline-block is-stretched\">\n                    <div class=\"activity-title is-pointer is-wordbreak is-default-padding is-inline-block is-stretched\">\n                        <center><span><a class=\"is-def-color\" href=\"" + window.location.origin + '/activity/' + elem.slug + "\">" + elem.title + "</a></span> <span class=\"dropdown-trigger " + (tagcode.length > 0 ? '' : 'is-hidden') + "\" onclick=\"window.vue.toggleActivityTags(document.getElementById('activity-tags-" + elem.id + "'));\"><i class=\"fas fa-hashtag is-pointer\"></i></span></center>\n                    </div>\n\n                    " + tagcode + "\n                </div>\n\n                <div class=\"activity-infos is-default-padding\">\n                    <center><span title=\"" + elem.diffForHumans + "\"><i class=\"far fa-clock\"></i>&nbsp;" + elem.date_of_activity_display + " | </span>\n                        <span class=\"is-capitalized\"><i class=\"fas fa-map-marker-alt\"></i>&nbsp;" + elem.location + "</span></center>\n                </div>\n\n                <div class=\"activity-divider\">\n                    <hr/>\n                </div>\n\n                <div class=\"activity-information is-wordbreak is-default-side-padding\">" + (elem.description.length > MAX_ACTIVITY_DESCRIPTION_LENGTH ? elem.description.substr(0, MAX_ACTIVITY_DESCRIPTION_LENGTH) + '...' : elem.description) + "</div>\n\n                <div class=\"activity-footer is-default-side-padding\">\n                    <div class=\"activity-footer-stats\">\n                        <div class=\"is-inline-block\"><i class=\"fas fa-users\"></i>&nbsp;" + elem.participants + "</div>\n                        <div class=\"is-inline-block\"><i class=\"far fa-comments\"></i>&nbsp;" + elem.messages + "</div>\n                    </div>\n\n                    <div class=\"activity-footer-view is-inline-block\">\n                        <a class=\"button is-transparent-green\"  onclick=\"location.href = '" + window.location.origin + '/activity/' + elem.id + "';\">" + this.lang.view + "</a>\n                    </div>\n                </div>\n            </div>";
+      } else if (elem._type === 'ad') {
+        html = '<div class="activity-ad">' + elem.code + '</div>';
+      }
+
+      return html;
+    },
+    renderMessageListItem: function renderMessageListItem(item) {
+      var message = item.lm.message;
+
+      if (message.length > 20) {
+        message = message.substr(0, 20) + '...';
+      }
+
+      var html = "\n                <div class=\"messages-item " + (!item.lm.seen ? 'is-new-message' : '') + "\">\n                    <div class=\"messages-item-avatar\">\n                        <img src=\"" + window.location.origin + "/gfx/avatars/" + item.lm.user.avatar + "\">\n                    </div>\n        \n                    <div class=\"messages-item-name\">\n                        <a href=\"" + window.location.origin + "/user/" + item.lm.user.name + "\">" + item.lm.user.name + "</a>\n                    </div>\n        \n                    <div class=\"messages-item-subject\">\n                        <a href=\"" + window.location.origin + "/messages/show/" + item.lm.id + "\">" + item.lm.subject + "</a>\n                    </div>\n\n                    <div class=\"message-item-lastmsg\">\n                        <a href=\"" + window.location.origin + "/messages/show/" + item.lm.id + "\">" + item.lm.sender.name + ": " + message + "</a>\n                    </div>\n        \n                    <div class=\"messages-item-date\" title=\"" + item.lm.created_at + "\">\n                        " + item.lm.diffForHumans + "\n                    </div>\n                </div>\n            ";
+      return html;
+    },
+    renderMessageItem: function renderMessageItem(elem, self) {
+      var align = '';
+
+      if (elem.senderId === self) {
+        align = 'message-align-right';
+      } else {
+        align = 'message-align-left';
+      }
+
+      var html = "\n                <div class=\"message-thread " + align + "\">\n                    <div class=\"message-thread-header\">\n                        <div class=\"message-thread-header-avatar\">\n                            <a href=\"" + window.location.origin + '/user/' + elem.sender.name + "\"><img src=\"" + window.location.origin + '/gfx/avatars/' + elem.sender.avatar + "\"></a>\n                        </div>\n\n                        <div class=\"message-thread-header-userinfo\">\n                            <div><a href=\"" + window.location.origin + '/user/' + elem.sender.name + "\">" + elem.sender.name + "</a></div>\n                            <div class=\"is-message-label-small\" title=\"" + elem.created_at + "\">" + elem.diffForHumans + "</div>\n                        </div>\n\n                        <div class=\"message-thread-header-subject\">" + elem.subject + "</div>\n                    </div>\n\n                    <div class=\"message-thread-text\">" + elem.message + "</div>\n                </div>\n            ";
+      return html;
+    },
+    renderNotification: function renderNotification(elem) {
+      var newItem = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+      var icon = 'fas fa-info-circle';
+
+      if (elem.type === 'PUSH_PARTICIPATED') {
+        icon = 'fas fa-users';
+      } else if (elem.type === 'PUSH_COMMENTED') {
+        icon = 'far fa-comment';
+      } else if (elem.type === 'PUSH_MENTIONED') {
+        icon = 'fas fa-bolt';
+      } else if (elem.type === 'PUSH_MESSAGED') {
+        icon = 'far fa-comments';
+      } else if (elem.type === 'PUSH_FAVORITED') {
+        icon = 'far fa-star';
+      } else if (elem.type === 'PUSH_CREATED') {
+        icon = 'far fa-plus-square';
+      } else if (elem.type === 'PUSH_CANCELED') {
+        icon = 'fas fa-times-circle';
+      }
+
+      var html = "\n                <div class=\"notification-item " + (newItem ? 'is-new-notification' : '') + "\" id=\"notification-item-" + elem.id + "\">\n                    <div class=\"notification-icon\">\n                        <div class=\"notification-item-icon\"><i class=\"" + icon + " fa-3x\"></i></div>\n                    </div>\n                    <div class=\"notification-info\">\n                        <div class=\"notification-item-message is-color-grey-dark\">" + elem.longMsg + "</div>\n                        <div class=\"notification-item-message is-color-grey-light\">" + elem.diffForHumans + "</div>\n                    </div>\n                </div>\n            ";
+      return html;
+    },
+    renderFavorite: function renderFavorite(elem) {
+      var html = "\n                <div class=\"favorites-item\">\n                    <div class=\"favorite-left\">\n                        <div class=\"favorite-item-avatar favorite-badge\">\n                            <img src=\"" + window.location.origin + '/gfx/avatars/' + elem.avatar + "\" alt=\"avatar\"/>\n                            <span class=\"favnot-badge is-hidden\" id=\"favorite-activity-count-" + elem.entityId + "\"></span>\n                        </div>\n\n                        <div class=\"favorite-item-info\">\n                            <div class=\"is-color-grey-dark\"><a href=\"" + window.location.origin + '/user/' + elem.entityId + "\">" + elem.name + "</a>" + (elem.verified ? '&nbsp;<i class="far fa-check-circle" title="' + this.lang.verifiedUser + ' "></i>' : '') + "</div>\n                            <div title=\"" + elem.created_at + "\" class=\"is-color-grey-light\">Added: " + elem.diffForHumans + "</div>\n                        </div>\n                    </div>\n\n                    <div class=\"favorite-right\">\n                        <span title=\"Remove\" class=\"is-pointer\" onclick=\"location.href = '" + window.location.origin + '/user/' + elem.entityId + '/fav/remove' + "';\"><i class=\"fas fa-times\"></i></span>\n                    </div>\n                </div>\n            ";
+      return html;
+    },
+    toggleNotifications: function toggleNotifications(ident) {
+      var obj = document.getElementById(ident);
+
+      if (obj) {
+        if (obj.style.display === 'block') {
+          obj.style.display = 'none';
+        } else {
+          obj.style.display = 'block';
+        }
+      }
+    },
+    toggleFavorites: function toggleFavorites(ident) {
+      var obj = document.getElementById(ident);
+
+      if (obj) {
+        if (obj.style.display === 'block') {
+          obj.style.display = 'none';
+        } else {
+          obj.style.display = 'block';
+        }
+      }
+    },
+    reportComment: function reportComment(id) {
+      location.href = window.location.origin + '/comment/' + id + '/report';
+    },
+    lockComment: function lockComment(id) {
+      if (confirm('Do you really want to lock the comment?')) {
+        location.href = window.location.origin + '/comment/' + id + '/lock';
+      }
+    },
+    lockUser: function lockUser(id) {
+      if (confirm('Do you really want to lock this user?')) {
+        location.href = window.location.origin + '/user/' + id + '/lock';
+      }
+    },
+    showEditComment: function showEditComment(elemId) {
+      document.getElementById('editCommentId').value = elemId;
+      document.getElementById('editCommentText').value = document.getElementById('thread-text-' + elemId).innerHTML;
+      window.vue.bShowEditComment = true;
+    },
+    fetchSubThreadPosts: function fetchSubThreadPosts(parentId) {
+      if (typeof window.subPosts === 'undefined') {
+        window.subPosts = [];
+      }
+
+      if (typeof window.subPosts[parentId] === 'undefined') {
+        window.subPosts[parentId] = null;
+      }
+
+      document.getElementById('sub-thread-' + parentId).innerHTML += '<center><i class="fas fa-spinner fa-spin" id="spinner-sub-thread-' + parentId + '"></i></center>';
+      window.vue.ajaxRequest('get', window.location.origin + '/thread/' + parentId + '/sub' + (window.subPosts[parentId] !== null ? '?paginate=' + window.subPosts[parentId] : ''), {}, function (response) {
+        if (response.code == 200) {
+          document.getElementById('spinner-sub-thread-' + parentId).remove();
+          var html = '';
+          console.log(response.data);
+          response.data.forEach(function (elem, index) {
+            html += window.vue.renderThread(elem, elem.adminOrOwner, true, parentId);
+          });
+          document.getElementById('sub-thread-' + parentId).innerHTML += html;
+
+          if (response.last === false) {
+            if (document.getElementById('sub-comment-more-' + parentId) !== null) {
+              document.getElementById('sub-comment-more-' + parentId).remove();
+            }
+
+            document.getElementById('sub-thread-' + parentId).innerHTML += "<center><div id=\"sub-comment-more-" + parentId + "\"><a class=\"is-color-grey\" href=\"javascript:void(0)\" onclick=\"window.vue.fetchSubThreadPosts(" + parentId + ")\">View more</a></div></center>";
+          }
+
+          if (response.data.length === 0) {
+            if (document.getElementById('sub-comment-more-' + parentId) !== null) {
+              document.getElementById('sub-comment-more-' + parentId).remove();
+            }
+          } else {
+            window.subPosts[parentId] = response.data[response.data.length - 1].id;
+          }
+        }
+      });
+    },
+    replyThread: function replyThread(parentId, text) {
+      this.ajaxRequest('post', window.location.origin + '/thread/' + parentId + '/reply', {
+        text: text
+      }, function (response) {
+        if (response.code === 200) {
+          location.href = window.location.origin + '/activity/' + response.comment.activityId + '#thread';
+        }
+      });
+    },
+    lockActivity: function lockActivity(id) {
+      if (confirm('Do you really want to lock the activity?')) {
+        location.href = window.location.origin + '/activity/' + id + '/lock';
+      }
+    },
+    showTabMenu: function showTabMenu(target) {
+      var tabItems = ['tabProfile', 'tabSecurity', 'tabNotifications', 'tabMembership'];
+      tabItems.forEach(function (elem, index) {
+        if (elem !== target) {
+          document.getElementById(elem).classList.remove('is-active');
+          document.getElementById(elem + '-form').classList.add('is-hidden');
+        }
+
+        document.getElementById(target).classList.add('is-active');
+        document.getElementById(target + '-form').classList.remove('is-hidden');
+      });
+    },
+    markSeen: function markSeen() {
+      this.ajaxRequest('get', window.location.origin + '/notifications/seen', {}, function (response) {
+        if (response.code !== 200) {
+          console.log(response.msg);
+        }
+      });
+    },
+    togglePublicProfile: function togglePublicProfile(obj) {
+      this.ajaxRequest('post', window.location.origin + '/settings/privacy/publicprofile', {
+        value: obj.checked
+      }, function (response) {
+        if (response.code !== 200) {
+          obj.checked = !obj.checked;
+        }
+      });
+    },
+    queryLocation: function queryLocation(src, dst, fill) {
+      if (src.value.length >= 2) {
+        this.ajaxRequest('get', window.location.origin + '/locations/query?term=' + src.value, {}, function (response) {
+          if (response.code == 200) {
+            var dest = document.getElementById('location-list-content-' + dst);
+
+            if (dest !== null) {
+              dest.innerHTML = '';
+              response.data.forEach(function (elem, index) {
+                dest.innerHTML += '<div class="dropdown-item is-pointer" onclick="document.getElementById(\'' + fill + '\').value = \'' + elem.name + '\'; document.getElementById(\'location-list-' + dst + '\').classList.remove(\'is-active\');">' + elem.name + '</div>';
+              });
+            }
+
+            var menu = document.getElementById('location-list-' + dst);
+
+            if (menu !== null) {
+              menu.classList.add('is-active');
+            }
+          }
+        });
+      } else {
+        var menu = document.getElementById('location-list-' + dst);
+
+        if (menu !== null) {
+          menu.classList.remove('is-active');
+        }
+      }
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/bootstrap.js":
+/*!***********************************!*\
+  !*** ./resources/js/bootstrap.js ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/**
+ * We'll load the axios HTTP library which allows us to easily issue requests
+ * to our Laravel back-end. This library automatically handles sending the
+ * CSRF token as a header based on the value of the "XSRF" token cookie.
+ */
+
+window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+/**
+ * Echo exposes an expressive API for subscribing to channels and listening
+ * for events that are broadcast by Laravel. Echo and event broadcasting
+ * allows your team to easily build robust real-time web applications.
+ */
+// import Echo from 'laravel-echo';
+// window.Pusher = require('pusher-js');
+// window.Echo = new Echo({
+//     broadcaster: 'pusher',
+//     key: process.env.MIX_PUSHER_APP_KEY,
+//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+//     forceTLS: true
+// });
+
+/***/ }),
+
 /***/ "./node_modules/lodash/lodash.js":
 /*!***************************************!*\
   !*** ./node_modules/lodash/lodash.js ***!
   \***************************************/
-/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
+/* module decorator */ module = __webpack_require__.nmd(module);
+var __WEBPACK_AMD_DEFINE_RESULT__;/**
  * @license
  * Lodash <https://lodash.com/>
  * Copyright OpenJS Foundation and other contributors <https://openjsf.org/>
@@ -2382,7 +2812,7 @@ module.exports = {
       freeParseInt = parseInt;
 
   /** Detect free variable `global` from Node.js. */
-  var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
+  var freeGlobal = typeof __webpack_require__.g == 'object' && __webpack_require__.g && __webpack_require__.g.Object === Object && __webpack_require__.g;
 
   /** Detect free variable `self`. */
   var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
@@ -2394,7 +2824,7 @@ module.exports = {
   var freeExports =  true && exports && !exports.nodeType && exports;
 
   /** Detect free variable `module`. */
-  var freeModule = freeExports && typeof module == 'object' && module && !module.nodeType && module;
+  var freeModule = freeExports && "object" == 'object' && module && !module.nodeType && module;
 
   /** Detect the popular CommonJS extension `module.exports`. */
   var moduleExports = freeModule && freeModule.exports === freeExports;
@@ -19149,13 +19579,25 @@ module.exports = {
     !(__WEBPACK_AMD_DEFINE_RESULT__ = (function() {
       return _;
     }).call(exports, __webpack_require__, exports, module),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
   }
   // Check for `exports` after `define` in case a build optimizer adds it.
   else {}
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js"), __webpack_require__(/*! ./../webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
+
+/***/ }),
+
+/***/ "./resources/sass/app.scss":
+/*!*********************************!*\
+  !*** ./resources/sass/app.scss ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
 
 /***/ }),
 
@@ -19163,8 +19605,7 @@ module.exports = {
 /*!*****************************************!*\
   !*** ./node_modules/process/browser.js ***!
   \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ ((module) => {
 
 // shim for using process in browser
 var process = module.exports = {};
@@ -19352,620 +19793,169 @@ process.chdir = function (dir) {
 process.umask = function() { return 0; };
 
 
-/***/ }),
-
-/***/ "./node_modules/webpack/buildin/global.js":
-/*!***********************************!*\
-  !*** (webpack)/buildin/global.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || new Function("return this")();
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-
-/***/ "./node_modules/webpack/buildin/module.js":
-/*!***********************************!*\
-  !*** (webpack)/buildin/module.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = function(module) {
-	if (!module.webpackPolyfill) {
-		module.deprecate = function() {};
-		module.paths = [];
-		// module.parent = undefined by default
-		if (!module.children) module.children = [];
-		Object.defineProperty(module, "loaded", {
-			enumerable: true,
-			get: function() {
-				return module.l;
-			}
-		});
-		Object.defineProperty(module, "id", {
-			enumerable: true,
-			get: function() {
-				return module.i;
-			}
-		});
-		module.webpackPolyfill = 1;
-	}
-	return module;
-};
-
-
-/***/ }),
-
-/***/ "./resources/js/app.js":
-/*!*****************************!*\
-  !*** ./resources/js/app.js ***!
-  \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/*
-    Actifisys (dnyActifisys) developed by Daniel Brendel
-
-    (C) 2019 - 2021 by Daniel Brendel
-
-    Version: 1.0
-    Contact: dbrendel1988<at>gmail<dot>com
-    GitHub: https://github.com/danielbrendel/
-
-    Released under the MIT license
-*/
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
-
-var MAX_ACTIVITY_DESCRIPTION_LENGTH = 159;
-window.vue = new Vue({
-  el: '#app',
-  data: {
-    bShowRecover: false,
-    bShowRegister: false,
-    bShowLogin: false,
-    bShowCreateActivity: false,
-    bShowReplyThread: false,
-    bShowActivityCanceled: false,
-    bShowEditComment: false,
-    bShowCreateFaq: false,
-    bShowEditFaq: false,
-    bShowCreateTheme: false,
-    bShowEditTheme: false,
-    bShowEditActivity: false,
-    bShowCancelActivity: false,
-    bShowActivityExpired: false,
-    bShowUploadImage: false,
-    bShowCreateCategory: false,
-    bShowEditCategory: false,
-    bShowAddLocation: false,
-    bShowEditLocation: false,
-    bShowPurchaseProMode: false,
-    lang: {
-      copiedToClipboard: 'Text has been copied to clipboard!',
-      edit: 'Edit',
-      lock: 'Lock',
-      expandThread: 'Expand thread',
-      reply: 'Reply',
-      report: 'Report',
-      view: 'View',
-      verifiedUser: 'Verified user'
-    }
-  },
-  methods: {
-    handleCookieConsent: function handleCookieConsent() {
-      //Show cookie consent if not already for this client
-      var cookies = document.cookie.split(';');
-      var foundCookie = false;
-
-      for (var i = 0; i < cookies.length; i++) {
-        if (cookies[i].indexOf('cookieconsent') !== -1) {
-          foundCookie = true;
-          break;
-        }
-      }
-
-      if (foundCookie === false) {
-        document.getElementById('cookie-consent').style.display = 'inline-block';
-      }
-    },
-    clickedCookieConsentButton: function clickedCookieConsentButton() {
-      var expDate = new Date(Date.now() + 1000 * 60 * 60 * 24 * 365);
-      document.cookie = 'cookieconsent=1; expires=' + expDate.toUTCString() + ';';
-      document.getElementById('cookie-consent').style.display = 'none';
-    },
-    setLocationCookieValue: function setLocationCookieValue(city) {
-      var expDate = new Date(Date.now() + 1000 * 60 * 60 * 24 * 365);
-      document.cookie = 'filter_location=' + (city.length > 0 ? city : '_all') + '; expires=' + expDate.toUTCString() + '; path=/;';
-    },
-    setDateCookieValue: function setDateCookieValue(from, till) {
-      var expDate = new Date(Date.now() + 1000 * 60 * 60 * 24 * 365);
-      document.cookie = 'filter_date_from=' + (from.value.length > 0 ? from.value : '_default') + '; expires=' + expDate.toUTCString() + '; path=/;';
-      document.cookie = 'filter_date_till=' + (till.value.length > 0 ? till.value : '_default') + '; expires=' + expDate.toUTCString() + '; path=/;';
-    },
-    getLocationCookieValue: function getLocationCookieValue() {
-      var cookies = document.cookie.split(';');
-
-      for (var i = 0; i < cookies.length; i++) {
-        if (cookies[i].indexOf('filter_location') !== -1) {
-          return cookies[i].substr(cookies[i].indexOf('=') + 1);
-        }
-      }
-
-      return '_all';
-    },
-    getDateFromCookieValue: function getDateFromCookieValue() {
-      var cookies = document.cookie.split(';');
-
-      for (var i = 0; i < cookies.length; i++) {
-        if (cookies[i].indexOf('filter_date_from') !== -1) {
-          return cookies[i].substr(cookies[i].indexOf('=') + 1);
-        }
-      }
-
-      return '_default';
-    },
-    getDateTillCookieValue: function getDateTillCookieValue() {
-      var cookies = document.cookie.split(';');
-
-      for (var i = 0; i < cookies.length; i++) {
-        if (cookies[i].indexOf('filter_date_till') !== -1) {
-          return cookies[i].substr(cookies[i].indexOf('=') + 1);
-        }
-      }
-
-      return '_default';
-    },
-    ajaxRequest: function ajaxRequest(method, url) {
-      var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-      var successfunc = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : function (data) {};
-      var finalfunc = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : function () {};
-      var config = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : {};
-      //Perform ajax request
-      var func = window.axios.get;
-
-      if (method == 'post') {
-        func = window.axios.post;
-      } else if (method == 'patch') {
-        func = window.axios.patch;
-      } else if (method == 'delete') {
-        func = window.axios["delete"];
-      }
-
-      func(url, data, config).then(function (response) {
-        successfunc(response.data);
-      })["catch"](function (error) {
-        console.log(error);
-      })["finally"](function () {
-        finalfunc();
-      });
-    },
-    showError: function showError() {
-      document.getElementById('flash-error').style.display = 'inherit';
-      setTimeout(function () {
-        document.getElementById('flash-error').style.display = 'none';
-      }, 3500);
-    },
-    showSuccess: function showSuccess() {
-      document.getElementById('flash-success').style.display = 'inherit';
-      setTimeout(function () {
-        document.getElementById('flash-success').style.display = 'none';
-      }, 3500);
-    },
-    invalidLoginEmail: function invalidLoginEmail() {
-      var el = document.getElementById("loginemail");
-
-      if (el.value.length == 0 || el.value.indexOf('@') == -1 || el.value.indexOf('.') == -1) {
-        el.classList.add('is-danger');
-      } else {
-        el.classList.remove('is-danger');
-      }
-    },
-    invalidRecoverEmail: function invalidRecoverEmail() {
-      var el = document.getElementById("recoveremail");
-
-      if (el.value.length == 0 || el.value.indexOf('@') == -1 || el.value.indexOf('.') == -1) {
-        el.classList.add('is-danger');
-      } else {
-        el.classList.remove('is-danger');
-      }
-    },
-    invalidLoginPassword: function invalidLoginPassword() {
-      var el = document.getElementById("loginpw");
-
-      if (el.value.length == 0) {
-        el.classList.add('is-danger');
-      } else {
-        el.classList.remove('is-danger');
-      }
-    },
-    invalidRequiredInput: function invalidRequiredInput(obj, btn) {
-      if (obj.value.length === 0) {
-        obj.classList.add('is-danger');
-        btn.disabled = true;
-      } else {
-        obj.classList.remove('is-danger');
-        btn.disabled = false;
-      }
-    },
-    invalidDate: function invalidDate(obj, hint, btn) {
-      var dateVal = new Date(obj.value);
-      var curDate = new Date();
-
-      if (dateVal.setHours(0, 0, 0, 0) < curDate.setHours(0, 0, 0, 0)) {
-        hint.classList.remove('is-hidden');
-        btn.disabled = true;
-      } else {
-        hint.classList.add('is-hidden');
-        btn.disabled = false;
-      }
-    },
-    invalidCreateActivity: function invalidCreateActivity() {
-      var btn = document.getElementById('btnCreateActivity');
-      this.invalidRequiredInput(document.getElementById('caTitle'), btn);
-      this.invalidRequiredInput(document.getElementById('caDescription'), btn);
-      this.invalidDate(document.getElementById('caDate'), document.getElementById('activity-date-hint'), btn);
-      this.invalidRequiredInput(document.getElementById('caLocation'), btn);
-    },
-    toggleActivityOptions: function toggleActivityOptions(elem) {
-      if (elem.classList.contains('is-active')) {
-        elem.classList.remove('is-active');
-      } else {
-        elem.classList.add('is-active');
-      }
-    },
-    toggleCommentOptions: function toggleCommentOptions(elem) {
-      if (elem.classList.contains('is-active')) {
-        elem.classList.remove('is-active');
-      } else {
-        elem.classList.add('is-active');
-      }
-    },
-    toggleActivityTags: function toggleActivityTags(elem) {
-      if (elem.classList.contains('is-active')) {
-        elem.classList.remove('is-active');
-      } else {
-        elem.classList.add('is-active');
-      }
-    },
-    copyToClipboard: function copyToClipboard(text) {
-      var el = document.createElement('textarea');
-      el.value = text;
-      document.body.appendChild(el);
-      el.select();
-      document.execCommand('copy');
-      document.body.removeChild(el);
-      alert(this.lang.copiedToClipboard);
-    },
-    renderThread: function renderThread(elem) {
-      var adminOrOwner = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-      var isSubComment = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-      var parentId = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
-      var isAuth = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
-      var options = '';
-
-      if (adminOrOwner) {
-        options = "\n            <a onclick=\"window.vue.showEditComment(" + elem.id + "); window.vue.toggleCommentOptions(document.getElementById('thread-options-" + elem.id + "'));\" href=\"javascript:void(0)\" class=\"dropdown-item\">\n                <i class=\"far fa-edit\"></i>&nbsp;" + this.lang.edit + "\n            </a>\n            <a onclick=\"window.vue.lockComment(" + elem.id + "); window.vue.toggleCommentOptions(document.getElementById('thread-options-" + elem.id + "'));\" href=\"javascript:void(0)\" class=\"dropdown-item\">\n                <i class=\"fas fa-times\"></i>&nbsp;" + this.lang.lock + "\n            </a>\n            <hr class=\"dropdown-divider\">\n        ";
-      }
-
-      if (isAuth) {
-        options += "\n                <a href=\"javascript:void(0)\" onclick=\"window.vue.reportComment(" + elem.id + "); window.vue.toggleCommentOptions(document.getElementById('thread-options-" + elem.id + "'));\" class=\"dropdown-item\">\n                    " + this.lang.report + "\n                </a>\n                ";
-      }
-
-      var threadOptions = '';
-
-      if (options.length > 0) {
-        threadOptions = "\n                    <div class=\"thread-header-options is-inline-block\">\n                        <div class=\"dropdown is-right\" id=\"thread-options-" + elem.id + "\">\n                            <div class=\"dropdown-trigger\" onclick=\"window.vue.toggleCommentOptions(document.getElementById('thread-options-" + elem.id + "'));\">\n                                <i class=\"fas fa-ellipsis-v is-pointer\"></i>\n                            </div>\n                            <div class=\"dropdown-menu\" role=\"menu\">\n                                <div class=\"dropdown-content\">\n                                    " + options + "\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                ";
-      }
-
-      var expandThread = '';
-
-      if (elem.subCount > 0) {
-        expandThread = "<div class=\"thread-footer-subthread is-inline-block is-centered\"><a class=\"is-color-grey\" href=\"javascript:void(0)\" onclick=\"window.vue.fetchSubThreadPosts(" + elem.id + ")\">" + this.lang.expandThread + "</a></div>";
-      }
-
-      var replyThread = '';
-
-      if (isAuth) {
-        replyThread = "<div class=\"is-inline-block float-right\"><a class=\"is-color-grey\" href=\"javascript:void(0)\" onclick=\"document.getElementById('thread-reply-parent').value = '" + (isSubComment ? parentId : elem.id) + "'; document.getElementById('thread-reply-textarea').value = '" + elem.user.name + ": '; window.vue.bShowReplyThread = true;\">" + this.lang.reply + "</a></div>";
-      }
-
-      var html = "\n        <div id=\"thread-" + elem.id + "\" class=\"thread-elem " + (isSubComment ? 'is-sub-comment' : '') + "\">\n            <a name=\"" + elem.id + "\"></a>\n\n            <div class=\"thread-header\">\n                <div class=\"thread-header-avatar is-inline-block\">\n                    <img width=\"24\" height=\"24\" src=\"" + window.location.origin + "/gfx/avatars/" + elem.user.avatar + "\" class=\"is-pointer\" onclick=\"location.href = '" + window.location.origin + "/user/" + elem.user.slug + "';\" title=\"" + elem.user.name + "\">\n                </div>\n\n                <div class=\"thread-header-info is-inline-block\">\n                    <div><a href=\"" + window.location.origin + "/user/" + elem.user.slug + "\" class=\"is-color-grey\">" + elem.user.name + "</a>" + (elem.user.verified ? '&nbsp;<i class="far fa-check-circle" title="' + this.lang.verifiedUser + '"></i>' : '') + "</div>\n                    <div title=\"" + elem.created_at + "\">" + elem.diffForHumans + "</div>\n                </div>\n\n                " + threadOptions + "\n            </div>\n\n            <div class=\"thread-text\" id=\"thread-text-" + elem.id + "\">\n                " + elem.text + "\n            </div>\n\n            <div class=\"thread-footer\">\n                " + expandThread + "\n                " + replyThread + "\n            </div>\n\n            <div id=\"sub-thread-" + elem.id + "\"></div>\n        </div>\n    ";
-      return html;
-    },
-    renderActivity: function renderActivity(elem) {
-      var headerStyle = "";
-      var headerOverlay = "";
-
-      if (elem.category !== 0) {
-        headerStyle = "style=\"background-image: url('" + window.location.origin + '/gfx/categories/' + elem.categoryData.image + "'); background-size: cover; background-repeat: no-repeat;\"";
-        headerOverlay = "class=\"activity-header-overlay\"";
-      }
-
-      var taglist = '';
-      var tags = elem.tags.split(' ');
-
-      for (var i = 0; i < tags.length; i++) {
-        if (tags[i].length > 0) {
-          taglist += "\n                        <a href=\"" + window.location.origin + '?tag=' + tags[i] + "\" class=\"dropdown-item\">\n                            #" + tags[i] + "\n                        </a>\n                    ";
-        }
-      }
-
-      var tagcode = '';
-
-      if (taglist.length > 0) {
-        tagcode = "\n                    <div class=\"activty-dropdown-tags dropdown is-right is-inline-block\" id=\"activity-tags-" + elem.id + "\">\n                        <div class=\"dropdown-menu is-color-black\" role=\"menu\">\n                            <div class=\"dropdown-content\">\n                                " + taglist + "\n                            </div>\n                        </div>\n                    </div>\n                ";
-      }
-
-      var html = '';
-
-      if (elem._type === 'activity') {
-        html = "<div class=\"activity\">\n                <div class=\"activity-header\" " + headerStyle + ">\n                    <div " + headerOverlay + ">\n                        <div class=\"activity-user\">\n                            <center><div class=\"activity-user-avatar\"><img src=\"" + window.location.origin + '/gfx/avatars/' + elem.user.avatar + "\" class=\"is-pointer\" onclick=\"location.href = '" + window.location.origin + '/user/' + elem.user.id + "';\"></div>\n                                <div class=\"activity-user-name\"><a href=\"" + window.location.origin + '/user/' + elem.user.slug + "\">" + elem.user.name + "</a>" + (elem.user.verified ? '&nbsp;<i class="far fa-check-circle" title="' + this.lang.verifiedUser + '"></i>' : '') + "</div></center>\n                        </div>\n                    </div>\n                </div>\n\n                <div class=\"is-inline-block is-stretched\">\n                    <div class=\"activity-title is-pointer is-wordbreak is-default-padding is-inline-block is-stretched\">\n                        <center><span><a class=\"is-def-color\" href=\"" + window.location.origin + '/activity/' + elem.slug + "\">" + elem.title + "</a></span> <span class=\"dropdown-trigger " + (tagcode.length > 0 ? '' : 'is-hidden') + "\" onclick=\"window.vue.toggleActivityTags(document.getElementById('activity-tags-" + elem.id + "'));\"><i class=\"fas fa-hashtag is-pointer\"></i></span></center>\n                    </div>\n\n                    " + tagcode + "\n                </div>\n\n                <div class=\"activity-infos is-default-padding\">\n                    <center><span title=\"" + elem.diffForHumans + "\"><i class=\"far fa-clock\"></i>&nbsp;" + elem.date_of_activity_display + " | </span>\n                        <span class=\"is-capitalized\"><i class=\"fas fa-map-marker-alt\"></i>&nbsp;" + elem.location + "</span></center>\n                </div>\n\n                <div class=\"activity-divider\">\n                    <hr/>\n                </div>\n\n                <div class=\"activity-information is-wordbreak is-default-side-padding\">" + (elem.description.length > MAX_ACTIVITY_DESCRIPTION_LENGTH ? elem.description.substr(0, MAX_ACTIVITY_DESCRIPTION_LENGTH) + '...' : elem.description) + "</div>\n\n                <div class=\"activity-footer is-default-side-padding\">\n                    <div class=\"activity-footer-stats\">\n                        <div class=\"is-inline-block\"><i class=\"fas fa-users\"></i>&nbsp;" + elem.participants + "</div>\n                        <div class=\"is-inline-block\"><i class=\"far fa-comments\"></i>&nbsp;" + elem.messages + "</div>\n                    </div>\n\n                    <div class=\"activity-footer-view is-inline-block\">\n                        <a class=\"button is-transparent-green\"  onclick=\"location.href = '" + window.location.origin + '/activity/' + elem.id + "';\">" + this.lang.view + "</a>\n                    </div>\n                </div>\n            </div>";
-      } else if (elem._type === 'ad') {
-        html = '<div class="activity-ad">' + elem.code + '</div>';
-      }
-
-      return html;
-    },
-    renderMessageListItem: function renderMessageListItem(item) {
-      var html = "\n            <div class=\"messages-item " + (!item.seen ? 'is-new-message' : '') + "\">\n                <div class=\"messages-item-avatar\">\n                    <img src=\"" + window.location.origin + "/gfx/avatars/" + item.user.avatar + "\">\n                </div>\n\n                <div class=\"messages-item-name\">\n                    <a href=\"" + window.location.origin + "/user/" + item.user.id + "\">" + item.user.name + "</a>\n                    " + (item.user.verified ? '&nbsp;<i class="far fa-check-circle" title="' + this.lang.verifiedUser + '"></i>' : '') + "\n                </div>\n\n                <div class=\"messages-item-subject\">\n                    <a href=\"" + window.location.origin + "/messages/show/" + item.id + "\">" + item.subject + "</a>\n                </div>\n\n                <div class=\"messages-item-date\" title=\"" + item.created_at + "\">\n                    " + item.diffForHumans + "\n                </div>\n            </div>\n            ";
-      return html;
-    },
-    renderNotification: function renderNotification(elem) {
-      var newItem = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-      var icon = 'fas fa-info-circle';
-
-      if (elem.type === 'PUSH_PARTICIPATED') {
-        icon = 'fas fa-users';
-      } else if (elem.type === 'PUSH_COMMENTED') {
-        icon = 'far fa-comment';
-      } else if (elem.type === 'PUSH_MENTIONED') {
-        icon = 'fas fa-bolt';
-      } else if (elem.type === 'PUSH_MESSAGED') {
-        icon = 'far fa-comments';
-      } else if (elem.type === 'PUSH_FAVORITED') {
-        icon = 'far fa-star';
-      } else if (elem.type === 'PUSH_CREATED') {
-        icon = 'far fa-plus-square';
-      } else if (elem.type === 'PUSH_CANCELED') {
-        icon = 'fas fa-times-circle';
-      }
-
-      var html = "\n                <div class=\"notification-item " + (newItem ? 'is-new-notification' : '') + "\">\n                    <div class=\"notification-icon\">\n                        <div class=\"notification-item-icon\"><i class=\"" + icon + " fa-3x\"></i></div>\n                    </div>\n                    <div class=\"notification-info\">\n                        <div class=\"notification-item-message is-color-grey-dark\">" + elem.longMsg + "</div>\n                        <div class=\"notification-item-message is-color-grey-light\">" + elem.diffForHumans + "</div>\n                    </div>\n                </div>\n            ";
-      return html;
-    },
-    renderFavorite: function renderFavorite(elem) {
-      var html = "\n                <div class=\"favorites-item\">\n                    <div class=\"favorite-left\">\n                        <div class=\"favorite-item-avatar favorite-badge\">\n                            <img src=\"" + window.location.origin + '/gfx/avatars/' + elem.avatar + "\" alt=\"avatar\"/>\n                            <span class=\"favnot-badge is-hidden\" id=\"favorite-activity-count-" + elem.entityId + "\"></span>\n                        </div>\n\n                        <div class=\"favorite-item-info\">\n                            <div class=\"is-color-grey-dark\"><a href=\"" + window.location.origin + '/user/' + elem.entityId + "\">" + elem.name + "</a>" + (elem.verified ? '&nbsp;<i class="far fa-check-circle" title="' + this.lang.verifiedUser + ' "></i>' : '') + "</div>\n                            <div title=\"" + elem.created_at + "\" class=\"is-color-grey-light\">Added: " + elem.diffForHumans + "</div>\n                        </div>\n                    </div>\n\n                    <div class=\"favorite-right\">\n                        <span title=\"Remove\" class=\"is-pointer\" onclick=\"location.href = '" + window.location.origin + '/user/' + elem.entityId + '/fav/remove' + "';\"><i class=\"fas fa-times\"></i></span>\n                    </div>\n                </div>\n            ";
-      return html;
-    },
-    toggleNotifications: function toggleNotifications(ident) {
-      var obj = document.getElementById(ident);
-
-      if (obj) {
-        if (obj.style.display === 'block') {
-          obj.style.display = 'none';
-        } else {
-          obj.style.display = 'block';
-        }
-      }
-    },
-    toggleFavorites: function toggleFavorites(ident) {
-      var obj = document.getElementById(ident);
-
-      if (obj) {
-        if (obj.style.display === 'block') {
-          obj.style.display = 'none';
-        } else {
-          obj.style.display = 'block';
-        }
-      }
-    },
-    reportComment: function reportComment(id) {
-      location.href = window.location.origin + '/comment/' + id + '/report';
-    },
-    lockComment: function lockComment(id) {
-      if (confirm('Do you really want to lock the comment?')) {
-        location.href = window.location.origin + '/comment/' + id + '/lock';
-      }
-    },
-    lockUser: function lockUser(id) {
-      if (confirm('Do you really want to lock this user?')) {
-        location.href = window.location.origin + '/user/' + id + '/lock';
-      }
-    },
-    showEditComment: function showEditComment(elemId) {
-      document.getElementById('editCommentId').value = elemId;
-      document.getElementById('editCommentText').value = document.getElementById('thread-text-' + elemId).innerHTML;
-      window.vue.bShowEditComment = true;
-    },
-    fetchSubThreadPosts: function fetchSubThreadPosts(parentId) {
-      if (typeof window.subPosts === 'undefined') {
-        window.subPosts = [];
-      }
-
-      if (typeof window.subPosts[parentId] === 'undefined') {
-        window.subPosts[parentId] = null;
-      }
-
-      document.getElementById('sub-thread-' + parentId).innerHTML += '<center><i class="fas fa-spinner fa-spin" id="spinner-sub-thread-' + parentId + '"></i></center>';
-      window.vue.ajaxRequest('get', window.location.origin + '/thread/' + parentId + '/sub' + (window.subPosts[parentId] !== null ? '?paginate=' + window.subPosts[parentId] : ''), {}, function (response) {
-        if (response.code == 200) {
-          document.getElementById('spinner-sub-thread-' + parentId).remove();
-          var html = '';
-          console.log(response.data);
-          response.data.forEach(function (elem, index) {
-            html += window.vue.renderThread(elem, elem.adminOrOwner, true, parentId);
-          });
-          document.getElementById('sub-thread-' + parentId).innerHTML += html;
-
-          if (response.last === false) {
-            if (document.getElementById('sub-comment-more-' + parentId) !== null) {
-              document.getElementById('sub-comment-more-' + parentId).remove();
-            }
-
-            document.getElementById('sub-thread-' + parentId).innerHTML += "<center><div id=\"sub-comment-more-" + parentId + "\"><a class=\"is-color-grey\" href=\"javascript:void(0)\" onclick=\"window.vue.fetchSubThreadPosts(" + parentId + ")\">View more</a></div></center>";
-          }
-
-          if (response.data.length === 0) {
-            if (document.getElementById('sub-comment-more-' + parentId) !== null) {
-              document.getElementById('sub-comment-more-' + parentId).remove();
-            }
-          } else {
-            window.subPosts[parentId] = response.data[response.data.length - 1].id;
-          }
-        }
-      });
-    },
-    replyThread: function replyThread(parentId, text) {
-      this.ajaxRequest('post', window.location.origin + '/thread/' + parentId + '/reply', {
-        text: text
-      }, function (response) {
-        if (response.code === 200) {
-          location.href = window.location.origin + '/activity/' + response.comment.activityId + '#thread';
-        }
-      });
-    },
-    lockActivity: function lockActivity(id) {
-      if (confirm('Do you really want to lock the activity?')) {
-        location.href = window.location.origin + '/activity/' + id + '/lock';
-      }
-    },
-    showTabMenu: function showTabMenu(target) {
-      var tabItems = ['tabProfile', 'tabSecurity', 'tabNotifications', 'tabMembership'];
-      tabItems.forEach(function (elem, index) {
-        if (elem !== target) {
-          document.getElementById(elem).classList.remove('is-active');
-          document.getElementById(elem + '-form').classList.add('is-hidden');
-        }
-
-        document.getElementById(target).classList.add('is-active');
-        document.getElementById(target + '-form').classList.remove('is-hidden');
-      });
-    },
-    markSeen: function markSeen() {
-      this.ajaxRequest('get', window.location.origin + '/notifications/seen', {}, function (response) {
-        if (response.code !== 200) {
-          console.log(response.msg);
-        }
-      });
-    },
-    togglePublicProfile: function togglePublicProfile(obj) {
-      this.ajaxRequest('post', window.location.origin + '/settings/privacy/publicprofile', {
-        value: obj.checked
-      }, function (response) {
-        if (response.code !== 200) {
-          obj.checked = !obj.checked;
-        }
-      });
-    },
-    queryLocation: function queryLocation(src, dst, fill) {
-      if (src.value.length >= 2) {
-        this.ajaxRequest('get', window.location.origin + '/locations/query?term=' + src.value, {}, function (response) {
-          if (response.code == 200) {
-            var dest = document.getElementById('location-list-content-' + dst);
-
-            if (dest !== null) {
-              dest.innerHTML = '';
-              response.data.forEach(function (elem, index) {
-                dest.innerHTML += '<div class="dropdown-item is-pointer" onclick="document.getElementById(\'' + fill + '\').value = \'' + elem.name + '\'; document.getElementById(\'location-list-' + dst + '\').classList.remove(\'is-active\');">' + elem.name + '</div>';
-              });
-            }
-
-            var menu = document.getElementById('location-list-' + dst);
-
-            if (menu !== null) {
-              menu.classList.add('is-active');
-            }
-          }
-        });
-      } else {
-        var menu = document.getElementById('location-list-' + dst);
-
-        if (menu !== null) {
-          menu.classList.remove('is-active');
-        }
-      }
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./resources/js/bootstrap.js":
-/*!***********************************!*\
-  !*** ./resources/js/bootstrap.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/**
- * We'll load the axios HTTP library which allows us to easily issue requests
- * to our Laravel back-end. This library automatically handles sending the
- * CSRF token as a header based on the value of the "XSRF" token cookie.
- */
-
-window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-/**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
- */
-// import Echo from 'laravel-echo';
-// window.Pusher = require('pusher-js');
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: process.env.MIX_PUSHER_APP_KEY,
-//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-//     forceTLS: true
-// });
-
-/***/ }),
-
-/***/ "./resources/sass/app.scss":
-/*!*********************************!*\
-  !*** ./resources/sass/app.scss ***!
-  \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ 0:
-/*!*************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ***!
-  \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(/*! E:\Projects\dnyActifisys\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\Projects\dnyActifisys\resources\sass\app.scss */"./resources/sass/app.scss");
-
-
 /***/ })
 
-/******/ });
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			id: moduleId,
+/******/ 			loaded: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Flag the module as loaded
+/******/ 		module.loaded = true;
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = __webpack_modules__;
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/chunk loaded */
+/******/ 	(() => {
+/******/ 		var deferred = [];
+/******/ 		__webpack_require__.O = (result, chunkIds, fn, priority) => {
+/******/ 			if(chunkIds) {
+/******/ 				priority = priority || 0;
+/******/ 				for(var i = deferred.length; i > 0 && deferred[i - 1][2] > priority; i--) deferred[i] = deferred[i - 1];
+/******/ 				deferred[i] = [chunkIds, fn, priority];
+/******/ 				return;
+/******/ 			}
+/******/ 			var notFulfilled = Infinity;
+/******/ 			for (var i = 0; i < deferred.length; i++) {
+/******/ 				var [chunkIds, fn, priority] = deferred[i];
+/******/ 				var fulfilled = true;
+/******/ 				for (var j = 0; j < chunkIds.length; j++) {
+/******/ 					if ((priority & 1 === 0 || notFulfilled >= priority) && Object.keys(__webpack_require__.O).every((key) => (__webpack_require__.O[key](chunkIds[j])))) {
+/******/ 						chunkIds.splice(j--, 1);
+/******/ 					} else {
+/******/ 						fulfilled = false;
+/******/ 						if(priority < notFulfilled) notFulfilled = priority;
+/******/ 					}
+/******/ 				}
+/******/ 				if(fulfilled) {
+/******/ 					deferred.splice(i--, 1)
+/******/ 					result = fn();
+/******/ 				}
+/******/ 			}
+/******/ 			return result;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/global */
+/******/ 	(() => {
+/******/ 		__webpack_require__.g = (function() {
+/******/ 			if (typeof globalThis === 'object') return globalThis;
+/******/ 			try {
+/******/ 				return this || new Function('return this')();
+/******/ 			} catch (e) {
+/******/ 				if (typeof window === 'object') return window;
+/******/ 			}
+/******/ 		})();
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/node module decorator */
+/******/ 	(() => {
+/******/ 		__webpack_require__.nmd = (module) => {
+/******/ 			module.paths = [];
+/******/ 			if (!module.children) module.children = [];
+/******/ 			return module;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/jsonp chunk loading */
+/******/ 	(() => {
+/******/ 		// no baseURI
+/******/ 		
+/******/ 		// object to store loaded and loading chunks
+/******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
+/******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
+/******/ 		var installedChunks = {
+/******/ 			"/js/app": 0,
+/******/ 			"css/app": 0
+/******/ 		};
+/******/ 		
+/******/ 		// no chunk on demand loading
+/******/ 		
+/******/ 		// no prefetching
+/******/ 		
+/******/ 		// no preloaded
+/******/ 		
+/******/ 		// no HMR
+/******/ 		
+/******/ 		// no HMR manifest
+/******/ 		
+/******/ 		__webpack_require__.O.j = (chunkId) => (installedChunks[chunkId] === 0);
+/******/ 		
+/******/ 		// install a JSONP callback for chunk loading
+/******/ 		var webpackJsonpCallback = (parentChunkLoadingFunction, data) => {
+/******/ 			var [chunkIds, moreModules, runtime] = data;
+/******/ 			// add "moreModules" to the modules object,
+/******/ 			// then flag all "chunkIds" as loaded and fire callback
+/******/ 			var moduleId, chunkId, i = 0;
+/******/ 			for(moduleId in moreModules) {
+/******/ 				if(__webpack_require__.o(moreModules, moduleId)) {
+/******/ 					__webpack_require__.m[moduleId] = moreModules[moduleId];
+/******/ 				}
+/******/ 			}
+/******/ 			if(runtime) var result = runtime(__webpack_require__);
+/******/ 			if(parentChunkLoadingFunction) parentChunkLoadingFunction(data);
+/******/ 			for(;i < chunkIds.length; i++) {
+/******/ 				chunkId = chunkIds[i];
+/******/ 				if(__webpack_require__.o(installedChunks, chunkId) && installedChunks[chunkId]) {
+/******/ 					installedChunks[chunkId][0]();
+/******/ 				}
+/******/ 				installedChunks[chunkIds[i]] = 0;
+/******/ 			}
+/******/ 			return __webpack_require__.O(result);
+/******/ 		}
+/******/ 		
+/******/ 		var chunkLoadingGlobal = self["webpackChunk"] = self["webpackChunk"] || [];
+/******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
+/******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
+/******/ 	__webpack_require__.O(undefined, ["css/app"], () => (__webpack_require__("./resources/js/app.js")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/app"], () => (__webpack_require__("./resources/sass/app.scss")))
+/******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
+/******/ 	
+/******/ })()
+;

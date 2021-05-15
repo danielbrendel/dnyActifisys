@@ -16,7 +16,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMessageModelsTable extends Migration
+class CreateMessageListModelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -25,14 +25,11 @@ class CreateMessageModelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('message_models', function (Blueprint $table) {
+        Schema::create('message_list_models', function (Blueprint $table) {
             $table->id();
-            $table->integer('userId');
-            $table->integer('senderId');
             $table->string('channel');
-            $table->string('subject');
-            $table->text('message');
-            $table->boolean('seen')->default(false);
+            $table->integer('user1');
+            $table->integer('user2');
             $table->timestamps();
         });
     }
@@ -44,6 +41,6 @@ class CreateMessageModelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('message_models');
+        Schema::dropIfExists('message_list_models');
     }
 }

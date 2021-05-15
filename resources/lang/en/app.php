@@ -430,5 +430,6 @@ return [
     'payment_failed' => 'The payment has failed',
     'payment_succeeded' => 'Payment has succeeded',
     'public_profile_label' => 'Allow guests to view my profile',
-    'no_account_yet' => 'No account yet? Sign up'
+    'no_account_yet' => 'No account yet? Sign up',
+    'no_more_messages' => 'No more messages'
 ];

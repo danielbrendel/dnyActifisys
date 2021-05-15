@@ -430,5 +430,6 @@ return [
     'payment_failed' => 'Zahlung fehlgeschlagen',
     'payment_succeeded' => 'Die Zahlung war erfolgreich',
     'public_profile_label' => 'Gästen erlauben, mein Profil zu sehen',
-    'no_account_yet' => 'Noch kein Konto? Jetzt registrieren'
+    'no_account_yet' => 'Noch kein Konto? Jetzt registrieren',
+    'no_more_messages' => 'Keine weiteren Nachrichten'
 ];

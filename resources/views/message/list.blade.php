@@ -26,18 +26,7 @@
             </div>
 
             <div class="messages">
-                <div class="messages-list" id="messages-list">
-                    <i class="fas fa-spinner fa-spin"></i>
-                </div>
-            </div>
-
-            <div class="messages-footer">
-                <div class="messages-footer-count" id="msg-count"></div>
-
-                <div class="messages-footer-nav">
-                    <span><i id="browse-left" class="fas fa-arrow-left is-pointer" onclick="if (window.paginateList < window.maxMsgId) { window.paginateDirection = {{ \App\MessageModel::DIRECTION_LEFT }}; fetchMessageList(); }"></i></span>
-                    <span><i id="browse-right" class="fas fa-arrow-right is-pointer" onclick="if (window.paginateList > window.minMsgId) { window.paginateDirection = {{ \App\MessageModel::DIRECTION_RIGHT }}; fetchMessageList(); }"></i></span>
-                </div>
+                <div class="messages-list" id="messages-list"></div>
             </div>
         </div>
     </div>
@@ -48,48 +37,34 @@
 @section('javascript')
     <script>
         window.paginateList = null;
-        window.paginateDirection = 1;
 
         window.fetchMessageList = function() {
-            document.getElementById('messages-list').innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            document.getElementById('messages-list').innerHTML += '<div id="spinner"><i class="fas fa-spinner fa-spin"></i></div>';
 
-            window.vue.ajaxRequest('get', '{{ url('/messages/list') }}' + ((window.paginateList !== null) ? '?paginate=' + window.paginateList + '&direction=' + window.paginateDirection : ''), {}, function(response) {
-                if (response.code === 200) {
-                 document.getElementById('messages-list').innerHTML = '';
+            if (document.getElementById('loadmore') !== null) {
+                document.getElementById('loadmore').remove();
+            }
+            
+            window.vue.ajaxRequest('get', '{{ url('/messages/list') }}' + ((window.paginateList !== null) ? '?paginate=' + window.paginateList : ''), {}, function(response) {
+                if (response.code === 200) {  
+                    if (document.getElementById('spinner') !== null) {
+                        document.getElementById('spinner').remove();
+                    }
 
-                 if (response.max === null) {
-                     document.getElementById('messages-list').innerHTML = '{{ __('app.no_messages') }}';
-                     return;
-                 }
+                    response.data.forEach(function(elem, index){
+                        let html = window.vue.renderMessageListItem(elem);
 
-                 response.data.forEach(function(elem, index){
-                    let html = window.vue.renderMessageListItem(elem);
+                        document.getElementById('messages-list').innerHTML += html;
+                    });
 
-                    document.getElementById('messages-list').innerHTML += html;
-                 });
+                    if (response.data.length > 0) {
+                        window.paginateList = response.data[response.data.length - 1].updated_at;
 
-                 window.minMsgId = response.min;
-                 window.maxMsgId = response.max;
-
-                 if (response.data.length > 0) {
-                     if (window.paginateDirection == {{ \App\MessageModel::DIRECTION_LEFT }}) {
-                         window.paginateList = response.data[response.data.length - 1].id;
-                     } else if (window.paginateDirection == {{ \App\MessageModel::DIRECTION_RIGHT }}) {
-                         window.paginateList = response.data[0].id;
-                     }
-                 }
-
-                  document.getElementById('browse-left').classList.add('is-color-black-force');
-                  document.getElementById('browse-right').classList.add('is-color-black-force');
-
-                 if (window.paginateList <= response.min) {
-                     document.getElementById('browse-right').classList.remove('is-color-black-force');
-                 } else if (window.paginateList >= response.max - 1) {
-                     document.getElementById('browse-left').classList.remove('is-color-black-force');
-                 }
-
-                 document.getElementById('msg-count').innerHTML = (response.data.length) + ' {{ __('app.message_list_phrase') }} ' + response.max;
-             }
+                        document.getElementById('messages-list').innerHTML += '<div id="loadmore" class="is-pointer" onclick="window.fetchMessageList();"><br/><center><i class="fas fa-arrow-down is-color-black"></i></center></div>';
+                    } else {
+                        document.getElementById('messages-list').innerHTML += "<div><br/>{{ __('app.no_more_messages') }}</div>"
+                    }
+                }
           });
         };
 

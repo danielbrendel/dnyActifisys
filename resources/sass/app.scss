@@ -365,6 +365,9 @@ h2 {
 .is-def-color input, .is-def-color textarea {
     color: rgb(240, 240, 240);
 }
+.is-color-black {
+    color: rgb(0, 0, 0) !important;
+}
 .fas, .far {
     color: rgb(225, 225, 225);
 }
@@ -784,7 +787,6 @@ h2 {
 .messages-item-avatar img {
     width: 24px;
     height: 24px;
-	border-radius: 50%;
 }
 .messages-item-name {
     display: inline-block;
@@ -798,6 +800,15 @@ h2 {
 }
 .messages-item-subject a {
     color: rgb(50, 50, 50);
+}
+.message-item-lastmsg {
+    margin-left: 15px;
+    font-style: italic;
+    display: inline-block;
+    color: rgb(150, 150, 150);
+}
+.message-item-lastmsg p {
+	display: inline-block;
 }
 .messages-item-date {
     display: inline-block;
@@ -825,9 +836,12 @@ h2 {
     margin-left: 15px;
 }
 .message-thread {
+    position: relative;
     background-color: rgb(240, 240, 240);
     padding: 21px;
     margin-bottom: 25px;
+    width: 90%;
+    border-radius: 32px;
 }
 .message-thread-header {
     margin-bottom: 25px;
@@ -837,14 +851,14 @@ h2 {
     display: inline-block;
 }
 .message-thread-header-avatar img {
-    width: 24px;
-    height: 24px;
-	border-radius: 50%;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
 }
 .message-thread-header-userinfo {
     color: rgb(200, 200, 200);
     display: inline-block;
-    font-size: 0.8em;
+    font-size: 1.2em;
     top: 9px;
 }
 .message-thread-header-subject {
@@ -853,8 +867,24 @@ h2 {
     margin-left: 25px;
 }
 .message-thread-text {
-    color: rgb(150, 150, 150);
+    color: rgb(230, 230, 230);
     margin-left: 25px;
+}
+.message-thread-text a {
+    color: rgb(29, 103, 190);
+}
+.message-thread-text a:hover {
+    text-decoration: underline;
+}
+.message-align-left {
+    background-color: rgba(90, 90, 90, 0.5);
+}
+.message-align-right {
+    margin-left: auto;
+    background-color: rgba(50, 120, 0, 0.5);
+}
+.is-message-label-small {
+    font-size: 0.7em;
 }
 
 //Notification area

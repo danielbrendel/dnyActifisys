@@ -78,6 +78,7 @@ Route::get('/notifications/seen', 'NotificationController@seen');
 Route::get('/messages', 'MessageController@list');
 Route::get('/messages/list', 'MessageController@fetchList');
 Route::get('/messages/show/{id}', 'MessageController@show');
+Route::any('/messages/query', 'MessageController@query');
 Route::get('/messages/create', 'MessageController@create');
 Route::post('/messages/send', 'MessageController@send');
 

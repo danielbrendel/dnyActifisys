@@ -16,6 +16,7 @@ namespace App;
 
 use Exception;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * Class MessageModel
@@ -24,16 +25,13 @@ use Illuminate\Database\Eloquent\Model;
  */
 class MessageModel extends Model
 {
-    public const DIRECTION_LEFT = 0;
-    public const DIRECTION_RIGHT = 1;
-
     /**
      * Add message
      *
      * @param $userId
      * @param $subject
      * @param $message
-     * @return int|mixed
+     * @return int
      * @throws \Exception
      */
     public static function add($userId, $senderId, $subject, $message)
@@ -53,9 +51,33 @@ class MessageModel extends Model
                 throw new \Exception(__('app.user_no_messages'));
             }
 
+            $channel = static::select('channel')->where('userId', '=', $userId)->where('senderId', '=', $senderId)->first();
+            if (!$channel) {
+                $channel = static::select('channel')->where('senderId', '=', $userId)->where('userId', '=', $senderId)->first();
+                if (!$channel) {
+                    $channel = md5(strval($userId) . strval($senderId) . random_bytes(55));
+                } else {
+                    $channel = $channel->channel;
+                }
+            } else {
+                $channel = $channel->channel;
+            }
+
+            $list = MessageListModel::where('channel', '=', $channel)->first();
+            if (!$list) {
+                $list = new MessageListModel();
+                $list->channel = $channel;
+                $list->user1 = $userId;
+                $list->user2 = $senderId;
+                $list->save();
+            } else {
+                $list->touch();
+            }
+
             $msg = new MessageModel();
             $msg->userId = $userId;
             $msg->senderId = $senderId;
+            $msg->channel = $channel;
             $msg->subject = htmlspecialchars($subject);
             $msg->message = htmlspecialchars($message);
             $msg->save();
@@ -88,21 +110,27 @@ class MessageModel extends Model
     public static function fetch($userId, $limit, $paginate = null, $direction = null)
     {
         try {
-            $rowset = MessageModel::where('senderId', '=', $userId);
-
+            $channels = MessageListModel::where(function($channels) use ($userId) {
+                $channels->where('user1', '=', $userId)
+                    ->orWhere('user2', '=', $userId);
+            });
+            
             if ($paginate !== null) {
-                if ($direction == self::DIRECTION_LEFT) {
-                    $rowset->where('id', '>', $paginate)->orderBy('id', 'asc');
-                } else if ($direction == self::DIRECTION_RIGHT) {
-                    $rowset->where('id', '<=', $paginate - $limit)->orderBy('id', 'desc');
-                } else {
-                    throw new Exception('Invalid direction value: ' . $direction);
-                }
-            } else {
-                $rowset->orderBy('id', 'desc');
+                $channels->where('updated_at', '<', $paginate);
             }
 
-            return $rowset->limit($limit)->get();
+            $channels = $channels->orderBy('updated_at', 'desc')->limit($limit)->get();
+
+            foreach ($channels as &$item) {
+                $item->lm = static::where('channel', '=', $item->channel)->orderBy('id', 'desc')->first();
+                if ($item->lm->senderId === auth()->id()) {
+                    if (!$item->lm->seen) {
+                        $item->lm->seen = true;
+                    }
+                }
+            }
+
+            return $channels;
         } catch (Exception $e) {
             throw $e;
         }
@@ -123,28 +151,95 @@ class MessageModel extends Model
                 throw new Exception('Message not found: ' . $msgId);
             }
 
-            $msg->seen = true;
-            $msg->save();
+            if (($msg->userId !== auth()->id()) && ($msg->senderId !== auth()->id())) {
+                throw new \Exception('Access denied');
+            }
 
-            $previous = MessageModel::where(function($query) use ($msg) {
-                $query->where('userId', '=', $msg->userId)
-                    ->where('senderId', '=', $msg->senderId)
-                    ->where('id', '<>', $msg->id);
-            })->orWhere(function($query) use ($msg) {
-                $query->where('userId', '=', $msg->senderId)
-                    ->where('senderId', '=', $msg->userId);
-            })->orderBy('created_at', 'desc')->get();
-            foreach ($previous as $item) {
-                if (!$item->seen) {
+            return $msg;
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Get thread pack
+     * 
+     * @param $ident
+     * @param $limit
+     * @param $paginate
+     * @return array
+     * @throws \Exception
+     */
+    public static function queryThreadPack($ident, $limit, $paginate = null)
+    {
+        try {
+            $query = static::where('channel', '=', $ident)->where(function($query){
+                $query->where('userId', '=', auth()->id())->orWhere('senderId', '=', auth()->id());
+            });
+
+            if ($paginate !== null) {
+                $query->where('id', '<', $paginate);
+            }
+
+            $items = $query->orderBy('id', 'desc')->limit($limit)->get();
+
+            foreach ($items as &$item) {
+                if ($item->senderId !== auth()->id()) {
                     $item->seen = true;
                     $item->save();
                 }
             }
 
-            return array(
-              'msg' => $msg,
-              'previous' => $previous
-            );
+            $items = $items->toArray();
+
+            foreach ($items as &$item) {
+                $item['sender'] = User::get($item['senderId'])->toArray();
+                $item['receiver'] = User::get($item['userId'])->toArray();
+                $item['diffForHumans'] = Carbon::parse($item['created_at'])->diffForHumans();
+            }
+
+            return $items;
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Get chat with partner
+     * 
+     * @param $self
+     * @param $partner
+     * @return mixed
+     * @throws \Exception
+     */
+    public static function getChatWithUser($self, $partner)
+    {
+        try {
+            $query = static::where(function($query) use($self, $partner) {
+                $query->where('userId', '=', $self)
+                    ->where('senderId', '=', $partner);
+            })->orWhere(function($query) use ($self, $partner) {
+                $query->where('userId', '=', $partner)
+                    ->where('senderId', '=', $self);
+            });
+
+            return $query->orderBy('id', 'desc')->first();
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Get amount of unread messages
+     *
+     * @param $userId
+     * @return int
+     * @throws \Exception
+     */
+    public static function unreadCount($userId)
+    {
+        try {
+            return static::where('userId', '=', $userId)->where('seen', '=', false)->count();
         } catch (\Exception $e) {
             throw $e;
         }

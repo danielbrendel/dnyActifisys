@@ -421,25 +421,63 @@ window.vue = new Vue({
         },
 
         renderMessageListItem: function(item) {
+            let message = item.lm.message;
+            if (message.length > 20) {
+                message = message.substr(0, 20) + '...';
+            }
+
             let html = `
-            <div class="messages-item ` + ((!item.seen) ? 'is-new-message' : '') + `">
-                <div class="messages-item-avatar">
-                    <img src="` + window.location.origin + `/gfx/avatars/` + item.user.avatar + `">
-                </div>
+                <div class="messages-item ` + ((!item.lm.seen) ? 'is-new-message' : '') + `">
+                    <div class="messages-item-avatar">
+                        <img src="` + window.location.origin + `/gfx/avatars/` + item.lm.user.avatar + `">
+                    </div>
+        
+                    <div class="messages-item-name">
+                        <a href="` + window.location.origin + `/user/` + item.lm.user.name + `">` + item.lm.user.name + `</a>
+                    </div>
+        
+                    <div class="messages-item-subject">
+                        <a href="` + window.location.origin + `/messages/show/` + item.lm.id + `">` + item.lm.subject + `</a>
+                    </div>
 
-                <div class="messages-item-name">
-                    <a href="` + window.location.origin + `/user/` + item.user.id + `">` + item.user.name + `</a>
-                    ` + ((item.user.verified) ? '&nbsp;<i class="far fa-check-circle" title="' + this.lang.verifiedUser + '"></i>' : '') + `
+                    <div class="message-item-lastmsg">
+                        <a href="` + window.location.origin + `/messages/show/` + item.lm.id + `">` + item.lm.sender.name + `: ` + message + `</a>
+                    </div>
+        
+                    <div class="messages-item-date" title="` + item.lm.created_at + `">
+                        ` + item.lm.diffForHumans + `
+                    </div>
                 </div>
+            `;
+        
+            return html;
+        },
 
-                <div class="messages-item-subject">
-                    <a href="` + window.location.origin + `/messages/show/` + item.id + `">` + item.subject + `</a>
-                </div>
+        renderMessageItem: function(elem, self) {
+            let align = '';
+            if (elem.senderId === self) {
+                align = 'message-align-right';
+            } else {
+                align = 'message-align-left';
+            }
 
-                <div class="messages-item-date" title="` + item.created_at + `">
-                    ` + item.diffForHumans + `
+            let html = `
+                <div class="message-thread ` + align + `">
+                    <div class="message-thread-header">
+                        <div class="message-thread-header-avatar">
+                            <a href="` + window.location.origin + '/user/' + elem.sender.name + `"><img src="` + window.location.origin + '/gfx/avatars/' + elem.sender.avatar + `"></a>
+                        </div>
+
+                        <div class="message-thread-header-userinfo">
+                            <div><a href="` + window.location.origin + '/user/' + elem.sender.name + `">` + elem.sender.name + `</a></div>
+                            <div class="is-message-label-small" title="` + elem.created_at + `">` + elem.diffForHumans + `</div>
+                        </div>
+
+                        <div class="message-thread-header-subject">` + elem.subject + `</div>
+                    </div>
+
+                    <div class="message-thread-text">` + elem.message + `</div>
                 </div>
-            </div>
             `;
 
             return html;
@@ -464,7 +502,7 @@ window.vue = new Vue({
             }
 
             let html = `
-                <div class="notification-item ` + ((newItem) ? 'is-new-notification' : '') + `">
+                <div class="notification-item ` + ((newItem) ? 'is-new-notification' : '') + `" id="notification-item-` + elem.id + `">
                     <div class="notification-icon">
                         <div class="notification-item-icon"><i class="` + icon + ` fa-3x"></i></div>
                     </div>

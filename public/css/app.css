@@ -1,4 +1,6 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);@import url(https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap);/*
+@import url(https://fonts.googleapis.com/css?family=Nunito);
+@import url(https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap);
+/*
     Actifisys (dnyActifisys) developed by Daniel Brendel
 
     (C) 2019 - 2021 by Daniel Brendel
@@ -9,7 +11,6 @@
 
     Released under the MIT license
 */
-
 html {
   width: 100%;
   height: 100%;
@@ -78,9 +79,7 @@ textarea {
   cursor: pointer;
 }
 
-.hamburger-bar1,
-.hamburger-bar2,
-.hamburger-bar3 {
+.hamburger-bar1, .hamburger-bar2, .hamburger-bar3 {
   width: 23px;
   height: 2px;
   background-color: #7f8a9d;
@@ -127,7 +126,6 @@ textarea {
   margin-bottom: 15px;
   background-color: #c8c8c8;
 }
-
 @media screen and (max-width: 765px) {
   .cookie-consent-inner {
     z-index: 1;
@@ -173,7 +171,6 @@ textarea {
   top: 19%;
   width: 100%;
 }
-
 @media screen and (min-width: 1089px) {
   .header-headline {
     left: 12%;
@@ -192,7 +189,6 @@ textarea {
   min-height: 95px;
   background-color: rgba(0, 0, 0, 0.4);
 }
-
 @media screen and (max-width: 768px) {
   .links {
     margin-bottom: -20px;
@@ -204,7 +200,6 @@ textarea {
   width: 100%;
   display: inline-block;
 }
-
 @media screen and (min-width: 769px) {
   .linklist {
     top: 25px;
@@ -229,7 +224,6 @@ textarea {
   color: #969696;
   font-size: 0.7em;
 }
-
 @media screen and (max-width: 768px) {
   .bottom {
     top: 12px;
@@ -241,13 +235,11 @@ textarea {
   position: relative;
   top: -22px;
 }
-
 @media screen and (min-width: 769px) {
   .bottom span {
     top: -7px;
   }
 }
-
 @media screen and (max-width: 768px) {
   .bottom span {
     top: -3px;
@@ -389,10 +381,7 @@ h2 {
   color: #f0f0f0;
 }
 
-.is-def-color,
-.is-def-color label,
-.is-def-color select,
-.is-def-color a {
+.is-def-color, .is-def-color label, .is-def-color select, .is-def-color a {
   color: #f0f0f0;
 }
 
@@ -400,9 +389,7 @@ h2 {
   color: #f0f0f0;
 }
 
-.is-def-color input,
-.is-def-color textarea,
-.is-def-color select {
+.is-def-color input, .is-def-color textarea, .is-def-color select {
   background-color: transparent;
 }
 
@@ -422,10 +409,6 @@ h2 {
   color: #969696 !important;
 }
 
-::-ms-input-placeholder {
-  color: #969696 !important;
-}
-
 ::placeholder {
   color: #969696 !important;
 }
@@ -438,13 +421,15 @@ h2 {
   color: #969696 !important;
 }
 
-.is-def-color input,
-.is-def-color textarea {
+.is-def-color input, .is-def-color textarea {
   color: #f0f0f0;
 }
 
-.fas,
-.far {
+.is-color-black {
+  color: black !important;
+}
+
+.fas, .far {
   color: #e1e1e1;
 }
 
@@ -463,7 +448,6 @@ h2 {
 #loadmore {
   margin-top: 25px;
 }
-
 @media screen and (min-width: 366px) and (max-width: 767px) {
   #loadmore {
     margin-top: 50px;
@@ -475,7 +459,6 @@ h2 {
   padding: 15px;
   background-color: rgba(255, 255, 255, 0.1);
 }
-
 @media screen and (min-width: 380px) {
   .frame {
     border: 1px solid #ccc;
@@ -487,7 +470,6 @@ h2 {
   position: relative;
   background-color: rgba(255, 255, 255, 0.1);
 }
-
 @media screen and (min-width: 380px) {
   .windowed-frame {
     border: 1px solid #ccc;
@@ -671,20 +653,17 @@ h2 {
   height: 583px;
   background-color: rgba(255, 255, 255, 0.4);
 }
-
 @media screen and (min-width: 368px) {
   .activity {
     margin: 15px;
   }
 }
-
 @media screen and (max-width: 480px) {
   .activity {
     left: -13px;
     width: 100%;
   }
 }
-
 @media screen and (max-width: 365px) {
   .activity {
     width: 104%;
@@ -759,14 +738,12 @@ h2 {
   margin-right: 30px;
   left: 15px;
 }
-
 @media screen and (max-width: 480px) {
   .activity-ad {
     left: -2px;
     width: 100%;
   }
 }
-
 @media screen and (max-width: 365px) {
   .activity-ad {
     width: 104%;
@@ -777,7 +754,6 @@ h2 {
 .activity-filter {
   top: 23px;
 }
-
 @media screen and (min-width: 768px) {
   .activity-filter {
     float: right;
@@ -819,7 +795,6 @@ h2 {
     top: 25px;
   }
 }
-
 @media screen and (max-width: 480px) {
   #activities {
     width: 100%;
@@ -829,7 +804,6 @@ h2 {
 .is-mobile-refresh {
   float: right;
 }
-
 @media screen and (min-width: 768px) {
   .is-mobile-refresh {
     display: none;
@@ -859,7 +833,6 @@ h2 {
     width: 84%;
   }
 }
-
 @media screen and (max-width: 525px) {
   .thread-input-form {
     width: 67%;
@@ -904,8 +877,7 @@ h2 {
   top: 10px;
 }
 
-.thread-header-info a,
-.thread-footer a {
+.thread-header-info a, .thread-footer a {
   color: #c8c8c8;
 }
 
@@ -971,7 +943,6 @@ h2 {
 .messages-item-avatar img {
   width: 24px;
   height: 24px;
-  border-radius: 50%;
 }
 
 .messages-item-name {
@@ -989,6 +960,17 @@ h2 {
 
 .messages-item-subject a {
   color: #323232;
+}
+
+.message-item-lastmsg {
+  margin-left: 15px;
+  font-style: italic;
+  display: inline-block;
+  color: #969696;
+}
+
+.message-item-lastmsg p {
+  display: inline-block;
 }
 
 .messages-item-date {
@@ -1024,9 +1006,12 @@ h2 {
 }
 
 .message-thread {
+  position: relative;
   background-color: #f0f0f0;
   padding: 21px;
   margin-bottom: 25px;
+  width: 90%;
+  border-radius: 32px;
 }
 
 .message-thread-header {
@@ -1039,15 +1024,15 @@ h2 {
 }
 
 .message-thread-header-avatar img {
-  width: 24px;
-  height: 24px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
 }
 
 .message-thread-header-userinfo {
   color: #c8c8c8;
   display: inline-block;
-  font-size: 0.8em;
+  font-size: 1.2em;
   top: 9px;
 }
 
@@ -1058,8 +1043,29 @@ h2 {
 }
 
 .message-thread-text {
-  color: #969696;
+  color: #e6e6e6;
   margin-left: 25px;
+}
+
+.message-thread-text a {
+  color: #1d67be;
+}
+
+.message-thread-text a:hover {
+  text-decoration: underline;
+}
+
+.message-align-left {
+  background-color: rgba(90, 90, 90, 0.5);
+}
+
+.message-align-right {
+  margin-left: auto;
+  background-color: rgba(50, 120, 0, 0.5);
+}
+
+.is-message-label-small {
+  font-size: 0.7em;
 }
 
 .notifications {
@@ -1070,7 +1076,6 @@ h2 {
   display: none;
   border: 1px solid #ccc;
 }
-
 @media screen and (min-width: 769px) {
   .notifications {
     right: 12px;
@@ -1078,33 +1083,28 @@ h2 {
     height: 90%;
   }
 }
-
 @media screen and (max-width: 768px) {
   .notifications {
     width: 100%;
     height: 100%;
   }
 }
-
 @media screen and (min-height: 520px) {
   .notifications {
     height: 520px;
   }
 }
-
 @media screen and (max-width: 1087px) {
   .notifications {
     top: -218px;
   }
 }
-
 @media screen and (max-width: 572px) {
   .notifications {
     top: -320px;
     right: 0px;
   }
 }
-
 @media screen and (max-width: 353px) {
   .notifications {
     top: -379px;
@@ -1120,7 +1120,6 @@ h2 {
   border-right: 15px solid transparent;
   border-bottom: 15px solid white;
 }
-
 @media screen and (max-width: 768px) {
   .notifications-arrow-up {
     display: none;
@@ -1137,7 +1136,6 @@ h2 {
   height: 78%;
   overflow-y: auto;
 }
-
 @media screen and (max-width: 480px) {
   .notifications-content {
     height: 95%;
@@ -1230,7 +1228,6 @@ h2 {
   display: none;
   border: 1px solid #ccc;
 }
-
 @media screen and (min-width: 769px) {
   .favorites {
     right: 127px;
@@ -1238,33 +1235,28 @@ h2 {
     height: 90%;
   }
 }
-
 @media screen and (max-width: 768px) {
   .favorites {
     width: 100%;
     height: 100%;
   }
 }
-
 @media screen and (min-height: 520px) {
   .favorites {
     height: 520px;
   }
 }
-
 @media screen and (max-width: 1087px) {
   .favorites {
     top: -218px;
   }
 }
-
 @media screen and (max-width: 572px) {
   .favorites {
     top: -320px;
     right: 0px;
   }
 }
-
 @media screen and (max-width: 353px) {
   .favorites {
     top: -379px;
@@ -1280,7 +1272,6 @@ h2 {
   border-right: 15px solid transparent;
   border-bottom: 15px solid white;
 }
-
 @media screen and (max-width: 768px) {
   .favorites-arrow-up {
     display: none;
@@ -1297,7 +1288,6 @@ h2 {
   height: 78%;
   overflow-y: auto;
 }
-
 @media screen and (max-width: 480px) {
   .favorites-content {
     height: 95%;
@@ -1370,8 +1360,7 @@ h2 {
   float: right;
 }
 
-.is-color-lightblue,
-.is-color-lightblue a {
+.is-color-lightblue, .is-color-lightblue a {
   color: lightsteelblue;
 }
 
@@ -1383,8 +1372,7 @@ h2 {
   color: #bebebe;
 }
 
-.is-color-black a,
-.is-color-black .caption {
+.is-color-black a, .is-color-black .caption {
   color: black;
 }
 
@@ -1477,4 +1465,3 @@ a.is-color-grey:hover {
 .is-install-navbar {
   background-color: white;
 }
-
