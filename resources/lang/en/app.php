@@ -288,6 +288,7 @@ return [
     'reason' => 'Reason',
     'activity_expired' => 'Activity expired',
     'activity_expired_message' => 'This activity has expired.',
+    'activity_running' => 'Activity currently running',
     'mail_user_commented_title' => 'User has posted a comment',
     'mail_user_commented_info' => 'User has posted a comment',
     'mail_user_commented_body' => 'You have a new comment posted on your activity.',

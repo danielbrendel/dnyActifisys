@@ -217,7 +217,7 @@ window.vue = new Vue({
             this.invalidRequiredInput(document.getElementById('caTitle'), btn);
             this.invalidRequiredInput(document.getElementById('caDescription'), btn);
             this.invalidDate(document.getElementById('caDate'), document.getElementById('activity-date-hint'), btn);
-            this.invalidRequiredInput(document.getElementById('caLocation'), btn);
+            //this.invalidRequiredInput(document.getElementById('caLocation'), btn);
         },
 
         toggleActivityOptions: function(elem) {
@@ -373,7 +373,7 @@ window.vue = new Vue({
             let html = '';
 
             if (elem._type === 'activity') {
-                html = `<div class="activity">
+                html = `<div class="activity ` + ((elem.running) ? 'activity-is-running' : '') + `">
                 <div class="activity-header" ` + headerStyle + `>
                     <div ` + headerOverlay + `>
                         <div class="activity-user">

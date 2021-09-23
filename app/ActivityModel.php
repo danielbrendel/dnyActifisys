@@ -255,7 +255,7 @@ class ActivityModel extends Model
     public static function fetchActivities($location = null, $paginate = null, $dateFrom = null, $dateTill = null, $tag = null, $category = null)
     {
         try {
-            $activities = ActivityModel::where('date_of_activity', '>=', date('Y-m-d H:i:s'))->where('locked', '=', false)->where('canceled', '=', false);
+            $activities = ActivityModel::where('date_of_activity', '>=', date('Y-m-d H:i:s', strtotime('-' . env('APP_ACTIVITYRUNTIME', 60) . ' minutes')))->where('locked', '=', false)->where('canceled', '=', false);
 
             if ($location !== null) {
                 $activities->where('location', 'like', '%' . strtolower($location) . '%');

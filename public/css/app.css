@@ -638,6 +638,17 @@ h2 {
   color: rgba(250, 0, 0, 0.9);
 }
 
+.activity-running {
+  margin-top: 15px;
+  margin-left: 15px;
+  margin-right: 15px;
+  color: rgba(50, 230, 0, 0.9);
+}
+
+.activity-is-running {
+  border: 1px solid rgba(50, 230, 0, 0.9) !important;
+}
+
 .activity-limit-reached {
   margin-top: 15px;
   margin-left: 15px;

@@ -264,6 +264,12 @@ class ActivityController extends Controller
                 $item['date_of_activity'] = $item['date_of_activity']->format(__('app.date_format'));
 
                 $item['categoryData'] = CategoryModel::where('id', '=', $item['category'])->first();
+
+                $item['running'] = false;
+                
+                if (((new DateTime($item['date_of_activity'])) < (new DateTime('now'))) && ((new DateTime($item['date_of_activity'])) >= (new DateTime('now'))->modify('-' . env('APP_ACTIVITYRUNTIME', 60) . ' minutes'))) {
+                    $item['running'] = true;
+                }
             }
 
             $data = array_values($data);

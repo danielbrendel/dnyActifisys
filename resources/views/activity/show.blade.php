@@ -69,9 +69,13 @@
                         </div>
                     @endif
 
-                    @if ((new DateTime('now')) > (new DateTime($activity->date_of_activity)))
+                    @if ((new DateTime('now')) > (new DateTime($activity->date_of_activity))->modify('+' . env('APP_ACTIVITYRUNTIME', 60) . ' minutes'))
                         <div class="activity-expired">
                             {{ __('app.activity_expired') }}
+                        </div>
+                    @elseif ((new DateTime('now')) > (new DateTime($activity->date_of_activity)))
+                        <div class="activity-running">
+                            {{ __('app.activity_running') }}
                         </div>
                     @endif
 
@@ -493,7 +497,7 @@
                 }
 
                 window.vue.bShowActivityCanceled = true;
-            @elseif ((new DateTime('now')) > (new DateTime($activity->date_of_activity)))
+            @elseif ((new DateTime('now')) > (new DateTime($activity->date_of_activity))->modify('+' . env('APP_ACTIVITYRUNTIME', 60) . ' minutes'))
                 window.vue.bShowActivityExpired = true;
             @endif
         });
