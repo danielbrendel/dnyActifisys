@@ -561,6 +561,14 @@
             window.vue.lang.view = '{{ __('app.view') }}';
             window.vue.lang.verifiedUser = '{{ __('app.verifiedUser') }}';
 
+            @auth
+                window.user = {};
+                window.user.id = {{ auth()->id() }};
+                window.user.data = JSON.parse(`{!! \App\User::getAuthExposableData() !!}`);
+            @elseguest
+                window.user = null;
+            @endauth
+
             window.vue.handleCookieConsent();
 
             @if (Session::has('flash.error'))

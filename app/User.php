@@ -479,4 +479,21 @@ class User extends Authenticatable
             throw $e;
         }
     }
+
+    /**
+     * Get authenticated user exposable data (only for the user self)
+     * 
+     * @return string
+     */
+    public static function getAuthExposableData()
+    {
+        try {
+            $user = User::getByAuthId();
+            $data = array('id' => $user->id, 'name' => $user->name, 'email' => $user->email, 'device_token' => $user->device_token, 'admin' => $user->admin, 'maintainer' => $user->maintainer, 'pro' => $user->pro);
+
+            return json_encode($data);
+        } catch (Exception $e) {
+            return '';
+        }
+    }
 }

@@ -35,6 +35,7 @@ class CreateUsersTable extends Migration
             $table->string('avatar')->default('default.png');
             $table->string('password_reset')->nullable();
             $table->string('account_confirm');
+            $table->string('device_token', 1024)->default(''); //Only for mobile devices
             $table->boolean('deactivated')->default(false);
             $table->dateTime('birthday')->useCurrent();
             $table->integer('gender')->default(0); //0 = unspecified, 1 = male, 2 = female, 3 = diverse

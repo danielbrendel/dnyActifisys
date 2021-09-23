@@ -61,6 +61,7 @@ Route::get('/user/{id}/lock', 'MemberController@lock');
 Route::get('/user/{id}/report', 'MemberController@report');
 Route::get('/user/{id}/ignore/add', 'MemberController@ignoreAdd');
 Route::get('/user/{id}/ignore/remove', 'MemberController@ignoreRemove');
+Route::get('/user/device/token', 'MemberController@setDeviceToken');
 Route::get('/settings', 'MemberController@viewSettings');
 Route::post('/settings', 'MemberController@saveSettings');
 Route::post('/settings/password', 'MemberController@savePassword');

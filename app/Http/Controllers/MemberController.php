@@ -467,6 +467,28 @@ class MemberController extends Controller
     }
 
     /**
+     * Set user mobile device token
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function setDeviceToken()
+    {
+        try {
+            $this->validateAuth();
+
+            $token = request('token', '');
+
+            $user = User::getByAuthId();
+            $user->device_token = $token;
+            $user->save();
+
+            return response()->json(array('code' => 200));
+        } catch (\Exception $e) {
+            return response()->json(array('code' => 500, 'msg' => $e->getMessage()));
+        }
+    }
+
+    /**
      * Delete user
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
