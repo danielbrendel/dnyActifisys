@@ -405,6 +405,34 @@ class ActivityController extends Controller
     }
 
     /**
+     * Fetch user participations
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function fetchUserParticipations($userId)
+    {
+        try {
+            $data = ActivityModel::queryUserParticipations($userId);
+
+            foreach ($data as $key => &$item) {
+                $item = (array)$item;
+
+                $item['diffForHumans'] = Carbon::createFromDate($item['date_of_activity'])->diffForHumans();
+                $item['date_of_activity_display'] = Carbon::createFromDate($item['date_of_activity'])->format(__('app.date_format_display'));
+                $item['date_of_activity'] = date(__('app.date_format'), strtotime($item['date_of_activity']));
+                $item['participants'] = ParticipantModel::where('activity', '=', $item['id'])->where('type', '=', ParticipantModel::PARTICIPANT_ACTUAL)->count();
+                $item['messages'] = ThreadModel::where('activityId', '=', $item['id'])->count();
+                $item['categoryData'] = CategoryModel::where('id', '=', $item['category'])->first();
+                $item['view_count'] = AppModel::countAsString(UniqueViewsModel::viewForItem($item['id']));
+            }
+
+            return response()->json(array('code' => 200, 'data' => $data));
+        } catch (Exception $e) {
+            return response()->json(array('code' => 500, 'msg' => $e->getMessage()));
+        }
+    }
+
+    /**
      * Add post to activity thread
      *
      * @param $id

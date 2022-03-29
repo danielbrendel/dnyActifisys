@@ -17,6 +17,7 @@ namespace App;
 use DateTime;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
@@ -342,6 +343,24 @@ class ActivityModel extends Model
             }
 
             return $query->limit(env('APP_ACTIVITYPACKLIMIT'))->get();
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Query user participations
+     * 
+     * @param $userId
+     * @return mixed
+     * @throws Exception
+     */
+    public static function queryUserParticipations($userId)
+    {
+        try {
+            $query = DB::select(DB::raw('SELECT * FROM activity_models WHERE (id IN (SELECT activity FROM participant_models WHERE participant = ?) OR owner = ?) AND date_of_activity >= ? ORDER BY date_of_activity ASC'), [$userId, $userId, date('Y-m-d H:i:s')]);
+            
+            return $query;
         } catch (Exception $e) {
             throw $e;
         }

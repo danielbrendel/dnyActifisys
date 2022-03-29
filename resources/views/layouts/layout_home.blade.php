@@ -218,6 +218,7 @@
                         <div class="is-inline-block float-right favorites-close-action is-pointer" onclick="window.vue.toggleFavorites('favorites'); if (window.menuVisible) {document.getElementById('navbarMenu').classList.remove('is-active'); document.getElementById('navbarBurger').classList.remove('is-active'); }">{{ __('app.close') }}</div>
                     </div>
 
+                    <div class="favorites-content" id="favorites-act-content"><i class="fa fa-spinner fa-spin"></i></div>
                     <div class="favorites-content" id="favorites-content"><i class="fa fa-spinner fa-spin"></i></div>
                 </div>
 
@@ -584,7 +585,8 @@
             @auth
                 setTimeout('fetchNotifications()', 1000);
                 setTimeout('fetchNotificationList()', 100);
-                setTimeout('fetchFavorites()', 2000);
+                setTimeout('fetchFavorites()', 1000);
+                setTimeout('fetchFavActivities()', 1000);
             @endauth
 
             const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
@@ -712,6 +714,25 @@
                 }
             });
         };
+
+        @auth
+            window.fetchFavActivities = function() {
+                window.vue.ajaxRequest('get', '{{ url('/activity/user/' . auth()->id() . '/participations') }}', {}, function(response){
+                    if (response.code === 200) {
+                        if (response.data.length > 0) {
+                            document.getElementById('favorites-act-content').innerHTML = '';
+                            
+                            response.data.forEach(function(elem, index) {
+                                elem.user = JSON.parse('<?= json_encode(\App\User::getByAuthId()->toArray()) ?>');
+                                let html = window.vue.renderActivitySmall(elem);
+
+                                document.getElementById('favorites-act-content').innerHTML += html;
+                            });
+                        }
+                    }
+                });
+            };
+        @endauth
     </script>
 
     @yield('javascript')

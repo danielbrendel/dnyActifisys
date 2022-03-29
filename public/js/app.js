@@ -996,7 +996,7 @@ module.exports = function transformData(data, headers, fns) {
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
-/* provided dependency */ var process = __webpack_require__(/*! process/browser */ "./node_modules/process/browser.js");
+/* provided dependency */ var process = __webpack_require__(/*! process/browser.js */ "./node_modules/process/browser.js");
 
 
 var utils = __webpack_require__(/*! ./utils */ "./node_modules/axios/lib/utils.js");
@@ -2360,6 +2360,10 @@ window.vue = new Vue({
         html = '<div class="activity-ad">' + elem.code + '</div>';
       }
 
+      return html;
+    },
+    renderActivitySmall: function renderActivitySmall(elem) {
+      var html = "\n                <div class=\"activity-small\">\n                    <div class=\"activity-small-title\">\n                        <a href=\"" + window.location.origin + '/activity/' + elem.slug + "\">" + elem.title + "</a>\n                    </div>\n\n                    <div class=\"activity-small-infos\">\n                        <div class=\"activity-small-infos-left is-inline-block\">\n                            <div class=\"is-inline-block\"><i class=\"fas fa-users is-color-dark-grey\"></i>&nbsp;" + elem.participants + "</div>\n                            <div class=\"is-inline-block\"><i class=\"far fa-comments is-color-dark-grey\"></i>&nbsp;" + elem.messages + "</div>\n                            <div class=\"is-inline-block\"><i class=\"far fa-eye is-color-dark-grey\"></i>&nbsp;" + elem.view_count + "</div>\n                        </div>\n\n                        <div class=\"activity-small-infos-right is-inline-block is-color-dark-grey\">\n                            " + elem.date_of_activity_display + "\n                        </div>\n                    </div>\n                </div>\n            ";
       return html;
     },
     renderMessageListItem: function renderMessageListItem(item) {
@@ -20171,7 +20175,7 @@ module.exports = JSON.parse('{"_args":[["axios@0.21.4","E:\\\\Projects\\\\dnyAct
 /******/ 				if(__webpack_require__.o(installedChunks, chunkId) && installedChunks[chunkId]) {
 /******/ 					installedChunks[chunkId][0]();
 /******/ 				}
-/******/ 				installedChunks[chunkIds[i]] = 0;
+/******/ 				installedChunks[chunkId] = 0;
 /******/ 			}
 /******/ 			return __webpack_require__.O(result);
 /******/ 		}

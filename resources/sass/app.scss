@@ -680,6 +680,22 @@ h2 {
         width: 100%;
     }
 }
+
+//Activity small
+.activity-small {
+    margin-bottom: 10px;
+}
+.activity-small-title a {
+    color:rgb(30, 103, 190);
+}
+.activity-small-title a:hover {
+    color:rgb(30, 103, 190);
+    text-decoration: underline;
+}
+.activity-small-infos-right {
+    float: right;
+}
+
 .is-mobile-refresh {
     float: right;
     @media screen and (min-width: 768px) {
@@ -1071,10 +1087,7 @@ h2 {
 }
 .favorites-content {
     margin: 25px;
-    height: 78%;
-    @media screen and (max-width: 480px) {
-        height: 95%;
-    }
+    height: 34%;
     overflow-y: auto;
 }
 .favorites-item {
@@ -1143,6 +1156,9 @@ h2 {
 }
 .is-color-grey {
     color: rgb(190, 190, 190);
+}
+.is-color-dark-grey {
+    color: rgb(100, 100, 100);
 }
 .is-color-black a, .is-color-black .caption {
     color: rgb(0, 0, 0);

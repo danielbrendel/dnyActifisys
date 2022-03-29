@@ -421,6 +421,30 @@ window.vue = new Vue({
             return html;
         },
 
+        renderActivitySmall: function(elem) {
+            let html = `
+                <div class="activity-small">
+                    <div class="activity-small-title">
+                        <a href="` + window.location.origin + '/activity/' + elem.slug + `">` + elem.title + `</a>
+                    </div>
+
+                    <div class="activity-small-infos">
+                        <div class="activity-small-infos-left is-inline-block">
+                            <div class="is-inline-block"><i class="fas fa-users is-color-dark-grey"></i>&nbsp;` + elem.participants + `</div>
+                            <div class="is-inline-block"><i class="far fa-comments is-color-dark-grey"></i>&nbsp;` + elem.messages + `</div>
+                            <div class="is-inline-block"><i class="far fa-eye is-color-dark-grey"></i>&nbsp;` + elem.view_count + `</div>
+                        </div>
+
+                        <div class="activity-small-infos-right is-inline-block is-color-dark-grey">
+                            ` + elem.date_of_activity_display + `
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            return html;
+        },
+
         renderMessageListItem: function(item) {
             let message = item.lm.message;
             if (message.length > 20) {

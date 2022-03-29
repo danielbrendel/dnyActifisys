@@ -126,7 +126,7 @@
 
             <div class="column is-8">
                 <div class="activities-nav">
-                    <span class="is-color-lightblue"><a href="javascript:void(0);" onclick="document.getElementById('activities-content').innerHTML = ''; window.fetchType = 'running'; window.paginate = null; window.fetchUserActivities();">{{ __('app.running_activities') }}</a></span>&nbsp;|&nbsp;<span class="is-color-lightblue"><a href="javascript:void(0);" onclick="document.getElementById('activities-content').innerHTML = ''; window.fetchType = 'past'; window.paginate = null; window.fetchUserActivities();">{{ __('app.past_activities') }}</a></span>
+                    <span class="is-color-lightblue"><a id="lnkActRunning" href="javascript:void(0);" onclick="document.getElementById('activities-content').innerHTML = ''; window.fetchType = 'running'; window.paginate = null; document.getElementById('lnkActRunning').classList.add('is-underlined'); document.getElementById('lnkActPast').classList.remove('is-underlined'); window.fetchUserActivities();">{{ __('app.running_activities') }}</a></span>&nbsp;|&nbsp;<span class="is-color-lightblue"><a id="lnkActPast" href="javascript:void(0);" onclick="document.getElementById('activities-content').innerHTML = ''; window.fetchType = 'past'; window.paginate = null; document.getElementById('lnkActRunning').classList.remove('is-underlined'); document.getElementById('lnkActPast').classList.add('is-underlined'); window.fetchUserActivities();">{{ __('app.past_activities') }}</a></span>
                 </div>
 
                 <div id="activities-content"></div>

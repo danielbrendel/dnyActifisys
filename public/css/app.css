@@ -817,6 +817,23 @@ h2 {
   }
 }
 
+.activity-small {
+  margin-bottom: 10px;
+}
+
+.activity-small-title a {
+  color: #1e67be;
+}
+
+.activity-small-title a:hover {
+  color: #1e67be;
+  text-decoration: underline;
+}
+
+.activity-small-infos-right {
+  float: right;
+}
+
 .is-mobile-refresh {
   float: right;
 }
@@ -1301,13 +1318,8 @@ h2 {
 
 .favorites-content {
   margin: 25px;
-  height: 78%;
+  height: 34%;
   overflow-y: auto;
-}
-@media screen and (max-width: 480px) {
-  .favorites-content {
-    height: 95%;
-  }
 }
 
 .favorites-item {
@@ -1386,6 +1398,10 @@ h2 {
 
 .is-color-grey {
   color: #bebebe;
+}
+
+.is-color-dark-grey {
+  color: #646464;
 }
 
 .is-color-black a, .is-color-black .caption {
