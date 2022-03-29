@@ -84,9 +84,19 @@ class MemberController extends Controller
                 $user->actual = array_values($participatingIn);
             }
 
+            $user_public = new \stdClass();
+            $user_public->id = $user->id;
+			$user_public->name = $user->name;
+			$user_public->slug = $user->slug;
+			$user_public->avatar = $user->avatar;
+			$user_public->gender = $user->gender;
+			$user_public->bio = $user->bio;
+			$user_public->verified = $user->verified;
+
             return view('member.profile', [
                'captchadata' => CaptchaModel::createSum(session()->getId()),
-               'user' => $user
+               'user' => $user,
+               'user_public' => $user_public
             ]);
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());

@@ -156,7 +156,7 @@
 
                    if (response.data.length > 0) {
                        response.data.forEach(function(elem, index) {
-                           elem.user = JSON.parse('<?= json_encode($user) ?>');
+                           elem.user = JSON.parse('<?= json_encode($user_public) ?>');
                            let html = window.vue.renderActivity(elem);
 
                            document.getElementById('activities-content').innerHTML += html;
