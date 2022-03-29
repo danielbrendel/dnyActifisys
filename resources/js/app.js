@@ -406,6 +406,7 @@ window.vue = new Vue({
                     <div class="activity-footer-stats">
                         <div class="is-inline-block"><i class="fas fa-users"></i>&nbsp;` + elem.participants + `</div>
                         <div class="is-inline-block"><i class="far fa-comments"></i>&nbsp;` + elem.messages + `</div>
+                        <div class="is-inline-block"><i class="far fa-eye"></i>&nbsp;` + elem.view_count + `</div>
                     </div>
 
                     <div class="activity-footer-view is-inline-block">

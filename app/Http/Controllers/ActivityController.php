@@ -28,6 +28,7 @@ use App\ThreadModel;
 use App\User;
 use App\VerifyModel;
 use App\LocationModel;
+use App\UniqueViewsModel;
 use DateTime;
 use Exception;
 use Illuminate\Http\Request;
@@ -159,6 +160,7 @@ class ActivityController extends Controller
             $activity->images = ActivitiesHaveImages::getForActivity($activity->id);
             $activity->categoryData = CategoryModel::where('id', '=', $activity->category)->first();
 			$activity->date_of_activity_display = $activity->date_of_activity->format(__('app.date_format_display'));
+            $activity->view_count = AppModel::countAsString(UniqueViewsModel::viewForItem($activity->id));
 
             foreach ($activity->actualParticipants as &$item) {
                 $item->user = User::get($item->participant);
@@ -262,7 +264,7 @@ class ActivityController extends Controller
                 $item['date_of_activity_display'] = $item['date_of_activity']->format(__('app.date_format_display'));
                 $item['diffForHumans'] = $item['date_of_activity']->diffForHumans();
                 $item['date_of_activity'] = $item['date_of_activity']->format(__('app.date_format'));
-
+                $item['view_count'] = AppModel::countAsString(UniqueViewsModel::viewForItem($item['id']));
                 $item['categoryData'] = CategoryModel::where('id', '=', $item['category'])->first();
 
                 $item['running'] = false;
@@ -389,6 +391,7 @@ class ActivityController extends Controller
                 $item['participants'] = ParticipantModel::where('activity', '=', $item['id'])->where('type', '=', ParticipantModel::PARTICIPANT_ACTUAL)->count();
                 $item['messages'] = ThreadModel::where('activityId', '=', $item['id'])->count();
                 $item['categoryData'] = CategoryModel::where('id', '=', $item['category'])->first();
+                $item['view_count'] = AppModel::countAsString(UniqueViewsModel::viewForItem($item['id']));
             }
 
             $running_activity_count = ActivityModel::where('owner', '=', $id)->where('date_of_activity', '>=', date('Y-m-d H:i:s'))->count();
