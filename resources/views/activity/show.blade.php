@@ -196,9 +196,7 @@
                     </div>
                 </div>
 
-                <div class="activity-description is-breakall">
-                    {{ $activity->description }}
-                </div>
+                <div class="activity-description is-wordbreak">{{ $activity->description }}</div>
 
                 <div class="activity-tags">
                     @foreach (explode(' ', $activity->tags) as $tag)
