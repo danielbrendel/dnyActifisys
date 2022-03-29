@@ -164,7 +164,7 @@
 
                        window.paginate = response.data[response.data.length - 1].date_of_activity;
                     
-                       document.getElementById('activity-count').innerHTML = response.data.length + '/' + document.getElementById('activity-count').innerHTML;
+                       document.getElementById('activity-count').innerHTML = response.running + '/' + response.total;
                    
                        document.getElementById('activities-content').innerHTML += '<div id="loadmore"><center><br/><span class="is-color-lightblue"><a href="javascript:void(0);" onclick="window.fetchUserActivities();">{{ __('app.load_more') }}</a></span></center></div>';
 

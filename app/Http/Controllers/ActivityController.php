@@ -391,7 +391,11 @@ class ActivityController extends Controller
                 $item['categoryData'] = CategoryModel::where('id', '=', $item['category'])->first();
             }
 
-            return response()->json(array('code' => 200, 'data' => array_values($data)));
+            $running_activity_count = ActivityModel::where('owner', '=', $id)->where('date_of_activity', '>=', date('Y-m-d H:i:s'))->count();
+            $past_activity_count = ActivityModel::where('owner', '=', $id)->where('date_of_activity', '<', date('Y-m-d H:i:s'))->count();
+            $total_activity_count = $running_activity_count + $past_activity_count;
+
+            return response()->json(array('code' => 200, 'data' => array_values($data), 'running' => $running_activity_count, 'past' => $past_activity_count, 'total' => $total_activity_count));
         } catch (Exception $e) {
             return response()->json(array('code' => 500, 'msg' => $e->getMessage()));
         }
