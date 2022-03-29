@@ -125,7 +125,11 @@
             </div>
 
             <div class="column is-8">
-                <div id="active-activities"></div>
+                <div class="activities-nav">
+                    <span class="is-color-lightblue"><a href="javascript:void(0);" onclick="document.getElementById('activities-content').innerHTML = ''; window.fetchType = 'running'; window.paginate = null; window.fetchUserActivities();">{{ __('app.running_activities') }}</a></span>&nbsp;|&nbsp;<span class="is-color-lightblue"><a href="javascript:void(0);" onclick="document.getElementById('activities-content').innerHTML = ''; window.fetchType = 'past'; window.paginate = null; window.fetchUserActivities();">{{ __('app.past_activities') }}</a></span>
+                </div>
+
+                <div id="activities-content"></div>
             </div>
         </div>
     </div>
@@ -135,32 +139,52 @@
 
 @section('javascript')
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('active-activities').innerHTML = '<center><i class="fas fa-spinner fa-spin"></i></center>';
+        window.paginate = null;
+        window.fetchType = 'running';
+        window.fetchUserActivities = function() {
+            document.getElementById('activities-content').innerHTML += '<div id="spinner"><center><i class="fas fa-spinner fa-spin"></i></center></div>';
 
-            window.vue.ajaxRequest('get', '{{ url('/activity/user/' . $user->id) }}', {}, function(response) {
+            window.vue.ajaxRequest('post', '{{ url('/activity/user/' . $user->id) }}', { paginate: window.paginate, type: window.fetchType }, function(response) {
                if (response.code === 200) {
-                   if (response.data.length > 0) {
-                       document.getElementById('active-activities').innerHTML = '';
+                   if (document.getElementById('spinner')) {
+                       document.getElementById('spinner').remove();
+                   }
 
+                   if (document.getElementById('loadmore')) {
+                       document.getElementById('loadmore').remove();
+                   }
+
+                   if (response.data.length > 0) {
                        response.data.forEach(function(elem, index) {
                            elem.user = JSON.parse('<?= json_encode($user) ?>');
                            let html = window.vue.renderActivity(elem);
 
-                           document.getElementById('active-activities').innerHTML += html;
+                           document.getElementById('activities-content').innerHTML += html;
                        });
 
+                       window.paginate = response.data[response.data.length - 1].date_of_activity;
+                    
                        document.getElementById('activity-count').innerHTML = response.data.length + '/' + document.getElementById('activity-count').innerHTML;
                    
+                       document.getElementById('activities-content').innerHTML += '<div id="loadmore"><center><br/><span class="is-color-lightblue"><a href="javascript:void(0);" onclick="window.fetchUserActivities();">{{ __('app.load_more') }}</a></span></center></div>';
+
 					   let allActivities = document.getElementsByClassName('activity');
 					   for (let i = 0; i < allActivities.length; i++) {
 						   allActivities[i].style.left = '-6px';
 					   }
 				   } else {
-                       document.getElementById('active-activities').innerHTML = '<center><i class="is-def-color">{{ __('app.no_more_activities') }}</i></center>';
+                       document.getElementById('activities-content').innerHTML += '<center><i class="is-def-color">{{ __('app.no_more_activities') }}</i></center>';
+
+                       if (document.getElementById('loadmore')) {
+                           document.getElementById('loadmore').remove();
+                       }
                    }
                }
             });
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            window.fetchUserActivities('running');
         });
     </script>
 @endsection

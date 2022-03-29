@@ -372,7 +372,10 @@ class ActivityController extends Controller
                 throw new Exception(__('app.user_not_found_or_locked'));
             }
 
-            $data = ActivityModel::fetchUserActivities($id)->toArray();
+            $type = request('type', 'running');
+            $paginate = request('paginate', null);
+
+            $data = ActivityModel::fetchUserActivities($id, $type, $paginate)->toArray();
             foreach ($data as $key => &$item) {
                 if (($item['only_verified'] == true) && (VerifyModel::getState(auth()->id()) != VerifyModel::STATE_VERIFIED)) {
                     unset($data[$key]);

@@ -801,6 +801,11 @@ h2 {
   color: #787878;
 }
 
+.activities-nav {
+  margin-left: 10px;
+  margin-bottom: 20px;
+}
+
 @media screen and (max-width: 767px) {
   #activities {
     top: 25px;

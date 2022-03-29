@@ -668,6 +668,10 @@ h2 {
 .activity-image-item a:hover {
     color: rgb(120, 120, 120);
 }
+.activities-nav {
+    margin-left: 10px;
+    margin-bottom: 20px;
+}
 #activities {
     @media screen and (max-width: 767px) {
         top: 25px;

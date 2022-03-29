@@ -308,17 +308,40 @@ class ActivityModel extends Model
      * Fetch user activities
      *
      * @param $userId
+     * @param $type
+     * @param $paginate
      * @return mixed
      * @throws Exception
      */
-    public static function fetchUserActivities($userId)
+    public static function fetchUserActivities($userId, $type, $paginate = null)
     {
         try {
-            return ActivityModel::where('date_of_activity', '>=', date('Y-m-d H:i:s'))
-                ->where('locked', '=', false)
-                ->where('canceled', '=', false)
-                ->where('owner', '=', $userId)
-                ->get();
+            $query = ActivityModel::where('locked', '=', false)
+                ->where('owner', '=', $userId);
+
+            if ($type === 'running') {
+                $query->where('date_of_activity', '>=', date('Y-m-d H:i:s'));
+            } else if ($type === 'past') {
+                $query->where('date_of_activity', '<', date('Y-m-d H:i:s'));
+            } else {
+                throw new \Exception('Invalid query type: ' . $type);
+            }
+
+            if ($paginate !== null) {
+                if ($type === 'running') {
+                    $query->where('date_of_activity', '>', date('Y-m-d H:i:s', strtotime($paginate)));
+                } else if ($type === 'past') {
+                    $query->where('date_of_activity', '<', date('Y-m-d H:i:s', strtotime($paginate)));
+                }
+            }
+
+            if ($type === 'running') {
+                $query->orderBy('date_of_activity', 'asc');
+            } else if ($type === 'past') {
+                $query->orderBy('date_of_activity', 'desc');
+            }
+
+            return $query->limit(env('APP_ACTIVITYPACKLIMIT'))->get();
         } catch (Exception $e) {
             throw $e;
         }
