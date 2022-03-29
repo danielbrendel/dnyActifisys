@@ -112,6 +112,7 @@ Route::any('/maintainer/category/{id}/inactive/{status}', 'MaintainerController@
 Route::post('/maintainer/location/add', 'MaintainerController@addLocation');
 Route::post('/maintainer/location/{id}/edit', 'MaintainerController@editLocation');
 Route::any('/maintainer/location/{id}/active/{status}', 'MaintainerController@locationActiveStatus');
+Route::post('/maintainer/announcements/create', 'MaintainerController@createAnnouncement');
 
 Route::post('/payment/charge', 'PaymentController@charge');
 

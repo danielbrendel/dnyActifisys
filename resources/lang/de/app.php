@@ -434,5 +434,9 @@ return [
     'no_account_yet' => 'Noch kein Konto? Jetzt registrieren',
     'no_more_messages' => 'Keine weiteren Nachrichten',
     'running_activities' => 'Laufende Aktivitäten',
-    'past_activities' => 'Vergangene Aktivitäten'
+    'past_activities' => 'Vergangene Aktivitäten',
+    'announcements' => 'Ankündigungen',
+    'content' => 'Inhalt',
+    'until' => 'Anzeigen bis',
+    'announcement_created' => 'Die Ankündigung wurde erstellt'
 ];

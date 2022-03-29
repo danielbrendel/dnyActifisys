@@ -194,6 +194,8 @@
                 </p>
             </div>
 
+            @yield('announcements')
+
             @include('widgets.header')
 
             <div class="container">

@@ -26,6 +26,7 @@ use App\TagsModel;
 use App\ThemeModel;
 use App\ThreadModel;
 use App\User;
+use App\AnnouncementsModel;
 use App\VerifyModel;
 use Dotenv\Dotenv;
 use Illuminate\Http\Request;
@@ -743,6 +744,28 @@ class MaintainerController extends Controller
             LocationModel::setActiveStatus($id, (bool)$status);
 
             return back()->with('flash.success', __('app.location_status_changed'));
+        } catch (\Exception $e) {
+            return back()->with('flash.error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Create an announcement
+     * 
+     * @return mixed
+     */
+    public function createAnnouncement()
+    {
+        try {
+            $attr = request()->validate([
+                'title' => 'required',
+                'content' => 'required',
+                'until' => 'required|date'
+            ]);
+
+            AnnouncementsModel::add($attr['title'], $attr['content'], date('Y-m-d 23:59:59', strtotime($attr['until'])));
+
+            return back()->with('flash.success', __('app.announcement_created'));
         } catch (\Exception $e) {
             return back()->with('flash.error', $e->getMessage());
         }

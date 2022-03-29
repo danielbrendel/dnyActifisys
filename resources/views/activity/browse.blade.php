@@ -16,6 +16,10 @@
     {{ env('APP_DESCRIPTION') }}
 @endsection
 
+@section('announcements')
+    @include('widgets.announcements', ['announcements' => $announcements])
+@endsection
+
 @section('content')
     <div class="column is-1"></div>
 

@@ -17,6 +17,7 @@ namespace App\Http\Controllers;
 use App\AppModel;
 use App\CaptchaModel;
 use App\FaqModel;
+use App\AnnouncementsModel;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -43,9 +44,11 @@ class MainController extends Controller
     public function index()
     {
         $captchaData = CaptchaModel::createSum(session()->getId());
+        $announcements = AnnouncementsModel::queryAll();
 
         return view('activity.browse', [
-            'captchadata' => $captchaData
+            'captchadata' => $captchaData,
+            'announcements' => $announcements
         ]);
     }
 

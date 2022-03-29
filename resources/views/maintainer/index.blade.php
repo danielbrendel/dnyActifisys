@@ -54,6 +54,7 @@
                 <li><a href="#tab-page-17">{{ __('app.head_code') }}</a></li>
                 <li><a href="#tab-page-18">{{ __('app.adcode') }}</a></li>
                 <li><a href="#tab-page-19">{{ __('app.locations') }}</a></li>
+                <li><a href="#tab-page-20">{{ __('app.announcements') }}</a></li>
             </ul>
             <div class="border bd-default no-border-top p-2">
                 <div id="tab-page-1">
@@ -919,6 +920,39 @@
                             <button type="button" class="button is-primary" onclick="window.vue.bShowAddLocation = true;">{{ __('app.location_add') }}</button>&nbsp;
                         </div>
                     </div>
+                </div>
+
+                <div id="tab-page-20">
+                    <form method="POST" action="{{ url('/maintainer/announcements/create') }}">
+                        @csrf
+
+                        <div class="field">
+                            <label class="label">{{ __('app.title') }}</label>
+                            <div class="control">
+                                <input type="text" name="title">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">{{ __('app.content') }}</label>
+                            <div class="control">
+                                <textarea name="content"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">{{ __('app.until') }}</label>
+                            <div class="control">
+                                <input type="date" class="input" name="until">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <div class="control">
+                                <input type="submit" value="{{ __('app.create') }}">
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
 
