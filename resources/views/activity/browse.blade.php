@@ -112,7 +112,7 @@
         <hr id="activity-divider"/>
 
         <div id="activities"></div>
-        <div id="loadmore" title="{{ __('app.load_more') }}" class="is-hidden" onclick="fetchActivities()"><center><i class="fas fa-arrow-down is-pointer"></i></center></div>
+        <div id="loadmore" class="is-hidden"><center><a href="javascript:void(0);" onclick="fetchActivities();">{{ __('app.load_more') }}</a></center></div>
         <div id="load-spinner"></div>
     </div>
 

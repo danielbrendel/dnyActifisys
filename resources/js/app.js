@@ -306,34 +306,32 @@ window.vue = new Vue({
             }
 
             let html = `
-        <div id="thread-` + elem.id + `" class="thread-elem ` + ((isSubComment) ? 'is-sub-comment': '') + `">
-            <a name="` + elem.id + `"></a>
+                <div id="thread-` + elem.id + `" class="thread-elem ` + ((isSubComment) ? 'is-sub-comment': '') + `">
+                    <a name="` + elem.id + `"></a>
 
-            <div class="thread-header">
-                <div class="thread-header-avatar is-inline-block">
-                    <img width="24" height="24" src="` + window.location.origin + `/gfx/avatars/` + elem.user.avatar + `" class="is-pointer" onclick="location.href = '` + window.location.origin + `/user/` + elem.user.slug + `';" title="` + elem.user.name + `">
+                    <div class="thread-header">
+                        <div class="thread-header-avatar is-inline-block">
+                            <img width="24" height="24" src="` + window.location.origin + `/gfx/avatars/` + elem.user.avatar + `" class="is-pointer" onclick="location.href = '` + window.location.origin + `/user/` + elem.user.slug + `';" title="` + elem.user.name + `">
+                        </div>
+
+                        <div class="thread-header-info is-inline-block">
+                            <div><a href="` + window.location.origin + `/user/` + elem.user.slug + `" class="is-color-grey">` + elem.user.name + `</a>` + ((elem.user.verified) ? '&nbsp;<i class="far fa-check-circle" title="' + this.lang.verifiedUser + '"></i>' : '') +  `</div>
+                            <div title="` + elem.created_at + `">` + elem.diffForHumans + `</div>
+                        </div>
+
+                        ` + threadOptions + `
+                    </div>
+
+                    <div class="thread-text is-wordbreak" id="thread-text-` + elem.id + `">` + elem.text + `</div>
+
+                    <div class="thread-footer">
+                        ` + expandThread + `
+                        ` + replyThread + `
+                    </div>
+
+                    <div id="sub-thread-` + elem.id + `"></div>
                 </div>
-
-                <div class="thread-header-info is-inline-block">
-                    <div><a href="` + window.location.origin + `/user/` + elem.user.slug + `" class="is-color-grey">` + elem.user.name + `</a>` + ((elem.user.verified) ? '&nbsp;<i class="far fa-check-circle" title="' + this.lang.verifiedUser + '"></i>' : '') +  `</div>
-                    <div title="` + elem.created_at + `">` + elem.diffForHumans + `</div>
-                </div>
-
-                ` + threadOptions + `
-            </div>
-
-            <div class="thread-text" id="thread-text-` + elem.id + `">
-                ` + elem.text + `
-            </div>
-
-            <div class="thread-footer">
-                ` + expandThread + `
-                ` + replyThread + `
-            </div>
-
-            <div id="sub-thread-` + elem.id + `"></div>
-        </div>
-    `;
+            `;
 
             return html;
         },

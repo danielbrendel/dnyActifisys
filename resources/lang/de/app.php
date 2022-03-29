@@ -29,7 +29,7 @@ return [
     'register_email' => 'E-Mail',
     'register_password' => 'Passwort',
     'register_password_confirmation' => 'Passwort Bestätigung',
-    'messages' => 'Nachrichten',
+    'messages' => 'Unterhaltungen',
     'notifications' => 'Benachrichtigungen',
     'create_activity' => 'Aktivität erstellen',
     'logout' => 'Logout',
