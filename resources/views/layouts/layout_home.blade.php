@@ -460,32 +460,40 @@
                             </div>
 
                             <div class="field">
-                                <label class="label">{{ __('app.limit') }}</label>
                                 <div class="control">
-                                    <input class="input" type="number" name="limit" value="0" min="0">
+                                    <a href="javascript:void(0);" onclick="document.getElementById('additional-options').classList.toggle('is-hidden'); this.remove();">{{ __('app.additional_options') }}</a>
                                 </div>
                             </div>
 
-                            <div class="field">
-                                <label class="label">{{ __('app.only_gender') }}</label>
-                                <div class="control">
-                                    <select name="gender">
-                                        <option value="0">{{ __('app.all') }}</option>
-                                        <option value="1">{{ __('app.gender_male') }}</option>
-                                        <option value="2">{{ __('app.gender_female') }}</option>
-                                        <option value="3">{{ __('app.gender_diverse') }}</option>
-                                    </select>
+                            <div id="additional-options" class="is-hidden">
+                                <div class="field">
+                                    <label class="label">{{ __('app.limit') }}</label>
+                                    <div class="control">
+                                        <input class="input" type="number" name="limit" value="0" min="0">
+                                    </div>
                                 </div>
-                            </div>
 
-                            @if (\App\VerifyModel::getState(auth()->id()) == \App\VerifyModel::STATE_VERIFIED)
-                            <div class="field">
-                                <label class="label">{{ __('app.only_verified') }}</label>
-                                <div class="control">
-                                    <input type="checkbox" data-role="checkbox" data-type="2" data-caption="{{ __('app.only_verified_long') }}" name="only_verified" value="1">
+                                <div class="field">
+                                    <label class="label">{{ __('app.only_gender') }}</label>
+                                    <div class="control">
+                                        <select name="gender">
+                                            <option value="0">{{ __('app.all') }}</option>
+                                            <option value="1">{{ __('app.gender_male') }}</option>
+                                            <option value="2">{{ __('app.gender_female') }}</option>
+                                            <option value="3">{{ __('app.gender_diverse') }}</option>
+                                        </select>
+                                    </div>
                                 </div>
+
+                                @if (\App\VerifyModel::getState(auth()->id()) == \App\VerifyModel::STATE_VERIFIED)
+                                <div class="field">
+                                    <label class="label">{{ __('app.only_verified') }}</label>
+                                    <div class="control">
+                                        <input type="checkbox" data-role="checkbox" data-type="2" data-caption="{{ __('app.only_verified_long') }}" name="only_verified" value="1">
+                                    </div>
+                                </div>
+                                @endif
                             </div>
-                            @endif
                         </form>
                     </section>
                     <footer class="modal-card-foot is-stretched">

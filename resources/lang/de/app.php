@@ -441,5 +441,6 @@ return [
     'announcements' => 'Ankündigungen',
     'content' => 'Inhalt',
     'until' => 'Anzeigen bis',
-    'announcement_created' => 'Die Ankündigung wurde erstellt'
+    'announcement_created' => 'Die Ankündigung wurde erstellt',
+    'additional_options' => 'Weitere Optionen'
 ];

@@ -441,5 +441,6 @@ return [
     'announcements' => 'Announcements',
     'content' => 'Content',
     'until' => 'Until',
-    'announcement_created' => 'Announcement created successfully'
+    'announcement_created' => 'Announcement created successfully',
+    'additional_options' => 'Additional options'
 ];
