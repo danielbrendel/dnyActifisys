@@ -84,8 +84,8 @@ window.vue = new Vue({
         setDateCookieValue: function(from, till) {
             let expDate = new Date(Date.now() + 1000 * 60 * 60 * 24 * 365);
 
-            document.cookie = 'filter_date_from=' + ((from.value.length > 0) ? from.value : '_default') + '; expires=' + expDate.toUTCString() + '; path=/;';
-            document.cookie = 'filter_date_till=' + ((till.value.length > 0) ? till.value : '_default') + '; expires=' + expDate.toUTCString() + '; path=/;';
+            document.cookie = 'filter_date_from=' + (((typeof from.value !== 'undefined') && (from.value.length > 0)) ? from.value : '_default') + '; expires=' + expDate.toUTCString() + '; path=/;';
+            document.cookie = 'filter_date_till=' + (((typeof till.value !== 'undefined') && (till.value.length > 0)) ? till.value : '_default') + '; expires=' + expDate.toUTCString() + '; path=/;';
         },
 
         getLocationCookieValue: function() {
@@ -108,6 +108,11 @@ window.vue = new Vue({
             }
 
             return '_default';
+        },
+
+        clearFilterCookies: function() {
+            this.setLocationCookieValue('_all');
+            this.setDateCookieValue('_default', '_default');
         },
 
         getDateTillCookieValue: function() {

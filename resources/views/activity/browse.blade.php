@@ -107,6 +107,18 @@
                         </div>
                     </div>
                 </div>
+
+                <br/>
+                <div>
+                    <div class="field">
+                        <div class="control">
+                            <a id="btnClearFilter" class="button is-info" href="javascript:void(0);" onclick="window.vue.clearFilterCookies(); location.href = '{{ url('/') }}';">
+                                {{ __('app.clear_filter') }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <br/>
             </div>
         </div>
         <hr id="activity-divider"/>

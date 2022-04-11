@@ -442,5 +442,6 @@ return [
     'content' => 'Content',
     'until' => 'Until',
     'announcement_created' => 'Announcement created successfully',
-    'additional_options' => 'Additional options'
+    'additional_options' => 'Additional options',
+    'clear_filter' => 'Clear filters'
 ];

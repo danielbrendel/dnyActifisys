@@ -442,5 +442,6 @@ return [
     'content' => 'Inhalt',
     'until' => 'Anzeigen bis',
     'announcement_created' => 'Die Ankündigung wurde erstellt',
-    'additional_options' => 'Weitere Optionen'
+    'additional_options' => 'Weitere Optionen',
+    'clear_filter' => 'Filter zurücksetzen'
 ];

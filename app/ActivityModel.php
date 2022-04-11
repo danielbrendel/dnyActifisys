@@ -421,7 +421,7 @@ class ActivityModel extends Model
                         MailerModel::sendMail($userData->email, __('app.activity_canceled'), $html);
                     }
 
-                    PushModel::addNotification(__('app.activity_canceled'), __('app.activity_canceled_long', ['title' => $activity->title, 'item' => url('/activity/' . $activity->id), 'owner' => $owner->name, 'profile' => url('/user/' . $owner->id)]), 'PUSH_CANCELED', $userData->id);
+                    PushModel::addNotification(__('app.activity_canceled'), __('app.activity_canceled_long', ['title' => $activity->title, 'item' => url('/activity/' . $activity->id), 'name' => $owner->name, 'profile' => url('/user/' . $owner->id)]), 'PUSH_CANCELED', $userData->id);
                 }
             }
         } catch (Exception $e) {
