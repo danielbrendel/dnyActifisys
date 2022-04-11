@@ -29,11 +29,11 @@ use Illuminate\Support\Str;
 class ActivityModel extends Model
 {
     protected $fillable = [
-        'title', 'description', 'date_of_activity', 'location', 'limit'
+        'title', 'description', 'date_of_activity_from', 'date_of_activity_till', 'location', 'limit'
     ];
 
     protected $dates = [
-        'date_of_activity', 'created_at', 'updated_at'
+        'date_of_activity_from', 'date_of_activity_till', 'created_at', 'updated_at'
     ];
 
     /**
@@ -112,7 +112,7 @@ class ActivityModel extends Model
                 throw new Exception(__('app.user_not_existing_or_deactivated'));
             }
 
-            $dtActivity = new DateTime($attr['date_of_activity']);
+            $dtActivity = new DateTime($attr['date_of_activity_from']);
             $dtNow = new DateTime();
             if ($dtActivity < $dtNow) {
                 throw new Exception(__('app.date_is_in_past'));
@@ -129,7 +129,8 @@ class ActivityModel extends Model
             $item->title = htmlspecialchars($attr['title']);
             $item->description = htmlspecialchars($attr['description']);
             $item->tags = (count($taglist) > 0) ? implode(' ', $taglist) . ' ' : '';
-            $item->date_of_activity = date('Y-m-d H:i:s', strtotime($attr['date_of_activity'] . ' ' . $attr['time_of_activity']));
+            $item->date_of_activity_from = date('Y-m-d H:i:s', strtotime($attr['date_of_activity_from'] . ' ' . $attr['time_of_activity']));
+            $item->date_of_activity_till = date('Y-m-d H:i:s', strtotime($attr['date_of_activity_till'] . ' ' . $attr['time_of_activity']));
             $item->category = $attr['category'];
             $item->location = htmlspecialchars(strtolower(trim($attr['location'])));
             $item->limit = $attr['limit'];
@@ -149,7 +150,8 @@ class ActivityModel extends Model
 
                 $favUser = User::get($fav->userId);
                 if (($favUser) && ($favUser->email_on_fav_created)) {
-                    $html = view('mail.fav_created', ['name' => $favUser->name, 'creator' => $user->name, 'activity' => $item])->render();
+                    $activity_display_date = ((Carbon::createFromDate($item->date_of_activity_from)->format(__('app.display_date_format')) == Carbon::createFromDate($item->date_of_activity_till)->format(__('app.display_date_format'))) ? Carbon::createFromDate($item->date_of_activity_from)->format(__('app.display_date_format')) . ' ' . Carbon::createFromDate($item->date_of_activity_from)->format(__('app.display_time_format')) : Carbon::createFromDate($item->date_of_activity_from)->format(__('app.display_date_format')) . ' - ' . Carbon::createFromDate($item->date_of_activity_till)->format(__('app.display_date_format')) . ' ' . Carbon::createFromDate($item->date_of_activity_from)->format(__('app.display_time_format')));
+                    $html = view('mail.fav_created', ['name' => $favUser->name, 'creator' => $user->name, 'activity' => $item, 'activity_display_date' => $activity_display_date])->render();
                     MailerModel::sendMail($favUser->email, __('app.activity_created'), $html);
                 }
             }
@@ -181,7 +183,7 @@ class ActivityModel extends Model
                 throw new Exception(__('app.insufficient_permissions'));
             }
 
-            $dtActivity = new DateTime($attr['date_of_activity']);
+            $dtActivity = new DateTime($attr['date_of_activity_from']);
             $dtNow = new DateTime();
             if ($dtActivity < $dtNow) {
                 throw new Exception(__('app.date_is_in_past'));
@@ -197,7 +199,8 @@ class ActivityModel extends Model
             $item->description = htmlspecialchars($attr['description']);
             $item->slug = Str::slug(strval($item->id) . ' ' . $item->title, '-');
             $item->tags = (count($taglist) > 0) ? implode(' ', $taglist) . ' ' : '';
-            $item->date_of_activity = date('Y-m-d H:i:s', strtotime($attr['date_of_activity'] . ' ' . $attr['time_of_activity']));
+            $item->date_of_activity_from = date('Y-m-d H:i:s', strtotime($attr['date_of_activity_from'] . ' ' . $attr['time_of_activity']));
+            $item->date_of_activity_till = date('Y-m-d H:i:s', strtotime($attr['date_of_activity_till'] . ' ' . $attr['time_of_activity']));
             $item->category = $attr['category'];
             $item->location = htmlspecialchars(strtolower(trim($attr['location'])));
             $item->limit = $attr['limit'];
@@ -256,14 +259,17 @@ class ActivityModel extends Model
     public static function fetchActivities($location = null, $paginate = null, $dateFrom = null, $dateTill = null, $tag = null, $category = null)
     {
         try {
-            $activities = ActivityModel::where('date_of_activity', '>=', date('Y-m-d H:i:s', strtotime('-' . env('APP_ACTIVITYRUNTIME', 60) . ' minutes')))->where('locked', '=', false)->where('canceled', '=', false);
+            $activities = ActivityModel::where(function($query){
+                $query->where('date_of_activity_from', '>=', date('Y-m-d H:i:s', strtotime('-' . env('APP_ACTIVITYRUNTIME', 60) . ' minutes')))
+                ->orWhere('date_of_activity_till', '>=', date('Y-m-d H:i:s', strtotime('-' . env('APP_ACTIVITYRUNTIME', 60) . ' minutes')));
+            })->where('locked', '=', false)->where('canceled', '=', false);
 
             if ($location !== null) {
                 $activities->where('location', 'like', '%' . strtolower($location) . '%');
             }
 
             if ($paginate !== null) {
-                $activities->where('date_of_activity', '>', date('Y-m-d H:i:s', strtotime($paginate)));
+                $activities->where('date_of_activity_till', '>', date('Y-m-d H:i:s', strtotime($paginate)));
             }
 
             if ($dateFrom !== null) {
@@ -272,7 +278,7 @@ class ActivityModel extends Model
                     throw new Exception(__('app.date_from_smaller_than_now'));
                 }
 
-                $activities->where('date_of_activity', '>=', $asDate);
+                $activities->where('date_of_activity_till', '>=', $asDate);
             }
 
             if ($dateTill !== null) {
@@ -288,7 +294,7 @@ class ActivityModel extends Model
                     }
                 }
 
-                $activities->where('date_of_activity', '<=', $asDate);
+                $activities->where('date_of_activity_till', '<=', $asDate);
             }
 
             if ($tag !== null) {
@@ -299,7 +305,7 @@ class ActivityModel extends Model
                 $activities->where('category', '=', $category);
             }
 
-            return $activities->orderBy('date_of_activity', 'asc')->limit(env('APP_ACTIVITYPACKLIMIT'))->get();
+            return $activities->orderBy('date_of_activity_from', 'asc')->limit(env('APP_ACTIVITYPACKLIMIT'))->get();
         } catch (\Exception $e) {
             throw $e;
         }
@@ -321,25 +327,25 @@ class ActivityModel extends Model
                 ->where('owner', '=', $userId);
 
             if ($type === 'running') {
-                $query->where('date_of_activity', '>=', date('Y-m-d H:i:s'));
+                $query->where('date_of_activity_till', '>=', date('Y-m-d H:i:s'));
             } else if ($type === 'past') {
-                $query->where('date_of_activity', '<', date('Y-m-d H:i:s'));
+                $query->where('date_of_activity_till', '<', date('Y-m-d H:i:s'));
             } else {
                 throw new \Exception('Invalid query type: ' . $type);
             }
 
             if ($paginate !== null) {
                 if ($type === 'running') {
-                    $query->where('date_of_activity', '>', date('Y-m-d H:i:s', strtotime($paginate)));
+                    $query->where('date_of_activity_till', '>', date('Y-m-d H:i:s', strtotime($paginate)));
                 } else if ($type === 'past') {
-                    $query->where('date_of_activity', '<', date('Y-m-d H:i:s', strtotime($paginate)));
+                    $query->where('date_of_activity_till', '<', date('Y-m-d H:i:s', strtotime($paginate)));
                 }
             }
 
             if ($type === 'running') {
-                $query->orderBy('date_of_activity', 'asc');
+                $query->orderBy('date_of_activity_from', 'asc');
             } else if ($type === 'past') {
-                $query->orderBy('date_of_activity', 'desc');
+                $query->orderBy('date_of_activity_from', 'desc');
             }
 
             return $query->limit(env('APP_ACTIVITYPACKLIMIT'))->get();
@@ -358,7 +364,7 @@ class ActivityModel extends Model
     public static function queryUserParticipations($userId)
     {
         try {
-            $query = DB::select(DB::raw('SELECT * FROM activity_models WHERE (id IN (SELECT activity FROM participant_models WHERE participant = ?) OR owner = ?) AND date_of_activity >= ? ORDER BY date_of_activity ASC'), [$userId, $userId, date('Y-m-d H:i:s')]);
+            $query = DB::select(DB::raw('SELECT * FROM activity_models WHERE (id IN (SELECT activity FROM participant_models WHERE participant = ?) OR owner = ?) AND date_of_activity_till >= ? ORDER BY date_of_activity_from ASC'), [$userId, $userId, date('Y-m-d H:i:s')]);
             
             return $query;
         } catch (Exception $e) {

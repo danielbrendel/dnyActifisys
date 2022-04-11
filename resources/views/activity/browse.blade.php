@@ -186,7 +186,7 @@
                             }
                         }
 
-                        window.paginate = response.data[response.data.length - window.lastActivityId].date_of_activity;
+                        window.paginate = response.data[response.data.length - window.lastActivityId].date_of_activity_till;
                     } else {
                         if (response.last) {
                             document.getElementById('loadmore').classList.add('is-hidden');

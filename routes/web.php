@@ -49,7 +49,7 @@ Route::any('/activity/{activityId}/report', 'ActivityController@reportActivity')
 Route::any('/comment/{id}/lock', 'ActivityController@lockComment');
 Route::any('/comment/{id}/report', 'ActivityController@reportComment');
 Route::post('/comment/{id}/edit', 'ActivityController@editComment');
-Route::post('/activity/user/{id}', 'ActivityController@fetchUserActivities');
+Route::any('/activity/user/{id}', 'ActivityController@fetchUserActivities');
 Route::get('/activity/user/{id}/participations', 'ActivityController@fetchUserParticipations');
 Route::post('/activity/{id}/upload', 'ActivityController@uploadFile');
 Route::any('/file/{id}/delete', 'ActivityController@deleteFile');

@@ -26,7 +26,7 @@
     <hr/>
     <strong>{{ $activity->title }}:</strong><br/>
     <pre>{{ $activity->description }}</pre>
-	<i>{{ $activity->date_of_activity->diffForHumans() }} | {{ $activity->location }}</i>
+	<i>{{ $activity_display_date }} | {{ $activity->location }}</i>
     <hr/>
     <br/>
 @endsection

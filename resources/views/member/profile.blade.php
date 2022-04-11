@@ -162,7 +162,7 @@
                            document.getElementById('activities-content').innerHTML += html;
                        });
 
-                       window.paginate = response.data[response.data.length - 1].date_of_activity;
+                       window.paginate = response.data[response.data.length - 1].date_of_activity_till;
                     
                        document.getElementById('activity-count').innerHTML = response.running + '/' + response.total;
                    
@@ -184,7 +184,7 @@
         };
 
         document.addEventListener('DOMContentLoaded', function() {
-            window.fetchUserActivities('running');
+            document.getElementById('lnkActRunning').click();
         });
     </script>
 @endsection

@@ -40,7 +40,7 @@
                     </div>
 
                     <div class="activity-info">
-                        <div>&nbsp;<i class="far fa-clock"></i>&nbsp;<span title="{{ $activity->date_of_activity->diffForHumans()  }}">{{ $activity->date_of_activity_display }}</span></div>
+                        <div>&nbsp;<i class="far fa-clock"></i>&nbsp;<span>{{ (($activity->date_of_activity_from_display == $activity->date_of_activity_till_display) ? $activity->date_of_activity_from_display . ' ' . $activity->startTime : $activity->date_of_activity_from_display . ' - ' . $activity->date_of_activity_till_display . ' ' . $activity->startTime) }}</span></div>
                         <div class="is-capitalized">&nbsp;<i class="fas fa-map-marker-alt"></i>&nbsp;&nbsp;{{ $activity->location }}</div>
                         <div class="is-capitalized"><i class="fas fa-users"></i>&nbsp;{{ (($activity->limit === 0) ? __('app.no_limit') : __('app.limit_count', ['count' => $activity->limit])) }}</div>
                         <div><i class="fas fa-th-list"></i>&nbsp;@if ($activity->category === 0) {{ __('app.category_zero') }} @else {{ $activity->categoryData->name }} @endif</div>
@@ -69,11 +69,11 @@
                         </div>
                     @endif
 
-                    @if ((new DateTime('now')) > (new DateTime($activity->date_of_activity))->modify('+' . env('APP_ACTIVITYRUNTIME', 60) . ' minutes'))
+                    @if ((new DateTime('now')) > (new DateTime($activity->date_of_activity_till))->modify('+' . env('APP_ACTIVITYRUNTIME', 60) . ' minutes'))
                         <div class="activity-expired">
                             {{ __('app.activity_expired') }}
                         </div>
-                    @elseif ((new DateTime('now')) > (new DateTime($activity->date_of_activity)))
+                    @elseif ((new DateTime('now')) > (new DateTime($activity->date_of_activity_from)))
                         <div class="activity-running">
                             {{ __('app.activity_running') }}
                         </div>
@@ -214,7 +214,7 @@
                     </div>
 
                     <div class="buttons-right is-inline-block">
-                        @if ((new DateTime('now')) < (new DateTime(date('Y-m-d H:i:s', strtotime($activity->date_of_activity)))))
+                        @if ((new DateTime('now')) < (new DateTime(date('Y-m-d H:i:s', strtotime($activity->date_of_activity_from)))))
                             @auth 
                                 @if ($activity->owner !== auth()->id())
                                     @if (!$activity->selfParticipated)
@@ -308,9 +308,17 @@
                     </div>
 
                     <div class="field">
-                        <label class="label">{{ __('app.date') }}</label>
+                        <label class="label">{{ __('app.date_from') }}</label>
                         <div class="control">
-                            <input id="caDate" class="input" type="date" name="date_of_activity" value="{{ date('Y-m-d', strtotime($activity->date_of_activity)) }}" onkeyup="window.vue.invalidCreateActivity();" onchange="window.vue.invalidCreateActivity();" required>
+                            <input id="caDateFrom" class="input" type="date" name="date_of_activity_from" value="{{ date('Y-m-d', strtotime($activity->date_of_activity_from)) }}" onkeyup="window.vue.invalidCreateActivity();" onchange="window.vue.invalidCreateActivity();" required>
+                        </div>
+                        <p class="help is-danger is-hidden" id="activity-date-hint">{{ __('app.date_is_in_past') }}</p>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">{{ __('app.date_till') }}</label>
+                        <div class="control">
+                            <input id="caDateTill" class="input" type="date" name="date_of_activity_till" value="{{ date('Y-m-d', strtotime($activity->date_of_activity_till)) }}" onkeyup="window.vue.invalidCreateActivity();" onchange="window.vue.invalidCreateActivity();" required>
                         </div>
                         <p class="help is-danger is-hidden" id="activity-date-hint">{{ __('app.date_is_in_past') }}</p>
                     </div>
@@ -318,7 +326,7 @@
                     <div class="field">
                         <label class="label">{{ __('app.time') }}</label>
                         <div class="control">
-                            <input id="caTime" class="input" type="time" name="time_of_activity" value="{{ date('H:i', strtotime($activity->date_of_activity)) }}" onkeyup="window.vue.invalidCreateActivity();" onchange="window.vue.invalidCreateActivity();" required>
+                            <input id="caTime" class="input" type="time" name="time_of_activity" value="{{ date('H:i', strtotime($activity->date_of_activity_from)) }}" onkeyup="window.vue.invalidCreateActivity();" onchange="window.vue.invalidCreateActivity();" required>
                         </div>
                     </div>
 
@@ -495,7 +503,7 @@
                 }
 
                 window.vue.bShowActivityCanceled = true;
-            @elseif ((new DateTime('now')) > (new DateTime($activity->date_of_activity))->modify('+' . env('APP_ACTIVITYRUNTIME', 60) . ' minutes'))
+            @elseif ((new DateTime('now')) > (new DateTime($activity->date_of_activity_till))->modify('+' . env('APP_ACTIVITYRUNTIME', 60) . ' minutes'))
                 window.vue.bShowActivityExpired = true;
             @endif
         });

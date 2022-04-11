@@ -31,7 +31,8 @@ class CreateActivityModelsTable extends Migration
             $table->text('description');
             $table->string('slug', 1024);
             $table->string('tags', 1024)->default('');
-            $table->dateTime('date_of_activity');
+            $table->dateTime('date_of_activity_from');
+            $table->dateTime('date_of_activity_till');
             $table->string('location');
             $table->integer('limit')->unsigned()->default(0); //0 = unlimited, >0 = limited
             $table->integer('only_gender')->unsigned()->default(0); //0 = all, 1 = only male, 2 = only female, 3 = only diverse

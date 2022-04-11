@@ -216,7 +216,7 @@ window.vue = new Vue({
 
             this.invalidRequiredInput(document.getElementById('caTitle'), btn);
             this.invalidRequiredInput(document.getElementById('caDescription'), btn);
-            this.invalidDate(document.getElementById('caDate'), document.getElementById('activity-date-hint'), btn);
+            this.invalidDate(document.getElementById('caDateFrom'), document.getElementById('activity-date-hint'), btn);
             //this.invalidRequiredInput(document.getElementById('caLocation'), btn);
         },
 
@@ -370,6 +370,13 @@ window.vue = new Vue({
 
             let html = '';
 
+            let dtFrom = new Date(elem.date_of_activity_from);
+            let dtStrFrom = dtFrom.getFullYear() + "-" + dtFrom.getMonth() + "-" + dtFrom.getDay();
+            let dtTill = new Date(elem.date_of_activity_till);
+            let dtStrTill = dtTill.getFullYear() + "-" + dtTill.getMonth() + "-" + dtTill.getDay();
+            
+            let sameDate = dtStrFrom == dtStrTill;
+
             if (elem._type === 'activity') {
                 html = `<div class="activity ` + ((elem.running) ? 'activity-is-running' : '') + `">
                 <div class="activity-header" ` + headerStyle + `>
@@ -390,7 +397,7 @@ window.vue = new Vue({
                 </div>
 
                 <div class="activity-infos is-default-padding">
-                    <center><span title="` + elem.diffForHumans + `"><i class="far fa-clock"></i>&nbsp;` + elem.date_of_activity_display + ` | </span>
+                    <center><span><i class="far fa-clock"></i>&nbsp;` + ((sameDate) ? elem.date_of_activity_from_display : elem.date_of_activity_from_display + ' - ' + elem.date_of_activity_till_display) + ' ' + elem.date_of_activity_time + ` | </span>
                         <span class="is-capitalized"><i class="fas fa-map-marker-alt"></i>&nbsp;` + elem.location + `</span></center>
                 </div>
 
@@ -420,6 +427,13 @@ window.vue = new Vue({
         },
 
         renderActivitySmall: function(elem) {
+            let dtFrom = new Date(elem.date_of_activity_from);
+            let dtStrFrom = dtFrom.getFullYear() + "-" + dtFrom.getMonth() + "-" + dtFrom.getDay();
+            let dtTill = new Date(elem.date_of_activity_till);
+            let dtStrTill = dtTill.getFullYear() + "-" + dtTill.getMonth() + "-" + dtTill.getDay();
+            
+            let sameDate = dtStrFrom == dtStrTill;
+
             let html = `
                 <div class="activity-small">
                     <div class="activity-small-title">
@@ -434,7 +448,7 @@ window.vue = new Vue({
                         </div>
 
                         <div class="activity-small-infos-right is-inline-block is-color-dark-grey">
-                            ` + elem.date_of_activity_display + `
+                            ` + ((sameDate) ? elem.date_of_activity_from_display : elem.date_of_activity_from_display + ' - ' + elem.date_of_activity_till_display) + ' ' + elem.date_of_activity_time + `
                         </div>
                     </div>
                 </div>

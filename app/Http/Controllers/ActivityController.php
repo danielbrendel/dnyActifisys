@@ -50,7 +50,8 @@ class ActivityController extends Controller
             $attr = request()->validate([
                 'title' => 'required|max:100',
                 'description' => 'required',
-                'date_of_activity' => 'required|date',
+                'date_of_activity_from' => 'required|date',
+                'date_of_activity_till' => 'required|date',
                 'time_of_activity' => 'required|date_format:H:i',
                 'category' => 'required|numeric',
                 'location' => 'required',
@@ -93,7 +94,8 @@ class ActivityController extends Controller
                 'activityId' => 'required|numeric',
                 'title' => 'required|max:100',
                 'description' => 'required',
-                'date_of_activity' => 'required|date',
+                'date_of_activity_from' => 'required|date',
+                'date_of_activity_till' => 'required|date',
                 'time_of_activity' => 'required|date_format:H:i',
                 'category' => 'required|numeric',
                 'location' => 'required',
@@ -159,7 +161,9 @@ class ActivityController extends Controller
             $activity->selfInterested = ParticipantModel::has(auth()->id(), $activity->id, ParticipantModel::PARTICIPANT_POTENTIAL);
             $activity->images = ActivitiesHaveImages::getForActivity($activity->id);
             $activity->categoryData = CategoryModel::where('id', '=', $activity->category)->first();
-			$activity->date_of_activity_display = $activity->date_of_activity->format(__('app.date_format_display'));
+			$activity->date_of_activity_from_display = Carbon::createFromDate($activity->date_of_activity_from)->format(__('app.date_format_display'));
+            $activity->date_of_activity_till_display = Carbon::createFromDate($activity->date_of_activity_till)->format(__('app.date_format_display'));
+            $activity->startTime = Carbon::createFromDate($activity->date_of_activity_from)->format(__('app.time_format_display'));
             $activity->view_count = AppModel::countAsString(UniqueViewsModel::viewForItem($activity->id));
 
             foreach ($activity->actualParticipants as &$item) {
@@ -260,16 +264,19 @@ class ActivityController extends Controller
 
                 $item['participants'] = ParticipantModel::where('activity', '=', $item['id'])->where('type', '=', ParticipantModel::PARTICIPANT_ACTUAL)->count();
                 $item['messages'] = ThreadModel::where('activityId', '=', $item['id'])->count();
-                $item['date_of_activity'] = Carbon::createFromDate($item['date_of_activity']);
-                $item['date_of_activity_display'] = $item['date_of_activity']->format(__('app.date_format_display'));
-                $item['diffForHumans'] = $item['date_of_activity']->diffForHumans();
-                $item['date_of_activity'] = $item['date_of_activity']->format(__('app.date_format'));
+                $item['date_of_activity_from'] = Carbon::createFromDate($item['date_of_activity_from']);
+                $item['date_of_activity_from_display'] = $item['date_of_activity_from']->format(__('app.date_format_display'));
+                $item['date_of_activity_till'] = Carbon::createFromDate($item['date_of_activity_till']);
+                $item['date_of_activity_till_display'] = $item['date_of_activity_till']->format(__('app.date_format_display'));
+                $item['date_of_activity_time'] = $item['date_of_activity_from']->format(__('app.time_format_display'));
+                $item['diffForHumans'] = $item['date_of_activity_from']->diffForHumans();
+                $item['date_of_activity_from_formatted'] = $item['date_of_activity_from']->format(__('app.date_format'));
                 $item['view_count'] = AppModel::countAsString(UniqueViewsModel::viewForItem($item['id']));
                 $item['categoryData'] = CategoryModel::where('id', '=', $item['category'])->first();
 
                 $item['running'] = false;
                 
-                if (((new DateTime($item['date_of_activity'])) < (new DateTime('now'))) && ((new DateTime($item['date_of_activity'])) >= (new DateTime('now'))->modify('-' . env('APP_ACTIVITYRUNTIME', 60) . ' minutes'))) {
+                if (((new DateTime($item['date_of_activity_from'])) < (new DateTime('now'))) && ((new DateTime($item['date_of_activity_from'])) >= (new DateTime('now'))->modify('-' . env('APP_ACTIVITYRUNTIME', 60) . ' minutes'))) {
                     $item['running'] = true;
                 }
             }
@@ -284,7 +291,7 @@ class ActivityController extends Controller
                     $aditem['code'] = $adcode;
                     $aditem['tags'] = '';
                     $aditem['category'] = 0;
-                    $aditem['date_of_activity'] = $data[count($data)-1]['date_of_activity'];
+                    $aditem['date_of_activity_from'] = $data[count($data)-1]['date_of_activity_from'];
                     $data[] = $aditem;
                 }
             }
@@ -385,17 +392,20 @@ class ActivityController extends Controller
                 }
 
                 $item['_type'] = 'activity';
-                $item['diffForHumans'] = Carbon::createFromDate($item['date_of_activity'])->diffForHumans();
-                $item['date_of_activity_display'] = Carbon::createFromDate($item['date_of_activity'])->format(__('app.date_format_display'));
-                $item['date_of_activity'] = date(__('app.date_format'), strtotime($item['date_of_activity']));
+                $item['diffForHumans'] = Carbon::createFromDate($item['date_of_activity_from'])->diffForHumans();
+                $item['date_of_activity_from'] = Carbon::createFromDate($item['date_of_activity_from']);
+                $item['date_of_activity_from_display'] = Carbon::createFromDate($item['date_of_activity_from'])->format(__('app.date_format_display'));
+                $item['date_of_activity_till'] = Carbon::createFromDate($item['date_of_activity_till']);
+                $item['date_of_activity_till_display'] = $item['date_of_activity_till']->format(__('app.date_format_display'));
+                $item['date_of_activity_time'] = $item['date_of_activity_from']->format(__('app.time_format_display'));
                 $item['participants'] = ParticipantModel::where('activity', '=', $item['id'])->where('type', '=', ParticipantModel::PARTICIPANT_ACTUAL)->count();
                 $item['messages'] = ThreadModel::where('activityId', '=', $item['id'])->count();
                 $item['categoryData'] = CategoryModel::where('id', '=', $item['category'])->first();
                 $item['view_count'] = AppModel::countAsString(UniqueViewsModel::viewForItem($item['id']));
             }
 
-            $running_activity_count = ActivityModel::where('owner', '=', $id)->where('date_of_activity', '>=', date('Y-m-d H:i:s'))->count();
-            $past_activity_count = ActivityModel::where('owner', '=', $id)->where('date_of_activity', '<', date('Y-m-d H:i:s'))->count();
+            $running_activity_count = ActivityModel::where('owner', '=', $id)->where('date_of_activity_till', '>=', date('Y-m-d H:i:s'))->count();
+            $past_activity_count = ActivityModel::where('owner', '=', $id)->where('date_of_activity_till', '<', date('Y-m-d H:i:s'))->count();
             $total_activity_count = $running_activity_count + $past_activity_count;
 
             return response()->json(array('code' => 200, 'data' => array_values($data), 'running' => $running_activity_count, 'past' => $past_activity_count, 'total' => $total_activity_count));
@@ -417,9 +427,10 @@ class ActivityController extends Controller
             foreach ($data as $key => &$item) {
                 $item = (array)$item;
 
-                $item['diffForHumans'] = Carbon::createFromDate($item['date_of_activity'])->diffForHumans();
-                $item['date_of_activity_display'] = Carbon::createFromDate($item['date_of_activity'])->format(__('app.date_format_display'));
-                $item['date_of_activity'] = date(__('app.date_format'), strtotime($item['date_of_activity']));
+                $item['diffForHumans'] = Carbon::createFromDate($item['date_of_activity_from'])->diffForHumans();
+                $item['date_of_activity_from_display'] = Carbon::createFromDate($item['date_of_activity_from'])->format(__('app.date_format_display'));
+                $item['date_of_activity_till_display'] = Carbon::createFromDate($item['date_of_activity_till'])->format(__('app.date_format_display'));
+                $item['date_of_activity_time'] = Carbon::createFromDate($item['date_of_activity_from'])->format(__('app.time_format_display'));
                 $item['participants'] = ParticipantModel::where('activity', '=', $item['id'])->where('type', '=', ParticipantModel::PARTICIPANT_ACTUAL)->count();
                 $item['messages'] = ThreadModel::where('activityId', '=', $item['id'])->count();
                 $item['categoryData'] = CategoryModel::where('id', '=', $item['category'])->first();

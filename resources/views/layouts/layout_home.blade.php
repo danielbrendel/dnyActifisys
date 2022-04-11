@@ -413,9 +413,17 @@
                             </div>
 
                             <div class="field">
-                                <label class="label">{{ __('app.date') }}</label>
+                                <label class="label">{{ __('app.date_from') }}</label>
                                 <div class="control">
-                                    <input id="caDate" class="input" type="date" name="date_of_activity" onkeyup="window.vue.invalidCreateActivity();" onchange="window.vue.invalidCreateActivity();" required>
+                                    <input id="caDateFrom" class="input" type="date" name="date_of_activity_from" onkeyup="window.vue.invalidCreateActivity();" onchange="window.vue.invalidCreateActivity(); document.getElementById('caDateTill').value = this.value;" required>
+                                </div>
+                                <p class="help is-danger is-hidden" id="activity-date-hint">{{ __('app.date_is_in_past') }}</p>
+                            </div>
+
+                            <div class="field">
+                                <label class="label">{{ __('app.date_till') }}</label>
+                                <div class="control">
+                                    <input id="caDateTill" class="input" type="date" name="date_of_activity_till" onkeyup="window.vue.invalidCreateActivity();" onchange="window.vue.invalidCreateActivity();" required>
                                 </div>
                                 <p class="help is-danger is-hidden" id="activity-date-hint">{{ __('app.date_is_in_past') }}</p>
                             </div>
