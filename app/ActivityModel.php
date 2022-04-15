@@ -273,16 +273,18 @@ class ActivityModel extends Model
             }
 
             if ($dateFrom !== null) {
-                $asDate = date('Y-m-d H:i:s', strtotime($dateFrom));
+                $asDate = date('Y-m-d 23:59:59', strtotime($dateFrom));
                 if ((new DateTime($asDate) < (new DateTime('now')))) {
                     throw new Exception(__('app.date_from_smaller_than_now'));
                 }
+
+                $asDate = date('Y-m-d H:i:s', strtotime($dateFrom));
 
                 $activities->where('date_of_activity_till', '>=', $asDate);
             }
 
             if ($dateTill !== null) {
-                $asDate = date('Y-m-d H:i:s', strtotime($dateTill));
+                $asDate = date('Y-m-d 23:59:59', strtotime($dateTill));
                 if ((new DateTime($asDate) < (new DateTime('now')))) {
                     throw new Exception(__('app.date_till_smaller_than_now'));
                 }

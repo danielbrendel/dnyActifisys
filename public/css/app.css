@@ -44,7 +44,7 @@ textarea {
   width: 50%;
   z-index: 1;
   word-wrap: break-word;
-  background-color: #ff7575;
+  background-color: rgb(255, 117, 117);
   border: 1px solid #ccc;
   border-radius: 4px;
   display: none;
@@ -57,7 +57,7 @@ textarea {
   width: 50%;
   z-index: 1;
   word-wrap: break-word;
-  background-color: #80ff80;
+  background-color: rgb(128, 255, 128);
   border: 1px solid #ccc;
   border-radius: 4px;
   display: none;
@@ -69,7 +69,7 @@ textarea {
   margin-bottom: 10px;
   margin-left: 10px;
   margin-right: 10px;
-  color: white;
+  color: rgb(255, 255, 255);
 }
 
 .hamburger-container {
@@ -82,7 +82,7 @@ textarea {
 .hamburger-bar1, .hamburger-bar2, .hamburger-bar3 {
   width: 23px;
   height: 2px;
-  background-color: #7f8a9d;
+  background-color: rgb(127, 138, 157);
   margin: 6px 0;
   border-radius: 4px;
   transition: 0.4s;
@@ -105,7 +105,7 @@ textarea {
 
 .navbar-login {
   top: -7px;
-  color: white;
+  color: rgb(255, 255, 255);
   margin-right: 15px;
 }
 
@@ -124,7 +124,7 @@ textarea {
   left: 0;
   height: auto;
   margin-bottom: 15px;
-  background-color: #c8c8c8;
+  background-color: rgb(200, 200, 200);
 }
 @media screen and (max-width: 765px) {
   .cookie-consent-inner {
@@ -137,7 +137,7 @@ textarea {
   margin-left: 25px;
   margin-right: 25px;
   margin-top: 15px;
-  color: #1e1e1e;
+  color: rgb(30, 30, 30);
   font-size: 1.2em;
 }
 
@@ -153,8 +153,8 @@ textarea {
   border-radius: 4px;
   border: none;
   cursor: pointer;
-  color: #1e1e1e;
-  background-color: white;
+  color: rgb(30, 30, 30);
+  background-color: rgb(255, 255, 255);
   -webkit-appearance: none;
   font-weight: bold;
 }
@@ -167,7 +167,7 @@ textarea {
 }
 
 .header-headline {
-  color: white;
+  color: rgb(255, 255, 255);
   top: 19%;
   width: 100%;
 }
@@ -213,7 +213,7 @@ textarea {
 }
 
 .linkitem a {
-  color: white;
+  color: rgb(255, 255, 255);
   text-decoration: underline;
 }
 
@@ -221,7 +221,7 @@ textarea {
   width: 100%;
   height: 25px;
   background-color: rgba(0, 0, 0, 0.4);
-  color: #969696;
+  color: rgb(150, 150, 150);
   font-size: 0.7em;
 }
 @media screen and (max-width: 768px) {
@@ -261,7 +261,7 @@ textarea {
 .flash p {
   position: relative;
   margin: 10px;
-  color: white;
+  color: rgb(255, 255, 255);
 }
 
 .is-flash-error {
@@ -288,7 +288,7 @@ textarea {
 }
 
 #navbarBurger span {
-  background-color: white;
+  background-color: rgb(255, 255, 255);
 }
 
 .navbar-brand strong {
@@ -301,18 +301,18 @@ a.navbar-item:hover {
 }
 
 .navbar-item strong {
-  color: white;
+  color: rgb(255, 255, 255);
 }
 
 @media screen and (max-width: 1088px) {
   #navbarMenu {
-    background-color: black;
+    background-color: rgb(0, 0, 0);
   }
 }
 
 a.navbar-item:hover {
   background-color: unset;
-  color: white;
+  color: rgb(255, 255, 255);
 }
 
 .fix-mobile-navbar-item {
@@ -326,7 +326,7 @@ a.navbar-item:hover {
 }
 
 .is-white {
-  color: white;
+  color: rgb(255, 255, 255);
 }
 
 .overflow-hidden {
@@ -343,7 +343,7 @@ a.navbar-item:hover {
 }
 
 .navbar-login:hover {
-  color: white;
+  color: rgb(255, 255, 255);
   text-decoration: underline;
 }
 
@@ -378,15 +378,15 @@ a.navbar-item:hover {
 }
 
 h2, h3 {
-  color: #f0f0f0;
+  color: rgb(240, 240, 240);
 }
 
 .is-def-color, .is-def-color label, .is-def-color select, .is-def-color a {
-  color: #f0f0f0;
+  color: rgb(240, 240, 240);
 }
 
 .is-def-color:hover {
-  color: #f0f0f0;
+  color: rgb(240, 240, 240);
 }
 
 .is-def-color input, .is-def-color textarea, .is-def-color select {
@@ -402,47 +402,47 @@ h2, h3 {
 }
 
 ::-moz-placeholder {
-  color: #969696 !important;
+  color: rgb(150, 150, 150) !important;
 }
 
 :-ms-input-placeholder {
-  color: #969696 !important;
+  color: rgb(150, 150, 150) !important;
 }
 
 ::placeholder {
-  color: #969696 !important;
+  color: rgb(150, 150, 150) !important;
 }
 
 ::-moz-placeholder {
-  color: #969696 !important;
+  color: rgb(150, 150, 150) !important;
 }
 
 ::-webkit-input-placeholder {
-  color: #969696 !important;
+  color: rgb(150, 150, 150) !important;
 }
 
 .is-def-color input, .is-def-color textarea {
-  color: #f0f0f0;
+  color: rgb(240, 240, 240);
 }
 
 .is-color-black {
-  color: black !important;
+  color: rgb(0, 0, 0) !important;
 }
 
 .fas, .far {
-  color: #e1e1e1;
+  color: rgb(225, 225, 225);
 }
 
 .dropdown-content i {
-  color: #282828;
+  color: rgb(40, 40, 40);
 }
 
 .p-2 {
-  color: #c8c8c8;
+  color: rgb(200, 200, 200);
 }
 
 .fa-check-circle {
-  color: lime;
+  color: rgb(0, 255, 0);
 }
 
 #loadmore {
@@ -514,7 +514,7 @@ h2, h3 {
 
 .activity-user-top {
   font-family: "Nunito", sans-serif;
-  color: #c8c8c8;
+  color: rgb(200, 200, 200);
 }
 
 .activity-user-top h1 {
@@ -523,12 +523,12 @@ h2, h3 {
 }
 
 .activity-user-top h1 a {
-  color: #c8c8c8;
+  color: rgb(200, 200, 200);
 }
 
 .activity-user-sec h2 {
   font-size: 0.9em;
-  color: #a5a5a5;
+  color: rgb(165, 165, 165);
 }
 
 .activity-divider {
@@ -538,24 +538,24 @@ h2, h3 {
 .activity-info {
   margin-left: 15px;
   margin-right: 15px;
-  color: #c8c8c8;
+  color: rgb(200, 200, 200);
 }
 
 .activity-infos {
-  color: #f0f0f0;
+  color: rgb(240, 240, 240);
   font-size: 0.7em;
 }
 
 .activity-headline {
   font-size: 1.4em;
-  color: gainsboro;
+  color: rgb(220, 220, 220);
   font-weight: bold;
   width: 90%;
 }
 
 .activity-description {
   margin-top: 15px;
-  color: #bebebe;
+  color: rgb(190, 190, 190);
 }
 
 .activity-tags {
@@ -564,7 +564,7 @@ h2, h3 {
 }
 
 .activity-tag {
-  border: 1px solid white;
+  border: 1px solid rgb(255, 255, 255);
   border-radius: 10px;
   background-color: rgba(0, 0, 0, 0.5);
   display: inline-block;
@@ -583,7 +583,7 @@ h2, h3 {
 }
 
 .activity-tag a {
-  color: #c8c8c8;
+  color: rgb(200, 200, 200);
 }
 
 .activity-tag a:hover {
@@ -605,12 +605,12 @@ h2, h3 {
 
 .activity-participants {
   background-color: rgba(50, 190, 250, 0.4);
-  color: white;
+  color: rgb(255, 255, 255);
 }
 
 .activity-potential {
   background-color: rgba(220, 220, 220, 0.4);
-  color: #141414;
+  color: rgb(20, 20, 20);
 }
 
 .activity-participant-avatar {
@@ -653,7 +653,7 @@ h2, h3 {
   margin-top: 15px;
   margin-left: 15px;
   margin-right: 15px;
-  color: #960000;
+  color: rgb(150, 0, 0);
 }
 
 .activity {
@@ -708,12 +708,12 @@ h2, h3 {
 }
 
 .activity-user-name a {
-  color: white;
+  color: rgb(255, 255, 255);
 }
 
 .activity-title {
   margin-bottom: 15px;
-  color: whitesmoke;
+  color: rgb(245, 245, 245);
   font-weight: bold;
   font-size: 1.2em;
   font-family: "Nunito", sans-serif;
@@ -724,7 +724,7 @@ h2, h3 {
 .activity-information {
   top: -25px;
   margin-bottom: 15px;
-  color: black;
+  color: rgb(0, 0, 0);
   font-size: 0.9em;
   min-height: 151px;
 }
@@ -780,7 +780,7 @@ h2, h3 {
 
 .activity-footer-stats {
   top: 29px;
-  color: #f0f0f0;
+  color: rgb(240, 240, 240);
 }
 
 #active-activities {
@@ -799,7 +799,7 @@ h2, h3 {
 }
 
 .activity-image-item a:hover {
-  color: #787878;
+  color: rgb(120, 120, 120);
 }
 
 .activities-nav {
@@ -823,11 +823,11 @@ h2, h3 {
 }
 
 .activity-small-title a {
-  color: #1e67be;
+  color: rgb(30, 103, 190);
 }
 
 .activity-small-title a:hover {
-  color: #1e67be;
+  color: rgb(30, 103, 190);
   text-decoration: underline;
 }
 
@@ -897,7 +897,7 @@ h2, h3 {
 
 .thread-header {
   margin-bottom: 25px;
-  color: #aaaaaa;
+  color: rgb(170, 170, 170);
   font-size: 0.8em;
 }
 
@@ -912,13 +912,13 @@ h2, h3 {
 }
 
 .thread-header-info a, .thread-footer a {
-  color: #c8c8c8;
+  color: rgb(200, 200, 200);
 }
 
 .thread-text {
   margin-top: 15px;
   margin-bottom: 15px;
-  color: #c8c8c8;
+  color: rgb(200, 200, 200);
 }
 
 .thread-footer {
@@ -954,20 +954,20 @@ h2, h3 {
 
 .messages {
   padding: 21px;
-  background-color: #e6e6e6;
+  background-color: rgb(230, 230, 230);
 }
 
 .messages-item {
   position: relative;
   width: 100%;
   height: auto;
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   padding: 21px;
   border-radius: 4px;
 }
 
 .messages-item:hover {
-  background-color: gainsboro;
+  background-color: rgb(220, 220, 220);
 }
 
 .messages-item-avatar {
@@ -986,7 +986,7 @@ h2, h3 {
 }
 
 .messages-item-name a {
-  color: #969696;
+  color: rgb(150, 150, 150);
 }
 
 .messages-item-subject {
@@ -994,14 +994,14 @@ h2, h3 {
 }
 
 .messages-item-subject a {
-  color: #323232;
+  color: rgb(50, 50, 50);
 }
 
 .message-item-lastmsg {
   margin-left: 15px;
   font-style: italic;
   display: inline-block;
-  color: #969696;
+  color: rgb(150, 150, 150);
 }
 
 .message-item-lastmsg p {
@@ -1010,16 +1010,16 @@ h2, h3 {
 
 .messages-item-date {
   display: inline-block;
-  color: #969696;
+  color: rgb(150, 150, 150);
   float: right;
 }
 
 .is-new-message {
-  background-color: #80ff80;
+  background-color: rgb(128, 255, 128);
 }
 
 .is-new-message:hover {
-  background-color: #80c880;
+  background-color: rgb(128, 200, 128);
 }
 
 .messages-footer {
@@ -1027,7 +1027,7 @@ h2, h3 {
 }
 
 .messages-footer-count {
-  color: #969696;
+  color: rgb(150, 150, 150);
   display: inline-block;
 }
 
@@ -1042,7 +1042,7 @@ h2, h3 {
 
 .message-thread {
   position: relative;
-  background-color: #f0f0f0;
+  background-color: rgb(240, 240, 240);
   padding: 21px;
   margin-bottom: 25px;
   width: 90%;
@@ -1065,25 +1065,25 @@ h2, h3 {
 }
 
 .message-thread-header-userinfo {
-  color: #c8c8c8;
+  color: rgb(200, 200, 200);
   display: inline-block;
   font-size: 1.2em;
   top: 9px;
 }
 
 .message-thread-header-subject {
-  color: #323232;
+  color: rgb(50, 50, 50);
   display: inline-block;
   margin-left: 25px;
 }
 
 .message-thread-text {
-  color: #e6e6e6;
+  color: rgb(230, 230, 230);
   margin-left: 25px;
 }
 
 .message-thread-text a {
-  color: #1d67be;
+  color: rgb(29, 103, 190);
 }
 
 .message-thread-text a:hover {
@@ -1116,11 +1116,11 @@ h2, h3 {
   font-size: 1.2em;
   padding: 20px;
   background-color: rgba(150, 150, 150, 0.4);
-  color: #c8c8c8;
+  color: rgb(200, 200, 200);
 }
 
 .forum-description {
-  background-color: #c8c8c8;
+  background-color: rgb(200, 200, 200);
   padding: 20px;
 }
 
@@ -1145,11 +1145,11 @@ h2, h3 {
   display: inline-block;
   min-width: 76px;
   padding: 20px;
-  background-color: #7f8a9d;
+  background-color: rgb(127, 138, 157);
 }
 
 .forum-thread-is-sticky {
-  background-color: #80c880;
+  background-color: rgb(128, 200, 128);
 }
 
 .forum-thread-info-title {
@@ -1189,11 +1189,11 @@ h2, h3 {
 .forum-thread-info-lastposter-userinfo-username {
   display: inline-block;
   font-size: 1em;
-  color: #969696;
+  color: rgb(150, 150, 150);
 }
 
 .forum-thread-info-lastposter-userinfo-date {
-  color: #c8c8c8;
+  color: rgb(200, 200, 200);
 }
 
 #postings {
@@ -1273,7 +1273,7 @@ h2, h3 {
 
 .last-poster-name {
   display: inline-block;
-  color: #787878;
+  color: rgb(120, 120, 120);
   font-size: 0.7em;
 }
 
@@ -1290,14 +1290,14 @@ h2, h3 {
 
 .last-poster-date {
   font-size: 0.7em;
-  color: #969696;
+  color: rgb(150, 150, 150);
 }
 
 .notifications {
   position: absolute;
   top: -203px;
   z-index: 4;
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   display: none;
   border: 1px solid #ccc;
 }
@@ -1343,7 +1343,7 @@ h2, h3 {
   height: 0;
   border-left: 15px solid transparent;
   border-right: 15px solid transparent;
-  border-bottom: 15px solid white;
+  border-bottom: 15px solid rgb(255, 255, 255);
 }
 @media screen and (max-width: 768px) {
   .notifications-arrow-up {
@@ -1371,14 +1371,14 @@ h2, h3 {
   position: relative;
   width: 100%;
   height: auto;
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   padding: 21px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
 .notification-item:hover {
-  background-color: #fafafa;
+  background-color: rgb(250, 250, 250);
 }
 
 .notification-item-icon {
@@ -1397,15 +1397,15 @@ h2, h3 {
 }
 
 .is-new-notification {
-  background-color: #80ff80;
+  background-color: rgb(128, 255, 128);
 }
 
 .is-new-notification:hover {
-  background-color: #80c880;
+  background-color: rgb(128, 200, 128);
 }
 
 .notification-badge {
-  color: white;
+  color: rgb(255, 255, 255);
   text-decoration: none;
   padding: 15px 26px;
   position: relative;
@@ -1414,7 +1414,7 @@ h2, h3 {
 }
 
 .notification-badge:hover {
-  background: red;
+  background: rgb(255, 0, 0);
 }
 
 .notification-badge .notify-badge {
@@ -1423,8 +1423,8 @@ h2, h3 {
   top: 4px;
   padding: 1px 9px;
   border-radius: 50%;
-  background: red;
-  color: white;
+  background: rgb(255, 0, 0);
+  color: rgb(255, 255, 255);
 }
 
 .notify-badge .notify-badge-count {
@@ -1434,8 +1434,8 @@ h2, h3 {
 
 #burger-notification {
   position: absolute;
-  background-color: red !important;
-  border: 1px solid red;
+  background-color: rgb(255, 0, 0) !important;
+  border: 1px solid rgb(255, 0, 0);
   border-radius: 50%;
   width: 6px;
   height: 6px;
@@ -1449,7 +1449,7 @@ h2, h3 {
   position: absolute;
   top: -203px;
   z-index: 4;
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   display: none;
   border: 1px solid #ccc;
 }
@@ -1495,7 +1495,7 @@ h2, h3 {
   height: 0;
   border-left: 15px solid transparent;
   border-right: 15px solid transparent;
-  border-bottom: 15px solid white;
+  border-bottom: 15px solid rgb(255, 255, 255);
 }
 @media screen and (max-width: 768px) {
   .favorites-arrow-up {
@@ -1546,7 +1546,7 @@ h2, h3 {
 }
 
 .favorite-badge {
-  color: white;
+  color: rgb(255, 255, 255);
   text-decoration: none;
   padding: 15px 26px;
   position: relative;
@@ -1560,8 +1560,8 @@ h2, h3 {
   top: -5px;
   padding: 0px 7px;
   border-radius: 50%;
-  background: red;
-  color: white;
+  background: rgb(255, 0, 0);
+  color: rgb(255, 255, 255);
 }
 
 .is-pointer {
@@ -1581,27 +1581,27 @@ h2, h3 {
 }
 
 .is-color-lightblue, .is-color-lightblue a {
-  color: lightsteelblue;
+  color: rgb(176, 196, 222);
 }
 
 .is-color-grey-light {
-  color: #c8c8c8;
+  color: rgb(200, 200, 200);
 }
 
 .is-color-grey {
-  color: #bebebe;
+  color: rgb(190, 190, 190);
 }
 
 .is-color-dark-grey {
-  color: #646464;
+  color: rgb(100, 100, 100);
 }
 
 .is-color-black a, .is-color-black .caption {
-  color: black;
+  color: rgb(0, 0, 0);
 }
 
 .is-color-black-force {
-  color: black !important;
+  color: rgb(0, 0, 0) !important;
 }
 
 .is-underlined {
@@ -1643,7 +1643,7 @@ h2, h3 {
 }
 
 .is-color-green {
-  color: #009600;
+  color: rgb(0, 150, 0);
 }
 
 .is-fixed-filter-button {
@@ -1652,20 +1652,20 @@ h2, h3 {
 
 .is-transparent-green {
   background-color: rgba(50, 205, 50, 0.4);
-  border: 1px solid #00cd00;
+  border: 1px solid rgb(0, 205, 0);
 }
 
 .is-transparent-green:hover {
-  background-color: limegreen;
-  border: 1px solid #00cd00;
+  background-color: rgb(50, 205, 50);
+  border: 1px solid rgb(0, 205, 0);
 }
 
 a.is-color-grey {
-  color: #bebebe;
+  color: rgb(190, 190, 190);
 }
 
 a.is-color-grey:hover {
-  color: #c8c8c8;
+  color: rgb(200, 200, 200);
   text-decoration: underline;
 }
 
@@ -1675,7 +1675,7 @@ a.is-color-grey:hover {
 }
 
 .fixed-form h2 {
-  color: #282826;
+  color: rgb(40, 40, 38);
 }
 
 .is-striked {
@@ -1687,7 +1687,7 @@ a.is-color-grey:hover {
 }
 
 .is-install-navbar {
-  background-color: white;
+  background-color: rgb(255, 255, 255);
 }
 
 .is-round {

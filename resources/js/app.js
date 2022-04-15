@@ -111,7 +111,16 @@ window.vue = new Vue({
             let cookies = document.cookie.split(';');
             for (let i = 0; i < cookies.length; i++) {
                 if (cookies[i].indexOf('filter_date_from') !== -1) {
-                    return cookies[i].substr(cookies[i].indexOf('=') + 1);
+                    let cookieDate = cookies[i].substr(cookies[i].indexOf('=') + 1);
+                    
+                    let dtCookie = Date.parse(cookieDate);
+                    let dtNow = new Date();
+
+                    if (dtNow >= dtCookie) {
+                        return dtNow.getFullYear() + "-" + ((dtNow.getMonth() + 1 <= 9) ? '0' + (dtNow.getMonth() + 1) : dtNow.getMonth() + 1) + "-" + dtNow.getDate();
+                    }
+
+                    return cookieDate;
                 }
             }
 
@@ -127,7 +136,16 @@ window.vue = new Vue({
             let cookies = document.cookie.split(';');
             for (let i = 0; i < cookies.length; i++) {
                 if (cookies[i].indexOf('filter_date_till') !== -1) {
-                    return cookies[i].substr(cookies[i].indexOf('=') + 1);
+                    let cookieDate = cookies[i].substr(cookies[i].indexOf('=') + 1);
+
+                    let dtCookie = Date.parse(cookieDate);
+                    let dtNow = new Date();
+
+                    if (dtNow >= dtCookie) {
+                        return dtNow.getFullYear() + "-" + ((dtNow.getMonth() + 1 <= 9) ? '0' + (dtNow.getMonth() + 1) : dtNow.getMonth() + 1) + "-" + dtNow.getDate();
+                    }
+
+                    return cookieDate;
                 }
             }
 
