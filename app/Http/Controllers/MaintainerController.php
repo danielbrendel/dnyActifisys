@@ -25,6 +25,7 @@ use App\ReportModel;
 use App\TagsModel;
 use App\ThemeModel;
 use App\ThreadModel;
+use App\ForumModel;
 use App\User;
 use App\AnnouncementsModel;
 use App\VerifyModel;
@@ -63,7 +64,8 @@ class MaintainerController extends Controller
         $reports = array(
           'users' => ReportModel::getReportPack('ENT_USER'),
           'activities' => ReportModel::getReportPack('ENT_ACTIVITY'),
-          'comments' => ReportModel::getReportPack('ENT_COMMENT')
+          'comments' => ReportModel::getReportPack('ENT_COMMENT'),
+          'forum_posts' => ReportModel::getReportPack('ENT_FORUMPOST')
         );
 
         foreach ($reports['comments'] as &$cmt) {
@@ -91,7 +93,8 @@ class MaintainerController extends Controller
             'reports' => $reports,
             'verification_users' => $verification_users,
             'categories' => CategoryModel::all(),
-            'locations' => LocationModel::all()
+            'locations' => LocationModel::all(),
+            'forums' => ForumModel::all()
         ]);
     }
 
@@ -768,6 +771,81 @@ class MaintainerController extends Controller
             return back()->with('flash.success', __('app.announcement_created'));
         } catch (\Exception $e) {
             return back()->with('flash.error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Create forum
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function createForum()
+    {
+        try {
+            $attr = request()->validate([
+                'name' => 'required',
+                'description' => 'required'
+            ]);
+
+            ForumModel::add($attr['name'], $attr['description']);
+
+            return back()->with('flash.success', __('app.forum_created'));
+        } catch (Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Edit forum
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function editForum()
+    {
+        try {
+            $attr = request()->validate([
+                'id' => 'required|numeric',
+                'name' => 'required',
+                'description' => 'required'
+            ]);
+
+            ForumModel::edit($attr['id'], $attr['name'], $attr['description']);
+
+            return back()->with('flash.success', __('app.forum_edited'));
+        } catch (Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Lock forum
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function lockForum($id)
+    {
+        try {
+            ForumModel::lock($id);
+
+            return back()->with('flash.success', __('app.forum_locked'));
+        } catch (Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Remove forum
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function removeForum($id)
+    {
+        try {
+            ForumModel::remove($id);
+
+            return back()->with('flash.success', __('app.forum_removed'));
+        } catch (Exception $e) {
+            return back()->with('error', $e->getMessage());
         }
     }
 }

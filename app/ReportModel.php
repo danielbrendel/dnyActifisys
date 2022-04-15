@@ -35,7 +35,7 @@ class ReportModel extends Model
     private static function validateEntityType($type)
     {
         try {
-            $types = array('ENT_ACTIVITY', 'ENT_USER', 'ENT_COMMENT');
+            $types = array('ENT_ACTIVITY', 'ENT_USER', 'ENT_COMMENT', 'ENT_FORUMPOST');
 
             if (!in_array($type, $types)) {
                 throw new \Exception('Unknown type: ' . $type, 404);

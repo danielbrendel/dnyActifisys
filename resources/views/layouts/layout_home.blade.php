@@ -101,6 +101,10 @@
                             {{ __('app.messages') }}
                         </a>
 
+                        <a class="navbar-item fix-mobile-navbar-item is-white" href="{{ url('/forum') }}">
+                            {{ __('app.forum') }}
+                        </a>
+
                         <a class="navbar-item fix-mobile-navbar-item is-white" href="{{ url('/user/' . \App\User::get(auth()->id())->slug) }}">
                             {{ __('app.profile') }}
                         </a>
@@ -561,6 +565,8 @@
                         </footer>
                     </div>
                 </div>
+
+                @yield('modal')
             @endauth
         </div>
 
@@ -579,6 +585,8 @@
             window.vue.lang.report = '{{ __('app.report') }}';
             window.vue.lang.view = '{{ __('app.view') }}';
             window.vue.lang.verifiedUser = '{{ __('app.verifiedUser') }}';
+            window.vue.lang.confirmLockForumPost = '{{ __('app.confirmLockForumPost') }}';
+            window.vue.lang.forumPostEdited = '{{ __('app.forum_post_edited_info') }}';
 
             @auth
                 window.user = {};

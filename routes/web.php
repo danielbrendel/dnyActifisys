@@ -84,6 +84,20 @@ Route::any('/messages/query', 'MessageController@query');
 Route::get('/messages/create', 'MessageController@create');
 Route::post('/messages/send', 'MessageController@send');
 
+Route::get('/forum', 'ForumController@index');
+Route::post('/forum/list', 'ForumController@list');
+Route::get('/forum/{id}/show', 'ForumController@show');
+Route::post('/forum/{id}/list', 'ForumController@threadList');
+Route::get('/forum/thread/{id}/show', 'ForumController@showThread');
+Route::post('/forum/thread/{id}/posts', 'ForumController@threadPostings');
+Route::post('/forum/thread/create', 'ForumController@createThread');
+Route::post('/forum/thread/reply', 'ForumController@replyThread');
+Route::post('/forum/thread/edit', 'ForumController@editThread');
+Route::get('/forum/thread/post/{id}/show', 'ForumController@showPost');
+Route::any('/forum/thread/post/{id}/report', 'ForumController@reportPost');
+Route::any('/forum/thread/post/{id}/lock', 'ForumController@lockPost');
+Route::post('/forum/thread/post/edit', 'ForumController@editPost');
+
 Route::get('/maintainer', 'MaintainerController@index');
 Route::post('/maintainer/save', 'MaintainerController@save');
 Route::post('/maintainer/about', 'MaintainerController@about');
@@ -114,6 +128,10 @@ Route::post('/maintainer/location/add', 'MaintainerController@addLocation');
 Route::post('/maintainer/location/{id}/edit', 'MaintainerController@editLocation');
 Route::any('/maintainer/location/{id}/active/{status}', 'MaintainerController@locationActiveStatus');
 Route::post('/maintainer/announcements/create', 'MaintainerController@createAnnouncement');
+Route::post('/maintainer/forum/create', 'MaintainerController@createForum');
+Route::post('/maintainer/forum/edit', 'MaintainerController@editForum');
+Route::any('/maintainer/forum/{id}/lock', 'MaintainerController@lockForum');
+Route::any('/maintainer/forum/{id}/remove', 'MaintainerController@removeForum');
 
 Route::post('/payment/charge', 'PaymentController@charge');
 

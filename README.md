@@ -31,6 +31,7 @@ feature list see the list below.
 + Favorites system
 + Notification system
 + Messaging system
++ Forum system
 + E-Mail system
 + Administration
 + Maintainer system
