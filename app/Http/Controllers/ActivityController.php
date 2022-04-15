@@ -276,7 +276,7 @@ class ActivityController extends Controller
 
                 $item['running'] = false;
                 
-                if (((new DateTime($item['date_of_activity_from'])) < (new DateTime('now'))) && ((new DateTime($item['date_of_activity_from'])) >= (new DateTime('now'))->modify('-' . env('APP_ACTIVITYRUNTIME', 60) . ' minutes'))) {
+                if (((new DateTime($item['date_of_activity_from'])) < (new DateTime('now'))) && ((new DateTime($item['date_of_activity_till']))->modify('-' . env('APP_ACTIVITYRUNTIME', 60) . ' minutes') >= (new DateTime('now')))) {
                     $item['running'] = true;
                 }
             }
