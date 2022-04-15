@@ -468,13 +468,9 @@ h2, h3 {
 
 .windowed-frame {
   position: relative;
+  border: 1px solid #ccc;
+  border-radius: 4px;
   background-color: rgba(255, 255, 255, 0.1);
-}
-@media screen and (min-width: 380px) {
-  .windowed-frame {
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
 }
 
 .windowed-frame span {

@@ -420,7 +420,7 @@ window.vue = new Vue({
                 </div>
 
                 <div class="is-inline-block is-stretched">
-                    <div class="activity-title is-pointer is-wordbreak is-default-padding is-inline-block is-stretched">
+                    <div class="activity-title is-pointer is-wordbreak is-default-padding is-inline-block is-stretched" onclick="location.href = '` + window.location.origin + '/activity/' + elem.slug + `';">
                         <center><span><a class="is-def-color" href="` + window.location.origin + '/activity/' + elem.slug + `">` + elem.title + `</a></span> <span class="dropdown-trigger ` + ((tagcode.length > 0) ? '': 'is-hidden') + `" onclick="window.vue.toggleActivityTags(document.getElementById('activity-tags-` + elem.id + `'));"><i class="fas fa-hashtag is-pointer"></i></span></center>
                     </div>
 
