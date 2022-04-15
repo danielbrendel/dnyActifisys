@@ -410,8 +410,8 @@ window.vue = new Vue({
                 </div>
 
                 <div class="activity-infos is-default-padding">
-                    <center><span><i class="far fa-clock"></i>&nbsp;` + ((sameDate) ? elem.date_of_activity_from_display : elem.date_of_activity_from_display + ' - ' + elem.date_of_activity_till_display) + ' ' + elem.date_of_activity_time + ` | </span>
-                        <span class="is-capitalized"><i class="fas fa-map-marker-alt"></i>&nbsp;` + elem.location + `</span></center>
+                    <center><div><i class="far fa-clock"></i>&nbsp;` + ((sameDate) ? elem.date_of_activity_from_display : elem.date_of_activity_from_display + ' - ' + elem.date_of_activity_till_display) + ' ' + elem.date_of_activity_time + `</div>
+                        <div class="is-capitalized"><i class="fas fa-map-marker-alt"></i>&nbsp;` + elem.location + `</div></center>
                 </div>
 
                 <div class="activity-divider">
