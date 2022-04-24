@@ -210,7 +210,7 @@
 
                 <div class="activity-buttons">
                     <div class="buttons-left is-inline-block">
-                        <a class="button is-outlined" href="@auth {{ url('/activity/' . $activity->id . '/report') }} @elseguest {{ 'javascript:void(0);' }} @endauth" @guest onclick="window.vue.bShowLogin = true;" @endguest>{{ __('app.report') }}</a>
+                        <a class="button is-outlined" href="{{ url('/activity/' . $activity->id . '/report') }}">{{ __('app.report') }}</a>
                     </div>
 
                     <div class="buttons-right is-inline-block">

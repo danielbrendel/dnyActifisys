@@ -748,16 +748,21 @@ class ActivityController extends Controller
     public function reportActivity($id)
     {
         try {
-            $this->validateAuth();
+            //$this->validateAuth();
+
+            $reporter = auth()->id();
 
             $user = User::get(auth()->id());
+            if (!$user) {
+                $reporter = 0;
+            }
 
             $activity = ActivityModel::getActivity($id);
             if (!$activity) {
                 throw new Exception(__('app.activity_not_found_or_locked'));
             }
 
-            ReportModel::addReport(auth()->id(), $activity->id, 'ENT_ACTIVITY');
+            ReportModel::addReport($reporter, $activity->id, 'ENT_ACTIVITY');
 
             return back()->with('flash.success', __('app.activity_reported'));
         } catch (Exception $e) {

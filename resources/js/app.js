@@ -416,6 +416,21 @@ window.vue = new Vue({
                             <center><div class="activity-user-avatar"><img src="` + window.location.origin + '/gfx/avatars/' + elem.user.avatar + `" class="is-pointer" onclick="location.href = '` + window.location.origin + '/user/' + elem.user.id + `';"></div>
                                 <div class="activity-user-name"><a href="` + window.location.origin + '/user/' + elem.user.slug + `">` + elem.user.name + `</a>` + ((elem.user.verified) ? '&nbsp;<i class="far fa-check-circle" title="' + this.lang.verifiedUser + '"></i>' : '') + `</div></center>
                         </div>
+
+                        <div class="activity-qo">
+                            <div class="dropdown is-right" id="activity-qo-` + elem.id + `">
+                            <div class="dropdown-trigger">
+                                <i class="fas fa-ellipsis-v is-pointer" onclick="window.vue.toggleActivityOptions(document.getElementById('activity-qo-` + elem.id + `'));"></i>
+                            </div>
+                            <div class="dropdown-menu" role="menu">
+                                <div class="dropdown-content">
+                                    <a class="dropdown-item is-color-black" href="` + window.location.origin + '/activity/' + elem.id + '/report' + `">
+                                        ` + this.lang.report + `
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
                     </div>
                 </div>
 
