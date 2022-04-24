@@ -44,21 +44,21 @@ class ActivityController extends Controller
      */
     public function create()
     {
+        $attr = request()->validate([
+            'title' => 'required|max:100',
+            'description' => 'required',
+            'date_of_activity_from' => 'required|date',
+            'date_of_activity_till' => 'required|date',
+            'time_of_activity' => 'required|date_format:H:i',
+            'category' => 'required|numeric',
+            'location' => 'required',
+            'limit' => 'nullable|numeric',
+            'only_gender' => 'nullable|numeric',
+            'only_verified' => 'nullable|numeric'
+        ]);
+        
         try {
             $this->validateAuth();
-
-            $attr = request()->validate([
-                'title' => 'required|max:100',
-                'description' => 'required',
-                'date_of_activity_from' => 'required|date',
-                'date_of_activity_till' => 'required|date',
-                'time_of_activity' => 'required|date_format:H:i',
-                'category' => 'required|numeric',
-                'location' => 'required',
-                'limit' => 'nullable|numeric',
-                'only_gender' => 'nullable|numeric',
-                'only_verified' => 'nullable|numeric'
-            ]);
 
             if (!isset($attr['limit'])) {
                 $attr['limit'] = 0;
@@ -87,22 +87,22 @@ class ActivityController extends Controller
      */
     public function edit()
     {
+        $attr = request()->validate([
+            'activityId' => 'required|numeric',
+            'title' => 'required|max:100',
+            'description' => 'required',
+            'date_of_activity_from' => 'required|date',
+            'date_of_activity_till' => 'required|date',
+            'time_of_activity' => 'required|date_format:H:i',
+            'category' => 'required|numeric',
+            'location' => 'required',
+            'limit' => 'nullable|numeric',
+            'only_gender' => 'nullable|numeric',
+            'only_verified' => 'nullable|numeric'
+        ]);
+
         try {
             $this->validateAuth();
-
-            $attr = request()->validate([
-                'activityId' => 'required|numeric',
-                'title' => 'required|max:100',
-                'description' => 'required',
-                'date_of_activity_from' => 'required|date',
-                'date_of_activity_till' => 'required|date',
-                'time_of_activity' => 'required|date_format:H:i',
-                'category' => 'required|numeric',
-                'location' => 'required',
-                'limit' => 'nullable|numeric',
-                'only_gender' => 'nullable|numeric',
-                'only_verified' => 'nullable|numeric'
-            ]);
 
             if (!isset($attr['limit'])) {
                 $attr['limit'] = 0;
