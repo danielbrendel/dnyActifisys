@@ -129,6 +129,12 @@ class MessageController extends Controller
      */
     public function create()
     {
+        try {
+            $this->validateAuth();
+        } catch (\Exception $e) {
+            return redirect('/')->with('flash.error', __('app.not_logged_in'));
+        }
+
         $userId = request('userId');
         $user = User::get($userId);
 

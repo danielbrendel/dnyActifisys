@@ -97,7 +97,7 @@
                         </div>
                     </div>
 
-                    @if (($user)) && (($user->admin) || ($user->maintainer)))
+                    @if (($user) && (($user->admin) || ($user->maintainer)))
                         <div class="field">
                             <div class="control">
                                 <input type="checkbox" name="sticky" data-role="checkbox" data-style="2" data-caption="{{ __('app.set_thread_sticky') }}" value="1">
