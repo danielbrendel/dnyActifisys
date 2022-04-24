@@ -405,14 +405,14 @@
                             <div class="field">
                                 <label class="label">{{ __('app.title') }}</label>
                                 <div class="control">
-                                    <input id="caTitle" class="input" type="text" name="title" onkeyup="window.vue.invalidCreateActivity();" onchange="window.vue.invalidCreateActivity();" required>
+                                    <input id="caTitle" class="input" type="text" name="title" value="{{ old('title') }}" onkeyup="window.vue.invalidCreateActivity();" onchange="window.vue.invalidCreateActivity();" required>
                                 </div>
                             </div>
 
                             <div class="field">
                                 <label class="label">{{ __('app.description') }}</label>
                                 <div class="control">
-                                    <textarea id="caDescription" name="description" onkeyup="window.vue.invalidCreateActivity();" onchange="window.vue.invalidCreateActivity();" required></textarea>
+                                    <textarea id="caDescription" name="description" onkeyup="window.vue.invalidCreateActivity();" onchange="window.vue.invalidCreateActivity();" required>{{ old('description') }}</textarea>
                                 </div>
                             </div>
 
@@ -435,7 +435,7 @@
                             <div class="field">
                                 <label class="label">{{ __('app.time') }}</label>
                                 <div class="control">
-                                    <input id="caTime" class="input" type="time" name="time_of_activity" onkeyup="window.vue.invalidCreateActivity();" onchange="window.vue.invalidCreateActivity();" required>
+                                    <input id="caTime" class="input" type="time" name="time_of_activity" value="{{ old('time_of_activity') }}" onkeyup="window.vue.invalidCreateActivity();" onchange="window.vue.invalidCreateActivity();" required>
                                 </div>
                             </div>
 
@@ -453,7 +453,7 @@
                             <div class="field">
                                 <label class="label">{{ __('app.location') }}</label>
                                 <div class="control">
-                                    <input type="text" class="input" name="location" id="caLocation" placeholder="{{ __('app.location') }}" onkeyup="document.getElementById('location-list-content-create').innerHTML = ''; window.vue.queryLocation(this, 'create', 'caLocation');" required>
+                                    <input type="text" class="input" name="location" id="caLocation" placeholder="{{ __('app.location') }}" value="{{ old('location') }}" onkeyup="document.getElementById('location-list-content-create').innerHTML = ''; window.vue.queryLocation(this, 'create', 'caLocation');" required>
                                     <div class="dropdown is-left is-inline-block" id="location-list-create">
                                         <div class="dropdown-menu is-color-black-force" role="menu">
                                             <div class="dropdown-content" id="location-list-content-create">
