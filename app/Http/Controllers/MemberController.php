@@ -50,9 +50,9 @@ class MemberController extends Controller
                 $this->validateAuth();
             }
 
-            if (IgnoreModel::hasIgnored($user->id, auth()->id())) {
+            /*if (IgnoreModel::hasIgnored($user->id, auth()->id())) {
                 throw new \Exception(__('app.user_not_found_or_locked'));
-            }
+            }*/
 
             $user->activities = ActivityModel::where('owner', '=', $user->id)->count();
             $user->age = Carbon::parse($user->birthday)->age;

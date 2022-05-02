@@ -583,10 +583,17 @@
             window.vue.lang.expandThread = '{{ __('app.expandThread') }}';
             window.vue.lang.reply = '{{ __('app.reply') }}';
             window.vue.lang.report = '{{ __('app.report') }}';
+            window.vue.lang.ignore = '{{ __('app.add_to_ignore') }}';
             window.vue.lang.view = '{{ __('app.view') }}';
             window.vue.lang.verifiedUser = '{{ __('app.verifiedUser') }}';
             window.vue.lang.confirmLockForumPost = '{{ __('app.confirmLockForumPost') }}';
             window.vue.lang.forumPostEdited = '{{ __('app.forum_post_edited_info') }}';
+            window.vue.lang.share_whatsapp = '{{ __('app.share_whatsapp') }}';
+            window.vue.lang.share_twitter = '{{ __('app.share_twitter') }}';
+            window.vue.lang.share_facebook = '{{ __('app.share_facebook') }}';
+            window.vue.lang.share_sms = '{{ __('app.share_sms') }}';
+            window.vue.lang.share_email = '{{ __('app.share_email') }}';
+            window.vue.lang.share_clipboard = '{{ __('app.share_clipboard') }}';
 
             @auth
                 window.user = {};

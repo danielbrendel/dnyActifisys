@@ -52,10 +52,17 @@ window.vue = new Vue({
             expandThread: 'Expand thread',
             reply: 'Reply',
             report: 'Report',
+            ignore: 'Ignore',
             view: 'View',
             verifiedUser: 'Verified user',
             confirmLockForumPost: 'Do you want to lock this forum post?',
-            forumPostEdited: 'Edited'
+            forumPostEdited: 'Edited',
+            share_whatsapp: 'Share with WhatsApp',
+            share_twitter: 'Share with Twitter',
+            share_facebook: 'Share with Facebook',
+            share_sms: 'Share by SMS',
+            share_email: 'Share by E-Mail',
+            share_clipboard: 'Copy to Clipboard'
         }
     },
 
@@ -375,6 +382,21 @@ window.vue = new Vue({
                 headerOverlay = `class="activity-header-overlay"`
             }
 
+            let userOptions = '';
+            if ((typeof window.user.id !== 'undefined') && (window.user.id !== elem.user.id)) {
+                userOptions = `
+                    <hr class="dropdown-divider">
+
+                    <a class="dropdown-item is-color-black" href="` + window.location.origin + '/activity/' + elem.id + '/report' + `">
+                        ` + this.lang.report + `
+                    </a>
+
+                    <a class="dropdown-item is-color-black" href="` + window.location.origin + '/user/' + elem.user.id + '/ignore/add' + `">
+                        ` + this.lang.ignore + `
+                    </a>
+                `;
+            }
+
             let taglist = '';
             let tags = elem.tags.split(' ');
             for (let i = 0; i < tags.length; i++) {
@@ -424,9 +446,25 @@ window.vue = new Vue({
                             </div>
                             <div class="dropdown-menu" role="menu">
                                 <div class="dropdown-content">
-                                    <a class="dropdown-item is-color-black" href="` + window.location.origin + '/activity/' + elem.id + '/report' + `">
-                                        ` + this.lang.report + `
+                                    <a onclick="window.vue.toggleActivityOptions(document.getElementById('activity-qo-` + elem.id + `'));" href="whatsapp://send?text=` + window.location.origin + '/activity/' + elem.id + ` - ` + elem.title + `" class="dropdown-item is-color-black">
+                                        <i class="far fa-copy"></i>&nbsp;` + window.vue.lang.share_whatsapp + `
                                     </a>
+                                    <a onclick="window.vue.toggleActivityOptions(document.getElementById('activity-qo-` + elem.id + `'));" href="https://twitter.com/share?url=` + encodeURI(window.location.origin + '/activity/' + elem.id) + `&text=` + elem.title + `" class="dropdown-item is-color-black">
+                                        <i class="fab fa-twitter"></i>&nbsp;` + window.vue.lang.share_twitter + `
+                                    </a>
+                                    <a onclick="window.vue.toggleActivityOptions(document.getElementById('activity-qo-` + elem.id + `'));" href="https://www.facebook.com/sharer/sharer.php?u=` + window.location.origin + '/activity/' + elem.id + `" class="dropdown-item is-color-black">
+                                        <i class="fab fa-facebook"></i>&nbsp;` + window.vue.lang.share_facebook + `
+                                    </a>
+                                    <a onclick="window.vue.toggleActivityOptions(document.getElementById('activity-qo-` + elem.id + `'));" href="mailto:name@domain.com?body=` + window.location.origin + '/activity/' + elem.id + ` - ` + elem.title + `" class="dropdown-item is-color-black">
+                                        <i class="far fa-envelope"></i>&nbsp;` + window.vue.lang.share_email + `
+                                    </a>
+                                    <a onclick="window.vue.toggleActivityOptions(document.getElementById('activity-qo-` + elem.id + `'));" href="sms:000000000?body=` + window.location.origin + '/activity/' + elem.id + ` - ` + elem.title + `" class="dropdown-item is-color-black">
+                                        <i class="fas fa-sms"></i>&nbsp;` + window.vue.lang.share_sms + `
+                                    </a>
+                                    <a href="javascript:void(0)" onclick="window.vue.copyToClipboard('` + window.location.origin + '/activity/' + elem.id + ` - ` + elem.title + `'); window.vue.toggleActivityOptions(document.getElementById('activity-qo-` + elem.id + `'));" class="dropdown-item is-color-black">
+                                        <i class="far fa-copy"></i>&nbsp;` + window.vue.lang.share_clipboard + `
+                                    </a>
+                                    ` + userOptions + `
                                 </div>
                             </div>
                         </div>
