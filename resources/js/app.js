@@ -383,7 +383,7 @@ window.vue = new Vue({
             }
 
             let userOptions = '';
-            if ((typeof window.user.id !== 'undefined') && (window.user.id !== elem.user.id)) {
+            if ((window.user !== null) && (typeof window.user.id !== 'undefined') && (window.user.id !== elem.user.id)) {
                 userOptions = `
                     <hr class="dropdown-divider">
 

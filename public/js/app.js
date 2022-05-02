@@ -2374,7 +2374,7 @@ window.vue = new Vue({
 
       var userOptions = '';
 
-      if (typeof window.user.id !== 'undefined' && window.user.id !== elem.user.id) {
+      if (window.user !== null && typeof window.user.id !== 'undefined' && window.user.id !== elem.user.id) {
         userOptions = "\n                    <hr class=\"dropdown-divider\">\n\n                    <a class=\"dropdown-item is-color-black\" href=\"" + window.location.origin + '/activity/' + elem.id + '/report' + "\">\n                        " + this.lang.report + "\n                    </a>\n\n                    <a class=\"dropdown-item is-color-black\" href=\"" + window.location.origin + '/user/' + elem.user.id + '/ignore/add' + "\">\n                        " + this.lang.ignore + "\n                    </a>\n                ";
       }
 
