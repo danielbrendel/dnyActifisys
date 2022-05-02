@@ -1080,7 +1080,7 @@ h2, h3 {
     position: absolute;
     top: -203px;
     @media screen and (min-width: 769px) {
-        right: 12px;
+        right: 100px;
         width: 550px;
         height: 90%;
     }
@@ -1144,6 +1144,9 @@ h2, h3 {
 }
 .notification-item-icon {
     display: inline-block;
+}
+.notification-item-icon i {
+    color: rgb(150, 150, 150) !important;
 }
 .notification-icon {
     display: inline-block;

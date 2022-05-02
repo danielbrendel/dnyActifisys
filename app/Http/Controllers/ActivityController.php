@@ -476,7 +476,10 @@ class ActivityController extends Controller
 
             $user = User::get(auth()->id());
             $owner = User::get($activity->owner);
-            PushModel::addNotification(__('app.user_commented_short'), __('app.user_commented_long', ['profile' => url('/user/' . $user->slug), 'name' => $owner->name, 'sender' => $user->name, 'message' => $attr['message']]), 'PUSH_COMMENTED', $activity->owner);
+
+            if (($user) && (auth()->id() !== $activity->userId)) {
+                PushModel::addNotification(__('app.user_commented_short'), __('app.user_commented_long', ['profile' => url('/user/' . $user->slug), 'name' => $owner->name, 'sender' => $user->name, 'message' => $attr['message'], 'item' => url('/activity/' . $id)]), 'PUSH_COMMENTED', $activity->owner);
+            }
 
             if (($owner) && ($owner->email_on_comment)) {
                 $html = view('mail.user_commented', ['name' => $owner->name, 'sender' => $user->name, 'message' => $attr['message'], 'activityId' => $activity->id])->render();
