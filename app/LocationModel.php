@@ -105,6 +105,21 @@ class LocationModel extends Model
     }
 
     /**
+     * Get amount of active locations
+     * 
+     * @return int
+     * @throws Exception
+     */
+    public static function amount()
+    {
+        try {
+            return LocationModel::where('active', '=', true)->count();
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
      * Query locations by term
      * 
      * @param $term

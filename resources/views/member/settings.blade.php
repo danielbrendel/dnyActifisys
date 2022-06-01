@@ -74,11 +74,15 @@
                 <div class="field">
                     <label class="label">{{ __('app.location') }}</label>
                     <div class="control">
-						<select name="location">
-							@foreach (\App\LocationModel::fetch() as $location)
-								<option value="{{ $location->name }}" @if ($location->name === $self->location) {{ 'selected' }} @endif>{{ ucfirst($location->name) }}</option>
-							@endforeach
-						</select>
+                        @if (\App\LocationModel::amount() > 0)
+                            <select name="location">
+                                @foreach (\App\LocationModel::fetch() as $location)
+                                    <option value="{{ $location->name }}" @if ($location->name === $self->location) {{ 'selected' }} @endif>{{ ucfirst($location->name) }}</option>
+                                @endforeach
+                            </select>
+                        @else
+                            <input type="text" name="location" value="{{ $self->location }}">
+                        @endif
                     </div>
                 </div>
 
