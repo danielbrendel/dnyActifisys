@@ -101,7 +101,7 @@ textarea {
     position: relative;
     margin-top: 25px;
 }
-.navbar-login {
+.navbar-inline-item {
     top: -7px;
     color: rgb(255, 255, 255);
     margin-right: 15px;
@@ -306,7 +306,7 @@ a.navbar-item:hover {
 .is-stretched {
     width: 100%;
 }
-.navbar-login:hover {
+.navbar-inline-item:hover {
     color: rgb(255, 255, 255);
     text-decoration: underline;
 }
