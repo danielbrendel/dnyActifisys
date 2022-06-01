@@ -65,12 +65,10 @@
                             <textarea id="reply-forum-thread-post" name="message" placeholder="{{ __('app.enter_message') }}"></textarea>
                         </div>
                     </div>
-
-                    <input type="button" id="replythreadsubmit" onclick="document.getElementById('formReplyForumThread').submit();" class="is-hidden">
                 </form>
             </section>
             <footer class="modal-card-foot is-stretched">
-                <button class="button is-success" onclick="document.getElementById('replythreadsubmit').click();">{{ __('app.reply') }}</button>
+                <button class="button is-success" onclick="document.getElementById('formReplyForumThread').submit();">{{ __('app.reply') }}</button>
                 <button class="button" onclick="vue.bShowReplyForumThread = false;">{{ __('app.cancel') }}</button>
             </footer>
         </div>
