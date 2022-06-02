@@ -44,6 +44,15 @@ class AppModel extends Model
     }
 
     /**
+     * Get clep background
+     * @return mixed
+     */
+    public static function getClepBackground()
+    {
+        return DB::table('app_settings')->first()->clep_bg;
+    }
+
+    /**
      * Get home background alpha value
      * @return mixed
      */

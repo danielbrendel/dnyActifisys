@@ -53,6 +53,24 @@ class MainController extends Controller
     }
 
     /**
+     * View clep page
+     *
+     * @return mixed
+     */
+    public function clep()
+    {
+        if (!Auth::guest()) {
+            return redirect('/');
+        }
+
+        $captchaData = CaptchaModel::createSum(session()->getId());
+
+        return view('home.clep', [
+            'captchadata' => $captchaData
+        ]);
+    }
+
+    /**
      * View faq page
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View

@@ -29,6 +29,7 @@ class CreateAppSettingsTable extends Migration
             $table->bigIncrements('id');
             $table->string('cookie_consent', 512);
             $table->string('home_bg', 512);
+            $table->string('clep_bg', 512);
             $table->float('home_bg_alpha')->default(0.5);
             $table->text('about');
             $table->text('imprint');
