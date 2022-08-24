@@ -167,7 +167,7 @@ class PushModel extends Model
 
             $data = [
                 'to' => $device_token,
-                'data' => [
+                env('FIREBASE_PROPNAME', 'data') => [
                     'title' => $title,
                     'body' => $body,
                     'icon' => asset('logo.png')
