@@ -405,10 +405,6 @@ h2, h3 {
   color: rgb(150, 150, 150) !important;
 }
 
-:-ms-input-placeholder {
-  color: rgb(150, 150, 150) !important;
-}
-
 ::placeholder {
   color: rgb(150, 150, 150) !important;
 }
@@ -1715,7 +1711,6 @@ input.is-background-white-transparent {
   word-break: break-all;
   word-break: break-word;
   -webkit-hyphens: auto;
-  -ms-hyphens: auto;
   hyphens: auto;
 }
 
