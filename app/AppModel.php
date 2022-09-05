@@ -617,4 +617,39 @@ class AppModel extends Model
             throw $e;
         }
     }
+
+    /**
+     * Get a list of sitemap items
+     * 
+     * @return array
+     */
+    public static function sitemap()
+    {
+        $sitemap = [];
+
+        $sitemap[] = url('/');
+        $sitemap[] = url('/faq');
+        $sitemap[] = url('/imprint');
+        $sitemap[] = url('/tos');
+        $sitemap[] = url('/forum');
+
+        if (env('TWITTER_NEWS')) {
+            $sitemap[] = url('/news');
+        }
+
+        if (env('HELPREALM_WORKSPACE')) {
+            $sitemap[] = url('/contact');
+        }
+
+        $activities = ActivityModel::where(function($query){
+            $query->where('date_of_activity_from', '>=', date('Y-m-d H:i:s'))
+            ->orWhere('date_of_activity_till', '>=', date('Y-m-d H:i:s', strtotime('+' . env('APP_ACTIVITYRUNTIME', 60) . ' minutes')));
+        })->where('locked', '=', false)->where('canceled', '=', false)->orderBy('date_of_activity_from', 'asc')->get();
+
+        foreach ($activities as $activity) {
+            $sitemap[] = url('/activity/' . $activity->slug);
+        }
+
+        return $sitemap;
+    }
 }

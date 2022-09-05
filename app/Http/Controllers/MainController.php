@@ -320,6 +320,26 @@ class MainController extends Controller
     }
 
     /**
+     * Show sitemap content
+     * 
+     * @return string
+     */
+    public function sitemap()
+    {
+        $items = AppModel::sitemap();
+
+        $xml = '';
+
+        foreach ($items as $item) {
+            $xml .= '<url><loc>' . $item . '</loc></url>';
+        }
+
+        $xml = '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . $xml . '</urlset>';
+
+        return response($xml, 200)->header('Content-Type', 'text/xml');
+    }
+
+    /**
      * Do newsletter cronjob
      * 
      * @param $password
