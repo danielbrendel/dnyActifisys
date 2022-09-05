@@ -82,16 +82,20 @@
                     @guest
                         <div class="navbar-item">
                             <div class="buttons">
+                                <a class="button is-success is-uppercase" href="javascript:void(0);" onclick="vue.bShowLogin = true;">
+                                    {{ __('app.create_activity') }}
+                                </a>
+                                &nbsp;&nbsp;
+                                <a class="navbar-inline-item" href="{{ url('/forum') }}">
+                                    {{ __('app.forum') }}
+                                </a>
+                                &nbsp;&nbsp;
                                 <a class="button is-light is-bold is-outlined" href="javascript:void(0);" onclick="vue.bShowRegister = true;">
                                     {{ __('app.register') }}
                                 </a>
                                 &nbsp;&nbsp;
                                 <a class="navbar-inline-item" href="javascript:void(0);" onclick="vue.bShowLogin = true;">
                                     {{ __('app.login') }}
-                                </a>
-                                &nbsp;&nbsp;
-                                <a class="navbar-inline-item" href="{{ url('/forum') }}">
-                                    {{ __('app.forum') }}
                                 </a>
                             </div>
                         </div>
