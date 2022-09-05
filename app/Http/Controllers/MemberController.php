@@ -71,13 +71,25 @@ class MemberController extends Controller
 
             if ($user->id === auth()->id()) {
                 $interestedIn = ParticipantModel::where('participant', '=', $user->id)->where('type', '=', ParticipantModel::PARTICIPANT_POTENTIAL)->get()->toArray();
-                foreach ($interestedIn as &$potential) {
-                    $potential['activityData'] = ActivityModel::getActivity($potential['activity']);
+                foreach ($interestedIn as $potKey => &$potential) {
+                    $potAct = ActivityModel::getActivity($potential['activity']);
+                    
+                    if (((isset($potAct->date_of_activity_from)) && ($potAct->date_of_activity_from >= date('Y-m-d H:i:s'))) || ((isset($potAct->date_of_activity_till)) && ($potAct->date_of_activity_till >= date('Y-m-d H:i:s', strtotime('+' . env('APP_ACTIVITYRUNTIME', 60) . ' minutes'))))) {
+                        $potential['activityData'] = $potAct;
+                    } else {
+                        unset($interestedIn[$potKey]);
+                    }
                 }
 
                 $participatingIn = ParticipantModel::where('participant', '=', $user->id)->where('type', '=', ParticipantModel::PARTICIPANT_ACTUAL)->get()->toArray();
-                foreach ($participatingIn as &$participating) {
-                    $participating['activityData'] = ActivityModel::getActivity($participating['activity']);
+                foreach ($participatingIn as $prtKey => &$participating) {
+                    $prtAct = ActivityModel::getActivity($participating['activity']);
+                    
+                    if (((isset($prtAct->date_of_activity_from)) && ($prtAct->date_of_activity_from >= date('Y-m-d H:i:s'))) || ((isset($prtAct->date_of_activity_till)) && ($prtAct->date_of_activity_till >= date('Y-m-d H:i:s', strtotime('+' . env('APP_ACTIVITYRUNTIME', 60) . ' minutes'))))) {
+                        $participating['activityData'] = $prtAct;
+                    } else {
+                        unset($participatingIn[$prtKey]);
+                    }
                 }
 
                 $user->potential = array_values($interestedIn);
