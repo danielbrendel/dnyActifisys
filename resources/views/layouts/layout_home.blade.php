@@ -171,6 +171,14 @@
 
             @include('widgets.header')
 
+            @guest
+                @if (env('APP_ABOUTPOSITION', 'bottom') === 'top')
+                    <div class="overflow-hidden">
+                        @include('widgets.about', ['about_content' => \App\AppModel::getAboutContent()])
+                    </div>
+                @endif
+            @endguest
+
             <div class="container">
                 <div class="notifications" id="notifications">
                     <center><div class="notifications-arrow-up"></div></center>
@@ -194,7 +202,7 @@
                     <div class="favorites-content" id="favorites-act-content"><i class="fa fa-spinner fa-spin"></i></div>
                     <div class="favorites-content" id="favorites-content"><i class="fa fa-spinner fa-spin"></i></div>
                 </div>
-
+                
                 <div class="columns">
                     @yield('content')
                 </div>
@@ -214,7 +222,9 @@
 
             <div class="overflow-hidden is-margin-top-94">
                 @guest
-                    @include('widgets.about', ['about_content' => \App\AppModel::getAboutContent()])
+                    @if (env('APP_ABOUTPOSITION', 'bottom') === 'bottom')
+                        @include('widgets.about', ['about_content' => \App\AppModel::getAboutContent()])
+                    @endif
                 @endguest
                 @include('widgets.links')
                 @include('widgets.bottom')
