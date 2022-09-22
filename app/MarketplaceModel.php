@@ -31,17 +31,82 @@ class MarketplaceModel extends Model
      * @param $banner
      * @param $title
      * @param $description
+     * @param $link
      * @return void
      * @throws \Exception
      */
-    public static function addAdvert($userId, $categoryId, $banner, $title, $description)
+    public static function addAdvert($userId, $categoryId, $banner, $title, $description, $link)
     {
         try {
+            $catexists = MarketCategoryModel::where('id', '=', $categoryId)->count();
+            if ($catexists === 0) {
+                throw new \Exception('Category not found');
+            }
+
             $item = new MarketplaceModel;
             $item->userId = $userId;
             $item->categoryId = $categoryId;
             $item->title = $title;
             $item->description = $description;
+            $item->link = $link;
+
+            $img = request()->file($banner);
+            if ($img != null) {
+                $imgName = md5(random_bytes(55));
+
+                $img->move(base_path() . '/public/gfx/market', $imgName . '.' . $img->getClientOriginalExtension());
+
+                $item->banner = $imgName . '.' . $img->getClientOriginalExtension();
+            } else {
+                throw new \Exception('Banner image is invalid');
+            }
+
+            $item->save();
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Edit marketplace advert
+     * 
+     * @param $id
+     * @param $userId
+     * @param $categoryId
+     * @param $banner
+     * @param $title
+     * @param $description
+     * @param $link
+     * @return void
+     * @throws \Exception
+     */
+    public static function editAdvert($id, $userId, $categoryId, $banner, $title, $description, $link)
+    {
+        try {
+            $item = MarketplaceModel::where('id', '=', $id)->where('active', '=', true)->where('userId', '=', $userId)->first();
+            if (!$item) {
+                throw new \Exception('Failed to obtain item');
+            }
+
+            $catexists = MarketCategoryModel::where('id', '=', $categoryId)->count();
+            if ($catexists === 0) {
+                throw new \Exception('Category not found');
+            }
+
+            $item->categoryId = $categoryId;
+            $item->title = $title;
+            $item->description = $description;
+            $item->link = $link;
+
+            $img = request()->file($banner);
+            if ($img != null) {
+                $imgName = md5(random_bytes(55));
+
+                $img->move(base_path() . '/public/gfx/market', $imgName . '.' . $img->getClientOriginalExtension());
+
+                $item->banner = $imgName . '.' . $img->getClientOriginalExtension();
+            }
+
             $item->save();
         } catch (\Exception $e) {
             throw $e;

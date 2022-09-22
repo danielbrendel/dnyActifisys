@@ -29,6 +29,8 @@ class MarketplaceController extends Controller
      */
     public function __construct()
     {
+        parent::__construct();
+
         $this->middleware(function($request, $next) {
             if (!env('APP_ENABLEMARKETPLACE')) {
                 return redirect('/');
@@ -52,6 +54,84 @@ class MarketplaceController extends Controller
         ]);
     }
 
+    /**
+     * Create an advert
+     * 
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function create()
+    {
+        try {
+            $this->validateAuth();
+
+            $attr = request()->validate([
+                'category' => 'required|numeric',
+                'title' => 'required',
+                'description' => 'required',
+                'link' => 'required'
+            ]);
+
+            MarketplaceModel::addAdvert(auth()->id(), $attr['category'], 'banner', $attr['title'], $attr['description'], $attr['link']);
+        
+            return back()->with('flash.success', __('app.marketplace_advert_created'));
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Edit an advert
+     * 
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function edit($id)
+    {
+        try {
+            $this->validateAuth();
+
+            $attr = request()->validate([
+                'category' => 'required|numeric',
+                'title' => 'required',
+                'description' => 'required',
+                'link' => 'required'
+            ]);
+
+            MarketplaceModel::editAdvert($id, auth()->id(), $attr['category'], 'banner', $attr['title'], $attr['description'], $attr['link']);
+        
+            return back()->with('flash.success', __('app.marketplace_advert_edited'));
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Delete an advert
+     * 
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function delete($id)
+    {
+        try {
+            $this->validateAuth();
+
+            $advert = MarketplaceModel::where('id', '=', $id)->where('userId', '=', auth()->id())->first();
+            if ($advert) {
+                $advert->delete();
+            }
+
+            return back()->with('flash.success', __('app.marketplace_advert_deleted'));
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Get list of adverts
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function list()
     {
         try {

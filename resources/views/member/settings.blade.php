@@ -30,6 +30,9 @@
                 <li id="tabProfile" class="is-active"><a href="javascript:void(0);" onclick="window.vue.showTabMenu('tabProfile');">{{ __('app.profile') }}</a></li>
                 <li id="tabSecurity"><a href="javascript:void(0);" onclick="window.vue.showTabMenu('tabSecurity');">{{ __('app.security') }}</a></li>
                 <li id="tabNotifications"><a href="javascript:void(0);" onclick="window.vue.showTabMenu('tabNotifications');">{{ __('app.notifications') }}</a></li>
+                @if (env('APP_ENABLEMARKETPLACE'))
+                <li id="tabMarketplace"><a href="javascript:void(0);" onclick="window.vue.showTabMenu('tabMarketplace');">{{ __('app.marketplace') }}</a></li>
+                @endif
                 <li id="tabMembership"><a href="javascript:void(0);" onclick="window.vue.showTabMenu('tabMembership');">{{ __('app.membership') }}</a></li>
             </ul>
         </div>
@@ -182,6 +185,67 @@
             </form>
         </div>
 
+        @if (env('APP_ENABLEMARKETPLACE'))
+        <div id="tabMarketplace-form" class="is-hidden">
+            <h3>{{ __('app.marketplace_create_advert_title') }}</h3>
+
+            <form method="POST" action="{{ url('/marketplace/create') }}" enctype="multipart/form-data">
+                @csrf
+
+                <div class="control">
+                    <label class="label">{{ __('app.marketplace_create_banner_hint') }}</label>
+                    <div class="control">
+                        <input type="file" name="banner" data-role="file" data-mode="drop">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <select name="category">
+                        <option value="">{{ __('app.choose_category') }}</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="field">
+                    <input type="text" name="title" placeholder="{{ __('app.marketplace_create_title') }}" required>
+                </div>
+
+                <div class="field">
+                    <textarea name="description" placeholder="{{ __('app.marketplace_create_description') }}" required></textarea>
+                </div>
+
+                <div class="field">
+                    <input type="text" name="link" placeholder="{{ __('app.marketplace_create_link') }}" required>
+                </div>
+
+                <input type="submit" class="button is-success" value="{{ __('app.create') }}">
+            </form>
+
+            <h3>{{ __('app.marketplace_list_adverts_title') }}</h3>
+
+            <div>
+                @foreach ($adverts as $advert)
+                    <div class="advert-item">
+                        <textarea class="is-hidden" id="advert-data-title-{{ $advert->id }}">{{ $advert->title }}</textarea>
+                        <textarea class="is-hidden" id="advert-data-description-{{ $advert->id }}">{{ $advert->description }}</textarea>
+                        <textarea class="is-hidden" id="advert-data-link-{{ $advert->id }}">{{ $advert->link }}</textarea>
+
+                        <div class="advert-item-info">
+                            <div class="advert-item-info-title">{{ $advert->title }}</div>
+                        </div>
+
+                        <div class="advert-item-actions">
+                            <a class="button is-link" href="javascript:void(0);" onclick="document.getElementById('editmarketadvertid').value = '{{ $advert->id }}'; document.getElementById('editadvertcategory').value = '{{ $advert->categoryId }}'; document.getElementById('editadverttitle').value = document.getElementById('advert-data-title-{{ $advert->id }}').value; document.getElementById('editadvertdescription').value = document.getElementById('advert-data-description-{{ $advert->id }}').value; document.getElementById('editadvertlink').value = document.getElementById('advert-data-link-{{ $advert->id }}').value; window.vue.bShowEditMarketAdvert = true;">{{ __('app.edit') }}</a>
+                            <a class="button is-danger is-outlined" href="javascript:void(0);" onclick="if (confirm('{{ __('app.confirm_delete_marketadvert') }}')) { location.href = '{{ url('/marketplace/' . $advert->id . '/delete') }}'; }">{{ __('app.delete') }}</a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+        @endif
+
         <div id="tabMembership-form" class="is-hidden">
             @if ((env('STRIPE_ENABLE')) && (!$self->pro))
                 <div>
@@ -304,6 +368,59 @@
     </div>
 
     <div class="column is-2"></div>
+@endsection
+
+@section('modal')
+<div class="modal" :class="{'is-active': bShowEditMarketAdvert}">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head is-stretched">
+            <p class="modal-card-title">{{ __('app.marketplace_edit_advert') }}</p>
+            <button class="delete" aria-label="close" onclick="vue.bShowEditMarketAdvert = false;"></button>
+        </header>
+        <section class="modal-card-body is-stretched">
+            <form id="formEditMarketAdvert" method="POST" enctype="multipart/form-data">
+                @csrf
+
+                <input type="hidden" id="editmarketadvertid">
+
+                <div class="control">
+                    <label class="label">{{ __('app.marketplace_create_banner_hint') }}</label>
+                    <div class="control">
+                        <input type="file" name="banner" data-role="file" data-mode="drop">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <select name="category" id="editadvertcategory">
+                        <option value="">{{ __('app.choose_category') }}</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="field">
+                    <input type="text" name="title" id="editadverttitle" required>
+                </div>
+
+                <div class="field">
+                    <textarea name="description" id="editadvertdescription" required></textarea>
+                </div>
+
+                <div class="field">
+                    <input type="text" name="link" id="editadvertlink" required>
+                </div>
+
+                <input type="button" id="editadvertsubmit" onclick="document.getElementById('formEditMarketAdvert').action = window.location.origin + '/marketplace/' + document.getElementById('editmarketadvertid').value + '/edit'; document.getElementById('formEditMarketAdvert').submit(); vue.bShowEditMarketAdvert = false;" class="is-hidden">
+            </form>
+        </section>
+        <footer class="modal-card-foot is-stretched">
+            <button class="button is-success" onclick="document.getElementById('editadvertsubmit').click();">{{ __('app.submit') }}</button>
+            <button class="button" onclick="vue.bShowEditMarketAdvert = false;">{{ __('app.cancel') }}</button>
+        </footer>
+    </div>
+</div>
 @endsection
 
 @section('javascript')

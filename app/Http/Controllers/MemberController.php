@@ -23,6 +23,8 @@ use App\ParticipantModel;
 use App\ReportModel;
 use App\User;
 use App\VerifyModel;
+use App\MarketplaceModel;
+use App\MarketCategoryModel;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -231,9 +233,13 @@ class MemberController extends Controller
             $self = User::get(auth()->id());
             $self->state = VerifyModel::getState(auth()->id());
 
+            $adverts = MarketplaceModel::where('active', '=', true)->where('userId', '=', auth()->id())->get();
+
             return view('member.settings', [
                 'captchadata' => CaptchaModel::createSum(session()->getId()),
-                'self' => $self
+                'self' => $self,
+                'adverts' => $adverts,
+                'categories' => MarketCategoryModel::getAll()
             ]);
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());

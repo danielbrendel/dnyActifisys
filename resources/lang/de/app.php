@@ -497,5 +497,17 @@ return [
     'marketplace_subtitle' => 'Finde interessante Anbieter',
     'category_all' => '- Alle -',
     'choose_market_category' => 'Hier Kategorie auswählen',
-    'marketplace_no_adverts_found' => 'Keine weiteren Einträge'
+    'marketplace_no_adverts_found' => 'Keine weiteren Einträge',
+    'marketplace_create_banner_hint' => 'Der Banner sollte eine Auflösung von 425x155 Pixel haben',
+    'marketplace_create_advert_title' => 'Anzeige erstellen',
+    'marketplace_create_title' => 'Bitte gib einen Titel ein',
+    'marketplace_create_description' => 'Bitte gib eine Beschreibung davon ein, was du anbietest',
+    'marketplace_create_link' => 'Bitte gib hier einen Link zu deiner Webpräsenz ein',
+    'marketplace_advert_created' => 'Deine Anzeige wurde erfolgreich erstellt',
+    'marketplace_list_adverts_title' => 'Deine Anzeigen',
+    'choose_category' => '- Kategorie auswählen -',
+    'marketplace_edit_advert' => 'Anzeige bearbeiten',
+    'marketplace_advert_edited' => 'Deine Anzeige wurde erfolgreich aktualisiert',
+    'confirm_delete_marketadvert' => 'Möchtest du diese Anzeige wirklich löschen?',
+    'marketplace_advert_deleted' => 'Deine Anzeige wurde erfolgreich entfernt'
 ];

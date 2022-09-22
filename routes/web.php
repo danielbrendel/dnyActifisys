@@ -101,7 +101,10 @@ Route::any('/forum/thread/post/{id}/lock', 'ForumController@lockPost');
 Route::post('/forum/thread/post/edit', 'ForumController@editPost');
 
 Route::get('/marketplace', 'MarketplaceController@index');
-Route::any('/marketplace/list', 'MarketplaceController@list');
+Route::post('/marketplace/list', 'MarketplaceController@list');
+Route::post('/marketplace/create', 'MarketplaceController@create');
+Route::post('/marketplace/{id}/edit', 'MarketplaceController@edit');
+Route::any('/marketplace/{id}/delete', 'MarketplaceController@delete');
 
 Route::get('/maintainer', 'MaintainerController@index');
 Route::post('/maintainer/save', 'MaintainerController@save');

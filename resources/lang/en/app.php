@@ -501,5 +501,17 @@ return [
     'marketplace_subtitle' => 'Find interesting vendors',
     'category_all' => '- All -',
     'choose_market_category' => 'Choose category',
-    'marketplace_no_adverts_found' => 'No more entries'
+    'marketplace_no_adverts_found' => 'No more entries',
+    'marketplace_create_banner_hint' => 'The banner should be 425x155px in dimension',
+    'marketplace_create_advert_title' => 'Create an advert',
+    'marketplace_create_title' => 'Please enter a title',
+    'marketplace_create_description' => 'Please enter a description of what you offer',
+    'marketplace_create_link' => 'Please enter a link to your web presence',
+    'marketplace_advert_created' => 'Advert has been successfully created',
+    'marketplace_list_adverts_title' => 'Your adverts',
+    'choose_category' => '- Choose category -',
+    'marketplace_edit_advert' => 'Edit advert',
+    'marketplace_advert_edited' => 'Advert has been successfully edited',
+    'confirm_delete_marketadvert' => 'Are you sure you want to delete this advert?',
+    'marketplace_advert_deleted' => 'Advert has been successfully deleted'
 ];

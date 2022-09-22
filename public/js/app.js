@@ -2105,6 +2105,7 @@ window.vue = new Vue({
     bShowEditForumPost: false,
     bShowCreateForum: false,
     bShowEditForum: false,
+    bShowEditMarketAdvert: false,
     lang: {
       copiedToClipboard: 'Text has been copied to clipboard!',
       edit: 'Edit',
