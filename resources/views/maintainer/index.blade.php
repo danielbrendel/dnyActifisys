@@ -757,6 +757,57 @@
                         @endforeach
                         </tbody>
                     </table>
+
+                    <table class="table striped table-border mt-4" data-role="table" data-pagination="true"
+                           data-table-rows-count-title="{{ __('app.table_show_entries') }}"
+                           data-table-search-title="{{ __('app.table_search') }}"
+                           data-table-info-title="{{ __('app.table_row_info') }}"
+                           data-pagination-prev-title="{{ __('app.table_pagination_prev') }}"
+                           data-pagination-next-title="{{ __('app.table_pagination_next') }}">
+                        <thead>
+                        <tr>
+                            <th class="text-left">{{ __('app.report_id') }}</th>
+                            <th class="text-left">{{ __('app.report_entity') }}</th>
+                            <th class="text-left">{{ __('app.report_type') }}</th>
+                            <th class="text-left">{{ __('app.report_count') }}</th>
+                            <th class="text-right">{{ __('app.report_lock') }}</th>
+                            <th class="text-right">{{ __('app.report_delete') }}</th>
+                            <th class="text-right">{{ __('app.report_safe') }}</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        @foreach ($reports['market_items'] as $item)
+                            <tr>
+                                <td>
+                                    #{{ $item->id }}
+                                </td>
+
+                                <td class="right">
+                                    {{ $item->entityId }}
+                                </td>
+
+                                <td>
+                                    {{ $item->type }}
+                                </td>
+
+                                <td>{{ $item->count }}</td>
+
+                                <td>
+                                    <a href="javascript:void(0)" onclick="if (confirm('{{ __('app.report_confirm_lock') }}')) location.href = '{{ url('/maintainer/entity/lock?id=' . $item->entityId . '&type=' . $item->type) }}';">{{ __('app.report_lock') }}</a>
+                                </td>
+
+                                <td>
+                                    <a href="javascript:void(0)" onclick="if (confirm('{{ __('app.report_confirm_delete') }}')) location.href = '{{ url('/maintainer/entity/delete?id=' . $item->entityId . '&type=' . $item->type) }}';">{{ __('app.report_delete') }}</a>
+                                </td>
+
+                                <td>
+                                    <a href="javascript:void(0)" onclick="if (confirm('{{ __('app.report_confirm_safe') }}')) location.href = '{{ url('/maintainer/entity/safe?id=' . $item->entityId . '&type=' . $item->type) }}';">{{ __('app.report_safe') }}</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
                 </div>
 
                 <div id="tab-page-14">

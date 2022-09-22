@@ -500,6 +500,7 @@ return [
     'marketplace' => 'Marketplace',
     'marketplace_subtitle' => 'Find interesting vendors',
     'category_all' => '- All -',
+    'marketplace_advert_by' => 'By :name',
     'choose_market_category' => 'Choose category',
     'marketplace_no_adverts_found' => 'No more entries',
     'marketplace_create_banner_hint' => 'The banner should be 425x155px in dimension',
@@ -513,5 +514,6 @@ return [
     'marketplace_edit_advert' => 'Edit advert',
     'marketplace_advert_edited' => 'Advert has been successfully edited',
     'confirm_delete_marketadvert' => 'Are you sure you want to delete this advert?',
-    'marketplace_advert_deleted' => 'Advert has been successfully deleted'
+    'marketplace_advert_deleted' => 'Advert has been successfully deleted',
+    'marketplace_advert_reported' => 'The advert has been reported'
 ];

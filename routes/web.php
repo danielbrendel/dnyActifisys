@@ -105,6 +105,7 @@ Route::post('/marketplace/list', 'MarketplaceController@list');
 Route::post('/marketplace/create', 'MarketplaceController@create');
 Route::post('/marketplace/{id}/edit', 'MarketplaceController@edit');
 Route::any('/marketplace/{id}/delete', 'MarketplaceController@delete');
+Route::any('/marketplace/{id}/report', 'MarketplaceController@report');
 
 Route::get('/maintainer', 'MaintainerController@index');
 Route::post('/maintainer/save', 'MaintainerController@save');

@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 use App\CaptchaModel;
 use App\MarketCategoryModel;
 use App\MarketplaceModel;
+use App\ReportModel;
 use App\User;
 
 class MarketplaceController extends Controller
@@ -117,11 +118,37 @@ class MarketplaceController extends Controller
             $this->validateAuth();
 
             $advert = MarketplaceModel::where('id', '=', $id)->where('userId', '=', auth()->id())->first();
-            if ($advert) {
-                $advert->delete();
+            if (!$advert) {
+                throw new \Exception('Marketplace item not found: ' . $id); 
             }
 
+            $advert->delete();
+
             return back()->with('flash.success', __('app.marketplace_advert_deleted'));
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Report an advert
+     * 
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function report($id)
+    {
+        try {
+            $this->validateAuth();
+
+            $advert = MarketplaceModel::where('id', '=', $id)->where('userId', '<>', auth()->id())->first();
+            if (!$advert) {
+               throw new \Exception('Marketplace item not found: ' . $id); 
+            }
+
+            ReportModel::addReport(auth()->id(), $advert->id, 'ENT_MARKETITEM');
+
+            return back()->with('flash.success', __('app.marketplace_advert_reported'));
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }

@@ -496,6 +496,7 @@ return [
     'marketplace' => 'Markthalle',
     'marketplace_subtitle' => 'Finde interessante Anbieter',
     'category_all' => '- Alle -',
+    'marketplace_advert_by' => 'Von :name',
     'choose_market_category' => 'Hier Kategorie auswählen',
     'marketplace_no_adverts_found' => 'Keine weiteren Einträge',
     'marketplace_create_banner_hint' => 'Der Banner sollte eine Auflösung von 425x155 Pixel haben',
@@ -509,5 +510,6 @@ return [
     'marketplace_edit_advert' => 'Anzeige bearbeiten',
     'marketplace_advert_edited' => 'Deine Anzeige wurde erfolgreich aktualisiert',
     'confirm_delete_marketadvert' => 'Möchtest du diese Anzeige wirklich löschen?',
-    'marketplace_advert_deleted' => 'Deine Anzeige wurde erfolgreich entfernt'
+    'marketplace_advert_deleted' => 'Deine Anzeige wurde erfolgreich entfernt',
+    'marketplace_advert_reported' => 'Die Anzeige wurde gemeldet'
 ];

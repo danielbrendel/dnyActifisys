@@ -65,7 +65,8 @@ window.vue = new Vue({
             share_facebook: 'Share with Facebook',
             share_sms: 'Share by SMS',
             share_email: 'Share by E-Mail',
-            share_clipboard: 'Copy to Clipboard'
+            share_clipboard: 'Copy to Clipboard',
+            marketplace_advert_by: 'By :name'
         }
     },
 
@@ -269,6 +270,14 @@ window.vue = new Vue({
             }
         },
 
+        toggleContextMenu: function(elem) {
+            if (elem.classList.contains('is-active')) {
+                elem.classList.remove('is-active');
+            } else {
+                elem.classList.add('is-active');
+            }
+        },
+
         toggleCommentOptions: function(elem) {
             if (elem.classList.contains('is-active')) {
                 elem.classList.remove('is-active');
@@ -444,33 +453,33 @@ window.vue = new Vue({
 
                         <div class="activity-qo">
                             <div class="dropdown is-right" id="activity-qo-` + elem.id + `">
-                            <div class="dropdown-trigger">
-                                <i class="fas fa-ellipsis-v is-pointer" onclick="window.vue.toggleActivityOptions(document.getElementById('activity-qo-` + elem.id + `'));"></i>
-                            </div>
-                            <div class="dropdown-menu" role="menu">
-                                <div class="dropdown-content">
-                                    <a onclick="window.vue.toggleActivityOptions(document.getElementById('activity-qo-` + elem.id + `'));" href="whatsapp://send?text=` + window.location.origin + '/activity/' + elem.id + ` - ` + elem.title + `" class="dropdown-item is-color-black">
-                                        <i class="far fa-copy"></i>&nbsp;` + window.vue.lang.share_whatsapp + `
-                                    </a>
-                                    <a onclick="window.vue.toggleActivityOptions(document.getElementById('activity-qo-` + elem.id + `'));" href="https://twitter.com/share?url=` + encodeURI(window.location.origin + '/activity/' + elem.id) + `&text=` + elem.title + `" class="dropdown-item is-color-black">
-                                        <i class="fab fa-twitter"></i>&nbsp;` + window.vue.lang.share_twitter + `
-                                    </a>
-                                    <a onclick="window.vue.toggleActivityOptions(document.getElementById('activity-qo-` + elem.id + `'));" href="https://www.facebook.com/sharer/sharer.php?u=` + window.location.origin + '/activity/' + elem.id + `" class="dropdown-item is-color-black">
-                                        <i class="fab fa-facebook"></i>&nbsp;` + window.vue.lang.share_facebook + `
-                                    </a>
-                                    <a onclick="window.vue.toggleActivityOptions(document.getElementById('activity-qo-` + elem.id + `'));" href="mailto:name@domain.com?body=` + window.location.origin + '/activity/' + elem.id + ` - ` + elem.title + `" class="dropdown-item is-color-black">
-                                        <i class="far fa-envelope"></i>&nbsp;` + window.vue.lang.share_email + `
-                                    </a>
-                                    <a onclick="window.vue.toggleActivityOptions(document.getElementById('activity-qo-` + elem.id + `'));" href="sms:000000000?body=` + window.location.origin + '/activity/' + elem.id + ` - ` + elem.title + `" class="dropdown-item is-color-black">
-                                        <i class="fas fa-sms"></i>&nbsp;` + window.vue.lang.share_sms + `
-                                    </a>
-                                    <a href="javascript:void(0)" onclick="window.vue.copyToClipboard('` + window.location.origin + '/activity/' + elem.id + ` - ` + elem.title + `'); window.vue.toggleActivityOptions(document.getElementById('activity-qo-` + elem.id + `'));" class="dropdown-item is-color-black">
-                                        <i class="far fa-copy"></i>&nbsp;` + window.vue.lang.share_clipboard + `
-                                    </a>
-                                    ` + userOptions + `
+                                <div class="dropdown-trigger">
+                                    <i class="fas fa-ellipsis-v is-pointer" onclick="window.vue.toggleActivityOptions(document.getElementById('activity-qo-` + elem.id + `'));"></i>
+                                </div>
+                                <div class="dropdown-menu" role="menu">
+                                    <div class="dropdown-content">
+                                        <a onclick="window.vue.toggleActivityOptions(document.getElementById('activity-qo-` + elem.id + `'));" href="whatsapp://send?text=` + window.location.origin + '/activity/' + elem.id + ` - ` + elem.title + `" class="dropdown-item is-color-black">
+                                            <i class="far fa-copy"></i>&nbsp;` + window.vue.lang.share_whatsapp + `
+                                        </a>
+                                        <a onclick="window.vue.toggleActivityOptions(document.getElementById('activity-qo-` + elem.id + `'));" href="https://twitter.com/share?url=` + encodeURI(window.location.origin + '/activity/' + elem.id) + `&text=` + elem.title + `" class="dropdown-item is-color-black">
+                                            <i class="fab fa-twitter"></i>&nbsp;` + window.vue.lang.share_twitter + `
+                                        </a>
+                                        <a onclick="window.vue.toggleActivityOptions(document.getElementById('activity-qo-` + elem.id + `'));" href="https://www.facebook.com/sharer/sharer.php?u=` + window.location.origin + '/activity/' + elem.id + `" class="dropdown-item is-color-black">
+                                            <i class="fab fa-facebook"></i>&nbsp;` + window.vue.lang.share_facebook + `
+                                        </a>
+                                        <a onclick="window.vue.toggleActivityOptions(document.getElementById('activity-qo-` + elem.id + `'));" href="mailto:name@domain.com?body=` + window.location.origin + '/activity/' + elem.id + ` - ` + elem.title + `" class="dropdown-item is-color-black">
+                                            <i class="far fa-envelope"></i>&nbsp;` + window.vue.lang.share_email + `
+                                        </a>
+                                        <a onclick="window.vue.toggleActivityOptions(document.getElementById('activity-qo-` + elem.id + `'));" href="sms:000000000?body=` + window.location.origin + '/activity/' + elem.id + ` - ` + elem.title + `" class="dropdown-item is-color-black">
+                                            <i class="fas fa-sms"></i>&nbsp;` + window.vue.lang.share_sms + `
+                                        </a>
+                                        <a href="javascript:void(0)" onclick="window.vue.copyToClipboard('` + window.location.origin + '/activity/' + elem.id + ` - ` + elem.title + `'); window.vue.toggleActivityOptions(document.getElementById('activity-qo-` + elem.id + `'));" class="dropdown-item is-color-black">
+                                            <i class="far fa-copy"></i>&nbsp;` + window.vue.lang.share_clipboard + `
+                                        </a>
+                                        ` + userOptions + `
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         </div>
                     </div>
                 </div>
@@ -770,9 +779,33 @@ window.vue = new Vue({
         renderMarketItem: function(item) {
             let banner = window.location.origin + '/gfx/market/' + item.banner;
 
+            let dropdownMenu = '';
+            if ((window.user !== null) && (typeof window.user.id !== 'undefined') && (window.user.id !== item.user.id)) {
+                dropdownMenu = `
+                    <div class="mp-advert-dropdown">
+                        <div class="dropdown is-right" id="mp-advert-dropdown-` + item.id + `">
+                            <div class="dropdown-trigger">
+                                <i class="fas fa-ellipsis-v is-pointer" onclick="window.vue.toggleContextMenu(document.getElementById('mp-advert-dropdown-` + item.id + `'));"></i>
+                            </div>
+                            <div class="dropdown-menu" role="menu">
+                                <div class="dropdown-content">
+                                    <a class="dropdown-item is-color-black" href="` + window.location.origin + '/marketplace/' + item.id + '/report' + `">
+                                        ` + this.lang.report + `
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            let userHint = window.vue.lang.marketplace_advert_by.replace(':name', item.user.name);
+
             let html = `
                 <div class="mp-advert">
-                    <div class="mp-advert-banner" style="background-image: url('` + banner + `');"></div>
+                    <div class="mp-advert-banner" style="background-image: url('` + banner + `');">
+                        ` + dropdownMenu + `
+                    </div>
 
                     <div class="mp-advert-info">
                         <div class="mp-advert-info-title">` + item.title + `</div>
@@ -782,7 +815,7 @@ window.vue = new Vue({
 
                     <div class="mp-advert-footer">
                         <div class="mp-advert-footer-inner">
-                            <div class="mp-advert-footer-user"><a href="` + window.location.origin + '/user/' + item.user.slug + `">` + item.user.name + `</a></div>
+                            <div class="mp-advert-footer-user"><a href="` + window.location.origin + '/user/' + item.user.slug + `">` + userHint + `</a></div>
                             <div class="mp-advert-footer-view"><a class="button is-transparent-green" href="` + item.link + `">Besuchen</a></div>
                         </div>
                     </div>

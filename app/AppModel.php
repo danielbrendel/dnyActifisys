@@ -405,6 +405,12 @@ class AppModel extends Model
                     $item->locked = true;
                     $item->save();
                 }
+            } else if ($type === 'ENT_MARKETITEM') {
+                $item = MarketplaceModel::where('id', '=', $id)->first();
+                if ($item) {
+                    $item->active = false;
+                    $item->save();
+                }
             } else {
                 throw new Exception('Invalid type: ' . $type, 500);
             }
@@ -448,6 +454,11 @@ class AppModel extends Model
                     $item->locked = true;
                     $item->text = '';
                     $item->save();
+                }
+            } else if ($type === 'ENT_MARKETITEM') {
+                $item = MarketplaceModel::where('id', '=', $id)->first();
+                if ($item) {
+                    $item->delete();
                 }
             } else {
                 throw new Exception('Invalid type: ' . $type, 500);

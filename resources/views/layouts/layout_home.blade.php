@@ -585,6 +585,7 @@
             window.vue.lang.share_sms = '{{ __('app.share_sms') }}';
             window.vue.lang.share_email = '{{ __('app.share_email') }}';
             window.vue.lang.share_clipboard = '{{ __('app.share_clipboard') }}';
+            window.vue.lang.marketplace_advert_by = '{{ __('app.marketplace_advert_by') }}';
 
             @auth
                 window.user = {};
