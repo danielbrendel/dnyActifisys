@@ -32,6 +32,7 @@ feature list see the list below.
 + Notification system
 + Messaging system
 + Forum system
++ Marketplace system
 + E-Mail system
 + Administration
 + Maintainer system
