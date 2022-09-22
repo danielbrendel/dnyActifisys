@@ -766,6 +766,31 @@ window.vue = new Vue({
             return html;
         },
 
+        renderMarketItem: function(item) {
+            let banner = window.location.origin + '/gfx/market/' + item.banner;
+
+            let html = `
+                <div class="mp-advert">
+                    <div class="mp-advert-banner" style="background-image: url('` + banner + `');"></div>
+
+                    <div class="mp-advert-info">
+                        <div class="mp-advert-info-title">` + item.title + `</div>
+
+                        <div class="mp-advert-info-description">` + item.description + `</div>
+                    </div>
+
+                    <div class="mp-advert-footer">
+                        <div class="mp-advert-footer-inner">
+                            <div class="mp-advert-footer-user"><a href="` + window.location.origin + '/user/' + item.user.slug + `">` + item.user.name + `</a></div>
+                            <div class="mp-advert-footer-view"><a class="button is-transparent-green" href="` + item.link + `">Besuchen</a></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            return html;
+        },
+
         toggleNotifications: function(ident) {
             let obj = document.getElementById(ident);
             if (obj) {

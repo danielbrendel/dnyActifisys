@@ -496,5 +496,10 @@ return [
     'forum_reply_short' => 'New forum thread reply',
     'forum_reply_long' => 'User :name has replied to your thread: <a href=":url">:thread</a>',
     'go_back' => 'Go back',
-    'forum_remove_confirm' => 'Do you really want to remove this forum section?'
+    'forum_remove_confirm' => 'Do you really want to remove this forum section?',
+    'marketplace' => 'Marketplace',
+    'marketplace_subtitle' => 'Find interesting vendors',
+    'category_all' => '- All -',
+    'choose_market_category' => 'Choose category',
+    'marketplace_no_adverts_found' => 'No more entries'
 ];

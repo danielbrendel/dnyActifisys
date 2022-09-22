@@ -492,5 +492,10 @@ return [
     'forum_reply_short' => 'Neue Antwort im Forum',
     'forum_reply_long' => ':name hat auf einen Forenbeitrag geantwortet: <a href=":url">:thread</a>',
     'go_back' => 'Zurück',
-    'forum_remove_confirm' => 'Soll diese Forenrubrik wirklich gelöscht werden?'
+    'forum_remove_confirm' => 'Soll diese Forenrubrik wirklich gelöscht werden?',
+    'marketplace' => 'Markthalle',
+    'marketplace_subtitle' => 'Finde interessante Anbieter',
+    'category_all' => '- Alle -',
+    'choose_market_category' => 'Hier Kategorie auswählen',
+    'marketplace_no_adverts_found' => 'Keine weiteren Einträge'
 ];

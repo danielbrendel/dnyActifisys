@@ -100,6 +100,9 @@ Route::any('/forum/thread/post/{id}/report', 'ForumController@reportPost');
 Route::any('/forum/thread/post/{id}/lock', 'ForumController@lockPost');
 Route::post('/forum/thread/post/edit', 'ForumController@editPost');
 
+Route::get('/marketplace', 'MarketplaceController@index');
+Route::any('/marketplace/list', 'MarketplaceController@list');
+
 Route::get('/maintainer', 'MaintainerController@index');
 Route::post('/maintainer/save', 'MaintainerController@save');
 Route::post('/maintainer/about', 'MaintainerController@about');

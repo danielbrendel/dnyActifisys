@@ -66,6 +66,12 @@
                             {{ __('app.forum') }}
                         </a>
 
+                        @if (env('APP_ENABLEMARKETPLACE'))
+                        <a class="navbar-item fix-mobile-navbar-item is-white" href="{{ url('/marketplace') }}">
+                            {{ __('app.marketplace') }}
+                        </a>
+                        @endif
+
                         <a class="navbar-item fix-mobile-navbar-item is-white" href="{{ url('/user/' . \App\User::get(auth()->id())->slug) }}">
                             {{ __('app.profile') }}
                         </a>
@@ -90,6 +96,12 @@
                                     {{ __('app.forum') }}
                                 </a>
                                 &nbsp;&nbsp;
+                                @if (env('APP_ENABLEMARKETPLACE'))
+                                <a class="navbar-inline-item" href="{{ url('/marketplace') }}">
+                                    {{ __('app.marketplace') }}
+                                </a>
+                                &nbsp;&nbsp;
+                                @endif
                                 <a class="button is-light is-bold is-outlined" href="javascript:void(0);" onclick="vue.bShowRegister = true;">
                                     {{ __('app.register') }}
                                 </a>
