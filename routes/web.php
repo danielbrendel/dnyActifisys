@@ -85,6 +85,7 @@ Route::get('/messages/show/{id}', 'MessageController@show');
 Route::any('/messages/query', 'MessageController@query');
 Route::get('/messages/create', 'MessageController@create');
 Route::post('/messages/send', 'MessageController@send');
+Route::post('/messages/image', 'MessageController@image');
 
 Route::get('/forum', 'ForumController@index');
 Route::post('/forum/list', 'ForumController@list');

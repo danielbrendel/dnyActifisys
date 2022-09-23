@@ -515,5 +515,9 @@ return [
     'linkfilter_title' => 'Besuchen von :url',
     'linkfilter_hint' => 'Du bist gerade dabei, die Präsenz :url zu besuchen. :project ist nicht verantwortlich für dessen Inhalt. Möchtest du fortfahren?',
     'linkfilter_visit' => 'Verstanden und weiter',
-    'marketplace_text' => 'Inhalt der Beschreibung der Markthalle'
+    'marketplace_text' => 'Inhalt der Beschreibung der Markthalle',
+    'send_image' => 'Bild senden',
+    'image_posted' => 'Bild wurde gesendet',
+    'post_upload_size_exceeded' => 'Die Datei ist zu groß',
+    'image_invalid_file_type' => 'Ungültige Bilddatei'
 ];

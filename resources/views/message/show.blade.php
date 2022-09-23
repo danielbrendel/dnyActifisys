@@ -23,7 +23,7 @@
         <h1>{{ __('app.message_thread', ['name' => $msg->message_partner->name]) }}</h1>
 
         <div class="is-default-padding">
-            <form method="POST" action="{{ url('/messages/send') }}">
+            <form method="POST" action="{{ url('/messages/send') }}" id="frmSendMessage">
                 @csrf
 
                 <input type="hidden" name="user" value="{{ $msg->message_partner->id }}">
@@ -41,11 +41,21 @@
                         <textarea name="text" placeholder="{{ __('app.type_something') }}"></textarea>
                     </div>
                 </div>
-
-                <div class="field">
-                    <input type="submit" value="{{ __('app.send') }}">
-                </div>
             </form>
+
+            <form method="POST" action="{{ url('/messages/image') }}" enctype="multipart/form-data" id="frmSendImage">
+                @csrf
+
+                <input type="hidden" name="user" value="{{ $msg->message_partner->id }}">
+                <input type="hidden" name="subject" value="{{ $msg->subject }}">
+
+                <input type="file" name="image" id="inpImage" class="is-hidden">
+            </form>
+
+            <div class="field is-margin-top-10">
+                <span><a class="button is-link" href="javascript:void(0);" onclick="document.getElementById('frmSendMessage').submit();">{{ __('app.send') }}</a></span>
+                <span>&nbsp;<a class="is-underline" href="javascript:void(0);" onclick="window.sendImage();">{{ __('app.send_image') }}</a></span>
+            </div>
         </div>
 
         <div class="member-form is-default-padding" id="message-thread-content"></div>
@@ -96,6 +106,13 @@
                     console.error(response.msg);
                 }
             });
+        };
+
+        window.sendImage = function() {
+            document.getElementById('inpImage').onchange = function() {
+                document.getElementById('frmSendImage').submit();
+            };
+            document.getElementById('inpImage').click();
         };
 
         document.addEventListener('DOMContentLoaded', function() {

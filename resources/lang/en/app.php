@@ -519,5 +519,9 @@ return [
     'linkfilter_title' => 'Visit :url',
     'linkfilter_hint' => 'You are about to visit :url. :project is not responsible for its content. Do you want to proceed?',
     'linkfilter_visit' => 'Yes, please continue',
-    'marketplace_text' => 'Marketplace description content'
+    'marketplace_text' => 'Marketplace description content',
+    'send_image' => 'Send image',
+    'image_posted' => 'Image has been sent',
+    'post_upload_size_exceeded' => 'The file is too large',
+    'image_invalid_file_type' => 'Invalid image type'
 ];

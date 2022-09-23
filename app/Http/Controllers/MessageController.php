@@ -193,4 +193,43 @@ class MessageController extends Controller
             return back()->with('error', $e->getMessage());
         }
     }
+
+    /**
+     * Post image to user
+     * 
+     * @return mixed
+     */
+    public function image()
+    {
+        try {
+            $attr = request()->validate([
+                'user' => 'required',
+                'subject' => 'nullable'
+             ]);
+
+            $sender = User::getByAuthId();
+            if (!$sender) {
+                throw new \Exception('Not logged in');
+            }
+
+            if (!isset($attr['subject'])) {
+                $attr['subject'] = $sender->name;
+            }
+
+            $receiver = User::get($attr['user']);
+            if (!$receiver) {
+                throw new \Exception(__('app.user_not_found'));
+            }
+
+            if (IgnoreModel::hasIgnored($receiver->id, $sender->id)) {
+                throw new \Exception(__('app.user_not_receiving_messages'));
+            }
+
+            $id = MessageModel::image($receiver->id, $sender->id, $attr['subject']);
+
+            return redirect('/messages/show/' . $id)->with('flash.success', __('app.image_posted'));
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
 }
