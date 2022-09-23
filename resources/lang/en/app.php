@@ -515,5 +515,8 @@ return [
     'marketplace_advert_edited' => 'Advert has been successfully edited',
     'confirm_delete_marketadvert' => 'Are you sure you want to delete this advert?',
     'marketplace_advert_deleted' => 'Advert has been successfully deleted',
-    'marketplace_advert_reported' => 'The advert has been reported'
+    'marketplace_advert_reported' => 'The advert has been reported',
+    'linkfilter_title' => 'Visit :url',
+    'linkfilter_hint' => 'You are about to visit :url. :project is not responsible for its content. Do you want to proceed?',
+    'linkfilter_visit' => 'Yes, please continue'
 ];

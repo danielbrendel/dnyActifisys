@@ -47,6 +47,9 @@ window.vue = new Vue({
         bShowCreateForum: false,
         bShowEditForum: false,
         bShowEditMarketAdvert: false,
+        bShowLinkFilter: false,
+
+        app_project: 'Actifisys',
 
         lang: {
             copiedToClipboard: 'Text has been copied to clipboard!',
@@ -66,7 +69,9 @@ window.vue = new Vue({
             share_sms: 'Share by SMS',
             share_email: 'Share by E-Mail',
             share_clipboard: 'Copy to Clipboard',
-            marketplace_advert_by: 'By :name'
+            marketplace_advert_by: 'By :name',
+            linkfilter_title: 'Visit :url',
+            linkfilter_hint: 'You are about to visit :url. :project is not responsible for its content. Do you want to proceed?'
         }
     },
 
@@ -816,7 +821,7 @@ window.vue = new Vue({
                     <div class="mp-advert-footer">
                         <div class="mp-advert-footer-inner">
                             <div class="mp-advert-footer-user"><a href="` + window.location.origin + '/user/' + item.user.slug + `">` + userHint + `</a></div>
-                            <div class="mp-advert-footer-view"><a class="button is-transparent-green" href="` + item.link + `">Besuchen</a></div>
+                            <div class="mp-advert-footer-view"><a class="button is-transparent-green" href="` + item.link + `" onclick="window.vue.showLinkFilter('` + item.link + `'); return false;">Besuchen</a></div>
                         </div>
                     </div>
                 </div>
@@ -994,6 +999,21 @@ window.vue = new Vue({
                     menu.classList.remove('is-active');
                 }
             }
+        },
+
+        showLinkFilter: function(url) {
+            if ((!url.startsWith('https://')) && (!url.startsWith('http://'))) {
+                url = 'http://' + url;
+            }
+
+            let title = window.vue.lang.linkfilter_title.replace(':url', url);
+            let hint = window.vue.lang.linkfilter_hint.replace(':url', url).replace(':project', window.vue.app_project);
+            
+            document.getElementById('linkfilter-url').value = url;
+            document.getElementById('linkfilter-title').innerHTML = title;
+            document.getElementById('linkfilter-hint').innerHTML = hint;
+
+            window.vue.bShowLinkFilter = true;
         },
     }
 });

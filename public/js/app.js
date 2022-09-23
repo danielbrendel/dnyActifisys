@@ -2106,6 +2106,8 @@ window.vue = new Vue({
     bShowCreateForum: false,
     bShowEditForum: false,
     bShowEditMarketAdvert: false,
+    bShowLinkFilter: false,
+    app_project: 'Actifisys',
     lang: {
       copiedToClipboard: 'Text has been copied to clipboard!',
       edit: 'Edit',
@@ -2124,7 +2126,9 @@ window.vue = new Vue({
       share_sms: 'Share by SMS',
       share_email: 'Share by E-Mail',
       share_clipboard: 'Copy to Clipboard',
-      marketplace_advert_by: 'By :name'
+      marketplace_advert_by: 'By :name',
+      linkfilter_title: 'Visit :url',
+      linkfilter_hint: 'You are about to visit :url. :project is not responsible for its content. Do you want to proceed?'
     }
   },
   methods: {
@@ -2544,7 +2548,7 @@ window.vue = new Vue({
       }
 
       var userHint = window.vue.lang.marketplace_advert_by.replace(':name', item.user.name);
-      var html = "\n                <div class=\"mp-advert\">\n                    <div class=\"mp-advert-banner\" style=\"background-image: url('" + banner + "');\">\n                        " + dropdownMenu + "\n                    </div>\n\n                    <div class=\"mp-advert-info\">\n                        <div class=\"mp-advert-info-title\">" + item.title + "</div>\n\n                        <div class=\"mp-advert-info-description\">" + item.description + "</div>\n                    </div>\n\n                    <div class=\"mp-advert-footer\">\n                        <div class=\"mp-advert-footer-inner\">\n                            <div class=\"mp-advert-footer-user\"><a href=\"" + window.location.origin + '/user/' + item.user.slug + "\">" + userHint + "</a></div>\n                            <div class=\"mp-advert-footer-view\"><a class=\"button is-transparent-green\" href=\"" + item.link + "\">Besuchen</a></div>\n                        </div>\n                    </div>\n                </div>\n            ";
+      var html = "\n                <div class=\"mp-advert\">\n                    <div class=\"mp-advert-banner\" style=\"background-image: url('" + banner + "');\">\n                        " + dropdownMenu + "\n                    </div>\n\n                    <div class=\"mp-advert-info\">\n                        <div class=\"mp-advert-info-title\">" + item.title + "</div>\n\n                        <div class=\"mp-advert-info-description\">" + item.description + "</div>\n                    </div>\n\n                    <div class=\"mp-advert-footer\">\n                        <div class=\"mp-advert-footer-inner\">\n                            <div class=\"mp-advert-footer-user\"><a href=\"" + window.location.origin + '/user/' + item.user.slug + "\">" + userHint + "</a></div>\n                            <div class=\"mp-advert-footer-view\"><a class=\"button is-transparent-green\" href=\"" + item.link + "\" onclick=\"window.vue.showLinkFilter('" + item.link + "'); return false;\">Besuchen</a></div>\n                        </div>\n                    </div>\n                </div>\n            ";
       return html;
     },
     toggleNotifications: function toggleNotifications(ident) {
@@ -2706,6 +2710,18 @@ window.vue = new Vue({
           menu.classList.remove('is-active');
         }
       }
+    },
+    showLinkFilter: function showLinkFilter(url) {
+      if (!url.startsWith('https://') && !url.startsWith('http://')) {
+        url = 'http://' + url;
+      }
+
+      var title = window.vue.lang.linkfilter_title.replace(':url', url);
+      var hint = window.vue.lang.linkfilter_hint.replace(':url', url).replace(':project', window.vue.app_project);
+      document.getElementById('linkfilter-url').value = url;
+      document.getElementById('linkfilter-title').innerHTML = title;
+      document.getElementById('linkfilter-hint').innerHTML = hint;
+      window.vue.bShowLinkFilter = true;
     }
   }
 });

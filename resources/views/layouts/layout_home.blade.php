@@ -381,6 +381,25 @@
                 </div>
             </div>
 
+            <div class="modal" :class="{'is-active': bShowLinkFilter}">
+                <div class="modal-background"></div>
+                <div class="modal-card">
+                    <header class="modal-card-head is-stretched">
+                        <p class="modal-card-title" id="linkfilter-title"></p>
+                        <button class="delete" aria-label="close" onclick="vue.bShowLinkFilter = false;"></button>
+                    </header>
+                    <section class="modal-card-body is-stretched">
+                        <input type="hidden" id="linkfilter-url">
+
+                        <p id="linkfilter-hint"></p>
+                    </section>
+                    <footer class="modal-card-foot is-stretched">
+                        <button class="button is-success" onclick="window.open(document.getElementById('linkfilter-url').value); vue.bShowLinkFilter = false;">{{ __('app.linkfilter_visit') }}</button>
+                        <button class="button" onclick="vue.bShowLinkFilter = false;">{{ __('app.cancel') }}</button>
+                    </footer>
+                </div>
+            </div>
+
             @auth
             <div class="modal" :class="{'is-active': bShowCreateActivity}">
                 <div class="modal-background"></div>
@@ -568,6 +587,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             window.menuVisible = false;
 
+            window.vue.app_project = '{{ env('APP_PROJECTNAME') }}';
             window.vue.lang.copiedToClipboard = '{{ __('app.copiedToClipboard') }}';
             window.vue.lang.edit = '{{ __('app.edit') }}';
             window.vue.lang.lock = '{{ __('app.lock') }}';
@@ -586,6 +606,8 @@
             window.vue.lang.share_email = '{{ __('app.share_email') }}';
             window.vue.lang.share_clipboard = '{{ __('app.share_clipboard') }}';
             window.vue.lang.marketplace_advert_by = '{{ __('app.marketplace_advert_by') }}';
+            window.vue.lang.linkfilter_title = '{{ __('app.linkfilter_title') }}';
+            window.vue.lang.linkfilter_hint = '{{ __('app.linkfilter_hint') }}';
 
             @auth
                 window.user = {};

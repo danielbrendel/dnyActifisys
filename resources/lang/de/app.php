@@ -511,5 +511,8 @@ return [
     'marketplace_advert_edited' => 'Deine Anzeige wurde erfolgreich aktualisiert',
     'confirm_delete_marketadvert' => 'Möchtest du diese Anzeige wirklich löschen?',
     'marketplace_advert_deleted' => 'Deine Anzeige wurde erfolgreich entfernt',
-    'marketplace_advert_reported' => 'Die Anzeige wurde gemeldet'
+    'marketplace_advert_reported' => 'Die Anzeige wurde gemeldet',
+    'linkfilter_title' => 'Besuchen von :url',
+    'linkfilter_hint' => 'Du bist gerade dabei, die Präsenz :url zu besuchen. :project ist nicht verantwortlich für dessen Inhalt. Möchtest du fortfahren?',
+    'linkfilter_visit' => 'Verstanden und weiter'
 ];
