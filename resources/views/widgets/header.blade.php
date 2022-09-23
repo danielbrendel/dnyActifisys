@@ -10,6 +10,7 @@
     Released under the MIT license
 --}}
 
+@if ((isset($show_header)) && ($show_header == true))
 <div class="header">
     <div class="columns">
         <div class="column is-2"></div>
@@ -25,3 +26,6 @@
         <div class="column is-2"></div>
     </div>
 </div>
+@else
+<div class="header-spacing"></div>
+@endif

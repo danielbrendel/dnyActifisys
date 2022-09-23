@@ -48,6 +48,7 @@ class MainController extends Controller
 
         return view('activity.browse', [
             'captchadata' => $captchaData,
+            'show_header' => true,
             'announcements' => $announcements
         ]);
     }
