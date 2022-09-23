@@ -514,5 +514,6 @@ return [
     'marketplace_advert_reported' => 'Die Anzeige wurde gemeldet',
     'linkfilter_title' => 'Besuchen von :url',
     'linkfilter_hint' => 'Du bist gerade dabei, die Präsenz :url zu besuchen. :project ist nicht verantwortlich für dessen Inhalt. Möchtest du fortfahren?',
-    'linkfilter_visit' => 'Verstanden und weiter'
+    'linkfilter_visit' => 'Verstanden und weiter',
+    'marketplace_text' => 'Inhalt der Beschreibung der Markthalle'
 ];

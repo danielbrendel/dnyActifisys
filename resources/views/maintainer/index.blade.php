@@ -56,6 +56,7 @@
                 <li><a href="#tab-page-19">{{ __('app.locations') }}</a></li>
                 <li><a href="#tab-page-20">{{ __('app.announcements') }}</a></li>
                 <li><a href="#tab-page-21">{{ __('app.forum') }}</a></li>
+                <li><a href="#tab-page-22">{{ __('app.marketplace') }}</a></li>
             </ul>
             <div class="border bd-default no-border-top p-2">
                 <div id="tab-page-1">
@@ -1099,6 +1100,27 @@
 
                     <center><a class="button" href="javascript:void(0)" onclick="location.reload();">{{ __('app.refresh') }}</a>&nbsp;&nbsp;&nbsp;&nbsp;
                     <a class="button is-success" onclick="vue.bShowCreateForum = true;">{{ __('app.create') }}</a></center><br/>
+                </div>
+
+                <div id="tab-page-22">
+                    <form method="POST" action="{{ url('/maintainer/save') }}">
+                        @csrf
+
+                        <input type="hidden" name="attribute" value="marketplace_text">
+
+                        <div class="field">
+                            <label class="label">{{ __('app.marketplace_text') }}</label>
+                            <div class="control">
+                                <textarea class="textarea" name="content">{{ $settings->marketplace_text }}</textarea>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <div class="control">
+                                <input type="submit" value="{{ __('app.save') }}">
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
 

@@ -139,6 +139,17 @@ class AppModel extends Model
     }
 
     /**
+     * Get market place text
+     * @return mixed
+     */
+    public static function getMarketplaceText()
+    {
+        return Cache::remember('marketplace_text', AppModel::ONE_DAY, function() {
+            return DB::table('app_settings')->first()->marketplace_text;
+        });
+    }
+
+    /**
      * Get formatted project name
      * @return mixed
      */

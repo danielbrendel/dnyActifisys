@@ -1379,6 +1379,10 @@ h2, h3 {
   float: right;
 }
 
+.marketplace-text {
+  color: rgb(250, 250, 250);
+}
+
 .advert-item {
   position: relative;
   width: 100%;

@@ -20,6 +20,8 @@
     <div class="column is-8" id="feed-left">
         <div>
             <h3>{{ __('app.marketplace_subtitle') }}</h2>
+
+            <div class="marketplace-text">{!! \App\AppModel::getMarketplaceText() !!}</div>
         </div>
 
         <div class="field has-addons fixed-form is-default-padding">
