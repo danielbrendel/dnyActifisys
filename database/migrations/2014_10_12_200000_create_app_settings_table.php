@@ -36,6 +36,7 @@ class CreateAppSettingsTable extends Migration
             $table->text('tos');
             $table->string('reg_info');
             $table->text('marketplace_text');
+            $table->text('gallery_text');
             $table->text('project_name_formatted');
             $table->string('default_theme')->default('_default');
             $table->string('headline_top');

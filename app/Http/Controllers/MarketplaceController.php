@@ -42,7 +42,7 @@ class MarketplaceController extends Controller
     }
 
     /**
-     * View forum index
+     * View marketplace index
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      * @throws Exception

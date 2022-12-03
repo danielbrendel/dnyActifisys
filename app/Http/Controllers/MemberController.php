@@ -25,6 +25,8 @@ use App\User;
 use App\VerifyModel;
 use App\MarketplaceModel;
 use App\MarketCategoryModel;
+use App\GalleryModel;
+use App\GalleryLikesModel;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -235,10 +237,16 @@ class MemberController extends Controller
 
             $adverts = MarketplaceModel::where('active', '=', true)->where('userId', '=', auth()->id())->get();
 
+            $gallery_items = GalleryModel::where('userId', '=', auth()->id())->get();
+            foreach ($gallery_items as &$gallery_item) {
+                $gallery_item->likes = GalleryLikesModel::getForItem($gallery_item->id);
+            }
+
             return view('member.settings', [
                 'captchadata' => CaptchaModel::createSum(session()->getId()),
                 'self' => $self,
                 'adverts' => $adverts,
+                'gallery_items' => $gallery_items,
                 'categories' => MarketCategoryModel::getAll()
             ]);
         } catch (\Exception $e) {

@@ -30,6 +30,9 @@
                 <li id="tabProfile" class="is-active"><a href="javascript:void(0);" onclick="window.vue.showTabMenu('tabProfile');">{{ __('app.profile') }}</a></li>
                 <li id="tabSecurity"><a href="javascript:void(0);" onclick="window.vue.showTabMenu('tabSecurity');">{{ __('app.security') }}</a></li>
                 <li id="tabNotifications"><a href="javascript:void(0);" onclick="window.vue.showTabMenu('tabNotifications');">{{ __('app.notifications') }}</a></li>
+                @if (env('APP_ENABLEGALLERY'))
+                <li id="tabGallery"><a href="javascript:void(0);" onclick="window.vue.showTabMenu('tabGallery');">{{ __('app.gallery') }}</a></li>
+                @endif
                 @if (env('APP_ENABLEMARKETPLACE'))
                 <li id="tabMarketplace"><a href="javascript:void(0);" onclick="window.vue.showTabMenu('tabMarketplace');">{{ __('app.marketplace') }}</a></li>
                 @endif
@@ -184,6 +187,29 @@
                 <input type="submit" class="button is-success" value="{{ __('app.save') }}">
             </form>
         </div>
+
+        @if (env('APP_ENABLEGALLERY'))
+        <div id="tabGallery-form" class="is-hidden">
+            <h3>{{ __('app.gallery') }}</h3>
+
+            <div>
+                @foreach ($gallery_items as $gallery_item)
+                    <div class="gallery-settings-item">
+                        <div class="gallery-settings-item-info">
+                            <div class="gallery-settings-item-info-title">{{ $gallery_item->title }}</div>
+                            <div class="gallery-settings-item-info-location"> | {{ $gallery_item->location }}</div>
+                            <div class="gallery-settings-item-info-likes"> | {{ $gallery_item->likes }}&nbsp;<i class="far fa-heart"></i></div>
+                            <div class="gallery-settings-item-info-image"> | <a href="{{ asset('gfx/gallery/' . $gallery_item->image_full) }}">{{ __('app.image') }}</a></div>
+                        </div>
+
+                        <div class="gallery-settings-item-actions">
+                            <a class="button is-danger is-outlined" href="javascript:void(0);" onclick="if (confirm('{{ __('app.confirm_delete_gallery_item') }}')) { location.href = '{{ url('/gallery/' . $gallery_item->id . '/remove') }}'; }">{{ __('app.remove') }}</a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+        @endif
 
         @if (env('APP_ENABLEMARKETPLACE'))
         <div id="tabMarketplace-form" class="is-hidden">

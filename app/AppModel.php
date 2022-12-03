@@ -150,6 +150,17 @@ class AppModel extends Model
     }
 
     /**
+     * Get gallery text
+     * @return mixed
+     */
+    public static function getGalleryText()
+    {
+        return Cache::remember('gallery_text', AppModel::ONE_DAY, function() {
+            return DB::table('app_settings')->first()->gallery_text;
+        });
+    }
+
+    /**
      * Get formatted project name
      * @return mixed
      */
@@ -654,6 +665,14 @@ class AppModel extends Model
         $sitemap[] = url('/imprint');
         $sitemap[] = url('/tos');
         $sitemap[] = url('/forum');
+
+        if (env('APP_ENABLEGALLERY')) {
+            $sitemap[] = url('/gallery');
+        }
+
+        if (env('APP_ENABLEMARKETPLACE')) {
+            $sitemap[] = url('/marketplace');
+        }
 
         if (env('TWITTER_NEWS')) {
             $sitemap[] = url('/news');

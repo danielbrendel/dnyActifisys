@@ -519,5 +519,18 @@ return [
     'send_image' => 'Bild senden',
     'image_posted' => 'Bild wurde gesendet',
     'post_upload_size_exceeded' => 'Die Datei ist zu groß',
-    'image_invalid_file_type' => 'Ungültige Bilddatei'
+    'image_invalid_file_type' => 'Ungültige Bilddatei',
+    'gallery' => 'Gallerie',
+    'gallery_subtitle' => 'Die neusten Bilder aus der Community',
+    'gallery_submit' => 'Hochladen',
+    'gallery_upload' => 'In die Gallerie hochladen',
+    'gallery_no_items_found' => 'Keine weiteren Einträge',
+    'gallery_item_added' => 'Bild wurde der Gallerie hinzugefügt',
+    'gallery_item_deleted' => 'Bild wurde aus der Gallerie entfernt',
+    'gallery_item_reported' => 'Bild wurde gemeldet',
+    'gallery_item_by' => 'Von :name',
+    'gallery_text' => 'Inhalt der Beschreibung der Gallerie',
+    'community' => 'Community',
+    'confirm_delete_gallery_item' => 'Möchtest du dieses Bild wirklich löschen?',
+    'image' => 'Bild'
 ];

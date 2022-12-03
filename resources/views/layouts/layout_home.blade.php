@@ -62,15 +62,29 @@
                             {{ __('app.messages') }}
                         </a>
 
-                        <a class="navbar-item fix-mobile-navbar-item is-white" href="{{ url('/forum') }}">
-                            {{ __('app.forum') }}
-                        </a>
+                        <div class="navbar-item has-dropdown is-hoverable">
+							<a class="navbar-link">
+								{{ __('app.community') }}
+							</a>
 
-                        @if (env('APP_ENABLEMARKETPLACE'))
-                        <a class="navbar-item fix-mobile-navbar-item is-white" href="{{ url('/marketplace') }}">
-                            {{ __('app.marketplace') }}
-                        </a>
-                        @endif
+							<div class="navbar-dropdown">
+                                @if (env('APP_ENABLEGALLERY'))
+                                <a class="navbar-item fix-mobile-navbar-item is-white" href="{{ url('/gallery') }}">
+                                    {{ __('app.gallery') }}
+                                </a>
+                                @endif
+
+                                <a class="navbar-item fix-mobile-navbar-item is-white" href="{{ url('/forum') }}">
+                                    {{ __('app.forum') }}
+                                </a>
+
+                                @if (env('APP_ENABLEMARKETPLACE'))
+                                <a class="navbar-item fix-mobile-navbar-item is-white" href="{{ url('/marketplace') }}">
+                                    {{ __('app.marketplace') }}
+                                </a>
+                                @endif
+							</div>
+						</div>
 
                         <a class="navbar-item fix-mobile-navbar-item is-white" href="{{ url('/user/' . \App\User::get(auth()->id())->slug) }}">
                             {{ __('app.profile') }}
@@ -96,6 +110,12 @@
                                     {{ __('app.forum') }}
                                 </a>
                                 &nbsp;&nbsp;
+                                @if (env('APP_ENABLEGALLERY'))
+                                <a class="navbar-inline-item" href="{{ url('/gallery') }}">
+                                    {{ __('app.gallery') }}
+                                </a>
+                                &nbsp;&nbsp;
+                                @endif
                                 @if (env('APP_ENABLEMARKETPLACE'))
                                 <a class="navbar-inline-item" href="{{ url('/marketplace') }}">
                                     {{ __('app.marketplace') }}
@@ -596,6 +616,7 @@
             window.vue.lang.report = '{{ __('app.report') }}';
             window.vue.lang.ignore = '{{ __('app.add_to_ignore') }}';
             window.vue.lang.view = '{{ __('app.view') }}';
+            window.vue.lang.remove = '{{ __('app.remove') }}';
             window.vue.lang.verifiedUser = '{{ __('app.verifiedUser') }}';
             window.vue.lang.confirmLockForumPost = '{{ __('app.confirmLockForumPost') }}';
             window.vue.lang.forumPostEdited = '{{ __('app.forum_post_edited_info') }}';
@@ -608,6 +629,7 @@
             window.vue.lang.marketplace_advert_by = '{{ __('app.marketplace_advert_by') }}';
             window.vue.lang.linkfilter_title = '{{ __('app.linkfilter_title') }}';
             window.vue.lang.linkfilter_hint = '{{ __('app.linkfilter_hint') }}';
+            window.vue.lang.gallery_item_by = '{{ __('app.gallery_item_by') }}';
 
             @auth
                 window.user = {};

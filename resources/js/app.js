@@ -48,6 +48,7 @@ window.vue = new Vue({
         bShowEditForum: false,
         bShowEditMarketAdvert: false,
         bShowLinkFilter: false,
+        bShowGalleryUpload: false,
 
         app_project: 'Actifisys',
 
@@ -60,6 +61,7 @@ window.vue = new Vue({
             report: 'Report',
             ignore: 'Ignore',
             view: 'View',
+            remove: 'Remove',
             verifiedUser: 'Verified user',
             confirmLockForumPost: 'Do you want to lock this forum post?',
             forumPostEdited: 'Edited',
@@ -71,7 +73,8 @@ window.vue = new Vue({
             share_clipboard: 'Copy to Clipboard',
             marketplace_advert_by: 'By :name',
             linkfilter_title: 'Visit :url',
-            linkfilter_hint: 'You are about to visit :url. :project is not responsible for its content. Do you want to proceed?'
+            linkfilter_hint: 'You are about to visit :url. :project is not responsible for its content. Do you want to proceed?',
+            gallery_item_by: 'By :name'
         }
     },
 
@@ -830,6 +833,93 @@ window.vue = new Vue({
             return html;
         },
 
+        renderGalleryItem: function(item) {
+            let image = window.location.origin + '/gfx/gallery/' + item.image_thumb;
+
+            let dropdownMenu = '';
+            if ((window.user !== null) && (typeof window.user.id !== 'undefined')) {
+                let reportAction = '';
+                if (window.user.id !== item.user.id) {
+                    reportAction = `
+                        <a class="dropdown-item is-color-black" href="` + window.location.origin + '/gallery/' + item.id + '/report' + `">
+                            ` + this.lang.report + `
+                        </a>
+                    `;
+                }
+
+                let adminOrOwnerAction = '';
+                if ((window.user.id == item.user.id) || ((window.user.data.admin) || (window.user.data.maintainer))) {
+                    adminOrOwnerAction = `
+                        <a class="dropdown-item is-color-black" href="` + window.location.origin + '/gallery/' + item.id + '/remove' + `">
+                            ` + this.lang.remove + `
+                        </a>
+                    `;
+                }
+
+                dropdownMenu = `
+                    <div class="gallery-item-dropdown">
+                        <div class="dropdown is-right" id="gallery-item-dropdown-` + item.id + `">
+                            <div class="dropdown-trigger">
+                                <i class="fas fa-ellipsis-v is-pointer" onclick="window.vue.toggleContextMenu(document.getElementById('gallery-item-dropdown-` + item.id + `'));"></i>
+                            </div>
+                            <div class="dropdown-menu" role="menu">
+                                <div class="dropdown-content">
+                                    ` + reportAction + adminOrOwnerAction + `
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            let userHint = window.vue.lang.gallery_item_by.replace(':name', item.user.name);
+
+            let html = `
+                <div class="gallery-item">
+                    <div class="gallery-item-image is-pointer" style="background-image: url('` + image + `');" onclick="window.open('` + window.location.origin + '/gfx/gallery/' + item.image_full + `');"></div>
+
+                    <div class="gallery-item-info">
+                        <div class="gallery-item-info-title">
+                            ` + item.title + `
+                            ` + dropdownMenu + `
+                        </div>
+
+                        <div class="gallery-item-info-location"><i class="fas fa-map-marker-alt is-color-dark-grey"></i> ` + item.location + `</div>
+                    </div>
+
+                    <div class="gallery-item-footer">
+                        <div class="gallery-item-footer-inner">
+                            <div class="gallery-item-footer-user"><a href="` + window.location.origin + '/user/' + item.user.slug + `">` + userHint + `</a></div>
+                            <div class="gallery-item-footer-likes">
+                                <span id="count-ike-` + item.id + `">` + item.likes + `</span>&nbsp;
+                                <span><a href="javascript:void(0);" onclick="window.vue.toggleLike(` + item.id + `, 'action-like-` + item.id + `', 'count-ike-` + item.id + `');"><i class="far fa-heart" id="action-like-` + item.id + `"></i></a></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            return html;
+        },
+
+        toggleLike: function(item, heart, count) {
+            window.vue.ajaxRequest('get', window.location.origin + '/gallery/' + item + '/like', {}, function(response) {
+                if (response.code == 200) {
+                    if (response.action == 'liked') {
+                        document.getElementById(heart).classList.add('fas');
+                        document.getElementById(heart).classList.remove('far');
+
+                        document.getElementById(count).innerHTML = parseInt(document.getElementById(count).innerHTML) + 1;
+                    } else if (response.action == 'unliked') {
+                        document.getElementById(heart).classList.remove('fas');
+                        document.getElementById(heart).classList.add('far');
+
+                        document.getElementById(count).innerHTML = parseInt(document.getElementById(count).innerHTML) - 1;
+                    }
+                }
+            });
+        },
+
         toggleNotifications: function(ident) {
             let obj = document.getElementById(ident);
             if (obj) {
@@ -945,7 +1035,7 @@ window.vue = new Vue({
         },
 
         showTabMenu: function(target) {
-            let tabItems = ['tabProfile', 'tabSecurity', 'tabNotifications', 'tabMembership'];
+            let tabItems = ['tabProfile', 'tabSecurity', 'tabNotifications', 'tabGallery', 'tabMarketplace', 'tabMembership'];
 
             tabItems.forEach(function(elem, index) {
                if (elem !== target) {

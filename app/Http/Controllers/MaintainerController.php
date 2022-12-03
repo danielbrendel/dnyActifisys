@@ -66,7 +66,8 @@ class MaintainerController extends Controller
           'activities' => ReportModel::getReportPack('ENT_ACTIVITY'),
           'comments' => ReportModel::getReportPack('ENT_COMMENT'),
           'forum_posts' => ReportModel::getReportPack('ENT_FORUMPOST'),
-          'market_items' => ReportModel::getReportPack('ENT_MARKETITEM')
+          'market_items' => ReportModel::getReportPack('ENT_MARKETITEM'),
+          'gallery_items' => ReportModel::getReportPack('ENT_GALLERYITEM')
         );
 
         foreach ($reports['comments'] as &$cmt) {

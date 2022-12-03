@@ -33,6 +33,7 @@ feature list see the list below.
 + Messaging system
 + Forum system
 + Marketplace system
++ Gallery system
 + E-Mail system
 + Administration
 + Maintainer system

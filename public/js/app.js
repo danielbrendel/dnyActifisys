@@ -2107,6 +2107,7 @@ window.vue = new Vue({
     bShowEditForum: false,
     bShowEditMarketAdvert: false,
     bShowLinkFilter: false,
+    bShowGalleryUpload: false,
     app_project: 'Actifisys',
     lang: {
       copiedToClipboard: 'Text has been copied to clipboard!',
@@ -2117,6 +2118,7 @@ window.vue = new Vue({
       report: 'Report',
       ignore: 'Ignore',
       view: 'View',
+      remove: 'Remove',
       verifiedUser: 'Verified user',
       confirmLockForumPost: 'Do you want to lock this forum post?',
       forumPostEdited: 'Edited',
@@ -2128,7 +2130,8 @@ window.vue = new Vue({
       share_clipboard: 'Copy to Clipboard',
       marketplace_advert_by: 'By :name',
       linkfilter_title: 'Visit :url',
-      linkfilter_hint: 'You are about to visit :url. :project is not responsible for its content. Do you want to proceed?'
+      linkfilter_hint: 'You are about to visit :url. :project is not responsible for its content. Do you want to proceed?',
+      gallery_item_by: 'By :name'
     }
   },
   methods: {
@@ -2551,6 +2554,45 @@ window.vue = new Vue({
       var html = "\n                <div class=\"mp-advert\">\n                    <div class=\"mp-advert-banner\" style=\"background-image: url('" + banner + "');\">\n                        " + dropdownMenu + "\n                    </div>\n\n                    <div class=\"mp-advert-info\">\n                        <div class=\"mp-advert-info-title\">" + item.title + "</div>\n\n                        <div class=\"mp-advert-info-description\">" + item.description + "</div>\n                    </div>\n\n                    <div class=\"mp-advert-footer\">\n                        <div class=\"mp-advert-footer-inner\">\n                            <div class=\"mp-advert-footer-user\"><a href=\"" + window.location.origin + '/user/' + item.user.slug + "\">" + userHint + "</a></div>\n                            <div class=\"mp-advert-footer-view\"><a class=\"button is-transparent-green\" href=\"" + item.link + "\" onclick=\"window.vue.showLinkFilter('" + item.link + "'); return false;\">Besuchen</a></div>\n                        </div>\n                    </div>\n                </div>\n            ";
       return html;
     },
+    renderGalleryItem: function renderGalleryItem(item) {
+      var image = window.location.origin + '/gfx/gallery/' + item.image_thumb;
+      var dropdownMenu = '';
+
+      if (window.user !== null && typeof window.user.id !== 'undefined') {
+        var reportAction = '';
+
+        if (window.user.id !== item.user.id) {
+          reportAction = "\n                        <a class=\"dropdown-item is-color-black\" href=\"" + window.location.origin + '/gallery/' + item.id + '/report' + "\">\n                            " + this.lang.report + "\n                        </a>\n                    ";
+        }
+
+        var adminOrOwnerAction = '';
+
+        if (window.user.id == item.user.id || window.user.data.admin || window.user.data.maintainer) {
+          adminOrOwnerAction = "\n                        <a class=\"dropdown-item is-color-black\" href=\"" + window.location.origin + '/gallery/' + item.id + '/remove' + "\">\n                            " + this.lang.remove + "\n                        </a>\n                    ";
+        }
+
+        dropdownMenu = "\n                    <div class=\"gallery-item-dropdown\">\n                        <div class=\"dropdown is-right\" id=\"gallery-item-dropdown-" + item.id + "\">\n                            <div class=\"dropdown-trigger\">\n                                <i class=\"fas fa-ellipsis-v is-pointer\" onclick=\"window.vue.toggleContextMenu(document.getElementById('gallery-item-dropdown-" + item.id + "'));\"></i>\n                            </div>\n                            <div class=\"dropdown-menu\" role=\"menu\">\n                                <div class=\"dropdown-content\">\n                                    " + reportAction + adminOrOwnerAction + "\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                ";
+      }
+
+      var userHint = window.vue.lang.gallery_item_by.replace(':name', item.user.name);
+      var html = "\n                <div class=\"gallery-item\">\n                    <div class=\"gallery-item-image is-pointer\" style=\"background-image: url('" + image + "');\" onclick=\"window.open('" + window.location.origin + '/gfx/gallery/' + item.image_full + "');\"></div>\n\n                    <div class=\"gallery-item-info\">\n                        <div class=\"gallery-item-info-title\">\n                            " + item.title + "\n                            " + dropdownMenu + "\n                        </div>\n\n                        <div class=\"gallery-item-info-location\"><i class=\"fas fa-map-marker-alt is-color-dark-grey\"></i> " + item.location + "</div>\n                    </div>\n\n                    <div class=\"gallery-item-footer\">\n                        <div class=\"gallery-item-footer-inner\">\n                            <div class=\"gallery-item-footer-user\"><a href=\"" + window.location.origin + '/user/' + item.user.slug + "\">" + userHint + "</a></div>\n                            <div class=\"gallery-item-footer-likes\">\n                                <span id=\"count-ike-" + item.id + "\">" + item.likes + "</span>&nbsp;\n                                <span><a href=\"javascript:void(0);\" onclick=\"window.vue.toggleLike(" + item.id + ", 'action-like-" + item.id + "', 'count-ike-" + item.id + "');\"><i class=\"far fa-heart\" id=\"action-like-" + item.id + "\"></i></a></span>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            ";
+      return html;
+    },
+    toggleLike: function toggleLike(item, heart, count) {
+      window.vue.ajaxRequest('get', window.location.origin + '/gallery/' + item + '/like', {}, function (response) {
+        if (response.code == 200) {
+          if (response.action == 'liked') {
+            document.getElementById(heart).classList.add('fas');
+            document.getElementById(heart).classList.remove('far');
+            document.getElementById(count).innerHTML = parseInt(document.getElementById(count).innerHTML) + 1;
+          } else if (response.action == 'unliked') {
+            document.getElementById(heart).classList.remove('fas');
+            document.getElementById(heart).classList.add('far');
+            document.getElementById(count).innerHTML = parseInt(document.getElementById(count).innerHTML) - 1;
+          }
+        }
+      });
+    },
     toggleNotifications: function toggleNotifications(ident) {
       var obj = document.getElementById(ident);
 
@@ -2656,7 +2698,7 @@ window.vue = new Vue({
       }
     },
     showTabMenu: function showTabMenu(target) {
-      var tabItems = ['tabProfile', 'tabSecurity', 'tabNotifications', 'tabMembership'];
+      var tabItems = ['tabProfile', 'tabSecurity', 'tabNotifications', 'tabGallery', 'tabMarketplace', 'tabMembership'];
       tabItems.forEach(function (elem, index) {
         if (elem !== target) {
           document.getElementById(elem).classList.remove('is-active');

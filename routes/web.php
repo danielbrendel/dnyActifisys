@@ -101,6 +101,13 @@ Route::any('/forum/thread/post/{id}/report', 'ForumController@reportPost');
 Route::any('/forum/thread/post/{id}/lock', 'ForumController@lockPost');
 Route::post('/forum/thread/post/edit', 'ForumController@editPost');
 
+Route::get('/gallery', 'GalleryController@index');
+Route::post('/gallery/fetch', 'GalleryController@fetch');
+Route::post('/gallery/add', 'GalleryController@add');
+Route::any('/gallery/{id}/like', 'GalleryController@like');
+Route::any('/gallery/{id}/remove', 'GalleryController@remove');
+Route::any('/gallery/{id}/report', 'GalleryController@report');
+
 Route::get('/marketplace', 'MarketplaceController@index');
 Route::post('/marketplace/list', 'MarketplaceController@list');
 Route::post('/marketplace/create', 'MarketplaceController@create');

@@ -523,5 +523,18 @@ return [
     'send_image' => 'Send image',
     'image_posted' => 'Image has been sent',
     'post_upload_size_exceeded' => 'The file is too large',
-    'image_invalid_file_type' => 'Invalid image type'
+    'image_invalid_file_type' => 'Invalid image type',
+    'gallery' => 'Gallery',
+    'gallery_subtitle' => 'View latest community pictures',
+    'gallery_submit' => 'Upload',
+    'gallery_upload' => 'Upload to gallery',
+    'gallery_no_items_found' => 'No more items found',
+    'gallery_item_added' => 'Item has been added to the gallery',
+    'gallery_item_deleted' => 'Item has been deleted from the gallery',
+    'gallery_item_reported' => 'Item has been reported',
+    'gallery_item_by' => 'By :name',
+    'gallery_text' => 'Gallery description content',
+    'community' => 'Community',
+    'confirm_delete_gallery_item' => 'Are you sure you want to delete this item?',
+    'image' => 'Image'
 ];
