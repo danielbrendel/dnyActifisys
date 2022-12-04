@@ -14,10 +14,10 @@
         "cross-env": "^7.0.3",
         "laravel-mix": "^6.0.49",
         "lodash": "^4.17.21",
-        "postcss": "^8.4.16",
-        "resolve-url-loader": "^3.1.4",
-        "sass": "^1.55.0",
+        "postcss": "^8.4.19",
+        "resolve-url-loader": "^3.1.5",
+        "sass": "^1.56.1",
         "sass-loader": "^8.0.0",
-        "vue-template-compiler": "^2.7.10"
+        "vue-template-compiler": "^2.7.14"
     }
 }
