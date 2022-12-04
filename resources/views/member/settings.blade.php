@@ -184,6 +184,10 @@
                     <input type="checkbox" name="email_on_act_canceled" data-role="checkbox" data-style="2" value="1" data-caption="{{ __('app.email_on_act_canceled_notice') }}" @if ($self->email_on_act_canceled) {{ 'checked' }} @endif>
                 </div>
 
+                <div class="field">
+                    <input type="checkbox" name="email_on_act_upcoming" data-role="checkbox" data-style="2" value="1" data-caption="{{ __('app.email_on_act_upcoming_notice') }}" @if ($self->email_on_act_upcoming) {{ 'checked' }} @endif>
+                </div>
+
                 <input type="submit" class="button is-success" value="{{ __('app.save') }}">
             </form>
         </div>

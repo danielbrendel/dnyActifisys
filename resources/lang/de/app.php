@@ -532,5 +532,11 @@ return [
     'gallery_text' => 'Inhalt der Beschreibung der Gallerie',
     'community' => 'Community',
     'confirm_delete_gallery_item' => 'Möchtest du dieses Bild wirklich löschen?',
-    'image' => 'Bild'
+    'image' => 'Bild',
+    'mail_activity_upcoming_title' => 'Erinnerung zur anstehenden Aktivität',
+    'mail_activity_upcoming_info' => 'Morgen steht eine Aktivität an',
+    'mail_activity_upcoming_body' => 'Du bist als Teilnehmer*in bei :title von :name, welche morgen stattfindet. Du kannst über untenstehenden Button zur Aktivität navigieren.',
+    'activity_upcoming' => 'Bevorstehende Aktivität',
+    'activity_upcoming_long' => 'Die Aktivität <a href=":item">:title</a> findet morgen statt.',
+    'email_on_act_upcoming_notice' => 'Ich möchte an bevorstehende Aktivitäten erinnert werden'
 ];

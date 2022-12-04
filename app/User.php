@@ -411,6 +411,7 @@ class User extends Authenticatable
             $user->email_on_fav_created = $attr['email_on_fav_created'];
             $user->email_on_comment = $attr['email_on_comment'];
             $user->email_on_act_canceled = $attr['email_on_act_canceled'];
+            $user->email_on_act_upcoming = $attr['email_on_act_upcoming'];
             $user->save();
         } catch (Exception $e) {
             throw $e;

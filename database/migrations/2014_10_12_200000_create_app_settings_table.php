@@ -46,6 +46,7 @@ class CreateAppSettingsTable extends Migration
             $table->string('newsletter_token')->nullable();
             $table->string('newsletter_subject')->nullable();
             $table->text('newsletter_content')->nullable();
+            $table->dateTime('reminder_last_execution')->nullable();
             $table->timestamps();
         });
     }

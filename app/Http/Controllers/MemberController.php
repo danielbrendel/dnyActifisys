@@ -443,7 +443,8 @@ class MemberController extends Controller
                 'email_on_participated' => 'nullable|numeric',
                 'email_on_fav_created' => 'nullable|numeric',
                 'email_on_comment' => 'nullable|numeric',
-                'email_on_act_canceled' => 'nullable|numeric'
+                'email_on_act_canceled' => 'nullable|numeric',
+                'email_on_act_upcoming' => 'nullable|numeric'
             ]);
 
             if (!isset($attr['newsletter'])) {
@@ -468,6 +469,10 @@ class MemberController extends Controller
 
             if (!isset($attr['email_on_act_canceled'])) {
                 $attr['email_on_act_canceled'] = 0;
+            }
+            
+            if (!isset($attr['email_on_act_upcoming'])) {
+                $attr['email_on_act_upcoming'] = 0;
             }
 
             User::saveNotifications($attr);

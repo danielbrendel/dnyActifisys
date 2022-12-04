@@ -430,4 +430,43 @@ class ActivityModel extends Model
             throw $e;
         }
     }
+
+    /**
+     * Perform reminder job
+     * 
+     * @return array
+     * @throws \Exception
+     */
+    public static function reminderJob()
+    {
+        try {
+            $result = [];
+
+            $tomorrow = date('Y-m-d', strtotime('+1 day'));
+
+            $activities = ActivityModel::where('locked', '=', false)->where('canceled', '=', false)->whereRaw('DATE(date_of_activity_from) = ?', [$tomorrow])->get();
+            foreach ($activities as $activity) {
+                $participants = ParticipantModel::where('activity', '=', $activity->id)->where('type', '=', ParticipantModel::PARTICIPANT_ACTUAL)->get();
+                foreach ($participants as $participant) {
+                    $users = User::where('id', '=', $participant->participant)->where('deactivated', '=', false)->where('account_confirm', '=', '_confirmed')->get();
+                    foreach ($users as $user) {
+                        $owner = User::where('id', '=', $activity->owner)->first();
+
+                        if ($user->email_on_act_upcoming) {
+                            $html = view('mail.act_upcoming', ['name' => $user->name, 'activity' => $activity, 'owner' => $owner])->render();
+                            MailerModel::sendMail($user->email, __('app.activity_upcoming'), $html);
+                        }
+
+                        PushModel::addNotification(__('app.activity_upcoming'), __('app.activity_upcoming_long', ['title' => $activity->title, 'item' => url('/activity/' . $activity->id), 'name' => $owner->name, 'profile' => url('/user/' . $owner->id)]), 'PUSH_UPCOMING', $user->id);
+                    
+                        $result[] = array('user' => $user->email, 'activity' => $activity->slug);
+                    }
+                }
+            }
+
+            return $result;
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
 }

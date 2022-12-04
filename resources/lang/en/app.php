@@ -536,5 +536,11 @@ return [
     'gallery_text' => 'Gallery description content',
     'community' => 'Community',
     'confirm_delete_gallery_item' => 'Are you sure you want to delete this item?',
-    'image' => 'Image'
+    'image' => 'Image',
+    'mail_activity_upcoming_title' => 'Upcoming activity reminder',
+    'mail_activity_upcoming_info' => 'Reminder of an upcoming activity',
+    'mail_activity_upcoming_body' => 'You have participated in the activity :title by :name which takes places tomorrow. Please use the button below to view the activity details.',
+    'activity_upcoming' => 'Upcoming activity',
+    'activity_upcoming_long' => 'Activity <a href=":item">:title</a> is starting tomorrow.',
+    'email_on_act_upcoming_notice' => 'Remind me of upcoming activities'
 ];

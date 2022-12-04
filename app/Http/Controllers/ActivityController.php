@@ -938,4 +938,32 @@ class ActivityController extends Controller
             return response()->json(array('code' => 500, 'msg' => $e->getMessage()));
         }
     }
+
+    /**
+     * Perform reminder cronjob task
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function reminderJob($password)
+    {
+        try {
+            if ($password !== env('APP_CRONPW')) {
+                return response()->json(array('code' => 403));
+            }
+
+            $curDate = date('Y-m-d');
+            $lastExec = AppModel::getSettings()->reminder_last_execution;
+            if (date('Y-m-d', strtotime($lastExec)) == $curDate) {
+                throw new \Exception('Reminder job has already been executed today');
+            }
+
+            $data = ActivityModel::reminderJob();
+
+            AppModel::saveSetting('reminder_last_execution', $curDate);
+
+            return response()->json(array('code' => 200, 'data' => $data));
+        } catch (\Exception $e) {
+            return response()->json(array('code' => 500, 'msg' => $e->getMessage()));
+        }
+    }
 }
