@@ -155,7 +155,7 @@
                             <div class="dropdown-menu" role="menu">
                                 <div class="dropdown-content">
                                     <a onclick="window.vue.toggleActivityOptions(document.getElementById('activity-options-{{ $activity->id }}'));" href="whatsapp://send?text={{ url('/activity/' . $activity->id) }} - {{ $activity->title }}" class="dropdown-item">
-                                        <i class="far fa-copy"></i>&nbsp;{{ __('app.share_whatsapp') }}
+                                        <i class="fab fa-whatsapp"></i>&nbsp;{{ __('app.share_whatsapp') }}
                                     </a>
                                     <a onclick="window.vue.toggleActivityOptions(document.getElementById('activity-options-{{ $activity->id }}'));" href="https://twitter.com/share?url={{ urlencode(url('/activity/' . $activity->id)) }}&text={{ $activity->title }}" class="dropdown-item">
                                         <i class="fab fa-twitter"></i>&nbsp;{{ __('app.share_twitter') }}

@@ -467,7 +467,7 @@ window.vue = new Vue({
                                 <div class="dropdown-menu" role="menu">
                                     <div class="dropdown-content">
                                         <a onclick="window.vue.toggleActivityOptions(document.getElementById('activity-qo-` + elem.id + `'));" href="whatsapp://send?text=` + window.location.origin + '/activity/' + elem.id + ` - ` + elem.title + `" class="dropdown-item is-color-black">
-                                            <i class="far fa-copy"></i>&nbsp;` + window.vue.lang.share_whatsapp + `
+                                            <i class="fab fa-whatsapp"></i>&nbsp;` + window.vue.lang.share_whatsapp + `
                                         </a>
                                         <a onclick="window.vue.toggleActivityOptions(document.getElementById('activity-qo-` + elem.id + `'));" href="https://twitter.com/share?url=` + encodeURI(window.location.origin + '/activity/' + elem.id) + `&text=` + elem.title + `" class="dropdown-item is-color-black">
                                             <i class="fab fa-twitter"></i>&nbsp;` + window.vue.lang.share_twitter + `
