@@ -143,7 +143,7 @@ class ActivityController extends Controller
 
             $activity->user = User::get($activity->owner);
 
-            if (IgnoreModel::hasIgnored($activity->owner, auth()->id())) {
+            if ((IgnoreModel::hasIgnored($activity->owner, auth()->id())) || (IgnoreModel::hasIgnored(auth()->id(), $activity->owner))) {
                 throw new Exception(__('app.activity_not_found_or_locked'));
             }
 
@@ -250,7 +250,7 @@ class ActivityController extends Controller
 
                 $item['user'] = User::get($item['owner']);
 
-                if (IgnoreModel::hasIgnored($item['owner'], auth()->id())) {
+                if ((IgnoreModel::hasIgnored($item['owner'], auth()->id())) || (IgnoreModel::hasIgnored(auth()->id(), $item['owner']))) {
                     unset($data[$key]);
                     continue;
                 }
