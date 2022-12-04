@@ -542,5 +542,6 @@ return [
     'mail_activity_upcoming_body' => 'You have participated in the activity :title by :name which takes places tomorrow. Please use the button below to view the activity details.',
     'activity_upcoming' => 'Upcoming activity',
     'activity_upcoming_long' => 'Activity <a href=":item">:title</a> is starting tomorrow.',
-    'email_on_act_upcoming_notice' => 'Remind me of upcoming activities'
+    'email_on_act_upcoming_notice' => 'Remind me of upcoming activities',
+    'invalid_marketplace_banner_image' => 'The given file is not a valid image'
 ];

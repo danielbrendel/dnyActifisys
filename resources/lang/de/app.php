@@ -538,5 +538,6 @@ return [
     'mail_activity_upcoming_body' => 'Du bist als Teilnehmer*in bei :title von :name, welche morgen stattfindet. Du kannst über untenstehenden Button zur Aktivität navigieren.',
     'activity_upcoming' => 'Bevorstehende Aktivität',
     'activity_upcoming_long' => 'Die Aktivität <a href=":item">:title</a> findet morgen statt.',
-    'email_on_act_upcoming_notice' => 'Ich möchte an bevorstehende Aktivitäten erinnert werden'
+    'email_on_act_upcoming_notice' => 'Ich möchte an bevorstehende Aktivitäten erinnert werden',
+    'invalid_marketplace_banner_image' => 'Die angegebene Datei ist kein gültiges Bild'
 ];

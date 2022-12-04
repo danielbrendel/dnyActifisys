@@ -50,11 +50,21 @@ class MarketplaceModel extends Model
             $item->description = $description;
             $item->link = $link;
 
+            if ((strpos($item->link, 'https://') === false) && (strpos($item->link, 'http://') === false)) {
+                $item->link = 'http://' . $item->link;
+            }
+
             $img = request()->file($banner);
             if ($img != null) {
                 $imgName = md5(random_bytes(55));
 
                 $img->move(base_path() . '/public/gfx/market', $imgName . '.' . $img->getClientOriginalExtension());
+
+                $etype = exif_imagetype(base_path() . '/public/gfx/market/' . $imgName . '.' . $img->getClientOriginalExtension());
+                if (($etype != IMAGETYPE_PNG) && ($etype != IMAGETYPE_JPEG)) {
+                    unlink(base_path() . '/public/gfx/market/' . $imgName . '.' . $img->getClientOriginalExtension());
+                    throw new \Exception(__('app.invalid_marketplace_banner_image'));
+                }
 
                 $item->banner = $imgName . '.' . $img->getClientOriginalExtension();
             } else {
@@ -98,11 +108,21 @@ class MarketplaceModel extends Model
             $item->description = $description;
             $item->link = $link;
 
+            if ((strpos($item->link, 'https://') === false) && (strpos($item->link, 'http://') === false)) {
+                $item->link = 'http://' . $item->link;
+            }
+
             $img = request()->file($banner);
             if ($img != null) {
                 $imgName = md5(random_bytes(55));
 
                 $img->move(base_path() . '/public/gfx/market', $imgName . '.' . $img->getClientOriginalExtension());
+
+                $etype = exif_imagetype(base_path() . '/public/gfx/market/' . $imgName . '.' . $img->getClientOriginalExtension());
+                if (($etype != IMAGETYPE_PNG) && ($etype != IMAGETYPE_JPEG)) {
+                    unlink(base_path() . '/public/gfx/market/' . $imgName . '.' . $img->getClientOriginalExtension());
+                    throw new \Exception(__('app.invalid_marketplace_banner_image'));
+                }
 
                 $item->banner = $imgName . '.' . $img->getClientOriginalExtension();
             }
