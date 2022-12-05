@@ -221,7 +221,31 @@ class GalleryModel extends Model
                 $post->title = $title;
                 $post->location = $location;
                 $post->userId = $userId;
+                $post->slug = '';
                 $post->save();
+
+                $post->slug = \Str::slug($post->id . '-' . $post->title);
+                $post->save();
+            }
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Find item by ID or slug
+     * 
+     * @param $ident
+     * @return mixed
+     * @throws \Exception
+     */
+    public static function findItem($ident)
+    {
+        try {
+            if (is_numeric($ident)) {
+                return GalleryModel::where('id', '=', $ident)->first();
+            } else {
+                return GalleryModel::where('slug', '=', $ident)->first();
             }
         } catch (\Exception $e) {
             throw $e;

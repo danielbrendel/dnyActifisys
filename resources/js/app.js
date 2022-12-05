@@ -864,6 +864,27 @@ window.vue = new Vue({
                             </div>
                             <div class="dropdown-menu" role="menu">
                                 <div class="dropdown-content">
+                                    <a onclick="window.vue.toggleContextMenu(document.getElementById('gallery-item-dropdown-` + item.id + `'));" href="whatsapp://send?text=` + window.location.origin + '/gallery/item/' + item.slug + ` - ` + item.title + `" class="dropdown-item is-color-black">
+                                        <i class="fab fa-whatsapp"></i>&nbsp;` + window.vue.lang.share_whatsapp + `
+                                    </a>
+                                    <a onclick="window.vue.toggleContextMenu(document.getElementById('gallery-item-dropdown-` + item.id + `'));" href="https://twitter.com/share?url=` + encodeURI(window.location.origin + '/gallery/item/' + item.slug) + `&text=` + item.title + `" class="dropdown-item is-color-black">
+                                        <i class="fab fa-twitter"></i>&nbsp;` + window.vue.lang.share_twitter + `
+                                    </a>
+                                    <a onclick="window.vue.toggleContextMenu(document.getElementById('gallery-item-dropdown-` + item.id + `'));" href="https://www.facebook.com/sharer/sharer.php?u=` + window.location.origin + '/gallery/item/' + item.slug + `" class="dropdown-item is-color-black">
+                                        <i class="fab fa-facebook"></i>&nbsp;` + window.vue.lang.share_facebook + `
+                                    </a>
+                                    <a onclick="window.vue.toggleContextMenu(document.getElementById('gallery-item-dropdown-` + item.id + `'));" href="mailto:name@domain.com?body=` + window.location.origin + '/gallery/item/' + item.slug + ` - ` + item.title + `" class="dropdown-item is-color-black">
+                                        <i class="far fa-envelope"></i>&nbsp;` + window.vue.lang.share_email + `
+                                    </a>
+                                    <a onclick="window.vue.toggleContextMenu(document.getElementById('gallery-item-dropdown-` + item.id + `'));" href="sms:000000000?body=` + window.location.origin + '/gallery/item/' + item.slug + ` - ` + item.title + `" class="dropdown-item is-color-black">
+                                        <i class="fas fa-sms"></i>&nbsp;` + window.vue.lang.share_sms + `
+                                    </a>
+                                    <a href="javascript:void(0)" onclick="window.vue.copyToClipboard('` + window.location.origin + '/gallery/item/' + item.slug + ` - ` + item.title + `'); window.vue.toggleContextMenu(document.getElementById('gallery-item-dropdown-` + item.id + `'));" class="dropdown-item is-color-black">
+                                        <i class="far fa-copy"></i>&nbsp;` + window.vue.lang.share_clipboard + `
+                                    </a>
+
+                                    ` + ((reportAction.length > 0 || adminOrOwnerAction.length > 0) ? '<hr class="dropdown-divider">' : '') + `
+
                                     ` + reportAction + adminOrOwnerAction + `
                                 </div>
                             </div>
@@ -876,7 +897,7 @@ window.vue = new Vue({
 
             let html = `
                 <div class="gallery-item">
-                    <div class="gallery-item-image is-pointer" style="background-image: url('` + image + `');" onclick="window.open('` + window.location.origin + '/gfx/gallery/' + item.image_full + `');"></div>
+                    <div class="gallery-item-image is-pointer" style="background-image: url('` + image + `');" onclick="location.href = '` + window.location.origin + '/gallery/item/' + item.slug + `';"></div>
 
                     <div class="gallery-item-info">
                         <div class="gallery-item-info-title">
@@ -891,8 +912,8 @@ window.vue = new Vue({
                         <div class="gallery-item-footer-inner">
                             <div class="gallery-item-footer-user"><a href="` + window.location.origin + '/user/' + item.user.slug + `">` + userHint + `</a></div>
                             <div class="gallery-item-footer-likes">
-                                <span id="count-ike-` + item.id + `">` + item.likes + `</span>&nbsp;
-                                <span><a href="javascript:void(0);" onclick="window.vue.toggleLike(` + item.id + `, 'action-like-` + item.id + `', 'count-ike-` + item.id + `');"><i class="far fa-heart" id="action-like-` + item.id + `"></i></a></span>
+                                <span id="count-like-` + item.id + `">` + item.likes + `</span>&nbsp;
+                                <span><a href="javascript:void(0);" onclick="window.vue.toggleLike(` + item.id + `, 'action-like-` + item.id + `', 'count-like-` + item.id + `');"><i class="far fa-heart" id="action-like-` + item.id + `"></i></a></span>
                             </div>
                         </div>
                     </div>

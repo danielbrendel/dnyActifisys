@@ -108,6 +108,7 @@ Route::post('/gallery/add', 'GalleryController@add');
 Route::any('/gallery/{id}/like', 'GalleryController@like');
 Route::any('/gallery/{id}/remove', 'GalleryController@remove');
 Route::any('/gallery/{id}/report', 'GalleryController@report');
+Route::get('/gallery/item/{slug}', 'GalleryController@view');
 
 Route::get('/marketplace', 'MarketplaceController@index');
 Route::post('/marketplace/list', 'MarketplaceController@list');

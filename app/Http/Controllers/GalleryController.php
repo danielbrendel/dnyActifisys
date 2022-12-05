@@ -83,6 +83,37 @@ class GalleryController extends Controller
     }
 
     /**
+     * View specific gallery item
+     * 
+     * @param $slug
+     * @return mixed
+     */
+    public function view($slug)
+    {
+        try {
+            $item = GalleryModel::findItem($slug);
+            if (!$item) {
+                throw new \Exception('Item not found: ' . $slug);
+            }
+
+            $item->user = User::where('id', '=', $item->userId)->first();
+            if ($item->user->locked) {
+                throw new \Exception('Item belongs to locked user');
+            }
+
+            $item->likes = AppModel::countAsString(GalleryLikesModel::getForItem($item->id));
+
+            return view('gallery.item', [
+                'item' => $item,
+                'user' => User::getByAuthId(),
+                'captchadata' => CaptchaModel::createSum(session()->getId())
+            ]);
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    /**
      * Add a gallery item
      * 
      * @return \Illuminate\Http\RedirectResponse

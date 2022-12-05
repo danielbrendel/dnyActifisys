@@ -32,6 +32,7 @@ class CreateGalleryModelsTable extends Migration
             $table->string('image_full');
             $table->string('image_thumb');
             $table->integer('userId');
+            $table->string('slug');
             $table->timestamps();
         });
     }
