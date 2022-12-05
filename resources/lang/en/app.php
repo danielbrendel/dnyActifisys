@@ -29,6 +29,7 @@ return [
     'register_email' => 'E-Mail',
     'register_password' => 'Password',
     'register_password_confirmation' => 'Password confirmation',
+    'register_email_in_use' => 'The given E-mail address is already in use',
     'messages' => 'Messages',
     'notifications' => 'Notifications',
     'create_activity' => 'Create activity',

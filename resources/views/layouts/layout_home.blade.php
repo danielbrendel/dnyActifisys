@@ -62,7 +62,7 @@
                             {{ __('app.messages') }}
                         </a>
 
-                        <div class="navbar-item has-dropdown is-hoverable">
+                        <div class="navbar-item fix-mobile-navbar-item has-dropdown is-hoverable">
 							<a class="navbar-link">
 								{{ __('app.community') }}
 							</a>

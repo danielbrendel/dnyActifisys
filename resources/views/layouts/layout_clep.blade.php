@@ -15,7 +15,7 @@
     @include('layouts.layout_head') 
 
     <body class="clep-outer" @if (file_exists(public_path() . '/gfx/backgrounds/' . \App\AppModel::getClepBackground())) style="background-image: url('{{ asset('gfx/backgrounds/' . \App\AppModel::getClepBackground()) }}');" @endif>
-        <div id="app" @if (file_exists(public_path() . '/gfx/backgrounds/clep.png')) style="background-color: rgba(0, 0, 0, {{ \App\Models\AppModel::getAlphaChannel() }});" @endif>
+        <div id="app" @if (file_exists(public_path() . '/gfx/backgrounds/' . \App\AppModel::getClepBackground())) style="background-color: rgba(0, 0, 0, {{ \App\AppModel::getHomeBackgroundAlpha() }});" @endif>
             <div class="clep-content">
                 @if ($errors->any())
                     <div id="error-message-1">

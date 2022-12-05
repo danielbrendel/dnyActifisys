@@ -29,6 +29,7 @@ return [
     'register_email' => 'E-Mail',
     'register_password' => 'Passwort',
     'register_password_confirmation' => 'Passwort Bestätigung',
+    'register_email_in_use' => 'Es existiert bereits ein Konto mit der angegebenen E-Mail Adresse',
     'messages' => 'Unterhaltungen',
     'notifications' => 'Benachrichtigungen',
     'create_activity' => 'Aktivität erstellen',
