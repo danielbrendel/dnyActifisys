@@ -76,6 +76,8 @@ class GalleryController extends Controller
 
                 $item->tags = explode(' ', $item->tags);
                 $item->likes = AppModel::countAsString(GalleryLikesModel::getForItem($item->id));
+
+                $item->hasLiked = GalleryLikesModel::hasUserLiked($item->id);
             }
 
             return response()->json(array('code' => 200, 'data' => $data));
@@ -105,6 +107,7 @@ class GalleryController extends Controller
 
             $item->tags = explode(' ', $item->tags);
             $item->likes = AppModel::countAsString(GalleryLikesModel::getForItem($item->id));
+            $item->hasLiked = GalleryLikesModel::hasUserLiked($item->id);
 
             return view('gallery.item', [
                 'item' => $item,

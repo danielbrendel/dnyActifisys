@@ -935,7 +935,7 @@ window.vue = new Vue({
                             <div class="gallery-item-footer-user"><a href="` + window.location.origin + '/user/' + item.user.slug + `">` + userHint + `</a></div>
                             <div class="gallery-item-footer-likes">
                                 <span id="count-like-` + item.id + `">` + item.likes + `</span>&nbsp;
-                                <span><a href="javascript:void(0);" onclick="window.vue.toggleLike(` + item.id + `, 'action-like-` + item.id + `', 'count-like-` + item.id + `');"><i class="far fa-heart" id="action-like-` + item.id + `"></i></a></span>
+                                <span><a href="javascript:void(0);" onclick="window.vue.toggleLike(` + item.id + `, 'action-like-` + item.id + `', 'count-like-` + item.id + `');"><i class="` + ((item.hasLiked) ? 'fas' : 'far') + ` fa-heart" id="action-like-` + item.id + `"></i></a></span>
                             </div>
                         </div>
                     </div>

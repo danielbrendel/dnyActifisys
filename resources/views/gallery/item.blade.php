@@ -91,7 +91,7 @@
                         <div class="gallery-item-footer-user"><a href="{{ url('/user/' . $item->user->slug) }}">{{ __('app.gallery_item_by', ['name' => $item->user->name]) }}</a></div>
                         <div class="gallery-item-footer-likes">
                             <span id="count-like-{{ $item->id }}">{{ $item->likes }}</span>&nbsp;
-                            <span><a href="javascript:void(0);" onclick="window.vue.toggleLike({{ $item->id }}, 'action-like-{{ $item->id }}', 'count-like-{{ $item->id }}');"><i class="far fa-heart" id="action-like-{{ $item->id }}"></i></a></span>
+                            <span><a href="javascript:void(0);" onclick="window.vue.toggleLike({{ $item->id }}, 'action-like-{{ $item->id }}', 'count-like-{{ $item->id }}');"><i class="@if ($item->hasLiked) fas @else far @endif fa-heart" id="action-like-{{ $item->id }}"></i></a></span>
                         </div>
                     </div>
                 </div>

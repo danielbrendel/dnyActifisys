@@ -97,4 +97,29 @@ class GalleryLikesModel extends Model
             throw $e;
         }
     }
+
+    /**
+     * Indicate if logged in user has liked the given item
+     * 
+     * @param $itemId
+     * @param $userId
+     * @return bool
+     * @throws \Exception
+     */
+    public static function hasUserLiked($itemId, $userId = null)
+    {
+        try {
+            if (($userId === null) && (\Auth::guest())) {
+                return false;
+            }
+
+            if ($userId === null) {
+                $userId = auth()->id();
+            }
+
+            return GalleryLikesModel::where('galleryId', '=', $itemId)->where('userId', '=', $userId)->count() > 0;
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
 }
