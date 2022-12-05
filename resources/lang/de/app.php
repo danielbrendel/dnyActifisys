@@ -141,6 +141,7 @@ return [
     'do_filter' => 'Filter',
     'filter_by_location' => 'Filter per Ort',
     'filter_by_tag' => 'Filter per Hashtag',
+    'collapse_filter' => 'Einklappen',
     'load_more' => 'Mehr laden',
     'no_more_activities' => 'Keine weiteren Aktivitäten',
     'no_participants' => 'Noch keine Teilnehmer*Innen',

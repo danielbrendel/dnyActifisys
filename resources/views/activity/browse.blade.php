@@ -115,6 +115,10 @@
                             <a id="btnClearFilter" class="button is-info" href="javascript:void(0);" onclick="window.vue.clearFilterCookies(); location.href = '{{ url('/') }}';">
                                 {{ __('app.clear_filter') }}
                             </a>
+                            &nbsp;
+                            <a id="btnCollapseFilter" href="javascript:void(0);" onclick="document.getElementById('activity-filter-options').classList.toggle('is-hidden'); document.getElementById('activity-filter-action').classList.remove('is-hidden'); document.getElementById('activity-divider').classList.toggle('activity-filter-margin');">
+                                {{ __('app.collapse_filter') }}
+                            </a>
                         </div>
                     </div>
                 </div>
