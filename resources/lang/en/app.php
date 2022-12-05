@@ -545,5 +545,9 @@ return [
     'activity_upcoming' => 'Upcoming activity',
     'activity_upcoming_long' => 'Activity <a href=":item">:title</a> is starting tomorrow.',
     'email_on_act_upcoming_notice' => 'Remind me of upcoming activities',
-    'invalid_marketplace_banner_image' => 'The given file is not a valid image'
+    'invalid_marketplace_banner_image' => 'The given file is not a valid image',
+    'tags' => 'Tags',
+    'tags_example_placeholder' => 'Example: tagexample1 tag-example2 tag-long-example3',
+    'no_tags_specified' => 'No tags specified',
+    'clear_tag' => 'Clear #:tag'
 ];

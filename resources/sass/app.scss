@@ -1228,6 +1228,28 @@ h2, h3 {
     margin-top: 10px;
     color: rgb(5, 5, 5);
 }
+.gallery-item-info-tags {
+    margin-top: 10px;
+}
+.gallery-item-info-tag {
+    position: relative;
+    display: inline-block;
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 2px 15px;
+    margin-top: 5px;
+}
+.gallery-item-info-tag:hover {
+    text-decoration: none;
+    background-color: rgba(50, 50, 50, 0.5);
+}
+.gallery-item-info-tag a {
+    color: rgb(200, 200, 200);
+}
+.gallery-item-info-tag a:hover {
+    text-decoration: none;
+}
 .gallery-item-footer {
     height: 50px;
     border-bottom-left-radius: 5px;

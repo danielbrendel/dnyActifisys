@@ -27,12 +27,13 @@ class CreateGalleryModelsTable extends Migration
     {
         Schema::create('gallery_models', function (Blueprint $table) {
             $table->id();
+            $table->string('slug');
+            $table->integer('userId');
             $table->string('title');
             $table->string('location');
+            $table->string('tags', 1024)->default('');
             $table->string('image_full');
             $table->string('image_thumb');
-            $table->integer('userId');
-            $table->string('slug');
             $table->timestamps();
         });
     }

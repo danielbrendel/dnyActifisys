@@ -74,7 +74,8 @@ window.vue = new Vue({
             marketplace_advert_by: 'By :name',
             linkfilter_title: 'Visit :url',
             linkfilter_hint: 'You are about to visit :url. :project is not responsible for its content. Do you want to proceed?',
-            gallery_item_by: 'By :name'
+            gallery_item_by: 'By :name',
+            noTagsSpecified: 'No tags specified'
         }
     },
 
@@ -895,6 +896,23 @@ window.vue = new Vue({
 
             let userHint = window.vue.lang.gallery_item_by.replace(':name', item.user.name);
 
+            let tags = '';
+            if (item.tags.length > 0) {
+                item.tags.forEach(function(tag, index) {
+                    if (tag.length > 0) {
+                        tags += `
+                            <div class="gallery-item-info-tag">
+                                <a href="` + window.location.origin + '/gallery?tag=' + tag + `">#` + tag + `</a>
+                            </div>
+                        `;
+                    }
+                });
+            }
+
+            if (tags.length <= 0) {
+                tags = '<i>' + window.vue.lang.noTagsSpecified + '</i>';
+            }
+
             let html = `
                 <div class="gallery-item">
                     <div class="gallery-item-image is-pointer" style="background-image: url('` + image + `');" onclick="location.href = '` + window.location.origin + '/gallery/item/' + item.slug + `';"></div>
@@ -906,6 +924,10 @@ window.vue = new Vue({
                         </div>
 
                         <div class="gallery-item-info-location"><i class="fas fa-map-marker-alt is-color-dark-grey"></i> ` + item.location + `</div>
+                    
+                        <div class="gallery-item-info-tags">
+                            ` + tags + `
+                        </div>
                     </div>
 
                     <div class="gallery-item-footer">

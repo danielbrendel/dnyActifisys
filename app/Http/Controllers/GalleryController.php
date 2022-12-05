@@ -64,8 +64,9 @@ class GalleryController extends Controller
     {
         try {
             $paginate = request('paginate', null);
+            $tag = request('tag', null);
 
-            $data = GalleryModel::fetch($paginate);
+            $data = GalleryModel::fetch($paginate, $tag);
             foreach ($data as $key => &$item) {
                 $item->user = User::where('id', '=', $item->userId)->first();
                 if ($item->user->locked) {
@@ -73,6 +74,7 @@ class GalleryController extends Controller
                     continue;
                 }
 
+                $item->tags = explode(' ', $item->tags);
                 $item->likes = AppModel::countAsString(GalleryLikesModel::getForItem($item->id));
             }
 
@@ -101,6 +103,7 @@ class GalleryController extends Controller
                 throw new \Exception('Item belongs to locked user');
             }
 
+            $item->tags = explode(' ', $item->tags);
             $item->likes = AppModel::countAsString(GalleryLikesModel::getForItem($item->id));
 
             return view('gallery.item', [
@@ -125,10 +128,15 @@ class GalleryController extends Controller
 
             $attr = request()->validate([
                 'title' => 'required',
-                'location' => 'required'
+                'location' => 'required',
+                'tags' => 'nullable'
             ]);
 
-            GalleryModel::addItem($attr['title'], $attr['location'], auth()->id());
+            if (!isset($attr['tags'])) {
+                $attr['tags'] = '';
+            }
+
+            GalleryModel::addItem($attr['title'], $attr['location'], $attr['tags'], auth()->id());
 
             return back()->with('flash.success', __('app.gallery_item_added'));
         } catch (\Exception $e) {

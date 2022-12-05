@@ -2131,7 +2131,8 @@ window.vue = new Vue({
       marketplace_advert_by: 'By :name',
       linkfilter_title: 'Visit :url',
       linkfilter_hint: 'You are about to visit :url. :project is not responsible for its content. Do you want to proceed?',
-      gallery_item_by: 'By :name'
+      gallery_item_by: 'By :name',
+      noTagsSpecified: 'No tags specified'
     }
   },
   methods: {
@@ -2575,7 +2576,21 @@ window.vue = new Vue({
       }
 
       var userHint = window.vue.lang.gallery_item_by.replace(':name', item.user.name);
-      var html = "\n                <div class=\"gallery-item\">\n                    <div class=\"gallery-item-image is-pointer\" style=\"background-image: url('" + image + "');\" onclick=\"location.href = '" + window.location.origin + '/gallery/item/' + item.slug + "';\"></div>\n\n                    <div class=\"gallery-item-info\">\n                        <div class=\"gallery-item-info-title\">\n                            " + item.title + "\n                            " + dropdownMenu + "\n                        </div>\n\n                        <div class=\"gallery-item-info-location\"><i class=\"fas fa-map-marker-alt is-color-dark-grey\"></i> " + item.location + "</div>\n                    </div>\n\n                    <div class=\"gallery-item-footer\">\n                        <div class=\"gallery-item-footer-inner\">\n                            <div class=\"gallery-item-footer-user\"><a href=\"" + window.location.origin + '/user/' + item.user.slug + "\">" + userHint + "</a></div>\n                            <div class=\"gallery-item-footer-likes\">\n                                <span id=\"count-like-" + item.id + "\">" + item.likes + "</span>&nbsp;\n                                <span><a href=\"javascript:void(0);\" onclick=\"window.vue.toggleLike(" + item.id + ", 'action-like-" + item.id + "', 'count-like-" + item.id + "');\"><i class=\"far fa-heart\" id=\"action-like-" + item.id + "\"></i></a></span>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            ";
+      var tags = '';
+
+      if (item.tags.length > 0) {
+        item.tags.forEach(function (tag, index) {
+          if (tag.length > 0) {
+            tags += "\n                            <div class=\"gallery-item-info-tag\">\n                                <a href=\"" + window.location.origin + '/gallery?tag=' + tag + "\">#" + tag + "</a>\n                            </div>\n                        ";
+          }
+        });
+      }
+
+      if (tags.length <= 0) {
+        tags = '<i>' + window.vue.lang.noTagsSpecified + '</i>';
+      }
+
+      var html = "\n                <div class=\"gallery-item\">\n                    <div class=\"gallery-item-image is-pointer\" style=\"background-image: url('" + image + "');\" onclick=\"location.href = '" + window.location.origin + '/gallery/item/' + item.slug + "';\"></div>\n\n                    <div class=\"gallery-item-info\">\n                        <div class=\"gallery-item-info-title\">\n                            " + item.title + "\n                            " + dropdownMenu + "\n                        </div>\n\n                        <div class=\"gallery-item-info-location\"><i class=\"fas fa-map-marker-alt is-color-dark-grey\"></i> " + item.location + "</div>\n                    \n                        <div class=\"gallery-item-info-tags\">\n                            " + tags + "\n                        </div>\n                    </div>\n\n                    <div class=\"gallery-item-footer\">\n                        <div class=\"gallery-item-footer-inner\">\n                            <div class=\"gallery-item-footer-user\"><a href=\"" + window.location.origin + '/user/' + item.user.slug + "\">" + userHint + "</a></div>\n                            <div class=\"gallery-item-footer-likes\">\n                                <span id=\"count-like-" + item.id + "\">" + item.likes + "</span>&nbsp;\n                                <span><a href=\"javascript:void(0);\" onclick=\"window.vue.toggleLike(" + item.id + ", 'action-like-" + item.id + "', 'count-like-" + item.id + "');\"><i class=\"far fa-heart\" id=\"action-like-" + item.id + "\"></i></a></span>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            ";
       return html;
     },
     toggleLike: function toggleLike(item, heart, count) {

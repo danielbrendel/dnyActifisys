@@ -24,8 +24,16 @@
             <div class="gallery-text">{!! \App\AppModel::getGalleryText() !!}</div>
         </div>
 
-        <div class="gallery-submit">
-            <a class="button is-success" href="javascript:void(0);" onclick="@auth window.vue.bShowGalleryUpload = true; @elseguest window.vue.bShowLogin = true; @endauth">{{ __('app.gallery_submit') }}</a>
+        <div>
+            <div class="gallery-submit is-inline-block">
+                <a class="button is-success" href="javascript:void(0);" onclick="@auth window.vue.bShowGalleryUpload = true; @elseguest window.vue.bShowLogin = true; @endauth">{{ __('app.gallery_submit') }}</a>
+            </div>
+
+            @if (isset($_GET['tag']))
+            <div class="is-inline-block">
+                <a class="is-color-grey" href="{{ url('/gallery') }}">{{ __('app.clear_tag', ['tag' => $_GET['tag']]) }}</a>
+            </div>
+            @endif
         </div>
 
         <div class="field">
@@ -69,6 +77,13 @@
                             <input type="text" name="location" required/>
                         </div>
                     </div>
+
+                    <div class="field">
+                        <label class="label">{{ __('app.tags') }}</label>
+                        <div class="control">
+                            <input type="text" name="tags" placeholder="{{ __('app.tags_example_placeholder') }}"/>
+                        </div>
+                    </div>
                 </form>
             </section>
             <footer class="modal-card-foot is-stretched">
@@ -83,6 +98,12 @@
     <script>
         window.paginate = null;
 
+        @if (isset($_GET['tag']))
+        window.filterByTag = '{{ $_GET['tag'] }}';
+        @else
+        window.filterByTag = null;
+        @endif
+
         window.fetchGalleryItems = function() {
                 if (window.paginate === null) {
                     document.getElementById('gallery').innerHTML = '<div id="spinner"><center><i class="fas fa-spinner fa-spin"></i></center></div>';
@@ -94,7 +115,7 @@
                     document.getElementById('loadmore').remove();
                 }
 
-                window.vue.ajaxRequest('post', '{{ url('/gallery/fetch') }}', { paginate: window.paginate }, function(response){
+                window.vue.ajaxRequest('post', '{{ url('/gallery/fetch') }}', { paginate: window.paginate, tag: window.filterByTag }, function(response){
                     if (response.code == 200) {
                         if (document.getElementById('spinner')) {
                             document.getElementById('spinner').remove();
@@ -113,7 +134,7 @@
                                 document.getElementById('gallery').innerHTML += '<div id="loadmore"><center><a class="is-def-color" href="javascript:void(0);" onclick="window.fetchGalleryItems();">{{ __('app.load_more') }}</a></center></div>';
                             }
                         } else {
-                            document.getElementById('gallery').innerHTML += '<div class="is-def-color"><br/>{{ __('app.gallery_no_items_found') }}</div>';
+                            document.getElementById('gallery').innerHTML += '<div class="is-def-color"><center><br/>{{ __('app.gallery_no_items_found') }}</center></div>';
                         }
                     }
                 });

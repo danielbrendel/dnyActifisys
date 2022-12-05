@@ -630,6 +630,7 @@
             window.vue.lang.linkfilter_title = '{{ __('app.linkfilter_title') }}';
             window.vue.lang.linkfilter_hint = '{{ __('app.linkfilter_hint') }}';
             window.vue.lang.gallery_item_by = '{{ __('app.gallery_item_by') }}';
+            window.vue.lang.noTagsSpecified = '{{ __('app.no_tags_specified') }}';
 
             @auth
                 window.user = {};

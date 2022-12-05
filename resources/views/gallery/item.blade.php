@@ -74,6 +74,16 @@
                     </div>
 
                     <div class="gallery-item-info-location"><i class="fas fa-map-marker-alt is-color-dark-grey"></i> {{ $item->location }}</div>
+                
+                    <div class="gallery-item-info-tags">
+                        @foreach ($item->tags as $tag)
+                            @if (strlen($tag) > 0)
+                                <div class="gallery-item-info-tag">
+                                    <a href="{{ url('/gallery?tag=' . $tag) }}">#{{ $tag }}</a>
+                                </div>
+                            @endif
+                        @endforeach
+                    </div>
                 </div>
 
                 <div class="gallery-item-footer">

@@ -541,5 +541,9 @@ return [
     'activity_upcoming' => 'Bevorstehende Aktivität',
     'activity_upcoming_long' => 'Die Aktivität <a href=":item">:title</a> findet morgen statt.',
     'email_on_act_upcoming_notice' => 'Ich möchte an bevorstehende Aktivitäten erinnert werden',
-    'invalid_marketplace_banner_image' => 'Die angegebene Datei ist kein gültiges Bild'
+    'invalid_marketplace_banner_image' => 'Die angegebene Datei ist kein gültiges Bild',
+    'tags' => 'Tags',
+    'tags_example_placeholder' => 'Beispiel: tagbsp1 tag-bsp2 tag-langes-bsp3',
+    'no_tags_specified' => 'Keine Tags angegeben',
+    'clear_tag' => '#:tag leeren'
 ];

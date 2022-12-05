@@ -185,11 +185,12 @@ class GalleryModel extends Model
      * 
      * @param $title
      * @param $location
+     * @param $tags
      * @param $userId
      * @return void
      * @throws \Exception
      */
-    public static function addItem($title, $location, $userId)
+    public static function addItem($title, $location, $tags, $userId)
     {
         try {
             $att = request()->file('image');
@@ -220,6 +221,7 @@ class GalleryModel extends Model
                 $post->image_thumb = $fname . '_thumb.' . $fext;
                 $post->title = $title;
                 $post->location = $location;
+                $post->tags = preg_replace('/\s+/', ' ', str_replace('#', '', trim($tags)));
                 $post->userId = $userId;
                 $post->slug = '';
                 $post->save();
@@ -280,18 +282,33 @@ class GalleryModel extends Model
      * Fetch gallery items
      * 
      * @param $paginate
+     * @param $tag
      * @return mixed
      * @throws \Exception
      */
-    public static function fetch($paginate = null)
+    public static function fetch($paginate = null, $tag = null)
     {
         try {
             $query = null;
 
             if ($paginate !== null) {
-                $query = GalleryModel::where('id', '<', $paginate)->orderBy('id', 'desc')->limit(env('APP_GALLERYPACKLIMIT'));
+                $query = GalleryModel::where('id', '<', $paginate);
+
+                if (($tag !== null) && (is_string($tag))) {
+                    $query->where('tags', 'LIKE', '%' . $tag . '%');
+                }
+
+                $query->orderBy('id', 'desc')->limit(env('APP_GALLERYPACKLIMIT'));
             } else {
-                $query = GalleryModel::orderBy('id', 'desc')->limit(env('APP_GALLERYPACKLIMIT'));
+                if (($tag !== null) && (is_string($tag))) {
+                    $query = GalleryModel::where('tags', 'LIKE', '%' . $tag . '%');
+                }
+
+                if ($query === null) {
+                    $query = GalleryModel::orderBy('id', 'desc')->limit(env('APP_GALLERYPACKLIMIT'));
+                } else {
+                    $query->orderBy('id', 'desc')->limit(env('APP_GALLERYPACKLIMIT'));
+                }
             }
 
             return $query->get();
