@@ -17,14 +17,14 @@
 @section('content')
     <div class="column is-2"></div>
 
-    <div class="column is-8" id="feed-left">
-        <div>
+    <div class="column is-8 is-no-padding">
+        <div class="is-side-padding">
             <h3>{{ __('app.gallery_subtitle') }}</h2>
 
             <div class="gallery-text">{!! \App\AppModel::getGalleryText() !!}</div>
         </div>
 
-        <div>
+        <div class="is-side-padding">
             <div class="gallery-submit is-inline-block">
                 <a class="button is-success" href="javascript:void(0);" onclick="@auth window.vue.bShowGalleryUpload = true; @elseguest window.vue.bShowLogin = true; @endauth">{{ __('app.gallery_submit') }}</a>
             </div>

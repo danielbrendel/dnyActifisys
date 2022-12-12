@@ -1327,6 +1327,13 @@ h2, h3 {
     width: 360px;
   }
 }
+@media screen and (max-width: 1087px) {
+  .mp-advert {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
 
 .mp-advert-banner {
   width: 100%;
@@ -1438,6 +1445,13 @@ h2, h3 {
 @media screen and (max-width: 590px) {
   .gallery-item {
     width: 360px;
+  }
+}
+@media screen and (max-width: 1087px) {
+  .gallery-item {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
@@ -2068,4 +2082,12 @@ a.is-color-grey:hover {
 
 .is-margin-top-10 {
   margin-top: 10px;
+}
+
+.is-no-padding {
+  padding: unset !important;
+}
+
+.is-side-padding {
+  padding: 0.75rem;
 }

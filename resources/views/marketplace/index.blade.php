@@ -17,14 +17,14 @@
 @section('content')
     <div class="column is-2"></div>
 
-    <div class="column is-8" id="feed-left">
-        <div>
+    <div class="column is-8 is-no-padding">
+        <div class="is-side-padding">
             <h3>{{ __('app.marketplace_subtitle') }}</h2>
 
             <div class="marketplace-text">{!! \App\AppModel::getMarketplaceText() !!}</div>
         </div>
 
-        <div class="field has-addons fixed-form is-default-padding">
+        <div class="field has-addons fixed-form is-side-padding">
             <div class="control">
                 <select onchange="window.marketCategory = this.value; window.paginate = null; window.listAdverts();">
                     <option value="0">{{ __('app.category_all') }}</option>

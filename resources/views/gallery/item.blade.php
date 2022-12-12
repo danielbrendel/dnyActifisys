@@ -17,7 +17,7 @@
 @section('content')
     <div class="column is-4"></div>
 
-    <div class="column is-4">
+    <div class="column is-4 is-no-padding">
         <div id="gallery">
             <div class="gallery-item">
                 <div class="gallery-item-image is-pointer" style="background-image: url('{{ asset('/gfx/gallery/' . $item->image_thumb) }}');" onclick="window.open('{{ asset('/gfx/gallery/' . $item->image_full) }}');"></div>
