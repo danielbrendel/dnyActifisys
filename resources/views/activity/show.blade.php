@@ -214,7 +214,7 @@
                     </div>
 
                     <div class="buttons-right is-inline-block">
-                        @if ((new DateTime('now')) < (new DateTime(date('Y-m-d H:i:s', strtotime($activity->date_of_activity_from)))))
+                        @if ((new DateTime('now')) < (new DateTime(date('Y-m-d H:i:s', strtotime($activity->date_of_activity_till)))))
                             @auth 
                                 @if ($activity->owner !== auth()->id())
                                     @if (!$activity->selfParticipated)
