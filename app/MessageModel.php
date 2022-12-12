@@ -167,9 +167,11 @@ class MessageModel extends Model
 
             foreach ($channels as &$item) {
                 $item->lm = static::where('channel', '=', $item->channel)->orderBy('id', 'desc')->first();
-                if ($item->lm->senderId === auth()->id()) {
-                    if (!$item->lm->seen) {
-                        $item->lm->seen = true;
+                if ($item->lm) {
+                    if ($item->lm->senderId === auth()->id()) {
+                        if (!$item->lm->seen) {
+                            $item->lm->seen = true;
+                        }
                     }
                 }
             }

@@ -51,7 +51,12 @@ class MessageController extends Controller
             $direction = request('direction', null);
 
             $data = MessageModel::fetch(auth()->id(), env('APP_MESSAGEPACKLIMIT'), $paginate, $direction);
-            foreach ($data as &$item) {
+            foreach ($data as $key => &$item) {
+                if (!$item->lm) {
+                    unset($data[$key]);
+                    continue;
+                }
+
                 if ($item->lm->senderId === auth()->id()) {
                     $item->lm->user = User::get($item->lm->userId);
                 } else {
@@ -63,7 +68,7 @@ class MessageController extends Controller
                 $item->lm->diffForHumans = $item->lm->created_at->diffForHumans();
             }
 
-            return response()->json(array('code' => 200, 'data' => $data));
+            return response()->json(array('code' => 200, 'data' => array_values($data->toArray())));
         } catch (\Exception $e) {
             return response()->json(array('code' => 500, 'msg' => $e->getMessage()));
         }
