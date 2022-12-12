@@ -574,13 +574,13 @@ window.vue = new Vue({
             }
 
             let html = `
-                <div class="messages-item ` + ((!item.lm.seen) ? 'is-new-message' : '') + `">
+                <div class="messages-item is-pointer ` + ((!item.lm.seen) ? 'is-new-message' : '') + `" onclick="location.href = window.location.origin + '/messages/show/` + item.lm.id +`';">
                     <div class="messages-item-avatar">
                         <img src="` + window.location.origin + `/gfx/avatars/` + item.lm.user.avatar + `">
                     </div>
         
                     <div class="messages-item-name">
-                        <a href="` + window.location.origin + `/user/` + item.lm.user.name + `">` + item.lm.user.name + `</a>
+                        <a href="` + window.location.origin + `/user/` + item.lm.user.slug + `">` + item.lm.user.name + `</a>
                     </div>
         
                     <div class="messages-item-subject">
