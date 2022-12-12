@@ -2132,7 +2132,8 @@ window.vue = new Vue({
       linkfilter_title: 'Visit :url',
       linkfilter_hint: 'You are about to visit :url. :project is not responsible for its content. Do you want to proceed?',
       gallery_item_by: 'By :name',
-      noTagsSpecified: 'No tags specified'
+      noTagsSpecified: 'No tags specified',
+      imageSent: 'Image sent'
     }
   },
   methods: {
@@ -2441,6 +2442,10 @@ window.vue = new Vue({
 
       if (message.length > 20) {
         message = message.substr(0, 20) + '...';
+      }
+
+      if (message.indexOf("<p><a href=\"") >= 0) {
+        message = '<i class="far fa-image is-color-dark-grey"></i>&nbsp;' + window.vue.lang.imageSent;
       }
 
       var html = "\n                <div class=\"messages-item " + (!item.lm.seen ? 'is-new-message' : '') + "\">\n                    <div class=\"messages-item-avatar\">\n                        <img src=\"" + window.location.origin + "/gfx/avatars/" + item.lm.user.avatar + "\">\n                    </div>\n        \n                    <div class=\"messages-item-name\">\n                        <a href=\"" + window.location.origin + "/user/" + item.lm.user.name + "\">" + item.lm.user.name + "</a>\n                    </div>\n        \n                    <div class=\"messages-item-subject\">\n                        <a href=\"" + window.location.origin + "/messages/show/" + item.lm.id + "\">" + item.lm.subject + "</a>\n                    </div>\n\n                    <div class=\"message-item-lastmsg\">\n                        <a href=\"" + window.location.origin + "/messages/show/" + item.lm.id + "\">" + item.lm.sender.name + ": " + message + "</a>\n                    </div>\n        \n                    <div class=\"messages-item-date\" title=\"" + item.lm.created_at + "\">\n                        " + item.lm.diffForHumans + "\n                    </div>\n                </div>\n            ";

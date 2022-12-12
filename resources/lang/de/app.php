@@ -545,5 +545,6 @@ return [
     'tags' => 'Tags',
     'tags_example_placeholder' => 'Beispiel: tagbsp1 tag-bsp2 tag-langes-bsp3',
     'no_tags_specified' => 'Keine Tags angegeben',
-    'clear_tag' => '#:tag leeren'
+    'clear_tag' => '#:tag leeren',
+    'image_sent' => 'Bild gesendet'
 ];

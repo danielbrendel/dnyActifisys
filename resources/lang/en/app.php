@@ -549,5 +549,6 @@ return [
     'tags' => 'Tags',
     'tags_example_placeholder' => 'Example: tagexample1 tag-example2 tag-long-example3',
     'no_tags_specified' => 'No tags specified',
-    'clear_tag' => 'Clear #:tag'
+    'clear_tag' => 'Clear #:tag',
+    'image_sent' => 'Image sent'
 ];

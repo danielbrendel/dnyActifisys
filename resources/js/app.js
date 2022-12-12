@@ -75,7 +75,8 @@ window.vue = new Vue({
             linkfilter_title: 'Visit :url',
             linkfilter_hint: 'You are about to visit :url. :project is not responsible for its content. Do you want to proceed?',
             gallery_item_by: 'By :name',
-            noTagsSpecified: 'No tags specified'
+            noTagsSpecified: 'No tags specified',
+            imageSent: 'Image sent'
         }
     },
 
@@ -566,6 +567,10 @@ window.vue = new Vue({
             let message = item.lm.message;
             if (message.length > 20) {
                 message = message.substr(0, 20) + '...';
+            }
+
+            if (message.indexOf(`<p><a href="`) >= 0) {
+                message = '<i class="far fa-image is-color-dark-grey"></i>&nbsp;' + window.vue.lang.imageSent;
             }
 
             let html = `

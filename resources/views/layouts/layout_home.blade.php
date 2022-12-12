@@ -631,6 +631,7 @@
             window.vue.lang.linkfilter_hint = '{{ __('app.linkfilter_hint') }}';
             window.vue.lang.gallery_item_by = '{{ __('app.gallery_item_by') }}';
             window.vue.lang.noTagsSpecified = '{{ __('app.no_tags_specified') }}';
+            window.vue.lang.imageSent = '{{ __('app.image_sent') }}';
 
             @auth
                 window.user = {};
