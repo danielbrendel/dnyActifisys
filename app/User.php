@@ -391,6 +391,29 @@ class User extends Authenticatable
     }
 
     /**
+     * Save allow-messages value
+     * 
+     * @param $value
+     * @param $id optional
+     * @return void
+     * @throws Exception
+     */
+    public static function saveAllowMessagesValue($value, $id = null)
+    {
+        try {
+            if ($id === null) {
+                $id = auth()->id();
+            }
+
+            $user = User::get($id);
+            $user->allow_messages = (bool)$value;
+            $user->save();
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
      * Save notification flags
      *
      * @param $attr

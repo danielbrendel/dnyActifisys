@@ -427,6 +427,30 @@ class MemberController extends Controller
     }
 
     /**
+     * Save allow-messages value
+     *
+     * @return JsonResponse
+     */
+    public function setAllowMessagesValue()
+    {
+        try {
+            $attr = request()->validate([
+                'value' => 'nullable'
+            ]);
+
+            if (!isset($attr['value'])) {
+                $attr['value'] = 0;
+            }
+
+            User::saveAllowMessagesValue($attr['value']);
+
+            return response()->json(array('code' => 200, 'value' => $attr['value']));
+        } catch (Exception $e) {
+            return response()->json(array('code' => 500, 'msg' => $e->getMessage()));
+        }
+    }
+
+    /**
      * Save notification flags
      *
      * @return \Illuminate\Http\RedirectResponse

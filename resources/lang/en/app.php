@@ -436,6 +436,8 @@ return [
     'payment_failed' => 'The payment has failed',
     'payment_succeeded' => 'Payment has succeeded',
     'public_profile_label' => 'Allow guests to view my profile',
+    'allow_messages_label' => 'Allow users to message you',
+    'user_disabled_private_messaging' => 'This user has deactivated their messaging',
     'no_account_yet' => 'No account yet? Sign up',
     'no_more_messages' => 'No more messages',
     'running_activities' => 'Running activities',

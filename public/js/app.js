@@ -2745,6 +2745,15 @@ window.vue = new Vue({
         }
       });
     },
+    toggleAllowMessages: function toggleAllowMessages(obj) {
+      this.ajaxRequest('post', window.location.origin + '/settings/privacy/allowmessages', {
+        value: obj.checked
+      }, function (response) {
+        if (response.code !== 200) {
+          obj.checked = !obj.checked;
+        }
+      });
+    },
     queryLocation: function queryLocation(src, dst, fill) {
       if (src.value.length >= 2) {
         this.ajaxRequest('get', window.location.origin + '/locations/query?term=' + src.value, {}, function (response) {

@@ -187,6 +187,10 @@ class MessageController extends Controller
                 throw new \Exception(__('app.user_not_found_or_locked'));
             }
 
+            if (!$receiver->allow_messages) {
+                throw new \Exception(__('app.user_disabled_private_messaging'));
+            }
+
             if (IgnoreModel::hasIgnored($receiver->id, auth()->id())) {
                 return back()->with('flash.error', __('app.user_not_found_or_locked'));
             }

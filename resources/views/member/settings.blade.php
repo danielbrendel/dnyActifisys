@@ -154,6 +154,11 @@
                 <input type="checkbox" data-role="checkbox" data-style="2" data-caption="{{ __('app.public_profile_label') }}" value="1" onclick="window.vue.togglePublicProfile(this);" @if ($self->public_profile) {{ 'checked' }} @endif>
                 <br/><br/>
             </div>
+
+            <div>
+                <input type="checkbox" data-role="checkbox" data-style="2" data-caption="{{ __('app.allow_messages_label') }}" value="1" onclick="window.vue.toggleAllowMessages(this);" @if ($self->allow_messages) {{ 'checked' }} @endif>
+                <br/><br/>
+            </div>
         </div>
 
         <div id="tabNotifications-form" class="is-hidden">

@@ -74,6 +74,7 @@ Route::post('/settings/notifications', 'MemberController@saveNotifications');
 Route::post('/settings/verify', 'MemberController@verifyAccount');
 Route::post('/settings/delete', 'MemberController@deleteUser');
 Route::post('/settings/privacy/publicprofile', 'MemberController@setPublicProfileValue');
+Route::post('/settings/privacy/allowmessages', 'MemberController@setAllowMessagesValue');
 Route::get('/favorites/fetch', 'FavoritesController@fetch');
 
 Route::get('/notifications/list', 'NotificationController@list');

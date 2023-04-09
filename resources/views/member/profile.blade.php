@@ -75,7 +75,9 @@
                             <div><a href="{{ url('/user/' . $user->id . '/fav/add') }}">{{ __('app.add_favorite') }}</a></div>
                         @endif
 
-                        <div><a href="{{ url('/messages/create?userId=' . $user->id) }}">{{ __('app.send_message') }}</a></div>
+                        @if ($user->allow_messages)
+                            <div><a href="{{ url('/messages/create?userId=' . $user->id) }}">{{ __('app.send_message') }}</a></div>
+                        @endif
 
                         <div><a href="{{ url('/user/' . $user->id . '/report') }}">{{ __('app.report') }}</a></div>
 
