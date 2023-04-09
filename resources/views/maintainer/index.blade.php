@@ -26,7 +26,7 @@
             </div>
 
             <div>
-                <div><strong>{{ env('APP_NAME') }}</strong></div>
+                <div><strong>{{ env('APP_PROJECTNAME') }}</strong></div>
                 <div><strong>Author: </strong>{{ env('APP_AUTHOR') }}</div>
                 <div><strong>Codename: </strong>{{ env('APP_CODENAME') }}</div>
                 <div><strong>Contact: </strong>{{ env('APP_CONTACT') }}</div>
