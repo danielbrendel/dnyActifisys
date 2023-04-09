@@ -64,6 +64,9 @@ class MailerModel extends Model
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
             $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
+            //Set encoding
+            $mail->CharSet = 'utf-8';
+
             //Recipients
             $mail->setFrom($this->fromAddress, $this->fromName);
             $mail->addAddress($to);     // Add a recipient
