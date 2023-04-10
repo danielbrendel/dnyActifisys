@@ -212,7 +212,7 @@
             @endguest
 
             <div class="container">
-                <div class="notifications" id="notifications">
+                <div class="notifications @if ((!isset($show_header)) || ($show_header == false)) {{ 'notifications-no-header' }} @endif" id="notifications">
                     <center><div class="notifications-arrow-up"></div></center>
 
                     <div>
