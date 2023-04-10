@@ -330,6 +330,7 @@ return [
 	'added_to_favorites' => '<a href=":profile">:name</a> hat dich zu den eigenen Favoriten hinzugefügt',
 	'user_replied_comment' => '<a href=":profile">:name</a> hat auf deinen <a href=":item">Kommentar</a> geantwortet.',
 	'user_replied_comment_short' => 'Antwort auf Kommentar',
+    'activity_created_short' => 'Neue Aktivität erstellt',
 	'activity_created_long' => '<a href=":profile">:name</a> hat eine an <a href=":item">Aktivität</a> erstellt: :title',
 	'activity_created' => 'Aktivität wurde erstellt',
     'verify_account' => 'Konto verifizieren',

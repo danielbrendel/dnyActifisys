@@ -330,6 +330,7 @@ return [
 	'added_to_favorites' => '<a href=":profile">:name</a> has added you to their favorites',
 	'user_replied_comment' => '<a href=":profile">:name</a> has replied to your <a href=":item">comment</a>',
 	'user_replied_comment_short' => 'Thread reply',
+    'activity_created_short' => 'New activity created',
 	'activity_created_long' => '<a href=":profile">:name</a> has created an <a href=":item">activity</a>: :title',
 	'activity_created' => 'Activity created',
     'verify_account' => 'Verify account',
