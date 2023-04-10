@@ -110,6 +110,20 @@
 
                 <br/>
                 <div>
+                    <div class="field has-addons">
+                        <div class="control">
+                            <input id="inpFilterText" class="input" type="text" @if (isset($_GET['text'])) value="{{ $_GET['text'] }}" @endif onkeydown="if (event.keyCode === 13) { document.getElementById('btnFilterText').click(); }" placeholder="{{ __('app.filter_by_text') }}">
+                        </div>
+                        <div class="control">
+                            <a id="btnFilterText" class="button is-info" href="javascript:void(0);" onclick="location.href = window.location.origin + '/?text=' + document.getElementById('inpFilterText').value;">
+                                {{ __('app.do_filter') }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <br/>
+                <div>
                     <div class="field">
                         <div class="control">
                             <a id="btnClearFilter" class="button is-info" href="javascript:void(0);" onclick="window.vue.clearFilterCookies(); location.href = '{{ url('/') }}';">
@@ -170,7 +184,7 @@
         {
             document.getElementById('load-spinner').innerHTML = '<center><i class="fas fa-spinner fa-spin"></i></center>';
 
-            window.vue.ajaxRequest('get', '{{ url('/activity/fetch') }}/' + ((window.paginate !== null) ? '?paginate=' + window.paginate : '?paginate=null') + '&location=' + window.locationIdent + "&date_from=" + window.dateFrom + "&date_till=" + window.dateTill + "<?= ((isset($_GET['tag'])) ? '&tag=' . $_GET['tag'] : '') ?>" + "<?= ((isset($_GET['category'])) ? '&category=' . $_GET['category'] : '') ?>", {}, function(response) {
+            window.vue.ajaxRequest('get', '{{ url('/activity/fetch') }}/' + ((window.paginate !== null) ? '?paginate=' + window.paginate : '?paginate=null') + '&location=' + window.locationIdent + "&date_from=" + window.dateFrom + "&date_till=" + window.dateTill + "<?= ((isset($_GET['tag'])) ? '&tag=' . $_GET['tag'] : '') ?>" + "<?= ((isset($_GET['category'])) ? '&category=' . $_GET['category'] : '') ?>" + "<?= ((isset($_GET['text'])) ? '&text=' . $_GET['text'] : '') ?>", {}, function(response) {
                 if (response.code === 200) {
                     if (response.data.length > 0) {
                         document.getElementById('load-spinner').innerHTML = '';

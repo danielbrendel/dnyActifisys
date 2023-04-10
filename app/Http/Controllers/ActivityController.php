@@ -244,7 +244,12 @@ class ActivityController extends Controller
                 $category = null;
             }
 
-            $data = ActivityModel::fetchActivities($location, $paginate, $dateFrom, $dateTill, $tag, $category)->toArray();
+            $text = request('text', null);
+            if ($text === '') {
+                $text = null;
+            }
+
+            $data = ActivityModel::fetchActivities($location, $paginate, $dateFrom, $dateTill, $tag, $category, $text)->toArray();
             foreach ($data as $key => &$item) {
                 $item['_type'] = 'activity';
 

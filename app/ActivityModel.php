@@ -253,10 +253,11 @@ class ActivityModel extends Model
      * @param null $dateTill
      * @param null $tag
      * @param null $category
+     * @param null $text
      * @return mixed
      * @throws Exception
      */
-    public static function fetchActivities($location = null, $paginate = null, $dateFrom = null, $dateTill = null, $tag = null, $category = null)
+    public static function fetchActivities($location = null, $paginate = null, $dateFrom = null, $dateTill = null, $tag = null, $category = null, $text = null)
     {
         try {
             $activities = ActivityModel::where(function($query){
@@ -305,6 +306,14 @@ class ActivityModel extends Model
 
             if ($category !== null) {
                 $activities->where('category', '=', $category);
+            }
+
+            if ($text !== null) {
+                $activities->where(function($query) use ($text) {
+                    $query->whereRaw('LOWER(title) LIKE ?', ['%' . strtolower($text) . '%'])
+                    ->orWhereRaw('LOWER(description) LIKE ?', ['%' . strtolower($text) . '%'])
+                    ->orWhereRaw('LOWER(location) LIKE ?', ['%' . strtolower($text) . '%']);
+                });
             }
 
             return $activities->orderBy('date_of_activity_from', 'asc')->limit(env('APP_ACTIVITYPACKLIMIT'))->get();

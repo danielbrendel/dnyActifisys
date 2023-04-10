@@ -141,6 +141,7 @@ return [
     'do_filter' => 'Filter',
     'filter_by_location' => 'Filter by location',
     'filter_by_tag' => 'Filter by tag',
+    'filter_by_text' => 'Filter by text',
     'collapse_filter' => 'Collapse',
     'load_more' => 'Load more',
     'no_more_activities' => 'No more activities',
