@@ -223,7 +223,7 @@
                     <div class="notifications-content" id="notification-content"></div>
                 </div>
 
-                <div class="favorites" id="favorites">
+                <div class="favorites @if ((!isset($show_header)) || ($show_header == false)) {{ 'notifications-no-header' }} @endif" id="favorites">
                     <center><div class="favorites-arrow-up"></div></center>
 
                     <div>

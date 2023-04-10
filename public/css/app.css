@@ -1759,6 +1759,10 @@ h2, h3 {
   display: none;
 }
 
+.notifications-no-header {
+  top: -20px !important;
+}
+
 .favorites {
   position: absolute;
   top: -203px;
