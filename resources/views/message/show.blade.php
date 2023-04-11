@@ -100,7 +100,7 @@
                     }
 
                     if (response.data.length > 0) {
-                        content.innerHTML += '<div id="loadmore"><center><br/><i class="fas fa-arrow-down is-pointer is-color-black" onclick="window.queryMessages();"></i></center></div>';
+                        content.innerHTML += '<div id="loadmore" class="is-pointer" onclick="window.queryMessages();"><center><br/>{{ __('app.load_more') }}</center></div>';
                     }
                 } else {
                     console.error(response.msg);
