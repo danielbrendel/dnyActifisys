@@ -42,8 +42,17 @@
 
         <div id="tabProfile-form">
             <div>
-                <span><img class="is-rounded-image" src="{{ asset('gfx/avatars/' . $self->avatar) }}" alt="avatar"></span>
-                <span><a href="{{ url('/user/' . $self->slug) }}">{{ __('app.view_profile') }}</a></span>
+                <div class="settings-profile-avatar is-inline-block" style="background-image: url('{{ asset('gfx/avatars/' . $self->avatar) }}');" onmouseover="document.getElementById('settings-profile-avatar-overlay').classList.remove('settings-profile-avatar-overlay-hide');" onmouseout="document.getElementById('settings-profile-avatar-overlay').classList.add('settings-profile-avatar-overlay-hide');">
+                    <div id="settings-profile-avatar-overlay" class="settings-profile-avatar-overlay settings-profile-avatar-overlay-hide" onclick="window.vue.sendImage('inpImage', 'frmSendImage');"><i class="fas fa-upload fa-2x"></i></div>
+                </div>
+
+                <div class="settings-profile-view is-inline-block"><a href="{{ url('/user/' . $self->slug) }}">{{ __('app.view_profile') }}</a></div>
+
+                <form method="POST" action="{{ url('/settings/avatar') }}" enctype="multipart/form-data" id="frmSendImage">
+                    @csrf
+
+                    <input type="file" name="avatar" id="inpImage" class="is-hidden">
+                </form>
             </div>
 
             <br/>
@@ -96,13 +105,6 @@
                     <label class="label">{{ __('app.bio') }}</label>
                     <div class="control">
                         <textarea name="bio">{{ $self->bio }}</textarea>
-                    </div>
-                </div>
-
-                <div class="field">
-                    <label class="label">{{ __('app.avatar') }}</label>
-                    <div class="control">
-                        <input type="file" data-role="file" data-type="2" name="avatar">
                     </div>
                 </div>
 

@@ -1161,5 +1161,12 @@ window.vue = new Vue({
 
             window.vue.bShowLinkFilter = true;
         },
+
+        sendImage: function(input, form) {
+            document.getElementById(input).onchange = function() {
+                document.getElementById(form).submit();
+            };
+            document.getElementById(input).click();
+        },
     }
 });

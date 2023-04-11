@@ -54,7 +54,7 @@
 
             <div class="field is-margin-top-10">
                 <span><a class="button is-link" href="javascript:void(0);" onclick="document.getElementById('frmSendMessage').submit();">{{ __('app.send') }}</a></span>
-                <span>&nbsp;<a class="is-underline" href="javascript:void(0);" onclick="window.sendImage();">{{ __('app.send_image') }}</a></span>
+                <span>&nbsp;<a class="is-underline" href="javascript:void(0);" onclick="window.vue.sendImage('inpImage', 'frmSendImage');">{{ __('app.send_image') }}</a></span>
             </div>
         </div>
 
@@ -106,13 +106,6 @@
                     console.error(response.msg);
                 }
             });
-        };
-
-        window.sendImage = function() {
-            document.getElementById('inpImage').onchange = function() {
-                document.getElementById('frmSendImage').submit();
-            };
-            document.getElementById('inpImage').click();
         };
 
         document.addEventListener('DOMContentLoaded', function() {

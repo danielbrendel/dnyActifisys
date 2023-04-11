@@ -68,6 +68,7 @@ Route::get('/user/{id}/ignore/remove', 'MemberController@ignoreRemove');
 Route::get('/user/device/token', 'MemberController@setDeviceToken');
 Route::get('/settings', 'MemberController@viewSettings');
 Route::post('/settings', 'MemberController@saveSettings');
+Route::post('/settings/avatar', 'MemberController@saveAvatar');
 Route::post('/settings/password', 'MemberController@savePassword');
 Route::post('/settings/email', 'MemberController@saveEMail');
 Route::post('/settings/notifications', 'MemberController@saveNotifications');

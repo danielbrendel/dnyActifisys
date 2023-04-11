@@ -2793,6 +2793,13 @@ window.vue = new Vue({
       document.getElementById('linkfilter-title').innerHTML = title;
       document.getElementById('linkfilter-hint').innerHTML = hint;
       window.vue.bShowLinkFilter = true;
+    },
+    sendImage: function sendImage(input, form) {
+      document.getElementById(input).onchange = function () {
+        document.getElementById(form).submit();
+      };
+
+      document.getElementById(input).click();
     }
   }
 });

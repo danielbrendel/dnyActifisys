@@ -358,6 +358,61 @@ class MemberController extends Controller
     }
 
     /**
+     * Save avatar
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function saveAvatar()
+    {
+        try {
+            $this->validateAuth();
+            
+            $av = request()->file('avatar');
+            if ($av != null) {
+                $tmpName = md5(random_bytes(55));
+
+                $av->move(base_path() . '/public/gfx/avatars', $tmpName . '.' . $av->getClientOriginalExtension());
+
+                list($width, $height) = getimagesize(base_path() . '/public/gfx/avatars/' . $tmpName . '.' . $av->getClientOriginalExtension());
+
+                $avimg = imagecreatetruecolor(192, 192);
+                if (!$avimg)
+                    throw new \Exception('imagecreatetruecolor() failed');
+
+                $srcimage = null;
+                $newname =  md5_file(base_path() . '/public/gfx/avatars/' . $tmpName . '.' . $av->getClientOriginalExtension()) . '.' . $av->getClientOriginalExtension();
+                switch (AppModel::getImageType(base_path() . '/public/gfx/avatars/' . $tmpName . '.' . $av->getClientOriginalExtension())) {
+                    case IMAGETYPE_PNG:
+                        $srcimage = imagecreatefrompng(base_path() . '/public/gfx/avatars/' . $tmpName . '.' . $av->getClientOriginalExtension());
+                        imagecopyresampled($avimg, $srcimage, 0, 0, 0, 0, 192, 192, $width, $height);
+                        $this->correctImageRotation(base_path() . '/public/gfx/avatars/' . $tmpName . '.' . $av->getClientOriginalExtension(), $avimg);
+                        imagepng($avimg, base_path() . '/public/gfx/avatars/' . $newname);
+                        break;
+                    case IMAGETYPE_JPEG:
+                        $srcimage = imagecreatefromjpeg(base_path() . '/public/gfx/avatars/' . $tmpName . '.' . $av->getClientOriginalExtension());
+                        imagecopyresampled($avimg, $srcimage, 0, 0, 0, 0, 192, 192, $width, $height);
+                        $this->correctImageRotation(base_path() . '/public/gfx/avatars/' . $tmpName . '.' . $av->getClientOriginalExtension(), $avimg);
+                        imagejpeg($avimg, base_path() . '/public/gfx/avatars/' . $newname);
+                        break;
+                    default:
+                        return back()->with('error', __('app.settings_avatar_invalid_image_type'));
+                        break;
+                }
+
+                unlink(base_path() . '/public/gfx/avatars/' . $tmpName . '.' . $av->getClientOriginalExtension());
+
+                $user = User::get(auth()->id());
+                $user->avatar = $newname;
+                $user->save();
+            }
+
+            return back()->with('flash.success', __('app.settings_saved'));
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    /**
      * Save password
      *
      * @return \Illuminate\Http\RedirectResponse
