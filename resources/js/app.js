@@ -956,7 +956,7 @@ window.vue = new Vue({
 
             if (adminOrOwner) {
                 options = `
-                    <a onclick="window.vue.showEditComment(` + elem.id + `); window.vue.toggleCommentOptions(document.getElementById('thread-options-` + elem.id + `'));" href="javascript:void(0)" class="dropdown-item">
+                    <a onclick="window.vue.showEditGalleryThreadItem(` + elem.id + `); window.vue.toggleCommentOptions(document.getElementById('thread-options-` + elem.id + `'));" href="javascript:void(0)" class="dropdown-item">
                         <i class="far fa-edit"></i>&nbsp;` + this.lang.edit + `
                     </a>
                     <a onclick="window.vue.lockGalleryThreadItem(` + elem.id + `); window.vue.toggleCommentOptions(document.getElementById('thread-options-` + elem.id + `'));" href="javascript:void(0)" class="dropdown-item">
@@ -1091,6 +1091,7 @@ window.vue = new Vue({
 
         showEditComment: function(elemId) {
             document.getElementById('editCommentId').value = elemId;
+            document.getElementById('frmEditComment').action = window.location.origin + '/comment/' + document.getElementById('editCommentId').value + '/edit';
             document.getElementById('editCommentText').value = document.getElementById('thread-text-' + elemId).innerHTML;
             window.vue.bShowEditComment = true;
         },
@@ -1105,6 +1106,13 @@ window.vue = new Vue({
                     alert(response.msg);
                 });
             }
+        },
+
+        showEditGalleryThreadItem: function(elemId) {
+            document.getElementById('editCommentId').value = elemId;
+            document.getElementById('frmEditComment').action = window.location.origin + '/gallery/thread/' + document.getElementById('editCommentId').value + '/edit';
+            document.getElementById('editCommentText').value = document.getElementById('thread-text-' + elemId).innerHTML;
+            window.vue.bShowEditComment = true;
         },
 
         fetchSubThreadPosts: function(parentId) {

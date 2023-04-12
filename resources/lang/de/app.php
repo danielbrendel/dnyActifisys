@@ -557,5 +557,6 @@ return [
     'gallery_no_items_found' => 'Keine weiteren Einträge',
     'gallery_thread_item_reported' => 'Der Kommentar wurde gemeldet',
     'confirmLocGalleryThreadItem' => 'Möchtest Du den Kommentar wirklich sperren?',
-    'gallery_thread_item_locked' => 'Der Kommentar wurde gesperrt'
+    'gallery_thread_item_locked' => 'Der Kommentar wurde gesperrt',
+    'gallery_thread_item_edited' => 'Der Kommentar wurde aktualisiert'
 ];

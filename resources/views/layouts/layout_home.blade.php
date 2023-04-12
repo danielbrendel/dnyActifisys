@@ -590,7 +590,7 @@
                             </form>
                         </section>
                         <footer class="modal-card-foot is-stretched">
-                            <button class="button is-success" onclick="document.getElementById('frmEditComment').action = window.location.origin + '/comment/' + document.getElementById('editCommentId').value + '/edit'; document.getElementById('frmEditComment').submit();">{{ __('app.save') }}</button>
+                            <button class="button is-success" onclick="document.getElementById('frmEditComment').submit();">{{ __('app.save') }}</button>
                             <button class="button" onclick="vue.bShowEditComment = false;">{{ __('app.cancel') }}</button>
                         </footer>
                     </div>

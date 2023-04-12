@@ -339,4 +339,27 @@ class GalleryController extends Controller
             return response()->json(array('code' => 500, 'msg' => $e->getMessage()));
         }
     }
+
+    /**
+     * Edit gallery thread item
+     * 
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function editThread($id)
+    {
+        try {
+            $this->validateAuth();
+
+            $attr = request()->validate([
+                'text' => 'required'
+            ]);
+
+            GalleryThreadModel::edit($id, $attr['text']);
+
+            return back()->with('flash.success', __('app.gallery_thread_item_edited'));
+        } catch (\Exception $e) {
+            return back()->with('flash.error', $e->getMessage());
+        }
+    }
 }

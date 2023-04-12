@@ -561,5 +561,6 @@ return [
     'gallery_no_items_found' => 'No more items found',
     'gallery_thread_item_reported' => 'Comment has been reported',
     'confirmLocGalleryThreadItem' => 'Are you sure you want to lock this comment?',
-    'gallery_thread_item_locked' => 'Comment has been locked'
+    'gallery_thread_item_locked' => 'Comment has been locked',
+    'gallery_thread_item_edited' => 'Comment has been edited'
 ];

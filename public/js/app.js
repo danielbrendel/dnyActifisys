@@ -2605,7 +2605,7 @@ window.vue = new Vue({
       var options = '';
 
       if (adminOrOwner) {
-        options = "\n                    <a onclick=\"window.vue.showEditComment(" + elem.id + "); window.vue.toggleCommentOptions(document.getElementById('thread-options-" + elem.id + "'));\" href=\"javascript:void(0)\" class=\"dropdown-item\">\n                        <i class=\"far fa-edit\"></i>&nbsp;" + this.lang.edit + "\n                    </a>\n                    <a onclick=\"window.vue.lockGalleryThreadItem(" + elem.id + "); window.vue.toggleCommentOptions(document.getElementById('thread-options-" + elem.id + "'));\" href=\"javascript:void(0)\" class=\"dropdown-item\">\n                        <i class=\"fas fa-times\"></i>&nbsp;" + this.lang.lock + "\n                    </a>\n                    <hr class=\"dropdown-divider\">\n                ";
+        options = "\n                    <a onclick=\"window.vue.showEditGalleryThreadItem(" + elem.id + "); window.vue.toggleCommentOptions(document.getElementById('thread-options-" + elem.id + "'));\" href=\"javascript:void(0)\" class=\"dropdown-item\">\n                        <i class=\"far fa-edit\"></i>&nbsp;" + this.lang.edit + "\n                    </a>\n                    <a onclick=\"window.vue.lockGalleryThreadItem(" + elem.id + "); window.vue.toggleCommentOptions(document.getElementById('thread-options-" + elem.id + "'));\" href=\"javascript:void(0)\" class=\"dropdown-item\">\n                        <i class=\"fas fa-times\"></i>&nbsp;" + this.lang.lock + "\n                    </a>\n                    <hr class=\"dropdown-divider\">\n                ";
       }
 
       if (isAuth) {
@@ -2685,6 +2685,7 @@ window.vue = new Vue({
     },
     showEditComment: function showEditComment(elemId) {
       document.getElementById('editCommentId').value = elemId;
+      document.getElementById('frmEditComment').action = window.location.origin + '/comment/' + document.getElementById('editCommentId').value + '/edit';
       document.getElementById('editCommentText').value = document.getElementById('thread-text-' + elemId).innerHTML;
       window.vue.bShowEditComment = true;
     },
@@ -2697,6 +2698,12 @@ window.vue = new Vue({
           alert(response.msg);
         });
       }
+    },
+    showEditGalleryThreadItem: function showEditGalleryThreadItem(elemId) {
+      document.getElementById('editCommentId').value = elemId;
+      document.getElementById('frmEditComment').action = window.location.origin + '/gallery/thread/' + document.getElementById('editCommentId').value + '/edit';
+      document.getElementById('editCommentText').value = document.getElementById('thread-text-' + elemId).innerHTML;
+      window.vue.bShowEditComment = true;
     },
     fetchSubThreadPosts: function fetchSubThreadPosts(parentId) {
       if (typeof window.subPosts === 'undefined') {

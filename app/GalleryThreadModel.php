@@ -79,4 +79,32 @@ class GalleryThreadModel extends Model
             throw $e;
         }
     }
+
+    /**
+     * Edit gallery thread item
+     * 
+     * @param $id
+     * @param $message
+     * @return void
+     * @throws \Exception
+     */
+    public static function edit($id, $message)
+    {
+        try {
+            $item = static::where('id', '=', $id)->first();
+            if ((!$item) || ($item->locked)) {
+                throw new \Exception('Item not found or locked');
+            }
+
+            $user = User::getByAuthId();
+            if ((!$user) || (((!$user->maintainer) || (!$user->admin)) && ($user->id !== $item->userId))) {
+                throw new \Exception(__('app.insufficient_permissions'));
+            }
+
+            $item->content = $message;
+            $item->save();
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
 }
