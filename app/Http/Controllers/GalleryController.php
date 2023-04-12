@@ -22,6 +22,7 @@ use App\GalleryLikesModel;
 use App\GalleryThreadModel;
 use App\ReportModel;
 use App\IgnoreModel;
+use App\PushModel;
 use App\User;
 use Illuminate\Support\Carbon;
 
@@ -245,6 +246,8 @@ class GalleryController extends Controller
         try {
             $this->validateAuth();
 
+            $user = User::getByAuthId();
+
             $attr = request()->validate([
                 'message' => 'required',
                 'item' => 'required|numeric'
@@ -256,6 +259,10 @@ class GalleryController extends Controller
             }
 
             GalleryThreadModel::addThread($attr['message'], $attr['item']);
+
+            if (!$user->id !== $item->userId) {
+                PushModel::addNotification(__('app.user_gallery_item_commented_short'), __('app.user_gallery_item_commented_long', ['profile' => url('/user/' . $user->slug), 'name' => $user->name, 'item' => url('/gallery/item/' . $item->id)]), 'PUSH_COMMENTED', $item->userId);
+            }
 
             return back()->with('flash.success', __('app.gallery_thread_added'));
         } catch (\Exception $e) {

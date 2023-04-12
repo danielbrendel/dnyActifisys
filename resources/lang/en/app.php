@@ -562,5 +562,8 @@ return [
     'gallery_thread_item_reported' => 'Comment has been reported',
     'confirmLocGalleryThreadItem' => 'Are you sure you want to lock this comment?',
     'gallery_thread_item_locked' => 'Comment has been locked',
-    'gallery_thread_item_edited' => 'Comment has been edited'
+    'gallery_thread_item_edited' => 'Comment has been edited',
+    'user_gallery_item_commented_short' => 'New comment',
+    'user_gallery_item_commented_long' => '<a href=":profile">:name</a> has commented your <a href=":item">gallery post</a>',
+    'edit_comment' => 'Edit comment'
 ];

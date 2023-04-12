@@ -558,5 +558,8 @@ return [
     'gallery_thread_item_reported' => 'Der Kommentar wurde gemeldet',
     'confirmLocGalleryThreadItem' => 'Möchtest Du den Kommentar wirklich sperren?',
     'gallery_thread_item_locked' => 'Der Kommentar wurde gesperrt',
-    'gallery_thread_item_edited' => 'Der Kommentar wurde aktualisiert'
+    'gallery_thread_item_edited' => 'Der Kommentar wurde aktualisiert',
+    'user_gallery_item_commented_short' => 'Neuer Kommentar',
+    'user_gallery_item_commented_long' => '<a href=":profile">:name</a> hat deinen <a href=":item">Beitrag</a> in der Galerie kommentiert',
+    'edit_comment' => 'Kommentar bearbeiten'
 ];
