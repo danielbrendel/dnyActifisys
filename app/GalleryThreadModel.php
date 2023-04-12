@@ -1,10 +1,27 @@
 <?php
 
+/*
+    Actifisys (dnyActifisys) developed by Daniel Brendel
+
+    (C) 2019 - 2023 by Daniel Brendel
+
+    Version: 1.0
+    Contact: dbrendel1988<at>gmail<dot>com
+    GitHub: https://github.com/danielbrendel/
+
+    Released under the MIT license
+*/
+
 namespace App;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class GalleryThreadModel
+ * 
+ * Interface to Gallery item commenting
+ */
 class GalleryThreadModel extends Model
 {
     use HasFactory;
