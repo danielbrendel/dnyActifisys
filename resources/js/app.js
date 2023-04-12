@@ -967,7 +967,7 @@ window.vue = new Vue({
 
             if (isAuth) {
                 options += `
-                <a href="javascript:void(0)" onclick="window.vue.reportComment(` + elem.id + `); window.vue.toggleCommentOptions(document.getElementById('thread-options-` + elem.id + `'));" class="dropdown-item">
+                <a href="javascript:void(0)" onclick="window.vue.reportGalleryThreadItem(` + elem.id + `); window.vue.toggleCommentOptions(document.getElementById('thread-options-` + elem.id + `'));" class="dropdown-item">
                     ` + this.lang.report + `
                 </a>
                 `;
@@ -1092,6 +1092,10 @@ window.vue = new Vue({
             document.getElementById('editCommentId').value = elemId;
             document.getElementById('editCommentText').value = document.getElementById('thread-text-' + elemId).innerHTML;
             window.vue.bShowEditComment = true;
+        },
+
+        reportGalleryThreadItem: function(id) {
+            location.href = window.location.origin + '/gallery/thread/' + id + '/report';
         },
 
         fetchSubThreadPosts: function(parentId) {

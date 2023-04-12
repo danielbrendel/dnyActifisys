@@ -293,11 +293,31 @@ class GalleryController extends Controller
 
                 $value['user'] = $user;
                 $value['diffForHumans'] = Carbon::createFromDate($value['created_at'])->diffForHumans();
+                $value['adminOrOwner'] =  (User::isAdmin(auth()->id())) || ($value['userId'] === auth()->id());
             }
 
             return response()->json(array('code' => 200, 'data' => array_values($data)));
         } catch (\Exception $e) {
             return response()->json(array('code' => 500, 'msg' => $e->getMessage()));
+        }
+    }
+
+    /**
+     * Report gallery thread item
+     * 
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function reportThread($id)
+    {
+        try {
+            $this->validateAuth();
+
+            ReportModel::addReport(auth()->id(), $id, 'ENT_GALLERYTHREAD');
+
+            return back()->with('flash.success', __('app.gallery_thread_item_reported'));
+        } catch (\Exception $e) {
+            return back()->with('flash.error', $e->getMessage());
         }
     }
 }

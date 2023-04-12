@@ -138,6 +138,12 @@
 <script>
         window.paginate = null;
 
+        @auth
+            window.isAuth = true;
+        @elseguest
+            window.isAuth = false;
+        @endauth
+
         window.fetchGalleryItemThread = function() {
                 if (window.paginate === null) {
                     document.getElementById('gallery-thread').innerHTML = '<div id="spinner"><center><i class="fas fa-spinner fa-spin"></i></center></div>';
@@ -157,7 +163,7 @@
 
                         if (response.data.length > 0) {
                             response.data.forEach(function(elem, index) {
-                                let html = window.vue.renderGalleryThreadItem(elem);
+                                let html = window.vue.renderGalleryThreadItem(elem, elem.adminOrOwner, window.isAuth);
 
                                 document.getElementById('gallery-thread').innerHTML += html;
                             });

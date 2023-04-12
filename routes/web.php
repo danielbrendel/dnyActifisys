@@ -112,7 +112,8 @@ Route::any('/gallery/{id}/remove', 'GalleryController@remove');
 Route::any('/gallery/{id}/report', 'GalleryController@report');
 Route::get('/gallery/item/{slug}', 'GalleryController@view');
 Route::post('/gallery/thread/add', 'GalleryController@addThread');
-Route::any('/gallery/{id}/thread/fetch', 'GalleryController@fetchThread');
+Route::post('/gallery/{id}/thread/fetch', 'GalleryController@fetchThread');
+Route::any('/gallery/thread/{id}/report', 'GalleryController@reportThread');
 
 Route::get('/marketplace', 'MarketplaceController@index');
 Route::post('/marketplace/list', 'MarketplaceController@list');

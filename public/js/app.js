@@ -2608,7 +2608,7 @@ window.vue = new Vue({
       }
 
       if (isAuth) {
-        options += "\n                <a href=\"javascript:void(0)\" onclick=\"window.vue.reportComment(" + elem.id + "); window.vue.toggleCommentOptions(document.getElementById('thread-options-" + elem.id + "'));\" class=\"dropdown-item\">\n                    " + this.lang.report + "\n                </a>\n                ";
+        options += "\n                <a href=\"javascript:void(0)\" onclick=\"window.vue.reportGalleryThreadItem(" + elem.id + "); window.vue.toggleCommentOptions(document.getElementById('thread-options-" + elem.id + "'));\" class=\"dropdown-item\">\n                    " + this.lang.report + "\n                </a>\n                ";
       }
 
       var threadOptions = '';
@@ -2686,6 +2686,9 @@ window.vue = new Vue({
       document.getElementById('editCommentId').value = elemId;
       document.getElementById('editCommentText').value = document.getElementById('thread-text-' + elemId).innerHTML;
       window.vue.bShowEditComment = true;
+    },
+    reportGalleryThreadItem: function reportGalleryThreadItem(id) {
+      location.href = window.location.origin + '/gallery/thread/' + id + '/report';
     },
     fetchSubThreadPosts: function fetchSubThreadPosts(parentId) {
       if (typeof window.subPosts === 'undefined') {
