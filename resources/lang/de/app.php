@@ -555,5 +555,7 @@ return [
     'display_time_format' => 'H:i:s',
     'gallery_thread_added' => 'Kommentar wurde hinzugefügt',
     'gallery_no_items_found' => 'Keine weiteren Einträge',
-    'gallery_thread_item_reported' => 'Der Kommentar wurde gemeldet'
+    'gallery_thread_item_reported' => 'Der Kommentar wurde gemeldet',
+    'confirmLocGalleryThreadItem' => 'Möchtest Du den Kommentar wirklich sperren?',
+    'gallery_thread_item_locked' => 'Der Kommentar wurde gesperrt'
 ];

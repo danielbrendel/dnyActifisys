@@ -114,6 +114,7 @@ Route::get('/gallery/item/{slug}', 'GalleryController@view');
 Route::post('/gallery/thread/add', 'GalleryController@addThread');
 Route::post('/gallery/{id}/thread/fetch', 'GalleryController@fetchThread');
 Route::any('/gallery/thread/{id}/report', 'GalleryController@reportThread');
+Route::any('/gallery/thread/{id}/lock', 'GalleryController@lockThread');
 
 Route::get('/marketplace', 'MarketplaceController@index');
 Route::post('/marketplace/list', 'MarketplaceController@list');

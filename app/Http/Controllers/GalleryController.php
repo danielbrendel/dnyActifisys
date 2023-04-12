@@ -306,7 +306,7 @@ class GalleryController extends Controller
      * Report gallery thread item
      * 
      * @param $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function reportThread($id)
     {
@@ -318,6 +318,25 @@ class GalleryController extends Controller
             return back()->with('flash.success', __('app.gallery_thread_item_reported'));
         } catch (\Exception $e) {
             return back()->with('flash.error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Lock gallery thread item
+     * 
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function lockThread($id)
+    {
+        try {
+            $this->validateAuth();
+
+            GalleryThreadModel::lock($id);
+
+            return response()->json(array('code' => 200, 'msg' => __('app.gallery_thread_item_locked')));
+        } catch (\Exception $e) {
+            return response()->json(array('code' => 500, 'msg' => $e->getMessage()));
         }
     }
 }

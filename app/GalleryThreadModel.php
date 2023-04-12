@@ -52,4 +52,31 @@ class GalleryThreadModel extends Model
             throw $e;
         }
     }
+
+    /**
+     * Lock gallery thread item
+     * 
+     * @param $id
+     * @return void
+     * @throws \Exception
+     */
+    public static function lock($id)
+    {
+        try {
+            $item = static::where('id', '=', $id)->first();
+            if (!$item) {
+                throw new \Exception('Item not found');
+            }
+
+            $user = User::getByAuthId();
+            if ((!$user) || (((!$user->maintainer) || (!$user->admin)) && ($user->id !== $item->userId))) {
+                throw new \Exception(__('app.insufficient_permissions'));
+            }
+
+            $item->locked = true;
+            $item->save();
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
 }

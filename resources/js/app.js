@@ -76,7 +76,8 @@ window.vue = new Vue({
             linkfilter_hint: 'You are about to visit :url. :project is not responsible for its content. Do you want to proceed?',
             gallery_item_by: 'By :name',
             noTagsSpecified: 'No tags specified',
-            imageSent: 'Image sent'
+            imageSent: 'Image sent',
+            confirmLocGalleryThreadItem: 'Do you want to lock this comment?'
         }
     },
 
@@ -958,7 +959,7 @@ window.vue = new Vue({
                     <a onclick="window.vue.showEditComment(` + elem.id + `); window.vue.toggleCommentOptions(document.getElementById('thread-options-` + elem.id + `'));" href="javascript:void(0)" class="dropdown-item">
                         <i class="far fa-edit"></i>&nbsp;` + this.lang.edit + `
                     </a>
-                    <a onclick="window.vue.lockComment(` + elem.id + `); window.vue.toggleCommentOptions(document.getElementById('thread-options-` + elem.id + `'));" href="javascript:void(0)" class="dropdown-item">
+                    <a onclick="window.vue.lockGalleryThreadItem(` + elem.id + `); window.vue.toggleCommentOptions(document.getElementById('thread-options-` + elem.id + `'));" href="javascript:void(0)" class="dropdown-item">
                         <i class="fas fa-times"></i>&nbsp;` + this.lang.lock + `
                     </a>
                     <hr class="dropdown-divider">
@@ -1096,6 +1097,14 @@ window.vue = new Vue({
 
         reportGalleryThreadItem: function(id) {
             location.href = window.location.origin + '/gallery/thread/' + id + '/report';
+        },
+
+        lockGalleryThreadItem: function(id) {
+            if (confirm(window.vue.lang.confirmLocGalleryThreadItem)) {
+                window.vue.ajaxRequest('get', window.location.origin + '/gallery/thread/' + id + '/lock', {}, function (response) {
+                    alert(response.msg);
+                });
+            }
         },
 
         fetchSubThreadPosts: function(parentId) {

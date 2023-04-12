@@ -559,5 +559,7 @@ return [
     'display_time_format' => 'H:i:s',
     'gallery_thread_added' => 'Comment has been added',
     'gallery_no_items_found' => 'No more items found',
-    'gallery_thread_item_reported' => 'Comment has been reported'
+    'gallery_thread_item_reported' => 'Comment has been reported',
+    'confirmLocGalleryThreadItem' => 'Are you sure you want to lock this comment?',
+    'gallery_thread_item_locked' => 'Comment has been locked'
 ];
