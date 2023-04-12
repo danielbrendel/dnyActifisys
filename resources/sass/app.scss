@@ -809,6 +809,38 @@ h2, h3 {
     margin-left: 50px;
 }
 
+//Gallery thread
+//Thread
+.gallery-thread-input-avatar {
+    width: 48px;
+    height: 48px;
+    margin-right: 25px;
+}
+.gallery-thread-input-avatar img {
+    border-radius: 50%;
+    top: -140px;
+    position: relative;
+}
+.gallery-thread-input-form {
+    @media screen and (min-width: 526px) {
+        width: 76%;
+    }
+    @media screen and (max-width: 525px) {
+        width: 67%;
+    }
+}
+.gallery-thread-input-form-text {
+    width: 100%;
+    height: 125px;
+}
+.gallery-thread-input-form-text textarea {
+    height: 100%;
+}
+.gallery-thread-input-form-button {
+    margin-top: 10px;
+    float: right;
+}
+
 //Profile
 .is-profile-info-item {
     margin-bottom: 15px;

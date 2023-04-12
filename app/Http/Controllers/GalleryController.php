@@ -19,6 +19,7 @@ use App\AppModel;
 use App\CaptchaModel;
 use App\GalleryModel;
 use App\GalleryLikesModel;
+use App\GalleryThreadModel;
 use App\ReportModel;
 use App\User;
 
@@ -227,6 +228,29 @@ class GalleryController extends Controller
             ReportModel::addReport(auth()->id(), $item->id, 'ENT_GALLERYITEM');
 
             return back()->with('flash.success', __('app.gallery_item_reported'));
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    public function addThread()
+    {
+        try {
+            $this->validateAuth();
+
+            $attr = request()->validate([
+                'message' => 'required',
+                'item' => 'required|numeric'
+            ]);
+
+            $item = GalleryModel::findItem($attr['item']);
+            if ((!$item) || ($item->locked)) {
+                throw new \Exception('Item not found or locked');
+            }
+
+            GalleryThreadModel::addThread($attr['message'], $attr['item']);
+
+            return back()->with('flash.success', __('app.gallery_thread_added'));
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }

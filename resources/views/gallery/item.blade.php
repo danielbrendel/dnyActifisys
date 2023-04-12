@@ -96,6 +96,32 @@
                     </div>
                 </div>
             </div>
+
+            <div>
+                <div class="gallery-thread-input-avatar is-inline-block">
+                    <img src="{{ asset('gfx/avatars/' . ((auth()->id() != null) ? \App\User::get(auth()->id())->avatar : 'default.png' )) }}">
+                </div>
+
+                <div class="gallery-thread-input-form is-inline-block is-def-color">
+                    <form method="POST" action="{{ url('/gallery/thread/add') }}">
+                        @csrf
+
+                        <div class="gallery-thread-input-form-text">
+                            <textarea name="message" placeholder="{{ __('app.type_a_message') }}"></textarea>
+                        </div>
+
+                        <input type="hidden" name="item" value="{{ $item->id }}"/>
+
+                        <div class="gallery-thread-input-form-button">
+                            @auth
+                                <input type="submit" class="button is-link" value="{{ __('app.send') }}"/>
+                            @elseguest
+                                <button type="button" class="button is-link" onclick="window.vue.bShowLogin = true;">{{ __('app.send') }}</button> 
+                            @endauth
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 

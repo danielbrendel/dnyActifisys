@@ -34,6 +34,7 @@ class CreateGalleryModelsTable extends Migration
             $table->string('tags', 1024)->default('');
             $table->string('image_full');
             $table->string('image_thumb');
+            $table->boolean('locked')->default(false);
             $table->timestamps();
         });
     }

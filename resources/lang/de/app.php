@@ -552,5 +552,6 @@ return [
     'clear_tag' => '#:tag leeren',
     'image_sent' => 'Bild gesendet',
     'display_date_format' => 'd.m.Y',
-    'display_time_format' => 'H:i:s'
+    'display_time_format' => 'H:i:s',
+    'gallery_thread_added' => 'Kommentar wurde hinzugefügt'
 ];
