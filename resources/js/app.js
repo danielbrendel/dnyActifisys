@@ -319,14 +319,14 @@ window.vue = new Vue({
 
             if (adminOrOwner) {
                 options = `
-            <a onclick="window.vue.showEditComment(` + elem.id + `); window.vue.toggleCommentOptions(document.getElementById('thread-options-` + elem.id + `'));" href="javascript:void(0)" class="dropdown-item">
-                <i class="far fa-edit"></i>&nbsp;` + this.lang.edit + `
-            </a>
-            <a onclick="window.vue.lockComment(` + elem.id + `); window.vue.toggleCommentOptions(document.getElementById('thread-options-` + elem.id + `'));" href="javascript:void(0)" class="dropdown-item">
-                <i class="fas fa-times"></i>&nbsp;` + this.lang.lock + `
-            </a>
-            <hr class="dropdown-divider">
-        `;
+                    <a onclick="window.vue.showEditComment(` + elem.id + `); window.vue.toggleCommentOptions(document.getElementById('thread-options-` + elem.id + `'));" href="javascript:void(0)" class="dropdown-item">
+                        <i class="far fa-edit"></i>&nbsp;` + this.lang.edit + `
+                    </a>
+                    <a onclick="window.vue.lockComment(` + elem.id + `); window.vue.toggleCommentOptions(document.getElementById('thread-options-` + elem.id + `'));" href="javascript:void(0)" class="dropdown-item">
+                        <i class="fas fa-times"></i>&nbsp;` + this.lang.lock + `
+                    </a>
+                    <hr class="dropdown-divider">
+                `;
             }
 
             if (isAuth) {
@@ -943,6 +943,74 @@ window.vue = new Vue({
                                 <span><a href="javascript:void(0);" onclick="window.vue.toggleLike(` + item.id + `, 'action-like-` + item.id + `', 'count-like-` + item.id + `');"><i class="` + ((item.hasLiked) ? 'fas' : 'far') + ` fa-heart" id="action-like-` + item.id + `"></i></a></span>
                             </div>
                         </div>
+                    </div>
+                </div>
+            `;
+
+            return html;
+        },
+
+        renderGalleryThreadItem: function(elem, adminOrOwner = false, isAuth = false) {
+            let options = '';
+
+            if (adminOrOwner) {
+                options = `
+                    <a onclick="window.vue.showEditComment(` + elem.id + `); window.vue.toggleCommentOptions(document.getElementById('thread-options-` + elem.id + `'));" href="javascript:void(0)" class="dropdown-item">
+                        <i class="far fa-edit"></i>&nbsp;` + this.lang.edit + `
+                    </a>
+                    <a onclick="window.vue.lockComment(` + elem.id + `); window.vue.toggleCommentOptions(document.getElementById('thread-options-` + elem.id + `'));" href="javascript:void(0)" class="dropdown-item">
+                        <i class="fas fa-times"></i>&nbsp;` + this.lang.lock + `
+                    </a>
+                    <hr class="dropdown-divider">
+                `;
+            }
+
+            if (isAuth) {
+                options += `
+                <a href="javascript:void(0)" onclick="window.vue.reportComment(` + elem.id + `); window.vue.toggleCommentOptions(document.getElementById('thread-options-` + elem.id + `'));" class="dropdown-item">
+                    ` + this.lang.report + `
+                </a>
+                `;
+            }
+
+            let threadOptions = '';
+            if (options.length > 0) {
+                threadOptions = `
+                    <div class="thread-header-options is-inline-block">
+                        <div class="dropdown is-right" id="thread-options-` + elem.id + `">
+                            <div class="dropdown-trigger" onclick="window.vue.toggleCommentOptions(document.getElementById('thread-options-` + elem.id + `'));">
+                                <i class="fas fa-ellipsis-v is-pointer"></i>
+                            </div>
+                            <div class="dropdown-menu" role="menu">
+                                <div class="dropdown-content">
+                                    ` + options + `
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            let html = `
+                <div id="thread-` + elem.id + `" class="thread-elem">
+                    <a name="` + elem.id + `"></a>
+
+                    <div class="thread-header">
+                        <div class="thread-header-avatar is-inline-block">
+                            <img width="24" height="24" src="` + window.location.origin + `/gfx/avatars/` + elem.user.avatar + `" class="is-pointer" onclick="location.href = '` + window.location.origin + `/user/` + elem.user.slug + `';" title="` + elem.user.name + `">
+                        </div>
+
+                        <div class="thread-header-info is-inline-block">
+                            <div><a href="` + window.location.origin + `/user/` + elem.user.slug + `" class="is-color-grey">` + elem.user.name + `</a>` + ((elem.user.verified) ? '&nbsp;<i class="far fa-check-circle" title="' + this.lang.verifiedUser + '"></i>' : '') +  `</div>
+                            <div title="` + elem.created_at + `">` + elem.diffForHumans + `</div>
+                        </div>
+
+                        ` + threadOptions + `
+                    </div>
+
+                    <div class="thread-text is-wordbreak" id="thread-text-` + elem.id + `">` + elem.content + `</div>
+
+                    <div class="thread-footer">
                     </div>
                 </div>
             `;

@@ -122,9 +122,59 @@
                     </form>
                 </div>
             </div>
+
+            <div id="gallery-thread">
+                <div class="gallery-thread-item">
+                    
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="column is-4"></div>
+@endsection
+
+@section('javascript')
+<script>
+        window.paginate = null;
+
+        window.fetchGalleryItemThread = function() {
+                if (window.paginate === null) {
+                    document.getElementById('gallery-thread').innerHTML = '<div id="spinner"><center><i class="fas fa-spinner fa-spin"></i></center></div>';
+                } else {
+                    document.getElementById('gallery-thread').innerHTML += '<div id="spinner"><center><i class="fas fa-spinner fa-spin"></i></center></div>';
+                }
+
+                if (document.getElementById('loadmore')) {
+                    document.getElementById('loadmore').remove();
+                }
+
+                window.vue.ajaxRequest('post', '{{ url('/gallery/' . $item->id . '/thread/fetch') }}', { paginate: window.paginate }, function(response){
+                    if (response.code == 200) {
+                        if (document.getElementById('spinner')) {
+                            document.getElementById('spinner').remove();
+                        }
+
+                        if (response.data.length > 0) {
+                            response.data.forEach(function(elem, index) {
+                                let html = window.vue.renderGalleryThreadItem(elem);
+
+                                document.getElementById('gallery-thread').innerHTML += html;
+                            });
+
+                            window.paginate = response.data[response.data.length - 1].id;
+
+                            document.getElementById('gallery-thread').innerHTML += '<div id="loadmore"><center><a class="is-def-color" href="javascript:void(0);" onclick="window.fetchGalleryItemThread();">{{ __('app.load_more') }}</a></center></div>';
+                        } else {
+                            document.getElementById('gallery-thread').innerHTML += '<div class="is-def-color"><center><br/>{{ __('app.gallery_no_items_found') }}</center></div>';
+                        }
+                    }
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            window.fetchGalleryItemThread();
+        });
+    </script>
 @endsection
 

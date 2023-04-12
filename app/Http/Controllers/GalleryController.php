@@ -21,7 +21,9 @@ use App\GalleryModel;
 use App\GalleryLikesModel;
 use App\GalleryThreadModel;
 use App\ReportModel;
+use App\IgnoreModel;
 use App\User;
+use Illuminate\Support\Carbon;
 
 class GalleryController extends Controller
 {
@@ -233,6 +235,11 @@ class GalleryController extends Controller
         }
     }
 
+    /**
+     * Add gallery item comment
+     * 
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function addThread()
     {
         try {
@@ -253,6 +260,44 @@ class GalleryController extends Controller
             return back()->with('flash.success', __('app.gallery_thread_added'));
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * Fetch gallery item thread
+     * 
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function fetchThread($id)
+    {
+        try {
+            $paginate = request('paginate', null);
+
+            $data = GalleryThreadModel::fetch($id, $paginate)->toArray();
+
+            foreach ($data as $key => &$value) {
+                $user = User::get($value['userId']);
+
+                if ((!$user) || ($user->deactivated)) {
+                    unset($data[$key]);
+                    continue;
+                }
+
+                if (!\Auth::guest()) {
+                    if (IgnoreModel::hasIgnored(auth()->id(), $user->id)) {
+                        unset($data[$key]);
+                        continue;
+                    }
+                }
+
+                $value['user'] = $user;
+                $value['diffForHumans'] = Carbon::createFromDate($value['created_at'])->diffForHumans();
+            }
+
+            return response()->json(array('code' => 200, 'data' => array_values($data)));
+        } catch (\Exception $e) {
+            return response()->json(array('code' => 500, 'msg' => $e->getMessage()));
         }
     }
 }

@@ -553,5 +553,6 @@ return [
     'image_sent' => 'Bild gesendet',
     'display_date_format' => 'd.m.Y',
     'display_time_format' => 'H:i:s',
-    'gallery_thread_added' => 'Kommentar wurde hinzugefügt'
+    'gallery_thread_added' => 'Kommentar wurde hinzugefügt',
+    'gallery_no_items_found' => 'Keine weiteren Einträge'
 ];

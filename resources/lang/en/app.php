@@ -557,5 +557,6 @@ return [
     'image_sent' => 'Image sent',
     'display_date_format' => 'Y-m-d',
     'display_time_format' => 'H:i:s',
-    'gallery_thread_added' => 'Comment has been added'
+    'gallery_thread_added' => 'Comment has been added',
+    'gallery_no_items_found' => 'No more items found'
 ];

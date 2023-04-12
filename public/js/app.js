@@ -2355,7 +2355,7 @@ window.vue = new Vue({
       var options = '';
 
       if (adminOrOwner) {
-        options = "\n            <a onclick=\"window.vue.showEditComment(" + elem.id + "); window.vue.toggleCommentOptions(document.getElementById('thread-options-" + elem.id + "'));\" href=\"javascript:void(0)\" class=\"dropdown-item\">\n                <i class=\"far fa-edit\"></i>&nbsp;" + this.lang.edit + "\n            </a>\n            <a onclick=\"window.vue.lockComment(" + elem.id + "); window.vue.toggleCommentOptions(document.getElementById('thread-options-" + elem.id + "'));\" href=\"javascript:void(0)\" class=\"dropdown-item\">\n                <i class=\"fas fa-times\"></i>&nbsp;" + this.lang.lock + "\n            </a>\n            <hr class=\"dropdown-divider\">\n        ";
+        options = "\n                    <a onclick=\"window.vue.showEditComment(" + elem.id + "); window.vue.toggleCommentOptions(document.getElementById('thread-options-" + elem.id + "'));\" href=\"javascript:void(0)\" class=\"dropdown-item\">\n                        <i class=\"far fa-edit\"></i>&nbsp;" + this.lang.edit + "\n                    </a>\n                    <a onclick=\"window.vue.lockComment(" + elem.id + "); window.vue.toggleCommentOptions(document.getElementById('thread-options-" + elem.id + "'));\" href=\"javascript:void(0)\" class=\"dropdown-item\">\n                        <i class=\"fas fa-times\"></i>&nbsp;" + this.lang.lock + "\n                    </a>\n                    <hr class=\"dropdown-divider\">\n                ";
       }
 
       if (isAuth) {
@@ -2596,6 +2596,28 @@ window.vue = new Vue({
       }
 
       var html = "\n                <div class=\"gallery-item\">\n                    <div class=\"gallery-item-image is-pointer\" style=\"background-image: url('" + image + "');\" onclick=\"location.href = '" + window.location.origin + '/gallery/item/' + item.slug + "';\"></div>\n\n                    <div class=\"gallery-item-info\">\n                        <div class=\"gallery-item-info-title\">\n                            " + item.title + "\n                            " + dropdownMenu + "\n                        </div>\n\n                        <div class=\"gallery-item-info-location\"><i class=\"fas fa-map-marker-alt is-color-dark-grey\"></i> " + item.location + "</div>\n                    \n                        <div class=\"gallery-item-info-tags\">\n                            " + tags + "\n                        </div>\n                    </div>\n\n                    <div class=\"gallery-item-footer\">\n                        <div class=\"gallery-item-footer-inner\">\n                            <div class=\"gallery-item-footer-user\"><a href=\"" + window.location.origin + '/user/' + item.user.slug + "\">" + userHint + "</a></div>\n                            <div class=\"gallery-item-footer-likes\">\n                                <span id=\"count-like-" + item.id + "\">" + item.likes + "</span>&nbsp;\n                                <span><a href=\"javascript:void(0);\" onclick=\"window.vue.toggleLike(" + item.id + ", 'action-like-" + item.id + "', 'count-like-" + item.id + "');\"><i class=\"" + (item.hasLiked ? 'fas' : 'far') + " fa-heart\" id=\"action-like-" + item.id + "\"></i></a></span>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            ";
+      return html;
+    },
+    renderGalleryThreadItem: function renderGalleryThreadItem(elem) {
+      var adminOrOwner = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+      var isAuth = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+      var options = '';
+
+      if (adminOrOwner) {
+        options = "\n                    <a onclick=\"window.vue.showEditComment(" + elem.id + "); window.vue.toggleCommentOptions(document.getElementById('thread-options-" + elem.id + "'));\" href=\"javascript:void(0)\" class=\"dropdown-item\">\n                        <i class=\"far fa-edit\"></i>&nbsp;" + this.lang.edit + "\n                    </a>\n                    <a onclick=\"window.vue.lockComment(" + elem.id + "); window.vue.toggleCommentOptions(document.getElementById('thread-options-" + elem.id + "'));\" href=\"javascript:void(0)\" class=\"dropdown-item\">\n                        <i class=\"fas fa-times\"></i>&nbsp;" + this.lang.lock + "\n                    </a>\n                    <hr class=\"dropdown-divider\">\n                ";
+      }
+
+      if (isAuth) {
+        options += "\n                <a href=\"javascript:void(0)\" onclick=\"window.vue.reportComment(" + elem.id + "); window.vue.toggleCommentOptions(document.getElementById('thread-options-" + elem.id + "'));\" class=\"dropdown-item\">\n                    " + this.lang.report + "\n                </a>\n                ";
+      }
+
+      var threadOptions = '';
+
+      if (options.length > 0) {
+        threadOptions = "\n                    <div class=\"thread-header-options is-inline-block\">\n                        <div class=\"dropdown is-right\" id=\"thread-options-" + elem.id + "\">\n                            <div class=\"dropdown-trigger\" onclick=\"window.vue.toggleCommentOptions(document.getElementById('thread-options-" + elem.id + "'));\">\n                                <i class=\"fas fa-ellipsis-v is-pointer\"></i>\n                            </div>\n                            <div class=\"dropdown-menu\" role=\"menu\">\n                                <div class=\"dropdown-content\">\n                                    " + options + "\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                ";
+      }
+
+      var html = "\n                <div id=\"thread-" + elem.id + "\" class=\"thread-elem\">\n                    <a name=\"" + elem.id + "\"></a>\n\n                    <div class=\"thread-header\">\n                        <div class=\"thread-header-avatar is-inline-block\">\n                            <img width=\"24\" height=\"24\" src=\"" + window.location.origin + "/gfx/avatars/" + elem.user.avatar + "\" class=\"is-pointer\" onclick=\"location.href = '" + window.location.origin + "/user/" + elem.user.slug + "';\" title=\"" + elem.user.name + "\">\n                        </div>\n\n                        <div class=\"thread-header-info is-inline-block\">\n                            <div><a href=\"" + window.location.origin + "/user/" + elem.user.slug + "\" class=\"is-color-grey\">" + elem.user.name + "</a>" + (elem.user.verified ? '&nbsp;<i class="far fa-check-circle" title="' + this.lang.verifiedUser + '"></i>' : '') + "</div>\n                            <div title=\"" + elem.created_at + "\">" + elem.diffForHumans + "</div>\n                        </div>\n\n                        " + threadOptions + "\n                    </div>\n\n                    <div class=\"thread-text is-wordbreak\" id=\"thread-text-" + elem.id + "\">" + elem.content + "</div>\n\n                    <div class=\"thread-footer\">\n                    </div>\n                </div>\n            ";
       return html;
     },
     toggleLike: function toggleLike(item, heart, count) {
