@@ -26,7 +26,7 @@
                     <div class="activity-userdata">
                         <div class="activity-user-top">
                             <div class="is-inline-block">
-                                <h1><a href="{{ url('/user/' . $activity->user->id) }}">{{ $activity->user->name }}</a></h1>
+                                <h1><a href="{{ url('/user/' . $activity->user->id) }}">{{ $activity->user->name }}</a> {!! (($activity->user->verified) ? '&nbsp;<i class="far fa-check-circle" title="' . __('app.verifiedUser') . '"></i>' : '') !!}</h1>
                             </div>
 
                             <div class="activity-avatar is-inline-block">

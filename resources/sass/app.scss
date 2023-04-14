@@ -604,13 +604,12 @@ h2, h3 {
 }
 .activity-user {
     margin-top: 10px;
-    margin-bottom: 15px;
-    top: 25px;
+    top: 15px;
 }
 .activity-user-avatar img {
     border-radius: 50%;
-    width: 32px;
-    height: 32px;
+    width: 48px;
+    height: 48px;
 }
 .activity-user-name a {
     color: rgb(255, 255, 255);
@@ -1327,12 +1326,14 @@ h2, h3 {
 }
 .gallery-item-footer-comments {
     display: inline-block;
+    color: rgb(55, 55, 55);
 }
 .gallery-item-footer-comments i {
-    color: rgb(105, 105, 105);
+    color: rgb(55, 55, 55);
 }
 .gallery-item-footer-likes {
     display: inline-block;
+    color: rgb(250, 0, 0);
 }
 .gallery-item-footer-likes i {
     color: rgb(250, 0, 0);

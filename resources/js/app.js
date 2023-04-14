@@ -945,7 +945,7 @@ window.vue = new Vue({
                                     <span><i class="far fa-comments"></i></span>
                                 </div>
                                 <div class="gallery-item-footer-likes">
-                                    <span id="count-like-` + item.id + `">` + item.likes + `</span>&nbsp;
+                                    <span id="count-like-` + item.id + `">` + item.likes + `</span>
                                     <span><a href="javascript:void(0);" onclick="window.vue.toggleLike(` + item.id + `, 'action-like-` + item.id + `', 'count-like-` + item.id + `');"><i class="` + ((item.hasLiked) ? 'fas' : 'far') + ` fa-heart" id="action-like-` + item.id + `"></i></a></span>
                                 </div>
                             </div>
