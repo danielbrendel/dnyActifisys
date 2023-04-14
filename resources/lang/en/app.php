@@ -565,5 +565,12 @@ return [
     'gallery_thread_item_edited' => 'Comment has been edited',
     'user_gallery_item_commented_short' => 'New comment',
     'user_gallery_item_commented_long' => '<a href=":profile">:name</a> has commented your <a href=":item">gallery post</a>',
-    'edit_comment' => 'Edit comment'
+    'edit_comment' => 'Edit comment',
+    'view_visits' => 'View visitor data',
+    'visits' => 'Visits',
+    'last_week' => 'Last week',
+    'last_two_weeks' => 'Last two weeks',
+    'last_month' => 'Last month',
+    'last_three_months' => 'Last three months',
+    'last_year' => 'Last year'
 ];

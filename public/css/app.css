@@ -1951,6 +1951,26 @@ h2, h3 {
   margin-left: 15px;
 }
 
+.visitor-summary {
+  margin-top: 10px;
+}
+
+.stats-input {
+  width: 164px;
+  padding: 8px;
+  color: rgb(50, 50, 50);
+  background-color: rgb(200, 200, 200);
+  border: 1px solid rgb(100, 100, 100);
+  border-radius: 5px;
+  line-height: unset !important;
+}
+
+select.stats-input {
+  display: inline-block;
+  top: 3px;
+  height: 37px;
+}
+
 #clep {
   position: relative;
   width: 100%;
@@ -2011,6 +2031,10 @@ h2, h3 {
 
 .is-margin-top-20 {
   margin-top: 20px;
+}
+
+.is-margin-bottom-20 {
+  margin-bottom: 20px;
 }
 
 .is-margin-top-94 {

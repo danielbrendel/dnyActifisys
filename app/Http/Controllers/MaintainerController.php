@@ -29,6 +29,7 @@ use App\ForumModel;
 use App\User;
 use App\AnnouncementsModel;
 use App\VerifyModel;
+use App\ViewCountModel;
 use Dotenv\Dotenv;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
@@ -848,6 +849,73 @@ class MaintainerController extends Controller
             return back()->with('flash.success', __('app.forum_removed'));
         } catch (Exception $e) {
             return back()->with('error', $e->getMessage());
+        }
+    }
+
+    /**
+     * View visits page
+     * 
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function visits()
+    {
+        $start = date('Y-m-d', strtotime('-30 days'));
+        $end = date('Y-m-d', strtotime('-1 day'));
+
+        $predefined_dates = [
+            __('app.last_week') => date('Y-m-d', strtotime('-7 days')),
+			__('app.last_two_weeks') => date('Y-m-d', strtotime('-14 days')),
+			__('app.last_month') => date('Y-m-d', strtotime('-1 month')),
+			__('app.last_three_months') => date('Y-m-d', strtotime('-3 months')),
+			__('app.last_year') => date('Y-m-d', strtotime('-1 year')),
+        ];
+
+        $online_count = ViewCountModel::getOnlineCount();
+
+        return view('maintainer.visits', [
+            'start' => $start,
+            'end' => $end,
+            'predefined_dates' => $predefined_dates,
+            'online_count' => $online_count,
+            'captchadata' => CaptchaModel::createSum(session()->getId())
+        ]);
+    }
+
+    /**
+     * Query visits according to given data
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function queryVisits()
+    {
+        try {
+            $start = request('start', date('Y-m-d', strtotime('-30 days')));
+            $end = request('end', date('Y-m-d', strtotime('-1 day')));
+
+            $visits = ViewCountModel::getVisitsPerDay($start, $end);
+            $dayDiff = (new \DateTime($end))->diff((new \DateTime($start)))->format('%a');
+
+            $visits_data = [];
+            $visits_total = 0;
+
+            foreach ($visits as $item) {
+                $visits_total += $item->count;
+
+                $visits_data[] = [
+                    'date' => $item->created_at,
+                    'count' => $item->count
+                ];
+            }
+
+            return response()->json(array('code' => 200, 'data' => [
+                'visits' => $visits_data,
+                'visits_total' => $visits_total,
+                'start' => $start,
+                'end' => $end,
+                'day_diff' => (int)$dayDiff
+            ]));
+        } catch (\Exception $e) {
+            return response()->json(array('code' => 500, 'msg' => $e->getMessage()));
         }
     }
 }

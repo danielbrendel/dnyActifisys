@@ -19,5 +19,8 @@
         "sass": "^1.61.0",
         "sass-loader": "^9.0.0",
         "vue-template-compiler": "^2.7.14"
+    },
+    "dependencies": {
+        "chart.js": "^4.2.1"
     }
 }

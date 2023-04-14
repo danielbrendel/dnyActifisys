@@ -158,6 +158,8 @@ Route::post('/maintainer/forum/create', 'MaintainerController@createForum');
 Route::post('/maintainer/forum/edit', 'MaintainerController@editForum');
 Route::any('/maintainer/forum/{id}/lock', 'MaintainerController@lockForum');
 Route::any('/maintainer/forum/{id}/remove', 'MaintainerController@removeForum');
+Route::get('/maintainer/visits', 'MaintainerController@visits');
+Route::any('/maintainer/visits/query', 'MaintainerController@queryVisits');
 
 Route::post('/payment/charge', 'PaymentController@charge');
 

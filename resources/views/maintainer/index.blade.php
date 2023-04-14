@@ -34,6 +34,10 @@
                 <br/>
             </div>
 
+            <div class="is-margin-bottom-20">
+                <a href="{{ url('/maintainer/visits') }}">{{ __('app.view_visits') }}</a>
+            </div>
+
             <ul data-role="tabs" data-expand="true">
                 <li><a href="#tab-page-1">{{ __('app.cookie_consent') }}</a></li>
                 <li><a href="#tab-page-2">{{ __('app.about') }}</a></li>

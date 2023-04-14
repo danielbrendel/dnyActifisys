@@ -44,6 +44,7 @@ a forum, gallery and market place available. For a full feature list see the lis
 + Announcements system
 + Purchasable pro mode
 + Custom head code
++ Visitor statistics
 + Installer
 + Security
 + Responsive design

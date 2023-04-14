@@ -1257,5 +1257,87 @@ window.vue = new Vue({
             };
             document.getElementById(input).click();
         },
+
+        renderStats: function(elem, start, end = '') {
+            window.vue.ajaxRequest('post', window.location.origin + '/maintainer/visits/query', { start: start, end: end }, function(response){
+                if (response.code == 200) {
+                    document.getElementById('inp-date-from').value = response.data.start;
+                    document.getElementById('inp-date-till').value = response.data.end;
+                    document.getElementById('count-total').innerHTML = response.data.visits_total;
+                    document.getElementById('count-avg-day').innerHTML = Math.round(response.data.visits_total / (response.data.day_diff + 1));
+                    document.getElementById('count-avg-hour').innerHTML = Math.round(response.data.visits_total / (response.data.day_diff + 1) / 24);
+
+                    let content = document.getElementById(elem);
+                    if (content) {
+                        let labels = [];
+                        let data_total = [];
+
+                        let day = 60 * 60 * 24 * 1000;
+                        let dt = new Date(Date.parse(start));
+
+                        for (let i = 0; i <= response.data.day_diff; i++) {
+                            let curDate = new Date(dt.getTime() + day * i);
+                            let curDay = curDate.getDate();
+                            let curMonth = curDate.getMonth() + 1;
+
+                            if (curDay < 10) {
+                                curDay = '0' + curDay;
+                            }
+
+                            if (curMonth < 10) {
+                                curMonth = '0' + curMonth;
+                            }
+
+                            labels.push(curDate.getFullYear() + '-' + curMonth + '-' + curDay);
+                            data_total.push(0);
+                        }
+
+                        response.data.visits.forEach(function(elem, index) {
+                            labels.forEach(function(lblElem, lblIndex){
+                                if (lblElem == elem.date) {
+                                    data_total[lblIndex] = parseInt(elem.count);
+                                }
+                            });
+                        });
+
+                        const config = {
+                            type: 'line',
+                            data: {
+                                labels: labels,
+                                datasets: [
+                                    {
+                                        label: 'Visitors',
+                                        backgroundColor: 'rgb(80, 80, 80)',
+                                        borderColor: 'rgb(80, 80, 80)',
+                                        data: data_total,
+                                    }
+                                ]
+                            },
+                            options: {
+                                scales: {
+                                    y: {
+                                        ticks: {
+                                            beginAtZero: true,
+                                            callback: function(value) {if (value % 1 === 0) {return value;}}
+                                        }
+                                    }
+                                }
+                            }
+                        };
+
+                        if (window.statsChart !== null) {
+                            window.statsChart.destroy();
+                        }
+                        
+                        window.statsChart = new Chart(
+                            content,
+                            config
+                        );
+                    }
+                } else {
+                    alert(response.msg);
+                }
+            });
+        },
     }
 });

@@ -15,6 +15,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\ViewCountModel;
 use Exception;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -33,6 +34,8 @@ class Controller extends BaseController
     {
         $this->middleware(function ($request, $next) {
             \App::setLocale(env('APP_LANG', 'en'));
+
+            ViewCountModel::addView();
 
             return $next($request);
         });
