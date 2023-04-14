@@ -617,7 +617,7 @@ window.vue = new Vue({
                         </div>
 
                         <div class="message-thread-header-userinfo">
-                            <div><a href="` + window.location.origin + '/user/' + elem.sender.name + `">` + elem.sender.name + `</a></div>
+                            <div><a href="` + window.location.origin + '/user/' + elem.sender.slug + `">` + elem.sender.name + `</a></div>
                             <div class="is-message-label-small" title="` + elem.created_at + `">` + elem.diffForHumans + `</div>
                         </div>
 

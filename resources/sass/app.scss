@@ -849,15 +849,16 @@ h2, h3 {
 //Messages
 .messages {
     padding: 21px;
-    background-color: rgb(230, 230, 230);
+    //background-color: rgb(230, 230, 230);
 }
 .messages-item {
     position: relative;
     width: 100%;
     height: auto;
-    background-color: rgb(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0.5);
     padding: 21px;
-    border-radius: 4px;
+    margin-bottom: 10px;
+    border-radius: 15px;
 }
 .messages-item:hover {
     background-color: rgb(220, 220, 220);
@@ -875,7 +876,7 @@ h2, h3 {
     margin-right: 15px;
 }
 .messages-item-name a {
-    color: rgb(150, 150, 150);
+    color: rgb(120, 120, 120);
 }
 .messages-item-subject {
     display: inline-block;
@@ -1214,7 +1215,7 @@ h2, h3 {
 .advert-item-info {
     position: relative;
     display: inline-block;
-    width: 80%;
+    width: 50%;
 }
 .advert-item-info-title {
     padding-left: 5px;
@@ -1223,6 +1224,7 @@ h2, h3 {
 .advert-item-actions {
     position: relative;
     display: inline-block;
+    float: right;
 }
 
 //Gallery
@@ -1347,11 +1349,14 @@ h2, h3 {
     position: relative;
     width: 100%;
     height: 50px;
+    @media screen and (max-width: 459px) {
+        height: 80px;
+    }
 }
 .gallery-settings-item-info {
     position: relative;
     display: inline-block;
-    width: 80%;
+    width: 72%;
 }
 .gallery-settings-item-info-title {
     display: inline-block;
