@@ -58,7 +58,7 @@ class GalleryThreadModel extends Model
     public static function fetch($itemId, $pagination = null)
     {
         try {
-            $query = static::where('itemId', '=', $itemId);
+            $query = static::where('itemId', '=', $itemId)->where('locked', '=', false);
 
             if ($pagination !== null) {
                 $query->where('id', '<', $pagination);
@@ -120,6 +120,24 @@ class GalleryThreadModel extends Model
 
             $item->content = $message;
             $item->save();
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Get comment count for gallery item
+     * 
+     * @param $id
+     * @return int
+     * @throws \Exception
+     */
+    public static function getCommentCount($id)
+    {
+        try {
+            $count = static::where('itemId', '=', $id)->where('locked', '=', false)->count();
+            
+            return $count;
         } catch (\Exception $e) {
             throw $e;
         }

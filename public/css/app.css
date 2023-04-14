@@ -639,8 +639,8 @@ h2, h3 {
 
 .activity-participant-avatar img {
   border-radius: 50%;
-  width: 32px;
-  height: 32px;
+  width: 48px;
+  height: 48px;
 }
 
 .activity-canceled {
@@ -1582,9 +1582,21 @@ h2, h3 {
   text-decoration: underline;
 }
 
-.gallery-item-footer-likes {
+.gallery-item-footer-stats {
   display: inline-block;
   float: right;
+}
+
+.gallery-item-footer-comments {
+  display: inline-block;
+}
+
+.gallery-item-footer-comments i {
+  color: rgb(105, 105, 105);
+}
+
+.gallery-item-footer-likes {
+  display: inline-block;
 }
 
 .gallery-item-footer-likes i {

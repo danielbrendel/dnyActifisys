@@ -568,5 +568,11 @@ return [
     'last_two_weeks' => 'Letzte zwei Wochen',
     'last_month' => 'Letzter Monat',
     'last_three_months' => 'Letztes Quartal',
-    'last_year' => 'Letztes Jahr'
+    'last_year' => 'Letztes Jahr',
+    'currently_online' => 'Jetzt online:',
+    'range' => 'Bereich:',
+    'select_range' => '- Bereich auswählen - ',
+    'sum' => 'Summe:',
+    'avg_per_day' => 'Durchschnitt am Tag:',
+    'avg_per_hour' => 'Durchschnitt pro Stunde:'
 ];

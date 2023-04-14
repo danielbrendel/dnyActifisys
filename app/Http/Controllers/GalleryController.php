@@ -80,6 +80,7 @@ class GalleryController extends Controller
 
                 $item->tags = explode(' ', $item->tags);
                 $item->likes = AppModel::countAsString(GalleryLikesModel::getForItem($item->id));
+                $item->comment_count = AppModel::countAsString(GalleryThreadModel::getCommentCount($item->id));
 
                 $item->hasLiked = GalleryLikesModel::hasUserLiked($item->id);
             }
@@ -111,6 +112,7 @@ class GalleryController extends Controller
 
             $item->tags = explode(' ', $item->tags);
             $item->likes = AppModel::countAsString(GalleryLikesModel::getForItem($item->id));
+            $item->comment_count = AppModel::countAsString(GalleryThreadModel::getCommentCount($item->id));
             $item->hasLiked = GalleryLikesModel::hasUserLiked($item->id);
 
             return view('gallery.item', [

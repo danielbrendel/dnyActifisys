@@ -26,14 +26,14 @@
             </div>
 
             <div class="paragraph">
-                Currently online: <span id="stats-online-count">{{ $online_count }}</span>
+                {{ __('app.currently_online') }} <span id="stats-online-count">{{ $online_count }}</span>
             </div>
 
             <div class="visitor-summary">
                 <div>
-                    Range: <input class="stats-input" type="date" id="inp-date-from"/>&nbsp;<input class="stats-input" type="date" id="inp-date-till"/>&nbsp;
+                    {{ __('app.range') }} <input class="stats-input" type="date" id="inp-date-from"/>&nbsp;<input class="stats-input" type="date" id="inp-date-till"/>&nbsp;
                     <select class="stats-input" onchange="window.vue.renderStats('visitor-stats', this.value, '{{ $end }}');">
-                        <option value="{{ $start }}">- Select a range -</option>
+                        <option value="{{ $start }}">{{ __('app.select_range') }}</option>
                         @foreach ($predefined_dates as $key => $value)
                             <option value="{{ $value }}">{{ $key }}</option>
                         @endforeach
@@ -41,9 +41,9 @@
                     &nbsp;<a class="button" href="javascript:void(0);" onclick="window.vue.renderStats('visitor-stats', document.getElementById('inp-date-from').value, document.getElementById('inp-date-till').value);">Go</a>
                 </div>
                 
-                <div>Sum: <div class="is-inline-block" id="count-total"></div></div>
-                <div>Avg per day: <div class="is-inline-block" id="count-avg-day"></div></div>
-                <div>Avg per hour: <div class="is-inline-block" id="count-avg-hour"></div></div>
+                <div>{{ __('app.sum') }} <div class="is-inline-block" id="count-total"></div></div>
+                <div>{{ __('app.avg_per_day') }} <div class="is-inline-block" id="count-avg-day"></div></div>
+                <div>{{ __('app.avg_per_hour') }} <div class="is-inline-block" id="count-avg-hour"></div></div>
             </div>
 
             <div class="page-content">
@@ -59,7 +59,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             window.statsChart = null;
-            
+
             window.vue.renderStats('visitor-stats', '{{ $start }}', '{{ $end }}');
         });
     </script>

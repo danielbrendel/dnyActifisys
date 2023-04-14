@@ -572,5 +572,11 @@ return [
     'last_two_weeks' => 'Last two weeks',
     'last_month' => 'Last month',
     'last_three_months' => 'Last three months',
-    'last_year' => 'Last year'
+    'last_year' => 'Last year',
+    'currently_online' => 'Currently online:',
+    'range' => 'Range:',
+    'select_range' => '- Select range - ',
+    'sum' => 'Sum:',
+    'avg_per_day' => 'Avg per day:',
+    'avg_per_hour' => 'Avg per hour:'
 ];
