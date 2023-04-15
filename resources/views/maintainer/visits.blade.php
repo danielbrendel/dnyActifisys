@@ -72,8 +72,6 @@
 
             window.vue.renderStats('visitor-stats', '{{ $start }}', '{{ $end }}');
 
-            
-
             window.updateOnlineCount();
         });
     </script>
