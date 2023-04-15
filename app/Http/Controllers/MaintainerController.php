@@ -918,4 +918,20 @@ class MaintainerController extends Controller
             return response()->json(array('code' => 500, 'msg' => $e->getMessage()));
         }
     }
+
+    /**
+     * Query visitor online count
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function queryOnlineCount()
+    {
+        try {
+            $online_count = ViewCountModel::getOnlineCount();
+
+            return response()->json(array('code' => 200, 'count' => $online_count));
+        } catch (\Exception $e) {
+            return response()->json(array('code' => 500, 'msg' => $e->getMessage()));
+        }
+    }
 }

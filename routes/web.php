@@ -160,6 +160,7 @@ Route::any('/maintainer/forum/{id}/lock', 'MaintainerController@lockForum');
 Route::any('/maintainer/forum/{id}/remove', 'MaintainerController@removeForum');
 Route::get('/maintainer/visits', 'MaintainerController@visits');
 Route::any('/maintainer/visits/query', 'MaintainerController@queryVisits');
+Route::any('/maintainer/visits/onlinecount', 'MaintainerController@queryOnlineCount');
 
 Route::post('/payment/charge', 'PaymentController@charge');
 

@@ -57,10 +57,24 @@
 
 @section('javascript')
     <script>
+        window.updateOnlineCount = function() {
+            window.vue.ajaxRequest('get', '{{ url('/maintainer/visits/onlinecount') }}', {}, function(response){
+                if (response.code == 200) {
+                    document.getElementById('stats-online-count').innerHTML = response.count;
+                }
+            });
+
+            setTimeout(window.updateOnlineCount, {{ env('APP_ONLINECOUNTTIMER', 60) * 1000 }});
+        };
+
         document.addEventListener('DOMContentLoaded', function() {
             window.statsChart = null;
 
             window.vue.renderStats('visitor-stats', '{{ $start }}', '{{ $end }}');
+
+            
+
+            window.updateOnlineCount();
         });
     </script>
 @endsection

@@ -1585,6 +1585,7 @@ h2, h3 {
 .gallery-item-footer-stats {
   display: inline-block;
   float: right;
+  top: 5px;
 }
 
 .gallery-item-footer-comments {
