@@ -142,6 +142,13 @@ class ActivityModel extends Model
             $item->slug = Str::slug(strval($item->id) . ' ' . $item->title, '-');
             $item->save();
 
+            $date_count = ActivityModel::getSameDateCount($item->date_of_activity_till, 'till');
+            if ($date_count > 0) {
+                $date_fix = strtotime($item->date_of_activity_till) + $date_count;
+                $item->date_of_activity_till = date('Y-m-d H:i:s', $date_fix);
+                $item->save();
+            }
+
             ParticipantModel::add($owner, $item->id, ParticipantModel::PARTICIPANT_ACTUAL);
 
             $favs = FavoritesModel::where('entityId', '=', $owner)->where('type', '=', 'ENT_USER')->get();
@@ -193,6 +200,11 @@ class ActivityModel extends Model
                 throw new Exception(__('app.only_for_verified_users'));
             }
 
+            $otherDate = false;
+            if (strtotime($item->date_of_activity_till) !== strtotime($attr['date_of_activity_till'] . ' ' . $attr['time_of_activity'])) {
+                $otherDate = true;
+            }
+
             $taglist = static::getTagList(static::replaceUmlauts($attr['description']));
 
             $item->title = htmlspecialchars($attr['title']);
@@ -207,6 +219,15 @@ class ActivityModel extends Model
             $item->only_gender = $attr['only_gender'];
             $item->only_verified = $attr['only_verified'];
             $item->save();
+
+            if ($otherDate) {
+                $date_count = ActivityModel::getSameDateCount($item->date_of_activity_till, 'till');
+                if ($date_count > 0) {
+                    $date_fix = strtotime($item->date_of_activity_till) + $date_count;
+                    $item->date_of_activity_till = date('Y-m-d H:i:s', $date_fix);
+                    $item->save();
+                }
+            }
         } catch (Exception $e) {
             throw $e;
         }
@@ -360,6 +381,35 @@ class ActivityModel extends Model
             }
 
             return $query->limit(env('APP_ACTIVITYPACKLIMIT'))->get();
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Get count of activities with the exact same date
+     * 
+     * @param $date
+     * @param $which
+     * @return int
+     * @throws Exception
+     */
+    public static function getSameDateCount($date, $which)
+    {
+        try {
+            $query = ActivityModel::where('locked', '=', false);
+
+            $date = date('Y-m-d H:i', strtotime($date));
+
+            if ($which === 'from') {
+                $query->where('date_of_activity_from', '>=', date('Y-m-d H:i:s'))->whereRaw("DATE_FORMAT(date_of_activity_from, '%Y-%m-%d %H:%i') = ?", [$date]);
+            } else if ($which === 'till') {
+                $query->where('date_of_activity_till', '>=', date('Y-m-d H:i:s'))->whereRaw("DATE_FORMAT(date_of_activity_till, '%Y-%m-%d %H:%i') = ?", [$date]);
+            } else {
+                throw new Exception('Unknown identifier: ' . $which);
+            }
+
+            return $query->count();
         } catch (Exception $e) {
             throw $e;
         }
