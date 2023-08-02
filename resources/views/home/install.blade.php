@@ -31,7 +31,7 @@
         <title>Actifisys - Installation</title>
     </head>
 
-    <body>
+    <body class="is-install-body">
         <div id="main" class="container">
             @if ($errors->any())
                 <div id="error-message-1">
@@ -84,7 +84,7 @@
                 <div class="column is-2 is-sidespacing"></div>
 
                 <div class="column is-8">
-                    <h1>Install Actifisys</h1>
+                    <h1 class="is-header-gradient">Install Actifisys</h1>
                     <br/>
                     <span>
                         Welcome to the installation of Actifisys. The installation is intended to be fast. Just fill out and submit the form
@@ -92,7 +92,7 @@
                     </span>
 
                     <div class="member-form is-default-padding">
-                        <form method="POST" action="{{ url('/install') }}">
+                        <form method="POST" action="{{ url('/install') }}" class="is-install-form">
                             @csrf
 
                             <div class="field">
@@ -181,7 +181,7 @@
 
                             <br/>
 
-                            <input type="submit" value="Install">
+                            <input type="submit" class="button is-success" value="Install">
                         </form>
                     </div>
                 </div>

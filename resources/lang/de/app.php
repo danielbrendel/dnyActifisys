@@ -94,7 +94,7 @@ return [
     'comment_edited' => 'Kommentar wurde aktualisiert',
     'favorite_added' => 'Zu Favoriten hinzugefügt',
     'favorite_removed' => 'Von Favoriten entfernt',
-    'product_installed' => 'Das Produkt wurde erfolgreich installiert. Bitte gehe nun zu den Profileinstellungen und ändere dein Passwort!',
+    'product_installed' => 'Das Produkt wurde erfolgreich installiert. Dein aktuelles Passwort: :password. Bitte gehe nun zu den Profileinstellungen und ändere dein Passwort!',
     'contact_success' => 'Deine Anfrage wurde aufgenommen. Sie wird so schnell wie möglich bearbeitet.',
     'account_not_yet_confirmed' => 'Du musst erst deinen Account bestätigen',
     'account_deactivated' => 'Account deaktiviert',

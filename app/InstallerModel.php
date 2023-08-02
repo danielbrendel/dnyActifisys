@@ -42,18 +42,29 @@ class InstallerModel extends Model
             $envcontent .= 'APP_AUTHOR="Daniel Brendel"' . PHP_EOL;
             $envcontent .= 'APP_CONTACT="dbrendel1988@gmail.com"' . PHP_EOL;
             $envcontent .= 'APP_VERSION="1.0"' . PHP_EOL;
-            $envcontent .= 'APP_ENV=production' . PHP_EOL;
+            $envcontent .= 'APP_ENV=local' . PHP_EOL;
             $envcontent .= 'APP_KEY=' . PHP_EOL;
-            $envcontent .= 'APP_DEBUG=false' . PHP_EOL;
+            $envcontent .= 'APP_DEBUG=true' . PHP_EOL;
             $envcontent .= 'APP_URL="' . url('/') . '"' . PHP_EOL;
             $envcontent .= 'APP_PROJECTNAME="' . $attr['project'] . '"' . PHP_EOL;
             $envcontent .= 'APP_DESCRIPTION="The lightweight activity finder system"' . PHP_EOL;
             $envcontent .= 'APP_TAGS="actifisys, dnyactifisys, daniel brendel, activities, appointment, meeting, community, social, finder, opensource, freeware"' . PHP_EOL;
-            $envcontent .= 'APP_TITLE="${APP_PROJECTNAME} - ${APP_DESCRIPTION}"' . PHP_EOL;
 			$envcontent .= 'APP_LANG=en' . PHP_EOL;
             $envcontent .= 'APP_ACTIVITYPACKLIMIT=9' . PHP_EOL;
 			$envcontent .= 'APP_THREADPACKLIMIT=15' . PHP_EOL;
             $envcontent .= 'APP_MESSAGEPACKLIMIT=20' . PHP_EOL;
+            $envcontent .= 'APP_MESSAGETHREADPACK=30' . PHP_EOL;
+            $envcontent .= 'APP_FORUMPACKLIMIT=10' . PHP_EOL;
+            $envcontent .= 'APP_ACTIVITYRUNTIME=60' . PHP_EOL;
+            $envcontent .= 'APP_ENABLEMARKETPLACE=false' . PHP_EOL;
+            $envcontent .= 'APP_MARKETPLACEPACKLIMIT=10' . PHP_EOL;
+            $envcontent .= 'APP_ENABLEGALLERY=false' . PHP_EOL;
+            $envcontent .= 'APP_GALLERYPACKLIMIT=10' . PHP_EOL;
+            $envcontent .= 'APP_GALLERYTHREADPACKLIMIT=10' . PHP_EOL;
+            $envcontent .= 'APP_ONLINECOUNTLIMIT=30' . PHP_EOL;
+            $envcontent .= 'APP_ONLINECOUNTTIMER=60' . PHP_EOL;
+            $envcontent .= 'APP_MAXUPLOADSIZE=5000' . PHP_EOL;
+            $envcontent .= 'APP_ABOUTPOSITION=bottom' . PHP_EOL;
             $envcontent .= 'APP_ACCOUNTVERIFICATION=1' . PHP_EOL;
             $envcontent .= 'APP_NEWSLETTER_COUNT=5' . PHP_EOL;
             $envcontent .= 'APP_CRONPW="' . substr(md5(random_bytes(55)), 10) . '"' . PHP_EOL;
@@ -80,6 +91,10 @@ class InstallerModel extends Model
 			$envcontent .= 'HELPREALM_WORKSPACE=null' . PHP_EOL;
 			$envcontent .= 'HELPREALM_TOKEN=' . PHP_EOL;
 			$envcontent .= 'HELPREALM_TICKETTYPEID=' . PHP_EOL;
+            $envcontent .= 'FIREBASE_ENABLE=false' . PHP_EOL;
+            $envcontent .= 'FIREBASE_ENDPOINT="https://fcm.googleapis.com/fcm/send"' . PHP_EOL;
+            $envcontent .= 'FIREBASE_KEY=' . PHP_EOL;
+            $envcontent .= 'FIREBASE_PROPNAME="notification"' . PHP_EOL;
             $envcontent .= 'BROADCAST_DRIVER=log' . PHP_EOL;
             $envcontent .= 'CACHE_DRIVER=file' . PHP_EOL;
             $envcontent .= 'QUEUE_CONNECTION=sync' . PHP_EOL;
@@ -119,7 +134,7 @@ class InstallerModel extends Model
             \Artisan::call('migrate:install');
             \Artisan::call('migrate:refresh', array('--path' => 'database/migrations', '--force' => true));
 
-            \DB::insert("INSERT INTO app_settings (cookie_consent, home_bg, about, imprint, tos, reg_info, project_name_formatted, default_theme, headline_top, headline_sub) VALUES('cookie_consent', 'bg.jpg', 'about', 'imprint', 'tos', 'reg_info', '', '_default', 'Headline top', 'Headline sub')");
+            \DB::insert("INSERT INTO app_settings (cookie_consent, home_bg, clep_bg, about, imprint, tos, reg_info, marketplace_text, gallery_text, project_name_formatted, default_theme, headline_top, headline_sub) VALUES('cookie_consent', 'bg.jpg', 'clep.jpg', 'about', 'imprint', 'tos', 'reg_info', 'Marketplace text', 'Gallery text' '', '_default', 'Headline top', 'Headline sub')");
 
             $user = new User();
             $user->name = $attr['name'];

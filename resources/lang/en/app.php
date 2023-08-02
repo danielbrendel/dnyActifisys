@@ -94,7 +94,7 @@ return [
     'comment_edited' => 'Comment has been updated',
     'favorite_added' => 'Added to favorites',
     'favorite_removed' => 'Removed from favorites',
-    'product_installed' => 'The product has been successfully installed. Please go to profile settings and change your password!',
+    'product_installed' => 'The product has been successfully installed. Your current password: :password. Please go to profile settings and change your password!',
     'contact_success' => 'Your request has been stored. It will be processed as soon as possible',
     'account_not_yet_confirmed' => 'You must confirm your account before logging in',
     'account_deactivated' => 'Account deactivated',
