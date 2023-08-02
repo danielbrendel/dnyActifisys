@@ -740,7 +740,7 @@
 
                         window.notificationPagination = response.data[response.data.length-1].id;
 
-                        document.getElementById('notification-content').innerHTML += '<center><i id="load-more-notifications" class="fas fa-arrow-down is-pointer" onclick="fetchNotificationList()"></i></center>';
+                        document.getElementById('notification-content').innerHTML += '<center><i id="load-more-notifications" class="fas fa-plus is-pointer" onclick="fetchNotificationList()"></i></center>';
                         document.getElementById('notification-spinner').remove();
                     } else {
                         if (window.notificationPagination === null) {

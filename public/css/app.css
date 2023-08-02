@@ -841,11 +841,11 @@ h2, h3 {
 }
 
 .activity-small-title a {
-  color: rgb(30, 103, 190);
+  color: rgb(135, 205, 250);
 }
 
 .activity-small-title a:hover {
-  color: rgb(30, 103, 190);
+  color: rgb(135, 205, 250);
   text-decoration: underline;
 }
 
@@ -1664,9 +1664,9 @@ h2, h3 {
   position: absolute;
   top: -203px;
   z-index: 4;
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(90, 90, 90);
   display: none;
-  border: 1px solid #ccc;
+  border: 1px solid rgb(120, 120, 120);
 }
 @media screen and (min-width: 769px) {
   .notifications {
@@ -1721,6 +1721,7 @@ h2, h3 {
 .notification-close-action {
   margin-top: 22px;
   margin-right: 32px;
+  color: rgb(150, 150, 150);
 }
 
 .notifications-content {
@@ -1738,18 +1739,27 @@ h2, h3 {
   position: relative;
   width: 100%;
   height: auto;
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(90, 90, 90);
   padding: 21px;
-  border: 1px solid #ccc;
   border-radius: 4px;
 }
 
 .notification-item:hover {
-  background-color: rgb(250, 250, 250);
+  background-color: rgb(100, 100, 100);
+}
+
+.notification-item a {
+  color: rgb(135, 205, 250);
+}
+
+.notification-item a:hover {
+  color: rgb(135, 205, 250);
+  text-decoration: underline;
 }
 
 .notification-item-icon {
   display: inline-block;
+  top: -22px;
 }
 
 .notification-item-icon i {
@@ -1768,11 +1778,11 @@ h2, h3 {
 }
 
 .is-new-notification {
-  background-color: rgb(128, 255, 128);
+  background-color: rgba(132, 153, 132, 0.5);
 }
 
 .is-new-notification:hover {
-  background-color: rgb(128, 200, 128);
+  background-color: rgba(132, 153, 132, 0.65);
 }
 
 .notification-badge {
@@ -1824,9 +1834,9 @@ h2, h3 {
   position: absolute;
   top: -203px;
   z-index: 4;
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(90, 90, 90);
   display: none;
-  border: 1px solid #ccc;
+  border: 1px solid rgb(120, 120, 120);
 }
 @media screen and (min-width: 769px) {
   .favorites {
@@ -1881,6 +1891,7 @@ h2, h3 {
 .favorites-close-action {
   margin-top: 22px;
   margin-right: 32px;
+  color: rgb(150, 150, 150);
 }
 
 .favorites-content {
@@ -1913,6 +1924,15 @@ h2, h3 {
 
 .favorite-item-info {
   display: inline-block;
+}
+
+.favorite-item-info a {
+  color: rgb(135, 205, 250);
+}
+
+.favorite-item-info a:hover {
+  color: rgb(135, 205, 250);
+  text-decoration: underline;
 }
 
 .favorite-right {
@@ -2075,6 +2095,10 @@ select.stats-input {
 
 .is-color-grey-light {
   color: rgb(200, 200, 200);
+}
+
+.is-color-grey-midplus {
+  color: rgb(150, 150, 150);
 }
 
 .is-color-grey {

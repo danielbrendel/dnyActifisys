@@ -549,12 +549,12 @@ window.vue = new Vue({
 
                     <div class="activity-small-infos">
                         <div class="activity-small-infos-left is-inline-block">
-                            <div class="is-inline-block"><i class="fas fa-users is-color-dark-grey"></i>&nbsp;` + elem.participants + `</div>
-                            <div class="is-inline-block"><i class="far fa-comments is-color-dark-grey"></i>&nbsp;` + elem.messages + `</div>
-                            <div class="is-inline-block"><i class="far fa-eye is-color-dark-grey"></i>&nbsp;` + elem.view_count + `</div>
+                            <div class="is-inline-block"><i class="fas fa-users is-color-grey-midplus"></i>&nbsp;` + elem.participants + `</div>
+                            <div class="is-inline-block"><i class="far fa-comments is-color-grey-midplus"></i>&nbsp;` + elem.messages + `</div>
+                            <div class="is-inline-block"><i class="far fa-eye is-color-grey-midplus"></i>&nbsp;` + elem.view_count + `</div>
                         </div>
 
-                        <div class="activity-small-infos-right is-inline-block is-color-dark-grey">
+                        <div class="activity-small-infos-right is-inline-block is-color-grey-midplus">
                             ` + ((sameDate) ? elem.date_of_activity_from_display : elem.date_of_activity_from_display + ' - ' + elem.date_of_activity_till_display) + ' ' + elem.date_of_activity_time + `
                         </div>
                     </div>
@@ -654,11 +654,11 @@ window.vue = new Vue({
             let html = `
                 <div class="notification-item ` + ((newItem) ? 'is-new-notification' : '') + `" id="notification-item-` + elem.id + `">
                     <div class="notification-icon">
-                        <div class="notification-item-icon"><i class="` + icon + ` fa-3x"></i></div>
+                        <div class="notification-item-icon"><i class="` + icon + ` fa-1x"></i></div>
                     </div>
                     <div class="notification-info">
-                        <div class="notification-item-message is-color-grey-dark">` + elem.longMsg + `</div>
-                        <div class="notification-item-message is-color-grey-light">` + elem.diffForHumans + `</div>
+                        <div class="notification-item-message is-color-grey-light">` + elem.longMsg + `</div>
+                        <div class="notification-item-message is-color-grey-midplus">` + elem.diffForHumans + `</div>
                     </div>
                 </div>
             `;
