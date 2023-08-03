@@ -420,14 +420,14 @@
                             <div class="field">
                                 <label class="label">{{ __('app.subject') }}</label>
                                 <div class="control">
-                                    <input type="text" name="subject">
+                                    <input type="text" name="subject" value="{{ $settings->newsletter_subject }}">
                                 </div>
                             </div>
 
                             <div class="field">
                                 <label class="label">{{ __('app.text') }}</label>
                                 <div class="control">
-                                    <textarea name="content"></textarea>
+                                    <textarea name="content">{{ $settings->newsletter_content }}</textarea>
                                 </div>
                             </div>
 
