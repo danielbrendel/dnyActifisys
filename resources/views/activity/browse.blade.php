@@ -159,6 +159,7 @@
             window.lastActivityId = {{ ((strlen(\App\AppModel::getAdCode()) > 0) ? '2' : '1') }};
 
             window.paginate = null;
+            window.activityFetchType = 1;
 
             window.locationIdent = window.vue.getLocationCookieValue();
             if (window.locationIdent === '_all') {
