@@ -17,6 +17,9 @@
         <div class="column is-6">
             <center>
                 <div class="linklist">
+                    @foreach (\App\PageModel::getLinkablePages() as $page)
+                        <div class="linkitem"><a href="{{ $page->url }}">{{ $page->label }}</a></div>
+                    @endforeach
                     @if (env('TWITTER_NEWS', null) !== null)
                         <div class="linkitem"><a href="{{ url('/news') }}">{{ __('app.news') }}</a></div>
                     @endif

@@ -31,6 +31,7 @@ Route::post('/login', 'MainController@login');
 Route::any('/logout', 'MainController@logout');
 Route::get('/clep/index', 'MainController@clep');
 Route::get('/sitemap', 'MainController@sitemap');
+Route::get('/page/{slugOrId}', 'MainController@page');
 
 Route::post('/activity/create', 'ActivityController@create');
 Route::post('/activity/edit', 'ActivityController@edit');

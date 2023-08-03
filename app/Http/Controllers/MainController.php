@@ -18,6 +18,7 @@ use App\AppModel;
 use App\CaptchaModel;
 use App\FaqModel;
 use App\AnnouncementsModel;
+use App\PageModel;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -119,6 +120,29 @@ class MainController extends Controller
     public function viewContact()
     {
         return view('home.contact', ['captchadata' => CaptchaModel::createSum(session()->getId()), 'cookie_consent' => $this->cookie_consent]);
+    }
+
+    /**
+     * View custom page
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
+     */
+    public function page($slugOrId)
+    {
+        try {
+            $page = PageModel::getPage($slugOrId);
+            if (!$page) {
+                throw new \Exception(__('app.custom_page_not_found'));
+            }
+
+            return view('home.page', [
+                'captchadata' => CaptchaModel::createSum(session()->getId()),
+                'cookie_consent' => $this->cookie_consent,
+                'page' => $page
+            ]);
+        } catch (\Exception $e) {
+            return redirect('/')->with('flash.error', $e->getMessage());
+        }
     }
 
     /**

@@ -38,6 +38,7 @@ a forum, gallery and market place available. For a full feature list see the lis
 + Administration
 + Maintainer system
 + Theme system
++ Custom pages
 + Twitter news integration
 + HelpRealm integration
 + Ads system
