@@ -23,7 +23,7 @@
         <h1>{{ __('app.message_create') }}</h1>
 
         <div class="member-form is-default-padding member-form-fixed-top">
-            <form method="POST" action="{{ url('/messages/send') }}">
+            <form method="POST" action="{{ url('/messages/send') }}" class="has-transparent-input">
                 @csrf
 
                 <input type="hidden" name="user" value=" {{ $_GET['userId'] }}">

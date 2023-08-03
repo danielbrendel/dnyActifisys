@@ -2289,3 +2289,11 @@ a.is-color-grey:hover {
 .is-side-padding {
   padding: 0.75rem;
 }
+
+.has-transparent-input input, .has-transparent-input textarea, .has-transparent-input select {
+  background-color: rgba(255, 255, 255, 0.76);
+}
+
+input.has-transparent-input {
+  background-color: rgba(255, 255, 255, 0.76);
+}

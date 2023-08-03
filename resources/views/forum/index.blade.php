@@ -24,7 +24,7 @@
 
         <div class="field has-addons fixed-form is-default-padding">
             <div class="control">
-                <input type="text" id="forum-name" onchange="window.forumName = this.value;" onkeyup="if (event.which === 13) { window.paginate = null; window.listForums(); }" placeholder="{{ __('app.search_for_name') }}">
+                <input type="text" class="has-transparent-input" id="forum-name" onchange="window.forumName = this.value;" onkeyup="if (event.which === 13) { window.paginate = null; window.listForums(); }" placeholder="{{ __('app.search_for_name') }}">
             </div>
             <div class="control">
                 <a class="button" href="javascript:void(0);" onclick="window.paginate = null; window.listForums();">{{ __('app.search') }}</a>

@@ -57,7 +57,7 @@
 
             <br/>
 
-            <form method="POST" action="{{ url('/settings') }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ url('/settings') }}" enctype="multipart/form-data" class="has-transparent-input">
                 @csrf
 
                 <div class="field">
@@ -115,7 +115,7 @@
         </div>
 
         <div id="tabSecurity-form" class="is-hidden">
-            <form method="POST" action="{{ url('/settings/password') }}">
+            <form method="POST" action="{{ url('/settings/password') }}" class="has-transparent-input">
                 @csrf
 
                 <div class="field">
@@ -137,7 +137,7 @@
 
             <hr/>
 
-            <form method="POST" action="{{ url('/settings/email') }}">
+            <form method="POST" action="{{ url('/settings/email') }}" class="has-transparent-input">
                 @csrf
 
                 <div class="field">
@@ -226,7 +226,7 @@
         <div id="tabMarketplace-form" class="is-hidden">
             <h3>{{ __('app.marketplace_create_advert_title') }}</h3>
 
-            <form method="POST" action="{{ url('/marketplace/create') }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ url('/marketplace/create') }}" enctype="multipart/form-data" class="has-transparent-input">
                 @csrf
 
                 <div class="control">
@@ -301,7 +301,7 @@
                 @elseif ($self->state === \App\VerifyModel::STATE_VERIFIED)
                     <strong>{{ __('app.verification_succeeded') }}</strong>
                 @else
-                    <form method="POST" action="{{ url('/settings/verify') }}" id="frmVerify" enctype="multipart/form-data">
+                    <form method="POST" action="{{ url('/settings/verify') }}" id="frmVerify" enctype="multipart/form-data" class="has-transparent-input">
                         @csrf
 
                         <div class="field">
@@ -345,7 +345,7 @@
             @endif
 
             <div class="is-margin-top-20">
-                <form method="POST" action="{{ url('/settings/delete') }}">
+                <form method="POST" action="{{ url('/settings/delete') }}" class="has-transparent-input">
                     @csrf
 
                     <div class="field">

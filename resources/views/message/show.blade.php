@@ -23,7 +23,7 @@
         <h1>{{ __('app.message_thread', ['name' => $msg->message_partner->name]) }}</h1>
 
         <div class="is-default-padding">
-            <form method="POST" action="{{ url('/messages/send') }}" id="frmSendMessage">
+            <form method="POST" action="{{ url('/messages/send') }}" id="frmSendMessage" class="has-transparent-input">
                 @csrf
 
                 <input type="hidden" name="user" value="{{ $msg->message_partner->id }}">

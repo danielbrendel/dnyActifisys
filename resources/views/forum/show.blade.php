@@ -27,7 +27,7 @@
         <div class="is-default-padding is-top-15">
             <div class="field has-addons">
                 <div class="control">
-                    <input class="input" type="text" id="forum-name" onchange="window.searchPhrase = this.value;" onkeyup="if (event.which === 13) { window.paginate = null; window.listThreads(); }" placeholder="{{ __('app.search_for_thread') }}">
+                    <input class="input has-transparent-input" type="text" id="forum-name" onchange="window.searchPhrase = this.value;" onkeyup="if (event.which === 13) { window.paginate = null; window.listThreads(); }" placeholder="{{ __('app.search_for_thread') }}">
                 </div>
                 <div class="control">
                     <a class="button" href="javascript:void(0);" onclick="window.paginate = null; window.listThreads();">{{ __('app.search') }}</a>
