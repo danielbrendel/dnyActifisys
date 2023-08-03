@@ -2065,6 +2065,28 @@ select.stats-input {
   margin-top: 40px;
 }
 
+.scroll-to-top {
+  position: fixed;
+  z-index: 3;
+  bottom: 12px;
+  right: 12px;
+}
+
+.scroll-to-top-inner {
+  background-color: rgb(100, 100, 100);
+  border-radius: 50%;
+  padding: 12px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.scroll-to-top-inner a {
+  color: rgb(200, 200, 200);
+}
+
+.scroll-to-top-inner a:hover {
+  color: rgb(200, 200, 200);
+}
+
 .is-pointer {
   cursor: pointer;
 }

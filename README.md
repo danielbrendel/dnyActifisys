@@ -53,8 +53,8 @@ a forum, gallery and market place available. For a full feature list see the lis
 
 ## System requirements
 The product is being developed with the following engine versions:
-+ PHP 7.4.6
-+ MySQL 10.4.11-MariaDB
++ PHP ^8.0
++ MySQL ^10.4.11-MariaDB
 + Standard PHP extensions
 
 ## Installation:
