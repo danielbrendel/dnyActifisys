@@ -37,6 +37,10 @@ textarea {
   background-color: rgba(0, 0, 0, 0.4);
 }
 
+a#upcoming-activities {
+  text-decoration: underline;
+}
+
 .feedback-error {
   position: fixed;
   left: 20%;

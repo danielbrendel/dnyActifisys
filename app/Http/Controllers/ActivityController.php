@@ -308,6 +308,107 @@ class ActivityController extends Controller
     }
 
     /**
+     * Fetch past activity package
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function fetchPast()
+    {
+        try {
+            $paginate = request('paginate', null);
+            if ($paginate === 'null') {
+                $paginate = null;
+            }
+
+            $location = request('location', null);
+            if ($location === '_all') {
+                $location = null;
+            }
+
+            $dateFrom = request('date_from', null);
+            if ($dateFrom === '_default') {
+                $dateFrom = null;
+            }
+
+            $dateTill = request('date_till', null);
+            if ($dateTill === '_default') {
+                $dateTill = null;
+            }
+
+            $tag = request('tag', null);
+            if ($tag === '') {
+                $tag = null;
+            }
+
+            $category = request('category', null);
+            if ($category == 0) {
+                $category = null;
+            }
+
+            $text = request('text', null);
+            if ($text === '') {
+                $text = null;
+            }
+
+            $data = ActivityModel::fetchPastActivities($location, $paginate, $dateFrom, $dateTill, $tag, $category, $text)->toArray();
+            foreach ($data as $key => &$item) {
+                $item['_type'] = 'activity';
+
+                $item['user'] = User::get($item['owner']);
+
+                if ((IgnoreModel::hasIgnored($item['owner'], auth()->id())) || (IgnoreModel::hasIgnored(auth()->id(), $item['owner']))) {
+                    unset($data[$key]);
+                    continue;
+                }
+
+                if (($item['only_verified'] == true) && (VerifyModel::getState(auth()->id()) != VerifyModel::STATE_VERIFIED)) {
+                    unset($data[$key]);
+                    continue;
+                }
+
+                $item['user']->verified = VerifyModel::getState($item['user']->id) === VerifyModel::STATE_VERIFIED;
+
+                $item['participants'] = ParticipantModel::where('activity', '=', $item['id'])->where('type', '=', ParticipantModel::PARTICIPANT_ACTUAL)->count();
+                $item['messages'] = ThreadModel::where('activityId', '=', $item['id'])->count();
+                $item['date_of_activity_from'] = Carbon::createFromDate($item['date_of_activity_from']);
+                $item['date_of_activity_from_display'] = $item['date_of_activity_from']->format(__('app.date_format_display'));
+                $item['date_of_activity_till'] = Carbon::createFromDate($item['date_of_activity_till']);
+                $item['date_of_activity_till_display'] = $item['date_of_activity_till']->format(__('app.date_format_display'));
+                $item['date_of_activity_time'] = $item['date_of_activity_from']->format(__('app.time_format_display'));
+                $item['diffForHumans'] = $item['date_of_activity_from']->diffForHumans();
+                $item['date_of_activity_from_formatted'] = $item['date_of_activity_from']->format(__('app.date_format'));
+                $item['view_count'] = AppModel::countAsString(UniqueViewsModel::viewForItem($item['id']));
+                $item['categoryData'] = CategoryModel::where('id', '=', $item['category'])->first();
+
+                $item['running'] = false;
+                
+                if (((new DateTime($item['date_of_activity_from'])) < (new DateTime('now'))) && ((new DateTime($item['date_of_activity_till']))->modify('+' . env('APP_ACTIVITYRUNTIME', 60) . ' minutes') >= (new DateTime('now')))) {
+                    $item['running'] = true;
+                }
+            }
+
+            $data = array_values($data);
+
+            if (!User::hasProMode(auth()->id())) {
+                $adcode = AppModel::getAdCode();
+                if ((strlen($adcode) > 0) && (count($data) > 0)) {
+                    $aditem = array();
+                    $aditem['_type'] = 'ad';
+                    $aditem['code'] = $adcode;
+                    $aditem['tags'] = '';
+                    $aditem['category'] = 0;
+                    $aditem['date_of_activity_from'] = $data[count($data)-1]['date_of_activity_from'];
+                    $data[] = $aditem;
+                }
+            }
+
+            return response()->json(array('code' => 200, 'data' => $data, 'last' => count($data) === 0));
+        } catch (Exception $e) {
+            return response()->json(array('code' => 500, 'msg' => $e->getMessage()));
+        }
+    }
+
+    /**
      * Fetch thread comment pack
      *
      * @param $id

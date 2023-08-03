@@ -575,5 +575,6 @@ return [
     'sum' => 'Summe:',
     'avg_per_day' => 'Durchschnitt am Tag:',
     'avg_per_hour' => 'Durchschnitt pro Stunde:',
-    'custom_page_not_found' => 'Die Seite konnte nicht gefunden werden'
+    'custom_page_not_found' => 'Die Seite konnte nicht gefunden werden',
+    'upcoming_activities' => 'Anstehende Aktivitäten'
 ];

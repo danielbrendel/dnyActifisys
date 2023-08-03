@@ -344,6 +344,84 @@ class ActivityModel extends Model
     }
 
     /**
+     * Fetch activity package of past activities
+     *
+     * @param null $location
+     * @param null $paginate
+     * @param null $dateFrom
+     * @param null $dateTill
+     * @param null $tag
+     * @param null $category
+     * @param null $text
+     * @return mixed
+     * @throws Exception
+     */
+    public static function fetchPastActivities($location = null, $paginate = null, $dateFrom = null, $dateTill = null, $tag = null, $category = null, $text = null)
+    {
+        try {
+            $activities = ActivityModel::where(function($query){
+                $query->where('date_of_activity_from', '<=', date('Y-m-d H:i:s'))
+                ->orWhere('date_of_activity_till', '<=', date('Y-m-d H:i:s', strtotime('+' . env('APP_ACTIVITYRUNTIME', 60) . ' minutes')));
+            })->where('locked', '=', false);
+
+            if ($location !== null) {
+                $activities->where('location', 'like', '%' . strtolower($location) . '%');
+            }
+
+            if ($paginate !== null) {
+                $activities->where('date_of_activity_till', '<', date('Y-m-d H:i:s', strtotime($paginate)));
+            }
+
+            if ($dateFrom !== null) {
+                $asDate = date('Y-m-d 23:59:59', strtotime($dateFrom));
+                if ((new DateTime($asDate) < (new DateTime('now')))) {
+                    throw new Exception(__('app.date_from_smaller_than_now'));
+                }
+
+                $asDate = date('Y-m-d H:i:s', strtotime($dateFrom));
+
+                $activities->where('date_of_activity_till', '>=', $asDate);
+            }
+
+            if ($dateTill !== null) {
+                $asDate = date('Y-m-d 23:59:59', strtotime($dateTill));
+                if ((new DateTime($asDate) < (new DateTime('now')))) {
+                    throw new Exception(__('app.date_till_smaller_than_now'));
+                }
+
+                if ($dateFrom !== null) {
+                    $asDate2 = date('Y-m-d H:i:s', strtotime($dateFrom));
+                    if ((new DateTime($asDate) < (new DateTime($asDate2)))) {
+                        throw new Exception(__('app.till_date_must_not_be_less_than_from_date'));
+                    }
+                }
+
+                $activities->where('date_of_activity_till', '<=', $asDate);
+            }
+
+            if ($tag !== null) {
+                $activities->where('tags', 'LIKE', '%' . $tag . ' %');
+            }
+
+            if ($category !== null) {
+                $activities->where('category', '=', $category);
+            }
+
+            if ($text !== null) {
+                $activities->where(function($query) use ($text) {
+                    $query->whereRaw('LOWER(title) LIKE ?', ['%' . strtolower($text) . '%'])
+                    ->orWhereRaw('LOWER(description) LIKE ?', ['%' . strtolower($text) . '%'])
+                    ->orWhereRaw('LOWER(location) LIKE ?', ['%' . strtolower($text) . '%']);
+                });
+            }
+
+            return $activities->orderBy('date_of_activity_from', 'desc')->limit(env('APP_ACTIVITYPACKLIMIT'))->get();
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
      * Fetch user activities
      *
      * @param $userId
