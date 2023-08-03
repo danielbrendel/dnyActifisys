@@ -576,5 +576,6 @@ return [
     'avg_per_day' => 'Durchschnitt am Tag:',
     'avg_per_hour' => 'Durchschnitt pro Stunde:',
     'custom_page_not_found' => 'Die Seite konnte nicht gefunden werden',
-    'upcoming_activities' => 'Anstehende Aktivitäten'
+    'upcoming_activities' => 'Anstehende Aktivitäten',
+    'add_as_participant' => 'Mich als Teilnehmer*in hinzufügen'
 ];

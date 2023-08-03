@@ -637,7 +637,7 @@ h2, h3 {
 }
 
 .activity-participant-avatar {
-  margin: 15px;
+  margin: 11px;
   display: inline-block;
 }
 
@@ -2296,4 +2296,8 @@ a.is-color-grey:hover {
 
 input.has-transparent-input {
   background-color: rgba(255, 255, 255, 0.76);
+}
+
+.fix-checkbox-top {
+  top: -10px;
 }

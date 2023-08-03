@@ -52,6 +52,7 @@ class ActivityController extends Controller
             'time_of_activity' => 'required|date_format:H:i',
             'category' => 'required|numeric',
             'location' => 'required',
+            'add_participant' => 'nullable|numeric',
             'limit' => 'nullable|numeric',
             'only_gender' => 'nullable|numeric',
             'only_verified' => 'nullable|numeric'
@@ -59,6 +60,10 @@ class ActivityController extends Controller
         
         try {
             $this->validateAuth();
+
+            if (!isset($attr['add_participant'])) {
+                $attr['add_participant'] = 0;
+            }
 
             if (!isset($attr['limit'])) {
                 $attr['limit'] = 0;

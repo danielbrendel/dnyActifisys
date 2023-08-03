@@ -149,7 +149,9 @@ class ActivityModel extends Model
                 $item->save();
             }
 
-            ParticipantModel::add($owner, $item->id, ParticipantModel::PARTICIPANT_ACTUAL);
+            if ($attr['add_participant']) {
+                ParticipantModel::add($owner, $item->id, ParticipantModel::PARTICIPANT_ACTUAL);
+            }
 
             $favs = FavoritesModel::where('entityId', '=', $owner)->where('type', '=', 'ENT_USER')->get();
             foreach ($favs as $fav) {

@@ -493,6 +493,12 @@
                                 </div>
                             </div>
 
+                            <div class="field fix-checkbox-top">
+                                <div class="control">
+                                    <input type="checkbox" data-role="checkbox" data-type="2" data-caption="{{ __('app.add_as_participant') }}" name="add_participant" value="1" checked>
+                                </div>
+                            </div>
+
                             <div class="field">
                                 <div class="control">
                                     <a href="javascript:void(0);" onclick="document.getElementById('additional-options').classList.toggle('is-hidden'); this.remove();">{{ __('app.additional_options') }}</a>

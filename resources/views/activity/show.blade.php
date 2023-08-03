@@ -216,12 +216,10 @@
                     <div class="buttons-right is-inline-block">
                         @if ((new DateTime('now')) < (new DateTime(date('Y-m-d H:i:s', strtotime($activity->date_of_activity_till)))))
                             @auth 
-                                @if ($activity->owner !== auth()->id())
-                                    @if (!$activity->selfParticipated)
-                                        <div class="is-inline-block"><button type="button" id="btnParticipate" class="button is-success" onclick="location.href = '{{ url('/activity/' . $activity->id . '/participant/add') }}';">{{ __('app.participate') }}</button></div>
-                                    @else
-                                        <div class="is-inline-block"><button type="button" id="btnParticipate" class="button is-danger is-outlined" onclick="location.href = '{{ url('/activity/' . $activity->id . '/participant/remove') }}';">{{ __('app.not_participate') }}</button></div>
-                                    @endif
+                                @if (!$activity->selfParticipated)
+                                    <div class="is-inline-block"><button type="button" id="btnParticipate" class="button is-success" onclick="location.href = '{{ url('/activity/' . $activity->id . '/participant/add') }}';">{{ __('app.participate') }}</button></div>
+                                @else
+                                    <div class="is-inline-block"><button type="button" id="btnParticipate" class="button is-danger is-outlined" onclick="location.href = '{{ url('/activity/' . $activity->id . '/participant/remove') }}';">{{ __('app.not_participate') }}</button></div>
                                 @endif
                             @elseguest
                                 <div class="is-inline-block"><button type="button" id="btnParticipate" class="button is-success" onclick="window.vue.bShowLogin = true;">{{ __('app.participate') }}</button></div>
