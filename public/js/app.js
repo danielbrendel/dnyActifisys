@@ -21036,7 +21036,7 @@ module.exports = Object.assign(Chart, chartjs);
 
 "use strict";
 /*!
- * Chart.js v4.2.1
+ * Chart.js v4.3.3
  * https://www.chartjs.org
  * (c) 2023 Chart.js Contributors
  * Released under the MIT License
@@ -22852,7 +22852,7 @@ class DoughnutController extends DatasetController {
     };
     static descriptors = {
         _scriptable: (name)=>name !== 'spacing',
-        _indexable: (name)=>name !== 'spacing'
+        _indexable: (name)=>name !== 'spacing' && !name.startsWith('borderDash') && !name.startsWith('hoverBorderDash')
     };
  static overrides = {
         aspectRatio: 1,
@@ -23503,6 +23503,9 @@ class ScatterController extends DatasetController {
             count = points.length;
         }
         if (this.options.showLine) {
+            if (!this.datasetElementType) {
+                this.addElements();
+            }
             const { dataset: line , _dataset  } = meta;
             line._chart = this.chart;
             line._datasetIndex = this.index;
@@ -23514,6 +23517,9 @@ class ScatterController extends DatasetController {
                 animated: !animationsDisabled,
                 options
             }, mode);
+        } else if (this.datasetElementType) {
+            delete meta.dataset;
+            this.datasetElementType = false;
         }
         this.updateElements(points, start, count, mode);
     }
@@ -23586,8 +23592,8 @@ BarController: BarController,
 BubbleController: BubbleController,
 DoughnutController: DoughnutController,
 LineController: LineController,
-PolarAreaController: PolarAreaController,
 PieController: PieController,
+PolarAreaController: PolarAreaController,
 RadarController: RadarController,
 ScatterController: ScatterController
 });
@@ -23617,6 +23623,7 @@ ScatterController: ScatterController
    */ static override(members) {
         Object.assign(DateAdapterBase.prototype, members);
     }
+    options;
     constructor(options){
         this.options = options || {};
     }
@@ -24082,18 +24089,18 @@ function placeBoxes(boxes, chartArea, params, stacks) {
             stack.placed += width;
             y = box.bottom;
         } else {
-            const height1 = chartArea.h * weight;
-            const width1 = stack.size || box.width;
+            const height = chartArea.h * weight;
+            const width = stack.size || box.width;
             if (helpers_segment.defined(stack.start)) {
                 x = stack.start;
             }
             if (box.fullSize) {
-                setBoxDims(box, x, userPadding.top, width1, params.outerHeight - userPadding.bottom - userPadding.top);
+                setBoxDims(box, x, userPadding.top, width, params.outerHeight - userPadding.bottom - userPadding.top);
             } else {
-                setBoxDims(box, x, chartArea.top + stack.placed, width1, height1);
+                setBoxDims(box, x, chartArea.top + stack.placed, width, height);
             }
             stack.start = x;
-            stack.placed += height1;
+            stack.placed += height;
             x = box.right;
         }
     }
@@ -24494,7 +24501,11 @@ function _detectPlatform(canvas) {
 class Element {
     static defaults = {};
     static defaultRoutes = undefined;
+    x;
+    y;
     active = false;
+    options;
+    $animations;
     tooltipPosition(useFinalPosition) {
         const { x , y  } = this.getProps([
             'x',
@@ -24706,7 +24717,7 @@ function createTickContext(parent, index, tick) {
     });
 }
 function titleAlign(align, position, reverse) {
-    let ret = helpers_segment._toLeftRightCenter(align);
+     let ret = helpers_segment._toLeftRightCenter(align);
     if (reverse && position !== 'right' || !reverse && position === 'right') {
         ret = reverseAlign(ret);
     }
@@ -24733,9 +24744,9 @@ function titleArgs(scale, offset, position, align) {
         maxWidth = right - left;
     } else {
         if (helpers_segment.isObject(position)) {
-            const positionAxisID1 = Object.keys(position)[0];
-            const value1 = position[positionAxisID1];
-            titleX = scales[positionAxisID1].getPixelForValue(value1) - width + offset;
+            const positionAxisID = Object.keys(position)[0];
+            const value = position[positionAxisID];
+            titleX = scales[positionAxisID].getPixelForValue(value) - width + offset;
         } else if (position === 'center') {
             titleX = (chartArea.left + chartArea.right) / 2 - width + offset;
         } else {
@@ -25213,7 +25224,7 @@ class Scale extends Element {
                 height = lineHeight;
             } else if (helpers_segment.isArray(label)) {
                 for(j = 0, jlen = label.length; j < jlen; ++j){
-                    nestedLabel = label[j];
+                    nestedLabel =  label[j];
                     if (!helpers_segment.isNullOrUndef(nestedLabel) && !helpers_segment.isArray(nestedLabel)) {
                         width = helpers_segment._measureText(ctx, cache.data, cache.gc, width, nestedLabel);
                         height += lineHeight;
@@ -25358,9 +25369,9 @@ class Scale extends Element {
             if (position === 'center') {
                 borderValue = alignBorderValue((chartArea.left + chartArea.right) / 2);
             } else if (helpers_segment.isObject(position)) {
-                const positionAxisID1 = Object.keys(position)[0];
-                const value1 = position[positionAxisID1];
-                borderValue = alignBorderValue(this.chart.scales[positionAxisID1].getPixelForValue(value1));
+                const positionAxisID = Object.keys(position)[0];
+                const value = position[positionAxisID];
+                borderValue = alignBorderValue(this.chart.scales[positionAxisID].getPixelForValue(value));
             }
             tx1 = borderValue - axisHalfWidth;
             tx2 = tx1 - tl;
@@ -25439,9 +25450,9 @@ class Scale extends Element {
             textAlign = ret.textAlign;
             x = ret.x;
         } else if (position === 'right') {
-            const ret1 = this._getYAxisLabelAlignment(tl);
-            textAlign = ret1.textAlign;
-            x = ret1.x;
+            const ret = this._getYAxisLabelAlignment(tl);
+            textAlign = ret.textAlign;
+            x = ret.x;
         } else if (axis === 'x') {
             if (position === 'center') {
                 y = (chartArea.top + chartArea.bottom) / 2 + tickAndPadding;
@@ -25455,9 +25466,9 @@ class Scale extends Element {
             if (position === 'center') {
                 x = (chartArea.left + chartArea.right) / 2 - tickAndPadding;
             } else if (helpers_segment.isObject(position)) {
-                const positionAxisID1 = Object.keys(position)[0];
-                const value1 = position[positionAxisID1];
-                x = this.chart.scales[positionAxisID1].getPixelForValue(value1);
+                const positionAxisID = Object.keys(position)[0];
+                const value = position[positionAxisID];
+                x = this.chart.scales[positionAxisID].getPixelForValue(value);
             }
             textAlign = this._getYAxisLabelAlignment(tl).textAlign;
         }
@@ -26140,8 +26151,8 @@ class PluginService {
         plugins.push(registry.getPlugin(keys[i]));
     }
     const local = config.plugins || [];
-    for(let i1 = 0; i1 < local.length; i1++){
-        const plugin = local[i1];
+    for(let i = 0; i < local.length; i++){
+        const plugin = local[i];
         if (plugins.indexOf(plugin) === -1) {
             plugins.push(plugin);
             localIds[plugin.id] = true;
@@ -26212,6 +26223,11 @@ function getAxisFromDefaultScaleID(id, indexAxis) {
 function getDefaultScaleIDFromAxis(axis, indexAxis) {
     return axis === indexAxis ? '_index_' : '_value_';
 }
+function idMatchesAxis(id) {
+    if (id === 'x' || id === 'y' || id === 'r') {
+        return id;
+    }
+}
 function axisFromPosition(position) {
     if (position === 'top' || position === 'bottom') {
         return 'x';
@@ -26220,15 +26236,33 @@ function axisFromPosition(position) {
         return 'y';
     }
 }
-function determineAxis(id, scaleOptions) {
-    if (id === 'x' || id === 'y' || id === 'r') {
+function determineAxis(id, ...scaleOptions) {
+    if (idMatchesAxis(id)) {
         return id;
     }
-    id = scaleOptions.axis || axisFromPosition(scaleOptions.position) || id.length > 1 && determineAxis(id[0].toLowerCase(), scaleOptions);
-    if (id) {
-        return id;
+    for (const opts of scaleOptions){
+        const axis = opts.axis || axisFromPosition(opts.position) || id.length > 1 && idMatchesAxis(id[0].toLowerCase());
+        if (axis) {
+            return axis;
+        }
     }
-    throw new Error(`Cannot determine type of '${name}' axis. Please provide 'axis' or 'position' option.`);
+    throw new Error(`Cannot determine type of '${id}' axis. Please provide 'axis' or 'position' option.`);
+}
+function getAxisFromDataset(id, axis, dataset) {
+    if (dataset[axis + 'AxisID'] === id) {
+        return {
+            axis
+        };
+    }
+}
+function retrieveAxisFromDatasets(id, config) {
+    if (config.data && config.data.datasets) {
+        const boundDs = config.data.datasets.filter((d)=>d.xAxisID === id || d.yAxisID === id);
+        if (boundDs.length) {
+            return getAxisFromDataset(id, 'x', boundDs[0]) || getAxisFromDataset(id, 'y', boundDs[0]);
+        }
+    }
+    return {};
 }
 function mergeScaleConfig(config, options) {
     const chartDefaults = helpers_segment.overrides[config.type] || {
@@ -26245,7 +26279,7 @@ function mergeScaleConfig(config, options) {
         if (scaleConf._proxy) {
             return console.warn(`Ignoring resolver passed as options for scale: ${id}`);
         }
-        const axis = determineAxis(id, scaleConf);
+        const axis = determineAxis(id, scaleConf, retrieveAxisFromDatasets(id, config), helpers_segment.defaults.scales[scaleConf.type]);
         const defaultId = getDefaultScaleIDFromAxis(axis, chartIndexAxis);
         const defaultScaleOptions = chartDefaults.scales || {};
         scales[id] = helpers_segment.mergeIf(Object.create(null), [
@@ -26504,7 +26538,7 @@ function needContext(proxy, names) {
     return false;
 }
 
-var version = "4.2.1";
+var version = "4.3.3";
 
 const KNOWN_POSITIONS = [
     'top',
@@ -26987,9 +27021,9 @@ class Chart {
         for(let i = 0, ilen = this.data.datasets.length; i < ilen; ++i){
             this.getDatasetMeta(i).controller.configure();
         }
-        for(let i1 = 0, ilen1 = this.data.datasets.length; i1 < ilen1; ++i1){
-            this._updateDataset(i1, helpers_segment.isFunction(mode) ? mode({
-                datasetIndex: i1
+        for(let i = 0, ilen = this.data.datasets.length; i < ilen; ++i){
+            this._updateDataset(i, helpers_segment.isFunction(mode) ? mode({
+                datasetIndex: i
             }) : mode);
         }
         this.notifyPlugins('afterDatasetsUpdate', {
@@ -27530,8 +27564,8 @@ function toRadiusCorners(value) {
         ctx.lineTo(p4.x, p4.y);
         // The corner segment from point 4 to point 5
         if (innerEnd > 0) {
-            const pCenter1 = rThetaToXY(innerEndAdjustedRadius, innerEndAdjustedAngle, x, y);
-            ctx.arc(pCenter1.x, pCenter1.y, innerEnd, endAngle + helpers_segment.HALF_PI, innerEndAdjustedAngle + Math.PI);
+            const pCenter = rThetaToXY(innerEndAdjustedRadius, innerEndAdjustedAngle, x, y);
+            ctx.arc(pCenter.x, pCenter.y, innerEnd, endAngle + helpers_segment.HALF_PI, innerEndAdjustedAngle + Math.PI);
         }
         // The inner arc from point 5 to point b to point 6
         const innerMidAdjustedAngle = (endAngle - innerEnd / innerRadius + (startAngle + innerStart / innerRadius)) / 2;
@@ -27539,16 +27573,16 @@ function toRadiusCorners(value) {
         ctx.arc(x, y, innerRadius, innerMidAdjustedAngle, startAngle + innerStart / innerRadius, true);
         // The corner segment from point 6 to point 7
         if (innerStart > 0) {
-            const pCenter2 = rThetaToXY(innerStartAdjustedRadius, innerStartAdjustedAngle, x, y);
-            ctx.arc(pCenter2.x, pCenter2.y, innerStart, innerStartAdjustedAngle + Math.PI, startAngle - helpers_segment.HALF_PI);
+            const pCenter = rThetaToXY(innerStartAdjustedRadius, innerStartAdjustedAngle, x, y);
+            ctx.arc(pCenter.x, pCenter.y, innerStart, innerStartAdjustedAngle + Math.PI, startAngle - helpers_segment.HALF_PI);
         }
         // The line from point 7 to point 8
         const p8 = rThetaToXY(outerStartAdjustedRadius, startAngle, x, y);
         ctx.lineTo(p8.x, p8.y);
         // The corner segment from point 8 to point 1
         if (outerStart > 0) {
-            const pCenter3 = rThetaToXY(outerStartAdjustedRadius, outerStartAdjustedAngle, x, y);
-            ctx.arc(pCenter3.x, pCenter3.y, outerStart, startAngle - helpers_segment.HALF_PI, outerStartAdjustedAngle);
+            const pCenter = rThetaToXY(outerStartAdjustedRadius, outerStartAdjustedAngle, x, y);
+            ctx.arc(pCenter.x, pCenter.y, outerStart, startAngle - helpers_segment.HALF_PI, outerStartAdjustedAngle);
         }
     } else {
         ctx.moveTo(x, y);
@@ -27579,11 +27613,13 @@ function drawArc(ctx, element, offset, spacing, circular) {
 }
 function drawBorder(ctx, element, offset, spacing, circular) {
     const { fullCircles , startAngle , circumference , options  } = element;
-    const { borderWidth , borderJoinStyle  } = options;
+    const { borderWidth , borderJoinStyle , borderDash , borderDashOffset  } = options;
     const inner = options.borderAlign === 'inner';
     if (!borderWidth) {
         return;
     }
+    ctx.setLineDash(borderDash || []);
+    ctx.lineDashOffset = borderDashOffset;
     if (inner) {
         ctx.lineWidth = borderWidth * 2;
         ctx.lineJoin = borderJoinStyle || 'round';
@@ -27614,6 +27650,8 @@ class ArcElement extends Element {
     static defaults = {
         borderAlign: 'center',
         borderColor: '#fff',
+        borderDash: [],
+        borderDashOffset: 0,
         borderJoinStyle: undefined,
         borderRadius: 0,
         borderWidth: 2,
@@ -27625,6 +27663,17 @@ class ArcElement extends Element {
     static defaultRoutes = {
         backgroundColor: 'backgroundColor'
     };
+    static descriptors = {
+        _scriptable: true,
+        _indexable: (name)=>name !== 'borderDash'
+    };
+    circumference;
+    endAngle;
+    fullCircles;
+    innerRadius;
+    outerRadius;
+    pixelMargin;
+    startAngle;
     constructor(cfg){
         super();
         this.options = undefined;
@@ -27655,7 +27704,7 @@ class ArcElement extends Element {
             'outerRadius',
             'circumference'
         ], useFinalPosition);
-        const rAdjust = this.options.spacing / 2;
+        const rAdjust = (this.options.spacing + this.options.borderWidth) / 2;
         const _circumference = helpers_segment.valueOrDefault(circumference, endAngle - startAngle);
         const betweenAngles = _circumference >= helpers_segment.TAU || helpers_segment._angleBetween(angle, startAngle, endAngle);
         const withinRadius = helpers_segment._isBetween(distance, innerRadius + rAdjust, outerRadius + rAdjust);
@@ -27715,7 +27764,7 @@ function setStyle(ctx, options, style = options) {
 function lineTo(ctx, previous, target) {
     ctx.lineTo(target.x, target.y);
 }
-function getLineMethod(options) {
+ function getLineMethod(options) {
     if (options.stepped) {
         return helpers_segment._steppedLineTo;
     }
@@ -27999,6 +28048,9 @@ function inRange$1(el, pos, axis, useFinalPosition) {
 }
 class PointElement extends Element {
     static id = 'point';
+    parsed;
+    skip;
+    stop;
     /**
    * @type {any}
    */ static defaults = {
@@ -28260,9 +28312,9 @@ class BarElement extends Element {
 var elements = /*#__PURE__*/Object.freeze({
 __proto__: null,
 ArcElement: ArcElement,
+BarElement: BarElement,
 LineElement: LineElement,
-PointElement: PointElement,
-BarElement: BarElement
+PointElement: PointElement
 });
 
 const BORDER_COLORS = [
@@ -29314,15 +29366,15 @@ class Legend extends Element {
         } else {
             let col = 0;
             let top = helpers_segment._alignStartEnd(align, this.top + titleHeight + padding, this.bottom - this.columnSizes[col].height);
-            for (const hitbox1 of hitboxes){
-                if (hitbox1.col !== col) {
-                    col = hitbox1.col;
+            for (const hitbox of hitboxes){
+                if (hitbox.col !== col) {
+                    col = hitbox.col;
                     top = helpers_segment._alignStartEnd(align, this.top + titleHeight + padding, this.bottom - this.columnSizes[col].height);
                 }
-                hitbox1.top = top;
-                hitbox1.left += this.left + padding;
-                hitbox1.left = rtlHelper.leftForLtr(rtlHelper.x(hitbox1.left), hitbox1.width);
-                top += hitbox1.height + padding;
+                hitbox.top = top;
+                hitbox.left += this.left + padding;
+                hitbox.left = rtlHelper.leftForLtr(rtlHelper.x(hitbox.left), hitbox.width);
+                top += hitbox.height + padding;
             }
         }
     }
@@ -29450,7 +29502,7 @@ class Legend extends Element {
                 cursor.x += width + padding;
             } else if (typeof legendItem.text !== 'string') {
                 const fontLineHeight = labelFont.lineHeight;
-                cursor.y += calculateLegendItemHeight(legendItem, fontLineHeight);
+                cursor.y += calculateLegendItemHeight(legendItem, fontLineHeight) + padding;
             } else {
                 cursor.y += lineHeight;
             }
@@ -29564,7 +29616,7 @@ function calculateItemHeight(_itemHeight, legendItem, fontLineHeight) {
     return itemHeight;
 }
 function calculateLegendItemHeight(legendItem, fontLineHeight) {
-    const labelHeight = legendItem.text ? legendItem.text.length + 0.5 : 0;
+    const labelHeight = legendItem.text ? legendItem.text.length : 0;
     return fontLineHeight * labelHeight;
 }
 function isListened(type, opts) {
@@ -30421,9 +30473,9 @@ class Tooltip extends Element {
         }
     }
  _drawColorBox(ctx, pt, i, rtlHelper, options) {
-        const labelColors = this.labelColors[i];
+        const labelColor = this.labelColors[i];
         const labelPointStyle = this.labelPointStyles[i];
-        const { boxHeight , boxWidth , boxPadding  } = options;
+        const { boxHeight , boxWidth  } = options;
         const bodyFont = helpers_segment.toFont(options.bodyFont);
         const colorX = getAlignedX(this, 'left', options);
         const rtlColorX = rtlHelper.x(colorX);
@@ -30441,17 +30493,17 @@ class Tooltip extends Element {
             ctx.strokeStyle = options.multiKeyBackground;
             ctx.fillStyle = options.multiKeyBackground;
             helpers_segment.drawPoint(ctx, drawOptions, centerX, centerY);
-            ctx.strokeStyle = labelColors.borderColor;
-            ctx.fillStyle = labelColors.backgroundColor;
+            ctx.strokeStyle = labelColor.borderColor;
+            ctx.fillStyle = labelColor.backgroundColor;
             helpers_segment.drawPoint(ctx, drawOptions, centerX, centerY);
         } else {
-            ctx.lineWidth = helpers_segment.isObject(labelColors.borderWidth) ? Math.max(...Object.values(labelColors.borderWidth)) : labelColors.borderWidth || 1;
-            ctx.strokeStyle = labelColors.borderColor;
-            ctx.setLineDash(labelColors.borderDash || []);
-            ctx.lineDashOffset = labelColors.borderDashOffset || 0;
-            const outerX = rtlHelper.leftForLtr(rtlColorX, boxWidth - boxPadding);
-            const innerX = rtlHelper.leftForLtr(rtlHelper.xPlus(rtlColorX, 1), boxWidth - boxPadding - 2);
-            const borderRadius = helpers_segment.toTRBLCorners(labelColors.borderRadius);
+            ctx.lineWidth = helpers_segment.isObject(labelColor.borderWidth) ? Math.max(...Object.values(labelColor.borderWidth)) : labelColor.borderWidth || 1;
+            ctx.strokeStyle = labelColor.borderColor;
+            ctx.setLineDash(labelColor.borderDash || []);
+            ctx.lineDashOffset = labelColor.borderDashOffset || 0;
+            const outerX = rtlHelper.leftForLtr(rtlColorX, boxWidth);
+            const innerX = rtlHelper.leftForLtr(rtlHelper.xPlus(rtlColorX, 1), boxWidth - 2);
+            const borderRadius = helpers_segment.toTRBLCorners(labelColor.borderRadius);
             if (Object.values(borderRadius).some((v)=>v !== 0)) {
                 ctx.beginPath();
                 ctx.fillStyle = options.multiKeyBackground;
@@ -30464,7 +30516,7 @@ class Tooltip extends Element {
                 });
                 ctx.fill();
                 ctx.stroke();
-                ctx.fillStyle = labelColors.backgroundColor;
+                ctx.fillStyle = labelColor.backgroundColor;
                 ctx.beginPath();
                 helpers_segment.addRoundedRectPath(ctx, {
                     x: innerX,
@@ -30478,7 +30530,7 @@ class Tooltip extends Element {
                 ctx.fillStyle = options.multiKeyBackground;
                 ctx.fillRect(outerX, colorY, boxWidth, boxHeight);
                 ctx.strokeRect(outerX, colorY, boxWidth, boxHeight);
-                ctx.fillStyle = labelColors.backgroundColor;
+                ctx.fillStyle = labelColor.backgroundColor;
                 ctx.fillRect(innerX, colorY + 1, boxWidth - 2, boxHeight - 2);
             }
         }
@@ -31043,8 +31095,12 @@ function generateTicks$1(generationOptions, dataRange) {
         }
     }
     for(; j < numSpaces; ++j){
+        const tickValue = Math.round((niceMin + j * spacing) * factor) / factor;
+        if (maxDefined && tickValue > max) {
+            break;
+        }
         ticks.push({
-            value: Math.round((niceMin + j * spacing) * factor) / factor
+            value: tickValue
         });
     }
     if (maxDefined && includeBounds && niceMax !== max) {
@@ -31466,29 +31522,66 @@ function updateLimits(limits, orig, angle, hLimits, vLimits) {
         limits.b = Math.max(limits.b, orig.b + y);
     }
 }
+function createPointLabelItem(scale, index, itemOpts) {
+    const outerDistance = scale.drawingArea;
+    const { extra , additionalAngle , padding , size  } = itemOpts;
+    const pointLabelPosition = scale.getPointPosition(index, outerDistance + extra + padding, additionalAngle);
+    const angle = Math.round(helpers_segment.toDegrees(helpers_segment._normalizeAngle(pointLabelPosition.angle + helpers_segment.HALF_PI)));
+    const y = yForAngle(pointLabelPosition.y, size.h, angle);
+    const textAlign = getTextAlignForAngle(angle);
+    const left = leftForTextAlign(pointLabelPosition.x, size.w, textAlign);
+    return {
+        visible: true,
+        x: pointLabelPosition.x,
+        y,
+        textAlign,
+        left,
+        top: y,
+        right: left + size.w,
+        bottom: y + size.h
+    };
+}
+function isNotOverlapped(item, area) {
+    if (!area) {
+        return true;
+    }
+    const { left , top , right , bottom  } = item;
+    const apexesInArea = helpers_segment._isPointInArea({
+        x: left,
+        y: top
+    }, area) || helpers_segment._isPointInArea({
+        x: left,
+        y: bottom
+    }, area) || helpers_segment._isPointInArea({
+        x: right,
+        y: top
+    }, area) || helpers_segment._isPointInArea({
+        x: right,
+        y: bottom
+    }, area);
+    return !apexesInArea;
+}
 function buildPointLabelItems(scale, labelSizes, padding) {
     const items = [];
     const valueCount = scale._pointLabels.length;
     const opts = scale.options;
-    const extra = getTickBackdropHeight(opts) / 2;
-    const outerDistance = scale.drawingArea;
-    const additionalAngle = opts.pointLabels.centerPointLabels ? helpers_segment.PI / valueCount : 0;
+    const { centerPointLabels , display  } = opts.pointLabels;
+    const itemOpts = {
+        extra: getTickBackdropHeight(opts) / 2,
+        additionalAngle: centerPointLabels ? helpers_segment.PI / valueCount : 0
+    };
+    let area;
     for(let i = 0; i < valueCount; i++){
-        const pointLabelPosition = scale.getPointPosition(i, outerDistance + extra + padding[i], additionalAngle);
-        const angle = Math.round(helpers_segment.toDegrees(helpers_segment._normalizeAngle(pointLabelPosition.angle + helpers_segment.HALF_PI)));
-        const size = labelSizes[i];
-        const y = yForAngle(pointLabelPosition.y, size.h, angle);
-        const textAlign = getTextAlignForAngle(angle);
-        const left = leftForTextAlign(pointLabelPosition.x, size.w, textAlign);
-        items.push({
-            x: pointLabelPosition.x,
-            y,
-            textAlign,
-            left,
-            top: y,
-            right: left + size.w,
-            bottom: y + size.h
-        });
+        itemOpts.padding = padding[i];
+        itemOpts.size = labelSizes[i];
+        const item = createPointLabelItem(scale, i, itemOpts);
+        items.push(item);
+        if (display === 'auto') {
+            item.visible = isNotOverlapped(item, area);
+            if (item.visible) {
+                area = item;
+            }
+        }
     }
     return items;
 }
@@ -31516,35 +31609,43 @@ function yForAngle(y, h, angle) {
     }
     return y;
 }
+function drawPointLabelBox(ctx, opts, item) {
+    const { left , top , right , bottom  } = item;
+    const { backdropColor  } = opts;
+    if (!helpers_segment.isNullOrUndef(backdropColor)) {
+        const borderRadius = helpers_segment.toTRBLCorners(opts.borderRadius);
+        const padding = helpers_segment.toPadding(opts.backdropPadding);
+        ctx.fillStyle = backdropColor;
+        const backdropLeft = left - padding.left;
+        const backdropTop = top - padding.top;
+        const backdropWidth = right - left + padding.width;
+        const backdropHeight = bottom - top + padding.height;
+        if (Object.values(borderRadius).some((v)=>v !== 0)) {
+            ctx.beginPath();
+            helpers_segment.addRoundedRectPath(ctx, {
+                x: backdropLeft,
+                y: backdropTop,
+                w: backdropWidth,
+                h: backdropHeight,
+                radius: borderRadius
+            });
+            ctx.fill();
+        } else {
+            ctx.fillRect(backdropLeft, backdropTop, backdropWidth, backdropHeight);
+        }
+    }
+}
 function drawPointLabels(scale, labelCount) {
     const { ctx , options: { pointLabels  }  } = scale;
     for(let i = labelCount - 1; i >= 0; i--){
-        const optsAtIndex = pointLabels.setContext(scale.getPointLabelContext(i));
-        const plFont = helpers_segment.toFont(optsAtIndex.font);
-        const { x , y , textAlign , left , top , right , bottom  } = scale._pointLabelItems[i];
-        const { backdropColor  } = optsAtIndex;
-        if (!helpers_segment.isNullOrUndef(backdropColor)) {
-            const borderRadius = helpers_segment.toTRBLCorners(optsAtIndex.borderRadius);
-            const padding = helpers_segment.toPadding(optsAtIndex.backdropPadding);
-            ctx.fillStyle = backdropColor;
-            const backdropLeft = left - padding.left;
-            const backdropTop = top - padding.top;
-            const backdropWidth = right - left + padding.width;
-            const backdropHeight = bottom - top + padding.height;
-            if (Object.values(borderRadius).some((v)=>v !== 0)) {
-                ctx.beginPath();
-                helpers_segment.addRoundedRectPath(ctx, {
-                    x: backdropLeft,
-                    y: backdropTop,
-                    w: backdropWidth,
-                    h: backdropHeight,
-                    radius: borderRadius
-                });
-                ctx.fill();
-            } else {
-                ctx.fillRect(backdropLeft, backdropTop, backdropWidth, backdropHeight);
-            }
+        const item = scale._pointLabelItems[i];
+        if (!item.visible) {
+            continue;
         }
+        const optsAtIndex = pointLabels.setContext(scale.getPointLabelContext(i));
+        drawPointLabelBox(ctx, optsAtIndex, item);
+        const plFont = helpers_segment.toFont(optsAtIndex.font);
+        const { x , y , textAlign  } = item;
         helpers_segment.renderText(ctx, scale._pointLabels[i], x, y + plFont.lineHeight / 2, plFont, {
             color: optsAtIndex.color,
             textAlign: textAlign,
@@ -31819,7 +31920,9 @@ class RadialLinearScale extends LinearScaleBase {
                 ctx.fillRect(-width / 2 - padding.left, -offset - tickFont.size / 2 - padding.top, width + padding.width, tickFont.size + padding.height);
             }
             helpers_segment.renderText(ctx, tick.label, 0, -offset, tickFont, {
-                color: optsAtIndex.color
+                color: optsAtIndex.color,
+                strokeColor: optsAtIndex.textStrokeColor,
+                strokeWidth: optsAtIndex.textStrokeWidth
             });
         });
         ctx.restore();
@@ -32139,7 +32242,7 @@ class TimeScale extends Scale {
         if (time === max || options.bounds === 'ticks' || count === 1) {
             addTick(ticks, time, timestamps);
         }
-        return Object.keys(ticks).sort((a, b)=>a - b).map((x)=>+x);
+        return Object.keys(ticks).sort(sorter).map((x)=>+x);
     }
  getLabelForValue(value) {
         const adapter = this._adapter;
@@ -32322,6 +32425,18 @@ class TimeSeriesScale extends TimeScale {
         }
         return table;
     }
+ _generate() {
+        const min = this.min;
+        const max = this.max;
+        let timestamps = super.getDataTimestamps();
+        if (!timestamps.includes(min) || !timestamps.length) {
+            timestamps.splice(0, 0, min);
+        }
+        if (!timestamps.includes(max) || timestamps.length === 1) {
+            timestamps.push(max);
+        }
+        return timestamps.sort((a, b)=>a - b);
+    }
  _getTimestampsForTable() {
         let timestamps = this._cache.all || [];
         if (timestamps.length) {
@@ -32424,7 +32539,7 @@ exports.scales = scales;
 
 "use strict";
 /*!
- * Chart.js v4.2.1
+ * Chart.js v4.3.3
  * https://www.chartjs.org
  * (c) 2023 Chart.js Contributors
  * Released under the MIT License
@@ -32974,12 +33089,8 @@ function unlistenArrayEvents(array, listener) {
 /**
  * @param items
  */ function _arrayUnique(items) {
-    const set = new Set();
-    let i, ilen;
-    for(i = 0, ilen = items.length; i < ilen; ++i){
-        set.add(items[i]);
-    }
-    if (set.size === ilen) {
+    const set = new Set(items);
+    if (set.size === items.length) {
         return items;
     }
     return Array.from(set);
@@ -33058,7 +33169,7 @@ function fontString(pixelSize, fontStyle, fontFamily) {
         const { min , max , minDefined , maxDefined  } = iScale.getUserBounds();
         if (minDefined) {
             start = _limitValue(Math.min(// @ts-expect-error Need to type _parsed
-            _lookupByKey(_parsed, iScale.axis, min).lo, // @ts-expect-error Need to fix types on _lookupByKey
+            _lookupByKey(_parsed, axis, min).lo, // @ts-expect-error Need to fix types on _lookupByKey
             animationsDisabled ? pointCount : _lookupByKey(points, axis, iScale.getPixelForValue(min)).lo), 0, pointCount - 1);
         }
         if (maxDefined) {
@@ -33304,7 +33415,7 @@ const formatters = {
             delta = calculateDelta(tickValue, ticks);
         }
         const logDelta = log10(Math.abs(delta));
-        const numDecimal = Math.max(Math.min(-1 * Math.floor(logDelta), 20), 0);
+        const numDecimal = isNaN(logDelta) ? 1 : Math.max(Math.min(-1 * Math.floor(logDelta), 20), 0);
         const options = {
             notation,
             minimumFractionDigits: numDecimal,
@@ -33535,13 +33646,20 @@ var defaults = /* #__PURE__ */ new Defaults({
     applyScaleDefaults
 ]);
 
-function toFontString(font) {
+/**
+ * Converts the given font object into a CSS font string.
+ * @param font - A font object.
+ * @return The CSS font string. See https://developer.mozilla.org/en-US/docs/Web/CSS/font
+ * @private
+ */ function toFontString(font) {
     if (!font || isNullOrUndef(font.size) || isNullOrUndef(font.family)) {
         return null;
     }
     return (font.style ? font.style + ' ' : '') + (font.weight ? font.weight + ' ' : '') + font.size + 'px ' + font.family;
 }
- function _measureText(ctx, data, gc, longest, string) {
+/**
+ * @private
+ */ function _measureText(ctx, data, gc, longest, string) {
     let textWidth = data[string];
     if (!textWidth) {
         textWidth = data[string] = ctx.measureText(string).width;
@@ -33552,7 +33670,10 @@ function toFontString(font) {
     }
     return longest;
 }
- function _longestText(ctx, font, arrayOfThings, cache) {
+/**
+ * @private
+ */ // eslint-disable-next-line complexity
+function _longestText(ctx, font, arrayOfThings, cache) {
     cache = cache || {};
     let data = cache.data = cache.data || {};
     let gc = cache.garbageCollect = cache.garbageCollect || [];
@@ -33568,11 +33689,15 @@ function toFontString(font) {
     let i, j, jlen, thing, nestedThing;
     for(i = 0; i < ilen; i++){
         thing = arrayOfThings[i];
-        if (thing !== undefined && thing !== null && isArray(thing) !== true) {
+        // Undefined strings and arrays should not be measured
+        if (thing !== undefined && thing !== null && !isArray(thing)) {
             longest = _measureText(ctx, data, gc, longest, thing);
         } else if (isArray(thing)) {
+            // if it is an array lets measure each element
+            // to do maybe simplify this function a bit so we can do this more recursively?
             for(j = 0, jlen = thing.length; j < jlen; j++){
                 nestedThing = thing[j];
+                // Undefined strings and arrays should not be measured
                 if (nestedThing !== undefined && nestedThing !== null && !isArray(nestedThing)) {
                     longest = _measureText(ctx, data, gc, longest, nestedThing);
                 }
@@ -33589,21 +33714,34 @@ function toFontString(font) {
     }
     return longest;
 }
- function _alignPixel(chart, pixel, width) {
+/**
+ * Returns the aligned pixel value to avoid anti-aliasing blur
+ * @param chart - The chart instance.
+ * @param pixel - A pixel value.
+ * @param width - The width of the element.
+ * @returns The aligned pixel value.
+ * @private
+ */ function _alignPixel(chart, pixel, width) {
     const devicePixelRatio = chart.currentDevicePixelRatio;
     const halfWidth = width !== 0 ? Math.max(width / 2, 0.5) : 0;
     return Math.round((pixel - halfWidth) * devicePixelRatio) / devicePixelRatio + halfWidth;
 }
- function clearCanvas(canvas, ctx) {
+/**
+ * Clears the entire canvas.
+ */ function clearCanvas(canvas, ctx) {
     ctx = ctx || canvas.getContext('2d');
     ctx.save();
+    // canvas.width and canvas.height do not consider the canvas transform,
+    // while clearRect does
     ctx.resetTransform();
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.restore();
 }
 function drawPoint(ctx, options, x, y) {
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     drawPointLegend(ctx, options, x, y, null);
 }
+// eslint-disable-next-line complexity
 function drawPointLegend(ctx, options, x, y, w) {
     let type, xOffset, yOffset, size, cornerRadius, width, xOffsetW, yOffsetW;
     const style = options.pointStyle;
@@ -33626,6 +33764,7 @@ function drawPointLegend(ctx, options, x, y, w) {
     }
     ctx.beginPath();
     switch(style){
+        // Default includes circle
         default:
             if (w) {
                 ctx.ellipse(x, y, w / 2, radius, 0, 0, TAU);
@@ -33644,6 +33783,13 @@ function drawPointLegend(ctx, options, x, y, w) {
             ctx.closePath();
             break;
         case 'rectRounded':
+            // NOTE: the rounded rect implementation changed to use `arc` instead of
+            // `quadraticCurveTo` since it generates better results when rect is
+            // almost a circle. 0.516 (instead of 0.5) produces results with visually
+            // closer proportion to the previous impl and it is inscribed in the
+            // circle with `radius`. For more details, see the following PRs:
+            // https://github.com/chartjs/Chart.js/issues/5597
+            // https://github.com/chartjs/Chart.js/issues/5858
             cornerRadius = radius * 0.516;
             size = radius - cornerRadius;
             xOffset = Math.cos(rad + QUARTER_PI) * size;
@@ -33664,7 +33810,7 @@ function drawPointLegend(ctx, options, x, y, w) {
                 break;
             }
             rad += QUARTER_PI;
-         case 'rectRot':
+        /* falls through */ case 'rectRot':
             xOffsetW = Math.cos(rad) * (w ? w / 2 : radius);
             xOffset = Math.cos(rad) * radius;
             yOffset = Math.sin(rad) * radius;
@@ -33677,7 +33823,7 @@ function drawPointLegend(ctx, options, x, y, w) {
             break;
         case 'crossRot':
             rad += QUARTER_PI;
-         case 'cross':
+        /* falls through */ case 'cross':
             xOffsetW = Math.cos(rad) * (w ? w / 2 : radius);
             xOffset = Math.cos(rad) * radius;
             yOffset = Math.sin(rad) * radius;
@@ -33725,8 +33871,14 @@ function drawPointLegend(ctx, options, x, y, w) {
         ctx.stroke();
     }
 }
- function _isPointInArea(point, area, margin) {
-    margin = margin || 0.5;
+/**
+ * Returns true if the point is inside the rectangle
+ * @param point - The point to test
+ * @param area - The rectangle
+ * @param margin - allowed margin
+ * @private
+ */ function _isPointInArea(point, area, margin) {
+    margin = margin || 0.5; // margin - default is to match rounded decimals
     return !area || point && point.x > area.left - margin && point.x < area.right + margin && point.y > area.top - margin && point.y < area.bottom + margin;
 }
 function clipArea(ctx, area) {
@@ -33738,7 +33890,9 @@ function clipArea(ctx, area) {
 function unclipArea(ctx) {
     ctx.restore();
 }
- function _steppedLineTo(ctx, previous, target, flip, mode) {
+/**
+ * @private
+ */ function _steppedLineTo(ctx, previous, target, flip, mode) {
     if (!previous) {
         return ctx.lineTo(target.x, target.y);
     }
@@ -33753,13 +33907,62 @@ function unclipArea(ctx) {
     }
     ctx.lineTo(target.x, target.y);
 }
- function _bezierCurveTo(ctx, previous, target, flip) {
+/**
+ * @private
+ */ function _bezierCurveTo(ctx, previous, target, flip) {
     if (!previous) {
         return ctx.lineTo(target.x, target.y);
     }
     ctx.bezierCurveTo(flip ? previous.cp1x : previous.cp2x, flip ? previous.cp1y : previous.cp2y, flip ? target.cp2x : target.cp1x, flip ? target.cp2y : target.cp1y, target.x, target.y);
 }
- function renderText(ctx, text, x, y, font, opts = {}) {
+function setRenderOpts(ctx, opts) {
+    if (opts.translation) {
+        ctx.translate(opts.translation[0], opts.translation[1]);
+    }
+    if (!isNullOrUndef(opts.rotation)) {
+        ctx.rotate(opts.rotation);
+    }
+    if (opts.color) {
+        ctx.fillStyle = opts.color;
+    }
+    if (opts.textAlign) {
+        ctx.textAlign = opts.textAlign;
+    }
+    if (opts.textBaseline) {
+        ctx.textBaseline = opts.textBaseline;
+    }
+}
+function decorateText(ctx, x, y, line, opts) {
+    if (opts.strikethrough || opts.underline) {
+        /**
+     * Now that IE11 support has been dropped, we can use more
+     * of the TextMetrics object. The actual bounding boxes
+     * are unflagged in Chrome, Firefox, Edge, and Safari so they
+     * can be safely used.
+     * See https://developer.mozilla.org/en-US/docs/Web/API/TextMetrics#Browser_compatibility
+     */ const metrics = ctx.measureText(line);
+        const left = x - metrics.actualBoundingBoxLeft;
+        const right = x + metrics.actualBoundingBoxRight;
+        const top = y - metrics.actualBoundingBoxAscent;
+        const bottom = y + metrics.actualBoundingBoxDescent;
+        const yDecoration = opts.strikethrough ? (top + bottom) / 2 : bottom;
+        ctx.strokeStyle = ctx.fillStyle;
+        ctx.beginPath();
+        ctx.lineWidth = opts.decorationWidth || 2;
+        ctx.moveTo(left, yDecoration);
+        ctx.lineTo(right, yDecoration);
+        ctx.stroke();
+    }
+}
+function drawBackdrop(ctx, opts) {
+    const oldColor = ctx.fillStyle;
+    ctx.fillStyle = opts.color;
+    ctx.fillRect(opts.left, opts.top, opts.width, opts.height);
+    ctx.fillStyle = oldColor;
+}
+/**
+ * Render text onto the canvas
+ */ function renderText(ctx, text, x, y, font, opts = {}) {
     const lines = isArray(text) ? text : [
         text
     ];
@@ -33784,58 +33987,31 @@ function unclipArea(ctx) {
         }
         ctx.fillText(line, x, y, opts.maxWidth);
         decorateText(ctx, x, y, line, opts);
-        y += font.lineHeight;
+        y += Number(font.lineHeight);
     }
     ctx.restore();
 }
-function setRenderOpts(ctx, opts) {
-    if (opts.translation) {
-        ctx.translate(opts.translation[0], opts.translation[1]);
-    }
-    if (!isNullOrUndef(opts.rotation)) {
-        ctx.rotate(opts.rotation);
-    }
-    if (opts.color) {
-        ctx.fillStyle = opts.color;
-    }
-    if (opts.textAlign) {
-        ctx.textAlign = opts.textAlign;
-    }
-    if (opts.textBaseline) {
-        ctx.textBaseline = opts.textBaseline;
-    }
-}
-function decorateText(ctx, x, y, line, opts) {
-    if (opts.strikethrough || opts.underline) {
- const metrics = ctx.measureText(line);
-        const left = x - metrics.actualBoundingBoxLeft;
-        const right = x + metrics.actualBoundingBoxRight;
-        const top = y - metrics.actualBoundingBoxAscent;
-        const bottom = y + metrics.actualBoundingBoxDescent;
-        const yDecoration = opts.strikethrough ? (top + bottom) / 2 : bottom;
-        ctx.strokeStyle = ctx.fillStyle;
-        ctx.beginPath();
-        ctx.lineWidth = opts.decorationWidth || 2;
-        ctx.moveTo(left, yDecoration);
-        ctx.lineTo(right, yDecoration);
-        ctx.stroke();
-    }
-}
-function drawBackdrop(ctx, opts) {
-    const oldColor = ctx.fillStyle;
-    ctx.fillStyle = opts.color;
-    ctx.fillRect(opts.left, opts.top, opts.width, opts.height);
-    ctx.fillStyle = oldColor;
-}
- function addRoundedRectPath(ctx, rect) {
+/**
+ * Add a path of a rectangle with rounded corners to the current sub-path
+ * @param ctx - Context
+ * @param rect - Bounding rect
+ */ function addRoundedRectPath(ctx, rect) {
     const { x , y , w , h , radius  } = rect;
+    // top left arc
     ctx.arc(x + radius.topLeft, y + radius.topLeft, radius.topLeft, -HALF_PI, PI, true);
+    // line from top left to bottom left
     ctx.lineTo(x, y + h - radius.bottomLeft);
+    // bottom left arc
     ctx.arc(x + radius.bottomLeft, y + h - radius.bottomLeft, radius.bottomLeft, PI, HALF_PI, true);
+    // line from bottom left to bottom right
     ctx.lineTo(x + w - radius.bottomRight, y + h);
+    // bottom right arc
     ctx.arc(x + w - radius.bottomRight, y + h - radius.bottomRight, radius.bottomRight, HALF_PI, 0, true);
+    // line from bottom right to top right
     ctx.lineTo(x + w, y + radius.topRight);
+    // top right arc
     ctx.arc(x + w - radius.topRight, y + radius.topRight, radius.topRight, 0, -HALF_PI, true);
+    // line from top right to top left
     ctx.lineTo(x + radius.topLeft, y);
 }
 
@@ -34000,55 +34176,87 @@ function createContext(parentContext, context) {
     return Object.assign(Object.create(parentContext), context);
 }
 
-function _createResolver(scopes, prefixes = [
+/**
+ * Creates a Proxy for resolving raw values for options.
+ * @param scopes - The option scopes to look for values, in resolution order
+ * @param prefixes - The prefixes for values, in resolution order.
+ * @param rootScopes - The root option scopes
+ * @param fallback - Parent scopes fallback
+ * @param getTarget - callback for getting the target for changed values
+ * @returns Proxy
+ * @private
+ */ function _createResolver(scopes, prefixes = [
     ''
-], rootScopes = scopes, fallback, getTarget = ()=>scopes[0]) {
-    if (!defined(fallback)) {
+], rootScopes, fallback, getTarget = ()=>scopes[0]) {
+    const finalRootScopes = rootScopes || scopes;
+    if (typeof fallback === 'undefined') {
         fallback = _resolve('_fallback', scopes);
     }
     const cache = {
         [Symbol.toStringTag]: 'Object',
         _cacheable: true,
         _scopes: scopes,
-        _rootScopes: rootScopes,
+        _rootScopes: finalRootScopes,
         _fallback: fallback,
         _getTarget: getTarget,
         override: (scope)=>_createResolver([
                 scope,
                 ...scopes
-            ], prefixes, rootScopes, fallback)
+            ], prefixes, finalRootScopes, fallback)
     };
     return new Proxy(cache, {
- deleteProperty (target, prop) {
-            delete target[prop];
-            delete target._keys;
-            delete scopes[0][prop];
+        /**
+     * A trap for the delete operator.
+     */ deleteProperty (target, prop) {
+            delete target[prop]; // remove from cache
+            delete target._keys; // remove cached keys
+            delete scopes[0][prop]; // remove from top level scope
             return true;
         },
- get (target, prop) {
+        /**
+     * A trap for getting property values.
+     */ get (target, prop) {
             return _cached(target, prop, ()=>_resolveWithPrefixes(prop, prefixes, scopes, target));
         },
- getOwnPropertyDescriptor (target, prop) {
+        /**
+     * A trap for Object.getOwnPropertyDescriptor.
+     * Also used by Object.hasOwnProperty.
+     */ getOwnPropertyDescriptor (target, prop) {
             return Reflect.getOwnPropertyDescriptor(target._scopes[0], prop);
         },
- getPrototypeOf () {
+        /**
+     * A trap for Object.getPrototypeOf.
+     */ getPrototypeOf () {
             return Reflect.getPrototypeOf(scopes[0]);
         },
- has (target, prop) {
+        /**
+     * A trap for the in operator.
+     */ has (target, prop) {
             return getKeysFromAllScopes(target).includes(prop);
         },
- ownKeys (target) {
+        /**
+     * A trap for Object.getOwnPropertyNames and Object.getOwnPropertySymbols.
+     */ ownKeys (target) {
             return getKeysFromAllScopes(target);
         },
- set (target, prop, value) {
+        /**
+     * A trap for setting property values.
+     */ set (target, prop, value) {
             const storage = target._storage || (target._storage = getTarget());
-            target[prop] = storage[prop] = value;
-            delete target._keys;
+            target[prop] = storage[prop] = value; // set to top level scope + cache
+            delete target._keys; // remove cached keys
             return true;
         }
     });
 }
- function _attachContext(proxy, context, subProxy, descriptorDefaults) {
+/**
+ * Returns an Proxy for resolving option values with context.
+ * @param proxy - The Proxy returned by `_createResolver`
+ * @param context - Context object for scriptable/indexable options
+ * @param subProxy - The proxy provided for scriptable options
+ * @param descriptorDefaults - Defaults for descriptors
+ * @private
+ */ function _attachContext(proxy, context, subProxy, descriptorDefaults) {
     const cache = {
         _cacheable: false,
         _proxy: proxy,
@@ -34060,37 +34268,54 @@ function _createResolver(scopes, prefixes = [
         override: (scope)=>_attachContext(proxy.override(scope), context, subProxy, descriptorDefaults)
     };
     return new Proxy(cache, {
- deleteProperty (target, prop) {
-            delete target[prop];
-            delete proxy[prop];
+        /**
+     * A trap for the delete operator.
+     */ deleteProperty (target, prop) {
+            delete target[prop]; // remove from cache
+            delete proxy[prop]; // remove from proxy
             return true;
         },
- get (target, prop, receiver) {
+        /**
+     * A trap for getting property values.
+     */ get (target, prop, receiver) {
             return _cached(target, prop, ()=>_resolveWithContext(target, prop, receiver));
         },
- getOwnPropertyDescriptor (target, prop) {
+        /**
+     * A trap for Object.getOwnPropertyDescriptor.
+     * Also used by Object.hasOwnProperty.
+     */ getOwnPropertyDescriptor (target, prop) {
             return target._descriptors.allKeys ? Reflect.has(proxy, prop) ? {
                 enumerable: true,
                 configurable: true
             } : undefined : Reflect.getOwnPropertyDescriptor(proxy, prop);
         },
- getPrototypeOf () {
+        /**
+     * A trap for Object.getPrototypeOf.
+     */ getPrototypeOf () {
             return Reflect.getPrototypeOf(proxy);
         },
- has (target, prop) {
+        /**
+     * A trap for the in operator.
+     */ has (target, prop) {
             return Reflect.has(proxy, prop);
         },
- ownKeys () {
+        /**
+     * A trap for Object.getOwnPropertyNames and Object.getOwnPropertySymbols.
+     */ ownKeys () {
             return Reflect.ownKeys(proxy);
         },
- set (target, prop, value) {
-            proxy[prop] = value;
-            delete target[prop];
+        /**
+     * A trap for setting property values.
+     */ set (target, prop, value) {
+            proxy[prop] = value; // set to proxy
+            delete target[prop]; // remove from cache
             return true;
         }
     });
 }
- function _descriptors(proxy, defaults = {
+/**
+ * @private
+ */ function _descriptors(proxy, defaults = {
     scriptable: true,
     indexable: true
 }) {
@@ -34110,12 +34335,14 @@ function _cached(target, prop, resolve) {
         return target[prop];
     }
     const value = resolve();
+    // cache the resolved value
     target[prop] = value;
     return value;
 }
 function _resolveWithContext(target, prop, receiver) {
     const { _proxy , _context , _subProxy , _descriptors: descriptors  } = target;
-    let value = _proxy[prop];
+    let value = _proxy[prop]; // resolve from proxy
+    // resolve with context
     if (isFunction(value) && descriptors.isScriptable(prop)) {
         value = _resolveScriptable(prop, value, target, receiver);
     }
@@ -34123,28 +34350,31 @@ function _resolveWithContext(target, prop, receiver) {
         value = _resolveArray(prop, value, target, descriptors.isIndexable);
     }
     if (needsSubResolver(prop, value)) {
+        // if the resolved value is an object, create a sub resolver for it
         value = _attachContext(value, _context, _subProxy && _subProxy[prop], descriptors);
     }
     return value;
 }
-function _resolveScriptable(prop, value, target, receiver) {
+function _resolveScriptable(prop, getValue, target, receiver) {
     const { _proxy , _context , _subProxy , _stack  } = target;
     if (_stack.has(prop)) {
         throw new Error('Recursion detected: ' + Array.from(_stack).join('->') + '->' + prop);
     }
     _stack.add(prop);
-    value = value(_context, _subProxy || receiver);
+    let value = getValue(_context, _subProxy || receiver);
     _stack.delete(prop);
     if (needsSubResolver(prop, value)) {
+        // When scriptable option returns an object, create a resolver on that.
         value = createSubResolver(_proxy._scopes, _proxy, prop, value);
     }
     return value;
 }
 function _resolveArray(prop, value, target, isIndexable) {
     const { _proxy , _context , _subProxy , _descriptors: descriptors  } = target;
-    if (defined(_context.index) && isIndexable(prop)) {
-        value = value[_context.index % value.length];
+    if (typeof _context.index !== 'undefined' && isIndexable(prop)) {
+        return value[_context.index % value.length];
     } else if (isObject(value[0])) {
+        // Array of objects, return array or resolvers
         const arr = value;
         const scopes = _proxy._scopes.filter((s)=>s !== arr);
         value = [];
@@ -34165,10 +34395,14 @@ function addScopes(set, parentScopes, key, parentFallback, value) {
         if (scope) {
             set.add(scope);
             const fallback = resolveFallback(scope._fallback, key, value);
-            if (defined(fallback) && fallback !== key && fallback !== parentFallback) {
+            if (typeof fallback !== 'undefined' && fallback !== key && fallback !== parentFallback) {
+                // When we reach the descriptor that defines a new _fallback, return that.
+                // The fallback will resume to that new scope.
                 return fallback;
             }
-        } else if (scope === false && defined(parentFallback) && key !== parentFallback) {
+        } else if (scope === false && typeof parentFallback !== 'undefined' && key !== parentFallback) {
+            // Fallback to `false` results to `false`, when falling back to different key.
+            // For example `interaction` from `hover` or `plugins.tooltip` and `animation` from `animations`
             return null;
         }
     }
@@ -34187,7 +34421,7 @@ function createSubResolver(parentScopes, resolver, prop, value) {
     if (key === null) {
         return false;
     }
-    if (defined(fallback) && fallback !== prop) {
+    if (typeof fallback !== 'undefined' && fallback !== prop) {
         key = addScopesFromKey(set, allScopes, fallback, key, value);
         if (key === null) {
             return false;
@@ -34210,6 +34444,7 @@ function subGetTarget(resolver, prop, value) {
     }
     const target = parent[prop];
     if (isArray(target) && isObject(value)) {
+        // For array of objects, the object is used to store updated values
         return value;
     }
     return target || {};
@@ -34218,7 +34453,7 @@ function _resolveWithPrefixes(prop, prefixes, scopes, proxy) {
     let value;
     for (const prefix of prefixes){
         value = _resolve(readKey(prefix, prop), scopes);
-        if (defined(value)) {
+        if (typeof value !== 'undefined') {
             return needsSubResolver(prop, value) ? createSubResolver(scopes, proxy, prop, value) : value;
         }
     }
@@ -34229,7 +34464,7 @@ function _resolve(key, scopes) {
             continue;
         }
         const value = scope[key];
-        if (defined(value)) {
+        if (typeof value !== 'undefined') {
             return value;
         }
     }
@@ -35030,7 +35265,20 @@ function readStyle(options) {
     };
 }
 function styleChanged(style, prevStyle) {
-    return prevStyle && JSON.stringify(style) !== JSON.stringify(prevStyle);
+    if (!prevStyle) {
+        return false;
+    }
+    const cache = [];
+    const replacer = function(key, value) {
+        if (!isPatternOrGradient(value)) {
+            return value;
+        }
+        if (!cache.includes(value)) {
+            cache.push(value);
+        }
+        return cache.indexOf(value);
+    };
+    return JSON.stringify(style, replacer) !== JSON.stringify(prevStyle, replacer);
 }
 
 exports.HALF_PI = HALF_PI;
