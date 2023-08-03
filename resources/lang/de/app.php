@@ -137,7 +137,7 @@ return [
     'notifications_saved' => 'Abonnements wurden aktualisiert',
     'account_deleted' => 'Account wurde gelöscht',
     'message_sent' => 'Nachricht wurde verschickt',
-    'view_activities' => 'Laufende Aktivitäten',
+    'view_activities' => 'Aktivitäten',
     'do_filter' => 'Filter',
     'filter_by_location' => 'Filter per Ort',
     'filter_by_tag' => 'Filter per Hashtag',

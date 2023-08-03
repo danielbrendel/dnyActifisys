@@ -137,7 +137,7 @@ return [
     'notifications_saved' => 'Notification subscriptions saved',
     'account_deleted' => 'Account has been deleted',
     'message_sent' => 'Message has been sent',
-    'view_activities' => 'Available activities',
+    'view_activities' => 'Activities',
     'do_filter' => 'Filter',
     'filter_by_location' => 'Filter by location',
     'filter_by_tag' => 'Filter by tag',
