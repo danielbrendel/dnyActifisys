@@ -1763,7 +1763,6 @@ h2, h3 {
 
 .notification-item-icon {
   display: inline-block;
-  top: -22px;
 }
 
 .notification-item-icon i {
@@ -1771,13 +1770,14 @@ h2, h3 {
 }
 
 .notification-icon {
+  position: absolute;
   display: inline-block;
-  top: -12%;
+  top: 22px;
 }
 
 .notification-info {
   display: inline-block;
-  margin-left: 15px;
+  margin-left: 32px;
   width: 84%;
 }
 
