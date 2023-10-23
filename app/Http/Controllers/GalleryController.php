@@ -118,6 +118,7 @@ class GalleryController extends Controller
             return view('gallery.item', [
                 'item' => $item,
                 'user' => User::getByAuthId(),
+                '_meta_description' => env('APP_PROJECTNAME') . ' - ' . $item->title . ' - ' . __('app.gallery'),
                 'captchadata' => CaptchaModel::createSum(session()->getId())
             ]);
         } catch (\Exception $e) {

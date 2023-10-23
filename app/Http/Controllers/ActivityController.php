@@ -181,6 +181,7 @@ class ActivityController extends Controller
 
             return view('activity.show', [
                 'activity' => $activity,
+                '_meta_description' => env('APP_PROJECTNAME') . ' - ' . $activity->title,
                 'captchadata' => CaptchaModel::createSum(session()->getId())
             ]);
         } catch (Exception $e) {
