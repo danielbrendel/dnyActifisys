@@ -79,7 +79,7 @@ class MainController extends Controller
      */
     public function faq()
     {
-        return view('home.faq', ['captchadata' => CaptchaModel::createSum(session()->getId()), 'cookie_consent' => $this->cookie_consent, 'faqs' => FaqModel::getAll()]);
+        return view('home.faq', ['captchadata' => CaptchaModel::createSum(session()->getId()), '_meta_description' => env('APP_PROJECTNAME') . ' - ' . __('app.faq'), 'cookie_consent' => $this->cookie_consent, 'faqs' => FaqModel::getAll()]);
     }
 
     /**
@@ -89,7 +89,7 @@ class MainController extends Controller
      */
     public function imprint()
     {
-        return view('home.imprint', ['captchadata' => CaptchaModel::createSum(session()->getId()), 'cookie_consent' => $this->cookie_consent, 'imprint_content' => AppModel::getImprint()]);
+        return view('home.imprint', ['captchadata' => CaptchaModel::createSum(session()->getId()), '_meta_description' => env('APP_PROJECTNAME') . ' - ' . __('app.imprint'), 'cookie_consent' => $this->cookie_consent, 'imprint_content' => AppModel::getImprint()]);
     }
 
     /**
@@ -99,7 +99,7 @@ class MainController extends Controller
      */
     public function news()
     {
-        return view('home.news', ['captchadata' => CaptchaModel::createSum(session()->getId()), 'cookie_consent' => $this->cookie_consent]);
+        return view('home.news', ['captchadata' => CaptchaModel::createSum(session()->getId()), '_meta_description' => env('APP_PROJECTNAME') . ' - ' . __('app.news'), 'cookie_consent' => $this->cookie_consent]);
     }
 
     /**
@@ -109,7 +109,7 @@ class MainController extends Controller
      */
     public function tos()
     {
-        return view('home.tos', ['captchadata' => CaptchaModel::createSum(session()->getId()), 'cookie_consent' => $this->cookie_consent, 'tos_content' => AppModel::getTermsOfService()]);
+        return view('home.tos', ['captchadata' => CaptchaModel::createSum(session()->getId()), '_meta_description' => env('APP_PROJECTNAME') . ' - ' . __('app.tos'), 'cookie_consent' => $this->cookie_consent, 'tos_content' => AppModel::getTermsOfService()]);
     }
 
     /**
@@ -119,7 +119,7 @@ class MainController extends Controller
      */
     public function viewContact()
     {
-        return view('home.contact', ['captchadata' => CaptchaModel::createSum(session()->getId()), 'cookie_consent' => $this->cookie_consent]);
+        return view('home.contact', ['captchadata' => CaptchaModel::createSum(session()->getId()), '_meta_description' => env('APP_PROJECTNAME') . ' - ' . __('app.contact'), 'cookie_consent' => $this->cookie_consent]);
     }
 
     /**
@@ -138,6 +138,7 @@ class MainController extends Controller
             return view('home.page', [
                 'captchadata' => CaptchaModel::createSum(session()->getId()),
                 'cookie_consent' => $this->cookie_consent,
+                '_meta_description' => env('APP_PROJECTNAME') . ' - ' . $page->label,
                 'page' => $page
             ]);
         } catch (\Exception $e) {
