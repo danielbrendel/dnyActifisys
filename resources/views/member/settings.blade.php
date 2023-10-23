@@ -210,7 +210,7 @@
                             <div class="gallery-settings-item-info-title">{{ $gallery_item->title }}</div>
                             <div class="gallery-settings-item-info-location"> | {{ $gallery_item->location }}</div>
                             <div class="gallery-settings-item-info-likes"> | {{ $gallery_item->likes }}&nbsp;<i class="far fa-heart"></i></div>
-                            <div class="gallery-settings-item-info-image"> | <a href="{{ asset('gfx/gallery/' . $gallery_item->image_full) }}">{{ __('app.image') }}</a></div>
+                            <div class="gallery-settings-item-info-links"> | <a href="{{ url('/gallery/item/' . $gallery_item->slug) }}">{{ __('app.link') }}</a> | <a href="{{ asset('gfx/gallery/' . $gallery_item->image_full) }}">{{ __('app.image') }}</a></div>
                         </div>
 
                         <div class="gallery-settings-item-actions">
