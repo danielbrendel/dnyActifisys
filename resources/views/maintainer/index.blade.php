@@ -387,6 +387,12 @@
 
                             <div class="field">
                                 <div class="control">
+                                    <a id="user_link" href=""></a>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <div class="control">
                                     <input type class="checkbox is-color-black" name="deactivated" id="user_deactivated" data-role="checkbox" data-style="2" data-caption="{{ __('app.deactivated') }}" value="1">
                                 </div>
                             </div>
@@ -1514,6 +1520,10 @@
 
                     document.getElementById('user_name').value = response.data.name;
                     document.getElementById('user_email').value = response.data.email;
+
+                    document.getElementById('user_link').href = window.location.origin + '/user/' + response.data.id;
+                    document.getElementById('user_link').innerHTML = window.location.origin + '/user/' + response.data.id;
+                    document.getElementById('user_link').setAttribute('target', '_blank');
 
                     document.getElementById('user_deactivated').checked = response.data.deactivated;
                     document.getElementById('user_admin').checked = response.data.admin;
