@@ -259,11 +259,25 @@ class MaintainerController extends Controller
         try {
             $ident = request('ident');
 
-            $user = User::get($ident);
+            $user = null;
+
+            if ((!is_numeric($ident)) && (is_string($ident)) && (strlen($ident) > 0)) {
+                if (filter_var($ident, FILTER_VALIDATE_EMAIL)) {
+                    $user = User::getByEmail($ident);
+                } else {
+                    $user = User::findByName($ident);
+                    if (count($user) > 0) {
+                        $user = $user[0];
+                    }
+                }
+            } else {
+                $user = User::get($ident);
+            }
+
             if (!$user) {
                 return response()->json(array('code' => 404, 'msg' => __('app.user_not_found')));
             }
-
+            
             return response()->json(array('code' => 200, 'data' => $user));
         } catch (\Exception $e) {
             return response()->json(array('code' => 500, 'msg' => $e->getMessage()));

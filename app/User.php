@@ -134,6 +134,17 @@ class User extends Authenticatable
     }
 
     /**
+     * Find users by name
+     * 
+     * @param $name
+     * @return mixed
+     */
+    public static function findByName($name)
+    {
+        return User::whereRaw('LOWER(name) LIKE ?', ['%' . trim(strtolower($name)) . '%'])->get();
+    }
+
+    /**
      * Perform registration
      *
      * @param $attr
