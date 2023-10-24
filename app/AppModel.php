@@ -541,6 +541,91 @@ class AppModel extends Model
     }
 
     /**
+     * Assume if the remote URL points to an image
+     * 
+     * @param $url
+     * @return bool
+     */
+    public static function isRemoteImage($url)
+    {
+        $imagetypes = [
+            'image/png',
+            'image/jpg',
+            'image/jpeg',
+            'image/gif',
+            'image/svg'
+        ];
+
+        $headers = get_headers($url, true);
+
+        if (isset($headers['Content-Type'])) {
+            $type = strtolower($headers['Content-Type']);
+            if (in_array($type, $imagetypes)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Translate text URLs into anchor HTML elements
+     * 
+     * @param $text
+     * @return string
+     * @throws \Exception
+     */
+    public static function translateURLs($text)
+    {
+        try {
+            return preg_replace('"\b(https?://\S+)"', '<a href="$1" class="is-translated-link">$1</a>', $text);
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Translate text image links to img HTML elements
+     * 
+     * @param $text
+     * @return string
+     * @throws \Exception
+     */
+    public static function translateImages($text)
+    {
+        try {
+            $url = preg_replace('"\b(https?://\S+)"', '$1', $text);
+            
+            if (static::isRemoteImage($url)) {
+                return preg_replace('"\b(https?://\S+)"', '<img src="$1"/>', $text);
+            }
+
+            return $text;
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Translate all links of a text
+     * 
+     * @param $text
+     * @return string
+     * @throws \Exception
+     */
+    public static function translateLinks($text)
+    {
+        try {
+            $text = static::translateURLs($text);
+            //$text = static::translateImages($text);
+
+            return $text;
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
      * Save formatted project name
      *
      * @param $code

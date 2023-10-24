@@ -242,6 +242,7 @@ class MessageModel extends Model
                 $item['sender'] = User::get($item['senderId'])->toArray();
                 $item['receiver'] = User::get($item['userId'])->toArray();
                 $item['diffForHumans'] = Carbon::parse($item['created_at'])->diffForHumans();
+                //$item['message'] = AppModel::translateLinks($item['message']);
             }
 
             return $items;

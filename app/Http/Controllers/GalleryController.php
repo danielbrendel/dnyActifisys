@@ -304,6 +304,7 @@ class GalleryController extends Controller
                 $value['user'] = $user;
                 $value['diffForHumans'] = Carbon::createFromDate($value['created_at'])->diffForHumans();
                 $value['adminOrOwner'] =  (User::isAdmin(auth()->id())) || ($value['userId'] === auth()->id());
+                $value['content'] = AppModel::translateLinks($value['content']);
             }
 
             return response()->json(array('code' => 200, 'data' => array_values($data)));

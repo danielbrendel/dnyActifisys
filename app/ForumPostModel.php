@@ -113,6 +113,8 @@ class ForumPostModel extends Model
                 }
 
                 $item->updatedAtDiff = $item->updated_at->diffForHumans();
+
+                $item->message = AppModel::translateLinks($item->message);
             }
 
             return $collection->toArray();
