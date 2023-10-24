@@ -172,7 +172,7 @@ class MarketplaceController extends Controller
                 if (($item['user'] === null) || ($item['user']->deactivated)) {
                     unset($data[$key]);
                 }
-                $item['description'] = AppModel::translateLinks($item['description']);
+                $item['description'] = AppModel::translateLinks($item['description'], false);
             }
 
             return response()->json(array('code' => 200, 'data' => array_values($data)));

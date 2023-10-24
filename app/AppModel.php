@@ -578,7 +578,7 @@ class AppModel extends Model
     public static function translateURLs($text)
     {
         try {
-            return preg_replace('"\b(https?://\S+)"', '<a href="$1" class="is-translated-link">$1</a>', $text);
+            return preg_replace('"\b(https?://\S+)"', '<a href="$1" class="is-translated-link" target="_blank">$1</a>', $text);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -594,13 +594,22 @@ class AppModel extends Model
     public static function translateImages($text)
     {
         try {
-            $url = preg_replace('"\b(https?://\S+)"', '$1', $text);
-            
-            if (static::isRemoteImage($url)) {
-                return preg_replace('"\b(https?://\S+)"', '<img src="$1"/>', $text);
+            $dom = new \DOMDocument();
+            $dom->loadHtml(mb_convert_encoding($text, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+            $xpath = new \DOMXPath($dom);
+            foreach ($xpath->query('//text()') as $node) {
+                $fixnode = $node->data;
+                if (strpos($fixnode, '?')) {
+                    $fixnode = substr($node->data, 0, strpos($fixnode, '?'));
+                }
+                $replaced = preg_replace('/(https?:\/\/[^ ]+?(?:\.jpg|\.jpeg|\.png|\.gif|\.svg))/', '<img src="$1" alt="$1"/>', $fixnode);
+                $frag = $dom->createDocumentFragment();
+                $frag->appendXML($replaced);
+                $node->parentNode->replaceChild($frag, $node);
             }
 
-            return $text;
+            return str_replace(['<elem>', '</elem>'], '', $dom->saveHtml());
         } catch (\Exception $e) {
             throw $e;
         }
@@ -610,15 +619,19 @@ class AppModel extends Model
      * Translate all links of a text
      * 
      * @param $text
+     * @param $images
      * @return string
      * @throws \Exception
      */
-    public static function translateLinks($text)
+    public static function translateLinks($text, $images = true)
     {
         try {
             $text = static::translateURLs($text);
-            //$text = static::translateImages($text);
 
+            if ($images) {
+                $text = static::translateImages($text);
+            }
+            
             return $text;
         } catch (\Exception $e) {
             throw $e;
