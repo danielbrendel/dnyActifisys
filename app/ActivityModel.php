@@ -32,8 +32,11 @@ class ActivityModel extends Model
         'title', 'description', 'date_of_activity_from', 'date_of_activity_till', 'location', 'limit'
     ];
 
-    protected $dates = [
-        'date_of_activity_from', 'date_of_activity_till', 'created_at', 'updated_at'
+    protected $casts = [
+        'date_of_activity_from' => 'datetime', 
+        'date_of_activity_till' => 'datetime', 
+        'created_at' => 'datetime', 
+        'updated_at' => 'datetime'
     ];
 
     /**
