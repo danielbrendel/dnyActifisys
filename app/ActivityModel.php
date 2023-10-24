@@ -508,8 +508,7 @@ class ActivityModel extends Model
     public static function queryUserParticipations($userId)
     {
         try {
-            $query = DB::select(DB::raw('SELECT * FROM activity_models WHERE (id IN (SELECT activity FROM participant_models WHERE participant = ?) OR owner = ?) AND date_of_activity_till >= ? ORDER BY date_of_activity_from ASC'), [$userId, $userId, date('Y-m-d H:i:s')]);
-            
+            $query = DB::select('SELECT * FROM activity_models WHERE (id IN (SELECT activity FROM participant_models WHERE participant = ?) OR owner = ?) AND date_of_activity_till >= ? ORDER BY date_of_activity_from ASC', [$userId, $userId, date('Y-m-d H:i:s')]);
             return $query;
         } catch (Exception $e) {
             throw $e;
