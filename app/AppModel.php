@@ -578,7 +578,7 @@ class AppModel extends Model
     public static function translateURLs($text)
     {
         try {
-            return preg_replace('"\b(https?://\S+)"', '<a href="$1" class="is-translated-link" target="_blank">$1</a>', $text);
+            return str_replace(['<p>', '</p>'], '', preg_replace('"\b(https?://\S+)"', '<a href="$1" class="is-translated-link" target="_blank">$1</a>', $text));
         } catch (\Exception $e) {
             throw $e;
         }
@@ -601,7 +601,7 @@ class AppModel extends Model
             foreach ($xpath->query('//text()') as $node) {
                 $fixnode = $node->data;
                 if (strpos($fixnode, '?')) {
-                    $fixnode = substr($node->data, 0, strpos($fixnode, '?'));
+                    $fixnode = substr($fixnode, 0, strpos($fixnode, '?'));
                 }
                 $replaced = preg_replace('/(https?:\/\/[^ ]+?(?:\.jpg|\.jpeg|\.png|\.gif|\.svg))/', '<img src="$1" alt="$1"/>', $fixnode);
                 $frag = $dom->createDocumentFragment();
@@ -609,7 +609,7 @@ class AppModel extends Model
                 $node->parentNode->replaceChild($frag, $node);
             }
 
-            return str_replace(['<elem>', '</elem>'], '', $dom->saveHtml());
+            return str_replace(['<p>', '</p>'], '', $dom->saveHtml());
         } catch (\Exception $e) {
             throw $e;
         }
