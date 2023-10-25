@@ -387,6 +387,13 @@ h2, h3 {
 .is-color-black {
     color: rgb(0, 0, 0) !important;
 }
+.is-translated-link {
+    color: rgb(135, 176, 230);
+}
+.is-translated-link:hover {
+    color: rgb(135, 176, 230);
+    text-decoration: underline;
+}
 .fas, .far {
     color: rgb(225, 225, 225);
 }
@@ -741,7 +748,7 @@ h2, h3 {
 }
 .thread-input-avatar img {
     border-radius: 50%;
-    top: -140px;
+    top: -100px;
     position: relative;
 }
 .thread-input-form {
@@ -822,7 +829,7 @@ h2, h3 {
 }
 .gallery-thread-input-avatar img {
     border-radius: 50%;
-    top: -140px;
+    top: -100px;
     position: relative;
 }
 .gallery-thread-input-form {
@@ -1092,6 +1099,13 @@ h2, h3 {
     padding: 20px;
     min-height: 85px;
 }
+.forum-posting-message-content a {
+    color: rgb(29, 103, 190) !important;
+}
+.forum-posting-message-content a:hover {
+    color: rgb(29, 103, 190) !important;
+    text-decoration: underline;
+}
 .forum-posting-message-footer {
     padding: 20px;
     top: 16px;
@@ -1175,6 +1189,13 @@ h2, h3 {
     min-height: 195px;
     margin-top: 10px;
     color: rgb(5, 5, 5);
+}
+.mp-advert-info-description a {
+    color: rgb(29, 103, 190) !important;
+}
+.mp-advert-info-description a:hover {
+    color: rgb(29, 103, 190) !important;
+    text-decoration: underline;
 }
 .mp-advert-footer {
     height: 50px;
@@ -1380,7 +1401,7 @@ h2, h3 {
     padding-left: 5px;
     color: rgb(10, 10, 10);
 }
-.gallery-settings-item-info-image {
+.gallery-settings-item-info-links {
     display: inline-block;
     padding-left: 5px;
     color: rgb(10, 10, 10);

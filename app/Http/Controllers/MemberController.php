@@ -111,6 +111,7 @@ class MemberController extends Controller
 
             return view('member.profile', [
                'captchadata' => CaptchaModel::createSum(session()->getId()),
+               '_meta_description' => env('APP_PROJECTNAME') . ' - ' . $user->name . ' - ' . __('app.profile'),
                'user' => $user,
                'user_public' => $user_public
             ]);

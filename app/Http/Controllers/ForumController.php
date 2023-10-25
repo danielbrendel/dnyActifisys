@@ -94,7 +94,8 @@ class ForumController extends Controller
             'forum' => $forum,
             'stickies' => $stickies,
             'user' => $user,
-            'captchadata' => CaptchaModel::createSum(session()->getId())
+            'captchadata' => CaptchaModel::createSum(session()->getId()),
+            '_meta_description' => env('APP_PROJECTNAME') . ' - ' . $forum->name . ' - ' . __('app.forum')
         ]);
     }
 
@@ -150,6 +151,7 @@ class ForumController extends Controller
         return view('forum.thread', [
             'user' => $user,
             'thread' => $thread,
+            '_meta_description' => env('APP_PROJECTNAME') . ' - ' . $thread->title . ' - ' . __('app.forum'),
             'captchadata' => CaptchaModel::createSum(session()->getId())
         ]);
     }

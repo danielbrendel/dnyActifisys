@@ -118,6 +118,7 @@ class GalleryController extends Controller
             return view('gallery.item', [
                 'item' => $item,
                 'user' => User::getByAuthId(),
+                '_meta_description' => env('APP_PROJECTNAME') . ' - ' . $item->title . ' - ' . __('app.gallery'),
                 'captchadata' => CaptchaModel::createSum(session()->getId())
             ]);
         } catch (\Exception $e) {
@@ -303,6 +304,7 @@ class GalleryController extends Controller
                 $value['user'] = $user;
                 $value['diffForHumans'] = Carbon::createFromDate($value['created_at'])->diffForHumans();
                 $value['adminOrOwner'] =  (User::isAdmin(auth()->id())) || ($value['userId'] === auth()->id());
+                $value['content'] = AppModel::translateLinks($value['content']);
             }
 
             return response()->json(array('code' => 200, 'data' => array_values($data)));

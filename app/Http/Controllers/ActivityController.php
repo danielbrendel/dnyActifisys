@@ -181,6 +181,7 @@ class ActivityController extends Controller
 
             return view('activity.show', [
                 'activity' => $activity,
+                '_meta_description' => env('APP_PROJECTNAME') . ' - ' . $activity->title,
                 'captchadata' => CaptchaModel::createSum(session()->getId())
             ]);
         } catch (Exception $e) {
@@ -445,6 +446,7 @@ class ActivityController extends Controller
                 $thread['diffForHumans'] = Carbon::createFromDate($thread['created_at'])->diffForHumans();
                 $thread['created_at'] = date(__('app.date_format'), strtotime($thread['created_at']));
                 $thread['subCount'] = ThreadModel::getSubCount($thread['id']);
+                $thread['text'] = AppModel::translateLinks($thread['text']);
             }
 
             return response()->json(array('code' => 200, 'data' => array_values($threads), 'last' => (count($threads) === 0)));

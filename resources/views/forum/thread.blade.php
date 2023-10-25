@@ -12,7 +12,7 @@
 
 @extends('layouts.layout_home')
 
-@section('title', env('APP_PROJECTNAME') . ' - ' . $thread->title . ' - ' . __('app.thread'))
+@section('title', $thread->title . ' - ' . __('app.thread'))
 
 @section('content')
     <div class="column is-2"></div>

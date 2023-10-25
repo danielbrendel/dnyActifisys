@@ -256,7 +256,7 @@
                         <div class="field">
                             <label class="label">{{ __('app.project_tags') }}</label>
                             <div class="control">
-                                <input type="text" name="ENV_APP_TAGS" value="{{ env('APP_TAGS') }}">
+                                <input type="text" name="ENV_APP_KEYWORDS" value="{{ env('APP_KEYWORDS') }}">
                             </div>
                         </div>
 
@@ -382,6 +382,12 @@
                                 <label class="label">{{ __('app.email') }}</label>
                                 <div class="control">
                                     <input type="text" name="email" id="user_email">
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <div class="control">
+                                    <a id="user_link" href=""></a>
                                 </div>
                             </div>
 
@@ -1514,6 +1520,10 @@
 
                     document.getElementById('user_name').value = response.data.name;
                     document.getElementById('user_email').value = response.data.email;
+
+                    document.getElementById('user_link').href = window.location.origin + '/user/' + response.data.id;
+                    document.getElementById('user_link').innerHTML = window.location.origin + '/user/' + response.data.id;
+                    document.getElementById('user_link').setAttribute('target', '_blank');
 
                     document.getElementById('user_deactivated').checked = response.data.deactivated;
                     document.getElementById('user_admin').checked = response.data.admin;

@@ -12,6 +12,8 @@
 
 @extends('layouts.layout_home')
 
+@section('title', __('app.password_reset'))
+
 @section('content')
     <div class="column is-4"></div>
 

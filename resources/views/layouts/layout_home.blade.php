@@ -812,6 +812,8 @@
 
                                 document.getElementById('favorites-act-content').innerHTML += html;
                             });
+                        } else {
+                            document.getElementById('favorites-act-content').innerHTML = '{{ __('app.no_favorites_yet') }}';
                         }
                     }
                 });

@@ -541,6 +541,108 @@ class AppModel extends Model
     }
 
     /**
+     * Assume if the remote URL points to an image
+     * 
+     * @param $url
+     * @return bool
+     */
+    public static function isRemoteImage($url)
+    {
+        $imagetypes = [
+            'image/png',
+            'image/jpg',
+            'image/jpeg',
+            'image/gif',
+            'image/svg'
+        ];
+
+        $headers = get_headers($url, true);
+
+        if (isset($headers['Content-Type'])) {
+            $type = strtolower($headers['Content-Type']);
+            if (in_array($type, $imagetypes)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Translate text URLs into anchor HTML elements
+     * 
+     * @param $text
+     * @return string
+     * @throws \Exception
+     */
+    public static function translateURLs($text)
+    {
+        try {
+            return str_replace(['<p>', '</p>'], '', preg_replace('"\b(https?://\S+)"', '<a href="$1" class="is-translated-link" target="_blank">$1</a>', $text));
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Translate text image links to img HTML elements
+     * 
+     * @param $text
+     * @return string
+     * @throws \Exception
+     */
+    public static function translateImages($text)
+    {
+        try {
+            $dom = new \DOMDocument();
+            $dom->loadHtml(mb_convert_encoding($text, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+            $xpath = new \DOMXPath($dom);
+            foreach ($xpath->query('//text()') as $node) {
+                $fixnode = $node->data;
+                if (strpos($fixnode, '?')) {
+                    $fixnode = substr($fixnode, 0, strpos($fixnode, '?'));
+                }
+                $replaced = preg_replace('/(https?:\/\/[^ ]+?(?:\.jpg|\.jpeg|\.png|\.gif|\.svg))/', '<img src="$1" alt="$1"/>', $fixnode);
+                $frag = $dom->createDocumentFragment();
+                $frag->appendXML($replaced);
+                $node->parentNode->replaceChild($frag, $node);
+            }
+
+            return str_replace(['<p>', '</p>'], '', $dom->saveHtml());
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Translate all links of a text
+     * 
+     * @param $text
+     * @param $images
+     * @return string
+     * @throws \Exception
+     */
+    public static function translateLinks($text, $images = true)
+    {
+        try {
+            if (!env('APP_ENABLELINKTRANSLATION', false)) {
+                return $text;
+            }
+
+            $text = static::translateURLs($text);
+
+            if ($images) {
+                $text = static::translateImages($text);
+            }
+            
+            return $text;
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
      * Save formatted project name
      *
      * @param $code

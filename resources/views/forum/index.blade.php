@@ -12,7 +12,7 @@
 
 @extends('layouts.layout_home')
 
-@section('title', env('APP_PROJECTNAME') . ' - ' . __('app.forum'))
+@section('title', __('app.forum'))
 
 @section('content')
     <div class="column is-2"></div>

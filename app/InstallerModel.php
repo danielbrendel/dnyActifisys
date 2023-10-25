@@ -48,7 +48,7 @@ class InstallerModel extends Model
             $envcontent .= 'APP_URL="' . url('/') . '"' . PHP_EOL;
             $envcontent .= 'APP_PROJECTNAME="' . $attr['project'] . '"' . PHP_EOL;
             $envcontent .= 'APP_DESCRIPTION="The lightweight activity finder system"' . PHP_EOL;
-            $envcontent .= 'APP_TAGS="actifisys, dnyactifisys, daniel brendel, activities, appointment, meeting, community, social, finder, opensource, freeware"' . PHP_EOL;
+            $envcontent .= 'APP_KEYWORDS="actifisys, dnyactifisys, daniel brendel, activities, appointment, meeting, community, social, finder, opensource, freeware"' . PHP_EOL;
 			$envcontent .= 'APP_LANG=en' . PHP_EOL;
             $envcontent .= 'APP_ACTIVITYPACKLIMIT=9' . PHP_EOL;
 			$envcontent .= 'APP_THREADPACKLIMIT=15' . PHP_EOL;
@@ -67,6 +67,7 @@ class InstallerModel extends Model
             $envcontent .= 'APP_ABOUTPOSITION=bottom' . PHP_EOL;
             $envcontent .= 'APP_ACCOUNTVERIFICATION=1' . PHP_EOL;
             $envcontent .= 'APP_ENABLESCROLLER=true' . PHP_EOL;
+            $envcontent .= 'APP_ENABLELINKTRANSLATION=true' . PHP_EOL;
             $envcontent .= 'APP_NEWSLETTER_COUNT=5' . PHP_EOL;
             $envcontent .= 'APP_CRONPW="' . substr(md5(random_bytes(55)), 10) . '"' . PHP_EOL;
             $envcontent .= 'LOG_CHANNEL=stack' . PHP_EOL;
