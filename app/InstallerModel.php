@@ -67,6 +67,7 @@ class InstallerModel extends Model
             $envcontent .= 'APP_ABOUTPOSITION=bottom' . PHP_EOL;
             $envcontent .= 'APP_ACCOUNTVERIFICATION=1' . PHP_EOL;
             $envcontent .= 'APP_ENABLESCROLLER=true' . PHP_EOL;
+            $envcontent .= 'APP_ENABLELINKTRANSLATION=true' . PHP_EOL;
             $envcontent .= 'APP_NEWSLETTER_COUNT=5' . PHP_EOL;
             $envcontent .= 'APP_CRONPW="' . substr(md5(random_bytes(55)), 10) . '"' . PHP_EOL;
             $envcontent .= 'LOG_CHANNEL=stack' . PHP_EOL;
