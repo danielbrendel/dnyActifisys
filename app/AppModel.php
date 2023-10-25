@@ -626,6 +626,10 @@ class AppModel extends Model
     public static function translateLinks($text, $images = true)
     {
         try {
+            if (!env('APP_ENABLELINKTRANSLATION', false)) {
+                return $text;
+            }
+
             $text = static::translateURLs($text);
 
             if ($images) {
