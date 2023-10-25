@@ -29,7 +29,7 @@
 
     <meta name="author" content="{{ env('APP_AUTHOR') }}">
     <meta name="description" content="{{ (isset($_meta_description)) ? $_meta_description : env('APP_DESCRIPTION') }}">
-    <meta name="keywords" content="{{ env('APP_TAGS') }}">
+    <meta name="keywords" content="{{ env('APP_KEYWORDS') }}">
 
     <link rel="icon" type="image/png" href="{{ asset('logo.png') }}">
 

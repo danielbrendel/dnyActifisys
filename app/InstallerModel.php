@@ -48,7 +48,7 @@ class InstallerModel extends Model
             $envcontent .= 'APP_URL="' . url('/') . '"' . PHP_EOL;
             $envcontent .= 'APP_PROJECTNAME="' . $attr['project'] . '"' . PHP_EOL;
             $envcontent .= 'APP_DESCRIPTION="The lightweight activity finder system"' . PHP_EOL;
-            $envcontent .= 'APP_TAGS="actifisys, dnyactifisys, daniel brendel, activities, appointment, meeting, community, social, finder, opensource, freeware"' . PHP_EOL;
+            $envcontent .= 'APP_KEYWORDS="actifisys, dnyactifisys, daniel brendel, activities, appointment, meeting, community, social, finder, opensource, freeware"' . PHP_EOL;
 			$envcontent .= 'APP_LANG=en' . PHP_EOL;
             $envcontent .= 'APP_ACTIVITYPACKLIMIT=9' . PHP_EOL;
 			$envcontent .= 'APP_THREADPACKLIMIT=15' . PHP_EOL;

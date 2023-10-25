@@ -256,7 +256,7 @@
                         <div class="field">
                             <label class="label">{{ __('app.project_tags') }}</label>
                             <div class="control">
-                                <input type="text" name="ENV_APP_TAGS" value="{{ env('APP_TAGS') }}">
+                                <input type="text" name="ENV_APP_KEYWORDS" value="{{ env('APP_KEYWORDS') }}">
                             </div>
                         </div>
 
