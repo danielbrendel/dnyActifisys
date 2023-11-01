@@ -648,6 +648,10 @@
             window.vue.lang.imageSent = '{{ __('app.image_sent') }}';
             window.vue.lang.confirmLocGalleryThreadItem = '{{ __('app.confirmLocGalleryThreadItem') }}';
 
+            window.vue.numeric_vars.activity_max_username_length = {{ env('APP_ACTIVITY_MAX_USERNAME_LENGTH', 35) }};
+            window.vue.numeric_vars.activity_max_title_length = {{ env('APP_ACTIVITY_MAX_TITLE_LENGTH', 40) }};
+            window.vue.numeric_vars.activity_max_description_length = {{ env('APP_ACTIVITY_MAX_DESCRIPTION_LENGTH', 90) }};
+
             @auth
                 window.user = {};
                 window.user.id = {{ auth()->id() }};

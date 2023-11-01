@@ -12,10 +12,6 @@
 
 require('./bootstrap');
 
-const MAX_ACTIVITY_USERNAME_LENGTH = 35;
-const MAX_ACTIVITY_TITLE_LENGTH = 40;
-const MAX_ACTIVITY_DESCRIPTION_LENGTH = 90;
-
 window.vue = new Vue({
     el: '#app',
 
@@ -51,6 +47,12 @@ window.vue = new Vue({
         bShowGalleryUpload: false,
 
         app_project: 'Actifisys',
+
+        numeric_vars: {
+            activity_max_username_length: 35,
+            activity_max_title_length: 40,
+            activity_max_description_length: 90,
+        },
 
         lang: {
             copiedToClipboard: 'Text has been copied to clipboard!',
@@ -459,7 +461,7 @@ window.vue = new Vue({
                     <div ` + headerOverlay + `>
                         <div class="activity-user">
                             <center><div class="activity-user-avatar"><img src="` + window.location.origin + '/gfx/avatars/' + elem.user.avatar + `" class="is-pointer" onclick="location.href = '` + window.location.origin + '/user/' + elem.user.id + `';"></div>
-                                <div class="activity-user-name"><a href="` + window.location.origin + '/user/' + elem.user.slug + `">` + ((elem.user.name.length > MAX_ACTIVITY_USERNAME_LENGTH) ? elem.user.name.substr(0, MAX_ACTIVITY_USERNAME_LENGTH) + '...': elem.user.name) + `</a>` + ((elem.user.verified) ? '&nbsp;<i class="far fa-check-circle" title="' + this.lang.verifiedUser + '"></i>' : '') + `</div></center>
+                                <div class="activity-user-name"><a href="` + window.location.origin + '/user/' + elem.user.slug + `">` + ((elem.user.name.length > window.vue.numeric_vars.activity_max_username_length) ? elem.user.name.substr(0, window.vue.numeric_vars.activity_max_username_length) + '...': elem.user.name) + `</a>` + ((elem.user.verified) ? '&nbsp;<i class="far fa-check-circle" title="' + this.lang.verifiedUser + '"></i>' : '') + `</div></center>
                         </div>
 
                         <div class="activity-qo">
@@ -497,7 +499,7 @@ window.vue = new Vue({
 
                 <div class="is-inline-block is-stretched">
                     <div class="activity-title is-default-padding is-inline-block is-stretched">
-                        <center><span><a class="is-def-color" href="` + window.location.origin + '/activity/' + elem.slug + `">` + ((elem.title.length > MAX_ACTIVITY_TITLE_LENGTH) ? elem.title.substr(0, MAX_ACTIVITY_TITLE_LENGTH) + '...': elem.title) + `</a></span> <span class="dropdown-trigger ` + ((tagcode.length > 0) ? '': 'is-hidden') + `" onclick="window.vue.toggleActivityTags(document.getElementById('activity-tags-` + elem.id + `'));"><i class="fas fa-hashtag is-pointer"></i></span></center>
+                        <center><span><a class="is-def-color" href="` + window.location.origin + '/activity/' + elem.slug + `">` + ((elem.title.length > window.vue.numeric_vars.activity_max_title_length) ? elem.title.substr(0, window.vue.numeric_vars.activity_max_title_length) + '...': elem.title) + `</a></span> <span class="dropdown-trigger ` + ((tagcode.length > 0) ? '': 'is-hidden') + `" onclick="window.vue.toggleActivityTags(document.getElementById('activity-tags-` + elem.id + `'));"><i class="fas fa-hashtag is-pointer"></i></span></center>
                     </div>
 
                     ` + tagcode + `
@@ -512,7 +514,7 @@ window.vue = new Vue({
                     <hr/>
                 </div>
 
-                <div class="activity-information is-wordbreak is-default-side-padding">` + ((elem.description.length > MAX_ACTIVITY_DESCRIPTION_LENGTH) ? elem.description.substr(0, MAX_ACTIVITY_DESCRIPTION_LENGTH) + '...': elem.description) + `</div>
+                <div class="activity-information is-wordbreak is-default-side-padding">` + ((elem.description.length > window.vue.numeric_vars.activity_max_description_length) ? elem.description.substr(0, window.vue.numeric_vars.activity_max_description_length) + '...': elem.description) + `</div>
 
                 <div class="activity-footer is-default-side-padding">
                     <div class="activity-footer-stats">
