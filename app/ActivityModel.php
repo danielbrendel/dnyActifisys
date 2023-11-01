@@ -287,7 +287,7 @@ class ActivityModel extends Model
     {
         try {
             $activities = ActivityModel::where(function($query){
-                $query->where('date_of_activity_from', '>=', date('Y-m-d H:i:s'))
+                $query->where('date_of_activity_from', '>=', date('Y-m-d H:i:s', strtotime('-' . env('APP_ACTIVITYRUNTIME', 60) . ' minutes')))
                 ->orWhere('date_of_activity_till', '>=', date('Y-m-d H:i:s', strtotime('+' . env('APP_ACTIVITYRUNTIME', 60) . ' minutes')));
             })->where('locked', '=', false)->where('canceled', '=', false);
 
