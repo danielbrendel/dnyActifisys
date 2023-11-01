@@ -578,6 +578,10 @@ class AppModel extends Model
     public static function translateURLs($text)
     {
         try {
+            if (strpos($text, 'https://') === 0) {
+                $text = '&nbsp;' . $text;
+            }
+
             return str_replace(['<p>', '</p>'], '', preg_replace('"\b(https?://\S+)"', '<a href="$1" class="is-translated-link" target="_blank">$1</a>', $text));
         } catch (\Exception $e) {
             throw $e;
