@@ -14,7 +14,7 @@ require('./bootstrap');
 
 const MAX_ACTIVITY_USERNAME_LENGTH = 35;
 const MAX_ACTIVITY_TITLE_LENGTH = 40;
-const MAX_ACTIVITY_DESCRIPTION_LENGTH = 130;
+const MAX_ACTIVITY_DESCRIPTION_LENGTH = 90;
 
 window.vue = new Vue({
     el: '#app',
@@ -496,7 +496,7 @@ window.vue = new Vue({
                 </div>
 
                 <div class="is-inline-block is-stretched">
-                    <div class="activity-title is-wordbreak is-default-padding is-inline-block is-stretched">
+                    <div class="activity-title is-default-padding is-inline-block is-stretched">
                         <center><span><a class="is-def-color" href="` + window.location.origin + '/activity/' + elem.slug + `">` + ((elem.title.length > MAX_ACTIVITY_TITLE_LENGTH) ? elem.title.substr(0, MAX_ACTIVITY_TITLE_LENGTH) + '...': elem.title) + `</a></span> <span class="dropdown-trigger ` + ((tagcode.length > 0) ? '': 'is-hidden') + `" onclick="window.vue.toggleActivityTags(document.getElementById('activity-tags-` + elem.id + `'));"><i class="fas fa-hashtag is-pointer"></i></span></center>
                     </div>
 

@@ -569,6 +569,8 @@ h2, h3 {
 .activity-infos {
   color: rgb(240, 240, 240);
   font-size: 0.7em;
+  padding-top: 2px;
+  padding-bottom: 10px;
 }
 
 .activity-headline {
@@ -693,7 +695,7 @@ h2, h3 {
   border: 1px solid #ccc;
   border-radius: 4px;
   display: inline-block;
-  height: 583px;
+  height: 435px;
   background-color: rgba(255, 255, 255, 0.4);
 }
 @media screen and (min-width: 368px) {
@@ -743,13 +745,16 @@ h2, h3 {
 }
 
 .activity-title {
-  margin-bottom: 15px;
+  display: flex !important;
   color: rgb(245, 245, 245);
   font-weight: bold;
   font-size: 1.2em;
   font-family: "Nunito", sans-serif;
-  max-height: 153px;
-  padding-top: unset;
+  height: 90px;
+  max-height: 90px;
+  padding-top: 15px;
+  align-items: center;
+  justify-content: center;
 }
 
 .activity-information {
@@ -757,7 +762,7 @@ h2, h3 {
   margin-bottom: 15px;
   color: rgb(0, 0, 0);
   font-size: 0.9em;
-  min-height: 151px;
+  min-height: 111px;
 }
 
 .activity-footer {
@@ -811,7 +816,7 @@ h2, h3 {
 }
 
 .activity-footer-stats {
-  top: 29px;
+  top: 32px;
   color: rgb(240, 240, 240);
 }
 
