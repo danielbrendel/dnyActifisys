@@ -70,7 +70,7 @@ return [
     'mail_registered_body' => 'Es ist schön, dich als neues Mitglied begrüßen zu dürfen. Jetzt musst du nur noch deinen Account bestätigen. Dafür klicke einfach auf den Link unten.',
     'mail_registered_confirm' => 'Bestätigen',
     'activity_created' => 'Neue Aktivität wurde erstellt',
-    'activity_not_found_or_locked' => 'Aktivit existiert nicht oder wurde gesperrt.',
+    'activity_not_found_or_locked' => 'Aktivität existiert nicht oder wurde gesperrt.',
     'user_commented_short' => 'Neuer Kommentar',
     'user_commented_long' => '<a href=":profile">:sender</a> hat deine <a href=":item">Aktivität</a> kommentiert: :message',
     'mail_subject_register' => 'Registrierung',
