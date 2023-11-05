@@ -125,7 +125,7 @@
                         <div>
                             @foreach ($activity->images as $image)
                                 <div class="activity-image-item">
-                                    <div class="is-breakall is-inline-block"><i class="fas fa-image"></i>&nbsp;<a class="is-color-lightblue" href="{{ asset('gfx/uploads/' . $image->file) }}" target="_blank">{{ $image->name }}</a></div>
+                                    <div class="is-breakall is-inline-block"><i class="fas fa-image"></i>&nbsp;<a class="is-color-lightblue" href="{{ asset('gfx/uploads/' . $image->file) }}" target="_blank">{{ (strlen($image->name) >= 34) ? substr($image->name, 0, 34 - 3) . '...' : $image->name }}</a></div>
                                     @if ($image->owner === auth()->id())
                                         <div class="is-inline-block is-pointer float-right" title="{{ __('app.remove') }}" onclick="if (confirm('{{ __('app.confirm_file_delete') }}')) { location.href = '{{ url('/file/' . $image->id . '/delete') }}'; }"><i class="fas fa-times"></i>&nbsp;&nbsp;</div>
                                     @endif
@@ -169,7 +169,7 @@
                                     <a onclick="window.vue.toggleActivityOptions(document.getElementById('activity-options-{{ $activity->id }}'));" href="sms:000000000?body={{ url('/activity/' . $activity->id) }} - {{ $activity->title }}" class="dropdown-item">
                                         <i class="fas fa-sms"></i>&nbsp;{{ __('app.share_sms') }}
                                     </a>
-                                    <a href="javascript:void(0)" onclick="window.vue.copyToClipboard('{{ url('/activity/' . $activity->id) }} - {{ $activity->title }}'); window.vue.toggleActivityOptions(document.getElementById('activity-options-{{ $activity->id }}'));" class="dropdown-item">
+                                    <a href="javascript:void(0)" onclick="window.vue.copyToClipboard('{{ url('/activity/' . $activity->slug) }}'); window.vue.toggleActivityOptions(document.getElementById('activity-options-{{ $activity->id }}'));" class="dropdown-item">
                                         <i class="far fa-copy"></i>&nbsp;{{ __('app.share_clipboard') }}
                                     </a>
 
@@ -182,7 +182,7 @@
                                             </a>
 
                                             <a href="javascript:void(0)" onclick="window.vue.bShowCancelActivity = true; window.vue.toggleActivityOptions(document.getElementById('activity-options-{{ $activity->id }}'));" class="dropdown-item">
-                                                {{ __('app.cancel') }}
+                                                {{ __('app.cancel_activity_short') }}
                                             </a>
 
                                             <a href="javascript:void(0)" onclick="window.vue.lockActivity({{ $activity->id }}); window.vue.toggleActivityOptions(document.getElementById('activity-options-{{ $activity->id }}'));" class="dropdown-item">

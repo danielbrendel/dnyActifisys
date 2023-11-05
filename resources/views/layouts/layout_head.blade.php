@@ -31,6 +31,12 @@
     <meta name="description" content="{{ (isset($_meta_description)) ? $_meta_description : env('APP_DESCRIPTION') }}">
     <meta name="keywords" content="{{ env('APP_KEYWORDS') }}">
 
+    @if ((isset($additional_meta)) && (is_array($additional_meta)))
+        @foreach ($additional_meta as $key => $value)
+            <meta name="{{ $key }}" property="{{ $key }}" content="{{ $value }}">
+        @endforeach
+    @endif
+
     <link rel="icon" type="image/png" href="{{ asset('logo.png') }}">
 
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bulma.css') }}">

@@ -148,10 +148,16 @@ class ForumController extends Controller
 
         $thread->owner = User::get($thread->ownerId);
 
+        $additional_meta = [
+            'og:title' => $thread->title,
+            'og:url' => url('/forum/thread/' . $id . '/show')
+        ];
+
         return view('forum.thread', [
             'user' => $user,
             'thread' => $thread,
             '_meta_description' => env('APP_PROJECTNAME') . ' - ' . $thread->title . ' - ' . __('app.forum'),
+            'additional_meta' => $additional_meta,
             'captchadata' => CaptchaModel::createSum(session()->getId())
         ]);
     }

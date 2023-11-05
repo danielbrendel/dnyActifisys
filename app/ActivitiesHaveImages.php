@@ -191,7 +191,7 @@ class ActivitiesHaveImages extends Model
         try {
             $att = request()->file('image');
             if ($att != null) {
-                $fname = $att->getClientOriginalName() . '_' . uniqid('', true) . '_' . md5($att->getClientOriginalName());
+                $fname = uniqid('', true) . '_' . md5($att->getClientOriginalName());
                 $fext = $att->getClientOriginalExtension();
                 $att->move(public_path() . '/gfx/uploads/', $fname . '.' . $fext);
                 if (!static::isValidImage(public_path() . '/gfx/uploads/' . $fname . '.' . $fext)) {

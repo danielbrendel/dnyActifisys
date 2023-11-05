@@ -109,9 +109,17 @@ class MemberController extends Controller
 			$user_public->bio = $user->bio;
 			$user_public->verified = $user->verified;
 
+            $additional_meta = [
+                'og:title' => $user_public->name,
+                'og:description' => preg_replace('/\s+/', ' ', $user_public->bio),
+                'og:url' => url('/user/' . $user_public->slug),
+                'og:image' => asset('gfx/avatars/' . $user_public->avatar)
+            ];
+
             return view('member.profile', [
                'captchadata' => CaptchaModel::createSum(session()->getId()),
                '_meta_description' => env('APP_PROJECTNAME') . ' - ' . $user->name . ' - ' . __('app.profile'),
+               'additional_meta' => $additional_meta,
                'user' => $user,
                'user_public' => $user_public
             ]);

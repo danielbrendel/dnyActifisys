@@ -486,7 +486,7 @@ window.vue = new Vue({
                                         <a onclick="window.vue.toggleActivityOptions(document.getElementById('activity-qo-` + elem.id + `'));" href="sms:000000000?body=` + window.location.origin + '/activity/' + elem.id + ` - ` + elem.title + `" class="dropdown-item is-color-black">
                                             <i class="fas fa-sms"></i>&nbsp;` + window.vue.lang.share_sms + `
                                         </a>
-                                        <a href="javascript:void(0)" onclick="window.vue.copyToClipboard('` + window.location.origin + '/activity/' + elem.id + ` - ` + elem.title + `'); window.vue.toggleActivityOptions(document.getElementById('activity-qo-` + elem.id + `'));" class="dropdown-item is-color-black">
+                                        <a href="javascript:void(0)" onclick="window.vue.copyToClipboard('` + window.location.origin + '/activity/' + elem.slug + `'); window.vue.toggleActivityOptions(document.getElementById('activity-qo-` + elem.id + `'));" class="dropdown-item is-color-black">
                                             <i class="far fa-copy"></i>&nbsp;` + window.vue.lang.share_clipboard + `
                                         </a>
                                         ` + userOptions + `
@@ -888,7 +888,7 @@ window.vue = new Vue({
                                     <a onclick="window.vue.toggleContextMenu(document.getElementById('gallery-item-dropdown-` + item.id + `'));" href="sms:000000000?body=` + window.location.origin + '/gallery/item/' + item.slug + ` - ` + item.title + `" class="dropdown-item is-color-black">
                                         <i class="fas fa-sms"></i>&nbsp;` + window.vue.lang.share_sms + `
                                     </a>
-                                    <a href="javascript:void(0)" onclick="window.vue.copyToClipboard('` + window.location.origin + '/gallery/item/' + item.slug + ` - ` + item.title + `'); window.vue.toggleContextMenu(document.getElementById('gallery-item-dropdown-` + item.id + `'));" class="dropdown-item is-color-black">
+                                    <a href="javascript:void(0)" onclick="window.vue.copyToClipboard('` + window.location.origin + '/gallery/item/' + item.slug + `'); window.vue.toggleContextMenu(document.getElementById('gallery-item-dropdown-` + item.id + `'));" class="dropdown-item is-color-black">
                                         <i class="far fa-copy"></i>&nbsp;` + window.vue.lang.share_clipboard + `
                                     </a>
 

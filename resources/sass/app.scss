@@ -42,6 +42,21 @@ textarea {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
+#upcoming-activities {
+    @media screen and (max-width: 367px) {
+        margin-left: 21px;
+    }
+    @media screen and (max-width: 768px) {
+        font-size: 0.9em;
+    }
+}
+
+#past-activities {
+    @media screen and (max-width: 768px) {
+        font-size: 0.9em;
+    }
+}
+
 a#upcoming-activities {
     text-decoration: underline;
 }
@@ -675,9 +690,12 @@ h2, h3 {
 }
 .activity-filter {
     top: 5px;
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: 769px) {
         top: -25px;
         float: right;
+    }
+    @media screen and (max-width: 768px) {
+        margin-top: 12px;
     }
 }
 .activity-filter-margin {
@@ -1793,6 +1811,9 @@ select.stats-input {
 }
 .is-color-lightblue, .is-color-lightblue a {
     color: rgb(176, 196, 222);
+}
+.is-color-lightblue:hover, .is-color-lightblue a:hover {
+    color: rgb(176, 196, 222) !important;
 }
 .is-color-grey-light {
     color: rgb(200, 200, 200);

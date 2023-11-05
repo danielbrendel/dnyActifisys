@@ -179,9 +179,16 @@ class ActivityController extends Controller
                 $item->user = User::get($item->participant);
             }
 
+            $additional_meta = [
+                'og:title' => $activity->title,
+                'og:description' => preg_replace('/\s+/', ' ', substr($activity->description, 0, 100)) . '...',
+                'og:url' => url('/activity/' . $activity->slug),
+            ];
+
             return view('activity.show', [
                 'activity' => $activity,
                 '_meta_description' => env('APP_PROJECTNAME') . ' - ' . $activity->title,
+                'additional_meta' => $additional_meta,
                 'captchadata' => CaptchaModel::createSum(session()->getId())
             ]);
         } catch (Exception $e) {

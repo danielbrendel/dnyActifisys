@@ -110,6 +110,13 @@ class GalleryController extends Controller
                 throw new \Exception('Item belongs to locked user');
             }
 
+            $additional_meta = [
+                'og:title' => $item->title,
+                'og:description' => $item->location . ' - ' . $item->tags,
+                'og:url' => url('/gallery/item/' . $item->slug),
+                'og:image' => asset('gfx/gallery/' . $item->image_thumb)
+            ];
+
             $item->tags = explode(' ', $item->tags);
             $item->likes = AppModel::countAsString(GalleryLikesModel::getForItem($item->id));
             $item->comment_count = AppModel::countAsString(GalleryThreadModel::getCommentCount($item->id));
@@ -119,6 +126,7 @@ class GalleryController extends Controller
                 'item' => $item,
                 'user' => User::getByAuthId(),
                 '_meta_description' => env('APP_PROJECTNAME') . ' - ' . $item->title . ' - ' . __('app.gallery'),
+                'additional_meta' => $additional_meta,
                 'captchadata' => CaptchaModel::createSum(session()->getId())
             ]);
         } catch (\Exception $e) {

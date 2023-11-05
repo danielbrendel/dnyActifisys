@@ -48,7 +48,7 @@
                                         <a onclick="window.vue.toggleContextMenu(document.getElementById('gallery-item-dropdown-{{ $item->id }}'));" href="sms:000000000?body={{ url('/gallery/item/' . $item->slug) }} - {{ $item->title }}" class="dropdown-item">
                                             <i class="fas fa-sms"></i>&nbsp;{{ __('app.share_sms') }}
                                         </a>
-                                        <a href="javascript:void(0)" onclick="window.vue.copyToClipboard('{{ url('/gallery/item/' . $item->slug) }} - {{ $item->title }}'); window.vue.toggleContextMenu(document.getElementById('gallery-item-dropdown-{{ $item->id }}'));" class="dropdown-item">
+                                        <a href="javascript:void(0)" onclick="window.vue.copyToClipboard('{{ url('/gallery/item/' . $item->slug) }}'); window.vue.toggleContextMenu(document.getElementById('gallery-item-dropdown-{{ $item->id }}'));" class="dropdown-item">
                                             <i class="far fa-copy"></i>&nbsp;{{ __('app.share_clipboard') }}
                                         </a>
 
